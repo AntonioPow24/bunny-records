@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useRef, useState, ViewTransition, type KeyboardEvent, type PointerEvent } from "react";
 
 import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
 import type { BunnySide } from "@/components/bunny/engine";
@@ -147,13 +147,10 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
         <p className="text-body text-muted-foreground">{labels.empty}</p>
       ) : (
         <div className="stage -mx-4 flex flex-col items-center gap-3 overflow-x-clip px-4 md:mx-0 md:block md:px-0">
-          <Bunny
-            ref={bunny}
-            mode="full"
-            priority
-            danceLabel={labels.dance}
-            className="stage-bunny"
-          />
+          {/* El conejo anfitrión baja del escenario a la bandeja al abrir un álbum (misma transición). */}
+          <ViewTransition name="host-bunny" default="host-bunny">
+            <Bunny ref={bunny} mode="full" priority danceLabel={labels.dance} className="stage-bunny" />
+          </ViewTransition>
 
           <section
             aria-roledescription={labels.collectionRole}
@@ -167,7 +164,9 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
             {visible.map((item, index) => {
               const offset = offsetOf(index, selected, visible.length);
               const isCurrent = offset === "0";
+              // Misma transición que la portada del álbum: al abrirlo, la portada viaja a la cabecera.
               const art = (
+                <ViewTransition name={`cover-${item.slug}`} share="morph" default="none">
                 <CoverArt
                   src={item.cover.src}
                   alt=""
@@ -177,6 +176,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                   eager={index === 0}
                   titleSize={isCurrent ? "lg" : "sm"}
                 />
+                </ViewTransition>
               );
               return (
                 <div

@@ -108,5 +108,20 @@
       "workflow": "Workflow and AI"
     },
     "discLabel": "About"
+  },
+  "album": {
+    "back": "Collection",
+    "label": "Album · {year}",
+    "upcomingLabel": "Coming soon",
+    "tracks": "Tracks",
+    "tracklistLabel": "Tracks of {title}",
+    "minutes": "{n} min",
+    "credits": "Credits",
+    "productionNotes": "Production notes",
+    "proposedStack": "Proposed stack",
+    "nextValidation": "Next validation",
+    "showAll": "Show all",
+    "trackOf": "Track {number} of {total}",
+    "coverOf": "Cover of {title}"
   }
 }

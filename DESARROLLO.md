@@ -194,13 +194,18 @@ Lighthouse móvil (simulación por defecto):
 
 **Observación:** justo después de reconstruir el servidor, la primera navegación puede hacer una recarga completa (el navegador tenía precargas del build anterior y Next recarga para no mezclar versiones). Es el comportamiento esperado tras un despliegue; revisar la protección de "version skew" en el paso 14.
 
-## Paso 8 — Álbum y pistas
+## Paso 8 — Álbum y pistas ✅ (pendiente de revisión)
 
 **Objetivo:** el caso de estudio completo.
 
-- `projects/[slug]/layout.tsx` con portada, demo y cabecera fijas; `page.tsx` con pistas, créditos y notas.
-- `[track]/page.tsx`: pista abierta, que sube al lugar de la primera; "Mostrar todas"; ⏮ ⏭ en la bandeja.
-- Edición "planeado" (D09) sin demo ni resultados.
+- `projects/[slug]/layout.tsx`: "← Colección", portada (escritorio: columna izquierda; móvil: cabecera compacta de 96 px) y cabecera del disco (Álbum · año, título, rol · tiempo total, estado, lo esencial). **Persiste** al cambiar de pista. Lo largo hace scroll solo en su panel; el documento nunca.
+- `page.tsx`: pistas numeradas con su tiempo de lectura real (`TrackRow`), créditos (tecnología · función en este proyecto) y notas de producción. En los **próximos lanzamientos**: stack propuesto y próxima validación, sin pistas ni demo (Figma D09).
+- `[track]/page.tsx`: la fila de la pista abierta **sube** a la cabecera de la lista (transición compartida), el capítulo MDX entra con un fundido y "Mostrar todas" vuelve a la lista. ⏮ ⏭ en la bandeja (probado: 03 → 04 y "Pista 04 · Decisiones importantes").
+- **Transiciones:** la portada viaja de la colección a la cabecera del álbum (`cover-<slug>`) y el conejo anfitrión baja del escenario a la bandeja (`host-bunny`); medido en la transición real.
+- Estáticas: 10 álbumes (5 × 2 idiomas) y 10 pistas; pistas de un planeado o slugs inexistentes → 404.
+- Barras de scroll finas con el color de los bordes.
+- Los créditos todavía no enlazan a la ficha de tecnología: llega en el paso 9.
+- **Verificado en Chrome:** colección → álbum → pista → ⏭ → "Mostrar todas"; álbum planeado; móvil 390×844 (álbum, pista y planeado en inglés) sin scroll de página ni desbordes.
 
 ## Paso 9 — Fichas de tecnología
 
