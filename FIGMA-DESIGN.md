@@ -300,6 +300,7 @@ Archivo: https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28
   - "Cómo trabajo" reescrito;
   - el conejo presenta al artista en lugar de una foto;
   - prototipo rehecho.
+- **2026-10-12, más tarde:** Contacto (D11, M11) rediseñado como ficha técnica informativa, sin oferta freelance; los botones "Booking" de Sobre mí pasan a "Contacto"; trayectoria con "Vidriería local"; LinkedIn añadido; concepto de Office to PDF en D09.
 - **Falta (para ti):** las portadas definitivas, la grabación de la demo, los años en Vidriería Garatea, el concepto de los proyectos planeados y el dominio.
 - **Decisiones que salieron al diseñar:**
   - la pista elegida sube al lugar de la primera;

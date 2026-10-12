@@ -91,7 +91,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 - Arco de portadas con flechas, teclado y desplazamiento táctil en móvil.
 - Filtro por estado; selección con `CoverInfo` debajo de la portada; conejo en curiosidad mirando la central.
-- Sección de contacto (#contact) con email copiable, GitHub y LinkedIn.
+- Sección de contacto (#contact) como ficha técnica informativa (sin oferta de servicios), con email copiable, GitHub y LinkedIn.
 
 ## Paso 8 — Álbum y pistas
 
@@ -141,7 +141,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 **Objetivo:** primer despliegue aprobado.
 
-- Elegir hosting (`PORTFOLIO.md` §2.1: Netlify Free recomendado por la sección Booking).
+- Vercel Hobby (`PORTFOLIO.md` §2.1): revisar antes que ningún texto ofrezca servicios, precios ni pagos.
 - Remoto privado en GitHub, despliegue de prueba con `SITE_NOINDEX=true` y revisión.
 - Dominio en Cloudflare cuando se decida; primer despliegue de producción solo con aprobación del usuario.
 
@@ -149,4 +149,4 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 ## Historial
 
-- **2026-10-12:** primera versión. **Paso 1 hecho** (commit `51987d8`): repo con identidad personal local (`git config user.*` solo en este repo; la global es la del trabajo), `.gitignore` y `.gitattributes` (LF). Falta el remoto en GitHub, a la espera de confirmación (`gh` no está instalado).
+- **2026-10-12:** primera versión. **Paso 1 hecho** (commit `51987d8`): repo con identidad personal local (`git config user.*` solo en este repo; la global es la del trabajo), `.gitignore` y `.gitattributes` (LF). Identidad global de Git cambiada a la personal (no se usa la corporativa en este PC). `gh` instalado; falta `gh auth login` y crear el remoto privado.

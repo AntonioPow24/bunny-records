@@ -49,7 +49,7 @@ No se inventan métricas, experiencia ni datos personales. Los proyectos planifi
 | Contenido | **TypeScript tipado + MDX** (`@next/mdx`) para el texto largo de los casos de estudio | 16.4.0 | Sin base de datos ni CMS (§6) |
 | Utilidades | `clsx`, `tailwind-merge`, `class-variance-authority` | — | Vienen con shadcn; `cn()` reutilizado de Vidriería |
 | Paquetes | **npm** | — | Playbook |
-| Hosting | **Pendiente (fase de publicación). Recomendado: Netlify Free** | — | El usuario prefería Vercel Hobby, pero sus condiciones (consultadas 2026-10-12) cuentan como uso comercial "anunciar la venta de un producto o servicio", y la sección Booking ofrece trabajo freelance. Opciones: Netlify Free (permite uso comercial), Vercel Pro (~US$20/mes) o Vercel Hobby quitando la oferta de freelance. El código es el mismo en las tres |
+| Hosting | **Vercel Hobby** (decisión del usuario, 2026-10-12) | — | Permitido porque el sitio es personal e **informativo**: sus condiciones (consultadas 2026-10-12) cuentan como comercial "anunciar la venta de un producto o servicio", por eso Contacto no ofrece servicios ni disponibilidad freelance. **Regla:** no añadir precios, pagos, anuncios ni ofertas de servicios; si algún día se quieren, pasar a Netlify Free o Vercel Pro (el código es el mismo) |
 | Dominio | **Cloudflare Registrar** | — | Playbook |
 
 ### 2.2 Qué se reutiliza de Vidriería Antonio
@@ -382,7 +382,7 @@ interface Technology { id: TechnologyId; name: string; icon: string; howIUseIt: 
 
 | Concepto | Coste |
 |---|---|
-| Netlify Free (recomendado; ver §2.1) | US$0 |
+| Vercel Hobby (sitio personal e informativo; ver §2.1) | US$0 |
 | GitHub | US$0 |
 | Figma Starter (diseño; si hace falta, Professional ~US$20 un solo mes, ver `FIGMA-DESIGN.md` §9.0) | US$0 |
 | Dominio `.com` en Cloudflare (opcional, recomendado) | ~US$10.5/año **[VERIFICAR]** |

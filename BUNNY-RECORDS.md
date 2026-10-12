@@ -124,7 +124,7 @@ Reglas: el conejo **no persigue al cursor** por la pantalla; tiene un sitio fijo
 | Colección | **En el escenario, delante y a la izquierda del arco**, mirando la portada central (no la tapa) | Grande | Anfitrión: recibe al visitante y señala el trabajo |
 | Álbum, pista, ficha de tecnología | **Sentado en la bandeja inferior** (reproductor), a la izquierda | Pequeño (avatar) | DJ en la consola: escucha contigo |
 | Sobre mí | Bandeja inferior | Pequeño | — |
-| Contacto | Se asoma junto al bloque de contacto | Mediano | Despedida |
+| Contacto | Junto a la ficha técnica | Mediano | Presentación (señala la ficha) |
 
 Por qué: dentro del álbum el contenido es lo importante y un personaje animado roba la atención (el movimiento se percibe incluso en la periferia). La bandeja está en todas las pantallas, así que el conejo no desaparece y el visitante siempre sabe dónde está (memoria espacial). Al abrir un álbum, el conejo **se encoge y se desliza a la bandeja** a la vez que la portada viaja a la cabecera: son dos elementos compartidos que cuentan lo mismo, "entramos".
 
@@ -186,7 +186,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 | Página | Metáfora | Contenido |
 |---|---|---|
 | **Sobre mí** | **Ficha del artista** | Retrato opcional, nombre, rol y biografía. **Manifiesto del sello** (cómo trabajo; 3 principios con `+`/`−`). **Gira** (trayectoria: años, rol, empresa). **Equipo de estudio** (herramientas, sin barras de nivel; cada una abre su ficha). **Discografía** (todos los álbumes con su estado). Botones "Escuchar la discografía" y "Booking" |
-| **Contacto** (`#contact`, final del Inicio y footer) | **Booking** | "¿Grabamos el próximo disco juntos?", disponibilidad, email con botón "Copiar", GitHub y LinkedIn. Sin formulario. Conejo saludando (*despedida*) |
+| **Contacto** (`#contact`, final del Inicio y footer) | **Ficha técnica** (contraportada del disco) | "Quién está detrás del sello": rol, empresa actual, base, especialidad, qué estoy explorando y qué hay en el sello; después, "Dónde encontrarme" (email con "Copiar", GitHub, LinkedIn). **Informativo: no ofrece servicios ni disponibilidad freelance** (decisión 2026-10-12, para poder usar Vercel Hobby). Conejo en *presentación* señalando la ficha |
 | **404** | **Lado C** | "Esta pista no existe": los vinilos solo tienen lado A y B. Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
 | **Ficha de tecnología** (entrada directa) | Créditos compartidos | Igual que el panel, a página completa, con la bandeja en reposo |
 | **Footer** | Contraportada | Logo, © y [Nombre público], Sobre mí, Contacto, GitHub, LinkedIn, **Créditos del sitio** (el stack del propio portfolio) y ES/EN |
