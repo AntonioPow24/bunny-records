@@ -1,0 +1,34 @@
+# Dependencias y build
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Entorno y secretos
+.env*
+!.env.example
+
+# Herramientas locales
+.codex/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Notas personales (los datos pasan a content/profile.ts)
+ME.md
+
+# Referencias y material de diseño pesado (se archivará fuera del repo; PORTFOLIO.md §11.7)
+idea/
+imagelogo/
+design/character/*.blend
+design/character/*.blend1
+design/character/backup/
+design/character/blockout/
+design/character/lab/
+design/character/sheet/
+design/character/observations/
+design/character/poses/*.png
+design/character/layers/*.png

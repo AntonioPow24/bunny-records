@@ -1,0 +1,1113 @@
+{
+  "canvas": [
+    1200,
+    1600
+  ],
+  "camera": {
+    "name": "Cam_Main",
+    "yaw_deg": -10,
+    "lens_mm": 85.0
+  },
+  "coords": "píxeles del lienzo, origen arriba a la izquierda. left/right = lado de la pantalla",
+  "draw_order": [
+    "shadow",
+    "body (uno por pose: lleva la sombra de su cabeza)",
+    "ears (solo con head-rest)",
+    "head"
+  ],
+  "blink": "cambiar head-*-open por head-*-blink durante ~120 ms",
+  "halo_css": {
+    "center": [
+      600.0,
+      1465.9
+    ],
+    "half_width": 167.9,
+    "color": "#329DA8",
+    "opacity": 0.38
+  },
+  "pivots": {
+    "head": [
+      600.0,
+      944.9
+    ],
+    "neck": [
+      600.0,
+      996.8
+    ],
+    "ear_left": [
+      450.3,
+      532.4
+    ],
+    "ear_right": [
+      744.1,
+      538.0
+    ],
+    "shoulder_left": [
+      463.8,
+      1075.5
+    ],
+    "shoulder_right": [
+      734.5,
+      1073.8
+    ],
+    "eye_left": [
+      426.9,
+      748.0
+    ],
+    "eye_right": [
+      831.2,
+      751.7
+    ],
+    "feet": [
+      600.0,
+      1465.9
+    ],
+    "halo_half_width": 167.9
+  },
+  "poses": {
+    "rest": [
+      "bunny-shadow",
+      "bunny-body-rest",
+      "bunny-ear-left",
+      "bunny-ear-right",
+      "bunny-head-rest-open"
+    ],
+    "curious-left": [
+      "bunny-shadow",
+      "bunny-body-curious-left",
+      "bunny-head-curious-left-open"
+    ],
+    "curious-right": [
+      "bunny-shadow",
+      "bunny-body-curious-right",
+      "bunny-head-curious-right-open"
+    ],
+    "present-left": [
+      "bunny-shadow",
+      "bunny-body-point-left",
+      "bunny-head-present-left-open"
+    ],
+    "present-right": [
+      "bunny-shadow",
+      "bunny-body-point-right",
+      "bunny-head-present-right-open"
+    ],
+    "look-up-left": [
+      "bunny-shadow",
+      "bunny-body-look-up-left",
+      "bunny-head-look-up-left-open"
+    ],
+    "look-up-right": [
+      "bunny-shadow",
+      "bunny-body-look-up-right",
+      "bunny-head-look-up-right-open"
+    ]
+  },
+  "layers": {
+    "bunny-body-point-left": {
+      "file": "bunny-body-point-left.png",
+      "bbox": [
+        238,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-point-right": {
+      "file": "bunny-body-point-right.png",
+      "bbox": [
+        375,
+        841,
+        969,
+        1473
+      ]
+    },
+    "bunny-body-rest": {
+      "file": "bunny-body-rest.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-ear-left": {
+      "file": "bunny-ear-left.png",
+      "bbox": [
+        294,
+        148,
+        506,
+        569
+      ]
+    },
+    "bunny-ear-right": {
+      "file": "bunny-ear-right.png",
+      "bbox": [
+        686,
+        165,
+        881,
+        574
+      ]
+    },
+    "bunny-full-rest": {
+      "file": "bunny-full-rest.png",
+      "bbox": [
+        6,
+        148,
+        1194,
+        1594
+      ]
+    },
+    "bunny-head-curious-left-blink": {
+      "file": "bunny-head-curious-left-blink.png",
+      "bbox": [
+        178,
+        107,
+        936,
+        1001
+      ]
+    },
+    "bunny-head-curious-left-open": {
+      "file": "bunny-head-curious-left-open.png",
+      "bbox": [
+        178,
+        107,
+        936,
+        1001
+      ]
+    },
+    "bunny-head-curious-right-blink": {
+      "file": "bunny-head-curious-right-blink.png",
+      "bbox": [
+        280,
+        99,
+        945,
+        1000
+      ]
+    },
+    "bunny-head-curious-right-open": {
+      "file": "bunny-head-curious-right-open.png",
+      "bbox": [
+        280,
+        99,
+        945,
+        1000
+      ]
+    },
+    "bunny-head-look-up-left-blink": {
+      "file": "bunny-head-look-up-left-blink.png",
+      "bbox": [
+        239,
+        249,
+        952,
+        1002
+      ]
+    },
+    "bunny-head-look-up-left-open": {
+      "file": "bunny-head-look-up-left-open.png",
+      "bbox": [
+        239,
+        249,
+        952,
+        1002
+      ]
+    },
+    "bunny-head-look-up-right-blink": {
+      "file": "bunny-head-look-up-right-blink.png",
+      "bbox": [
+        244,
+        232,
+        923,
+        1000
+      ]
+    },
+    "bunny-head-look-up-right-open": {
+      "file": "bunny-head-look-up-right-open.png",
+      "bbox": [
+        244,
+        232,
+        923,
+        1000
+      ]
+    },
+    "bunny-head-present-left-blink": {
+      "file": "bunny-head-present-left-blink.png",
+      "bbox": [
+        231,
+        139,
+        955,
+        995
+      ]
+    },
+    "bunny-head-present-left-open": {
+      "file": "bunny-head-present-left-open.png",
+      "bbox": [
+        231,
+        139,
+        955,
+        995
+      ]
+    },
+    "bunny-head-present-right-blink": {
+      "file": "bunny-head-present-right-blink.png",
+      "bbox": [
+        251,
+        123,
+        950,
+        995
+      ]
+    },
+    "bunny-head-present-right-open": {
+      "file": "bunny-head-present-right-open.png",
+      "bbox": [
+        251,
+        123,
+        950,
+        995
+      ]
+    },
+    "bunny-head-rest-blink": {
+      "file": "bunny-head-rest-blink.png",
+      "bbox": [
+        238,
+        498,
+        957,
+        996
+      ]
+    },
+    "bunny-head-rest-open": {
+      "file": "bunny-head-rest-open.png",
+      "bbox": [
+        238,
+        498,
+        957,
+        996
+      ]
+    },
+    "bunny-shadow": {
+      "file": "bunny-shadow.png",
+      "bbox": [
+        6,
+        1077,
+        1194,
+        1594
+      ]
+    },
+    "bunny-body-curious-left": {
+      "file": "bunny-body-curious-left.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-right": {
+      "file": "bunny-body-curious-right.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left": {
+      "file": "bunny-body-look-up-left.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right": {
+      "file": "bunny-body-look-up-right.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-left-t25": {
+      "file": "bunny-body-curious-left-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-left-t50": {
+      "file": "bunny-body-curious-left-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-left-t75": {
+      "file": "bunny-body-curious-left-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-right-t25": {
+      "file": "bunny-body-curious-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-right-t50": {
+      "file": "bunny-body-curious-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-right-t75": {
+      "file": "bunny-body-curious-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left-t25": {
+      "file": "bunny-body-look-up-left-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left-t50": {
+      "file": "bunny-body-look-up-left-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left-t75": {
+      "file": "bunny-body-look-up-left-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right-t25": {
+      "file": "bunny-body-look-up-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right-t50": {
+      "file": "bunny-body-look-up-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right-t75": {
+      "file": "bunny-body-look-up-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-present-left-t25": {
+      "file": "bunny-body-present-left-t25.png",
+      "bbox": [
+        323,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-present-left-t50": {
+      "file": "bunny-body-present-left-t50.png",
+      "bbox": [
+        280,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-present-left-t75": {
+      "file": "bunny-body-present-left-t75.png",
+      "bbox": [
+        251,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-present-right-t25": {
+      "file": "bunny-body-present-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        873,
+        1473
+      ]
+    },
+    "bunny-body-present-right-t50": {
+      "file": "bunny-body-present-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        918,
+        1473
+      ]
+    },
+    "bunny-body-present-right-t75": {
+      "file": "bunny-body-present-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        951,
+        1473
+      ]
+    },
+    "bunny-head-curious-left-t25-open": {
+      "file": "bunny-head-curious-left-t25-open.png",
+      "bbox": [
+        231,
+        145,
+        955,
+        996
+      ]
+    },
+    "bunny-head-curious-left-t50-open": {
+      "file": "bunny-head-curious-left-t50-open.png",
+      "bbox": [
+        226,
+        129,
+        950,
+        996
+      ]
+    },
+    "bunny-head-curious-left-t75-open": {
+      "file": "bunny-head-curious-left-t75-open.png",
+      "bbox": [
+        199,
+        116,
+        943,
+        998
+      ]
+    },
+    "bunny-head-curious-right-t25-open": {
+      "file": "bunny-head-curious-right-t25-open.png",
+      "bbox": [
+        245,
+        130,
+        958,
+        995
+      ]
+    },
+    "bunny-head-curious-right-t50-open": {
+      "file": "bunny-head-curious-right-t50-open.png",
+      "bbox": [
+        255,
+        116,
+        956,
+        996
+      ]
+    },
+    "bunny-head-curious-right-t75-open": {
+      "file": "bunny-head-curious-right-t75-open.png",
+      "bbox": [
+        267,
+        105,
+        951,
+        998
+      ]
+    },
+    "bunny-head-look-up-left-t25-open": {
+      "file": "bunny-head-look-up-left-t25-open.png",
+      "bbox": [
+        235,
+        176,
+        955,
+        995
+      ]
+    },
+    "bunny-head-look-up-left-t50-open": {
+      "file": "bunny-head-look-up-left-t50-open.png",
+      "bbox": [
+        233,
+        195,
+        953,
+        996
+      ]
+    },
+    "bunny-head-look-up-left-t75-open": {
+      "file": "bunny-head-look-up-left-t75-open.png",
+      "bbox": [
+        235,
+        219,
+        952,
+        999
+      ]
+    },
+    "bunny-head-look-up-right-t25-open": {
+      "file": "bunny-head-look-up-right-t25-open.png",
+      "bbox": [
+        240,
+        160,
+        953,
+        994
+      ]
+    },
+    "bunny-head-look-up-right-t50-open": {
+      "file": "bunny-head-look-up-right-t50-open.png",
+      "bbox": [
+        242,
+        179,
+        945,
+        995
+      ]
+    },
+    "bunny-head-look-up-right-t75-open": {
+      "file": "bunny-head-look-up-right-t75-open.png",
+      "bbox": [
+        243,
+        203,
+        935,
+        997
+      ]
+    },
+    "bunny-head-present-left-t25-open": {
+      "file": "bunny-head-present-left-t25-open.png",
+      "bbox": [
+        236,
+        152,
+        958,
+        995
+      ]
+    },
+    "bunny-head-present-left-t50-open": {
+      "file": "bunny-head-present-left-t50-open.png",
+      "bbox": [
+        234,
+        152,
+        957,
+        995
+      ]
+    },
+    "bunny-head-present-left-t75-open": {
+      "file": "bunny-head-present-left-t75-open.png",
+      "bbox": [
+        232,
+        145,
+        956,
+        995
+      ]
+    },
+    "bunny-head-present-right-t25-open": {
+      "file": "bunny-head-present-right-t25-open.png",
+      "bbox": [
+        240,
+        141,
+        956,
+        995
+      ]
+    },
+    "bunny-head-present-right-t50-open": {
+      "file": "bunny-head-present-right-t50-open.png",
+      "bbox": [
+        243,
+        135,
+        955,
+        995
+      ]
+    },
+    "bunny-head-present-right-t75-open": {
+      "file": "bunny-head-present-right-t75-open.png",
+      "bbox": [
+        247,
+        129,
+        952,
+        995
+      ]
+    },
+    "bunny-body-curious-left--present-left-t25": {
+      "file": "bunny-body-curious-left--present-left-t25.png",
+      "bbox": [
+        323,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-left--present-left-t50": {
+      "file": "bunny-body-curious-left--present-left-t50.png",
+      "bbox": [
+        280,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-left--present-left-t75": {
+      "file": "bunny-body-curious-left--present-left-t75.png",
+      "bbox": [
+        251,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-curious-right--present-right-t25": {
+      "file": "bunny-body-curious-right--present-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        873,
+        1473
+      ]
+    },
+    "bunny-body-curious-right--present-right-t50": {
+      "file": "bunny-body-curious-right--present-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        918,
+        1473
+      ]
+    },
+    "bunny-body-curious-right--present-right-t75": {
+      "file": "bunny-body-curious-right--present-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        951,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--curious-left-t25": {
+      "file": "bunny-body-look-up-left--curious-left-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--curious-left-t50": {
+      "file": "bunny-body-look-up-left--curious-left-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--curious-left-t75": {
+      "file": "bunny-body-look-up-left--curious-left-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--present-left-t25": {
+      "file": "bunny-body-look-up-left--present-left-t25.png",
+      "bbox": [
+        323,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--present-left-t50": {
+      "file": "bunny-body-look-up-left--present-left-t50.png",
+      "bbox": [
+        280,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-left--present-left-t75": {
+      "file": "bunny-body-look-up-left--present-left-t75.png",
+      "bbox": [
+        251,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--curious-right-t25": {
+      "file": "bunny-body-look-up-right--curious-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--curious-right-t50": {
+      "file": "bunny-body-look-up-right--curious-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--curious-right-t75": {
+      "file": "bunny-body-look-up-right--curious-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        822,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--present-right-t25": {
+      "file": "bunny-body-look-up-right--present-right-t25.png",
+      "bbox": [
+        375,
+        841,
+        873,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--present-right-t50": {
+      "file": "bunny-body-look-up-right--present-right-t50.png",
+      "bbox": [
+        375,
+        841,
+        918,
+        1473
+      ]
+    },
+    "bunny-body-look-up-right--present-right-t75": {
+      "file": "bunny-body-look-up-right--present-right-t75.png",
+      "bbox": [
+        375,
+        841,
+        951,
+        1473
+      ]
+    },
+    "bunny-head-curious-left--present-left-t25-open": {
+      "file": "bunny-head-curious-left--present-left-t25-open.png",
+      "bbox": [
+        198,
+        112,
+        941,
+        999
+      ]
+    },
+    "bunny-head-curious-left--present-left-t50-open": {
+      "file": "bunny-head-curious-left--present-left-t50-open.png",
+      "bbox": [
+        221,
+        119,
+        946,
+        997
+      ]
+    },
+    "bunny-head-curious-left--present-left-t75-open": {
+      "file": "bunny-head-curious-left--present-left-t75-open.png",
+      "bbox": [
+        228,
+        128,
+        951,
+        996
+      ]
+    },
+    "bunny-head-curious-right--present-right-t25-open": {
+      "file": "bunny-head-curious-right--present-right-t25-open.png",
+      "bbox": [
+        272,
+        102,
+        947,
+        998
+      ]
+    },
+    "bunny-head-curious-right--present-right-t50-open": {
+      "file": "bunny-head-curious-right--present-right-t50-open.png",
+      "bbox": [
+        265,
+        107,
+        948,
+        997
+      ]
+    },
+    "bunny-head-curious-right--present-right-t75-open": {
+      "file": "bunny-head-curious-right--present-right-t75-open.png",
+      "bbox": [
+        257,
+        114,
+        949,
+        995
+      ]
+    },
+    "bunny-head-look-up-left--curious-left-t25-open": {
+      "file": "bunny-head-look-up-left--curious-left-t25-open.png",
+      "bbox": [
+        235,
+        205,
+        949,
+        1000
+      ]
+    },
+    "bunny-head-look-up-left--curious-left-t50-open": {
+      "file": "bunny-head-look-up-left--curious-left-t50-open.png",
+      "bbox": [
+        231,
+        167,
+        945,
+        998
+      ]
+    },
+    "bunny-head-look-up-left--curious-left-t75-open": {
+      "file": "bunny-head-look-up-left--curious-left-t75-open.png",
+      "bbox": [
+        215,
+        134,
+        941,
+        999
+      ]
+    },
+    "bunny-head-look-up-left--present-left-t25-open": {
+      "file": "bunny-head-look-up-left--present-left-t25-open.png",
+      "bbox": [
+        236,
+        214,
+        952,
+        999
+      ]
+    },
+    "bunny-head-look-up-left--present-left-t50-open": {
+      "file": "bunny-head-look-up-left--present-left-t50-open.png",
+      "bbox": [
+        234,
+        184,
+        952,
+        996
+      ]
+    },
+    "bunny-head-look-up-left--present-left-t75-open": {
+      "file": "bunny-head-look-up-left--present-left-t75-open.png",
+      "bbox": [
+        232,
+        159,
+        953,
+        995
+      ]
+    },
+    "bunny-head-look-up-right--curious-right-t25-open": {
+      "file": "bunny-head-look-up-right--curious-right-t25-open.png",
+      "bbox": [
+        252,
+        190,
+        928,
+        999
+      ]
+    },
+    "bunny-head-look-up-right--curious-right-t50-open": {
+      "file": "bunny-head-look-up-right--curious-right-t50-open.png",
+      "bbox": [
+        261,
+        153,
+        933,
+        998
+      ]
+    },
+    "bunny-head-look-up-right--curious-right-t75-open": {
+      "file": "bunny-head-look-up-right--curious-right-t75-open.png",
+      "bbox": [
+        270,
+        123,
+        938,
+        998
+      ]
+    },
+    "bunny-head-look-up-right--present-right-t25-open": {
+      "file": "bunny-head-look-up-right--present-right-t25-open.png",
+      "bbox": [
+        246,
+        198,
+        930,
+        997
+      ]
+    },
+    "bunny-head-look-up-right--present-right-t50-open": {
+      "file": "bunny-head-look-up-right--present-right-t50-open.png",
+      "bbox": [
+        248,
+        168,
+        937,
+        995
+      ]
+    },
+    "bunny-head-look-up-right--present-right-t75-open": {
+      "file": "bunny-head-look-up-right--present-right-t75-open.png",
+      "bbox": [
+        250,
+        143,
+        943,
+        994
+      ]
+    }
+  },
+  "sequences": {
+    "curious-left": [
+      {
+        "body": "bunny-body-curious-left-t25",
+        "head": "bunny-head-curious-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-curious-left-t50",
+        "head": "bunny-head-curious-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-curious-left-t75",
+        "head": "bunny-head-curious-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "curious-right": [
+      {
+        "body": "bunny-body-curious-right-t25",
+        "head": "bunny-head-curious-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-curious-right-t50",
+        "head": "bunny-head-curious-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-curious-right-t75",
+        "head": "bunny-head-curious-right-t75-open",
+        "t": 0.75
+      }
+    ],
+    "present-left": [
+      {
+        "body": "bunny-body-present-left-t25",
+        "head": "bunny-head-present-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-present-left-t50",
+        "head": "bunny-head-present-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-present-left-t75",
+        "head": "bunny-head-present-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "present-right": [
+      {
+        "body": "bunny-body-present-right-t25",
+        "head": "bunny-head-present-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-present-right-t50",
+        "head": "bunny-head-present-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-present-right-t75",
+        "head": "bunny-head-present-right-t75-open",
+        "t": 0.75
+      }
+    ],
+    "look-up-left": [
+      {
+        "body": "bunny-body-look-up-left-t25",
+        "head": "bunny-head-look-up-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-look-up-left-t50",
+        "head": "bunny-head-look-up-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-look-up-left-t75",
+        "head": "bunny-head-look-up-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "look-up-right": [
+      {
+        "body": "bunny-body-look-up-right-t25",
+        "head": "bunny-head-look-up-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-look-up-right-t50",
+        "head": "bunny-head-look-up-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-look-up-right-t75",
+        "head": "bunny-head-look-up-right-t75-open",
+        "t": 0.75
+      }
+    ]
+  },
+  "sequences_nota": "Fotogramas intermedios desde el reposo (t=0) hasta la pose (t=1). Para ir de A a B: los de A al revés hasta el reposo y luego los de B. ~22 ms por fotograma.",
+  "transitions": [
+    [
+      "look-up-left",
+      "curious-left"
+    ],
+    [
+      "look-up-right",
+      "curious-right"
+    ],
+    [
+      "curious-left",
+      "present-left"
+    ],
+    [
+      "curious-right",
+      "present-right"
+    ],
+    [
+      "look-up-left",
+      "present-left"
+    ],
+    [
+      "look-up-right",
+      "present-right"
+    ]
+  ],
+  "transitions_nota": "Transiciones directas entre poses vecinas (capas bunny-{body,head}-{a}--{b}-t25/50/75). Sirven en ambos sentidos."
+}

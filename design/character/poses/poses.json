@@ -1,0 +1,179 @@
+{
+  "_nota": "Grados. head = [giro Z, inclinación Y, elevación m, cabeceo X opcional (negativo = mirar arriba)] sobre el pivote (0,0,1.0). ears = giro extra en Y; ears_x = giro extra en X (negativo = hacia atrás). arm = [lado del personaje, elevación, adelante]. 'left/right' = lado de la pantalla con Cam_Main (casi frontal, -10°). v2: arms = varios brazos; headphones = 'head' pone los auriculares en la cabeza.",
+  "poses": {
+    "rest": {},
+    "curious-left": {
+      "head": [
+        -22,
+        -10,
+        0.03
+      ],
+      "ears": {
+        "Bunny_Ear_R": -8,
+        "Bunny_Ear_L": -4
+      }
+    },
+    "curious-right": {
+      "head": [
+        22,
+        10,
+        0.03
+      ],
+      "ears": {
+        "Bunny_Ear_L": 8,
+        "Bunny_Ear_R": 4
+      }
+    },
+    "present-left": {
+      "head": [
+        -12,
+        -3,
+        0.01
+      ],
+      "arm": [
+        "R",
+        80,
+        15
+      ]
+    },
+    "present-right": {
+      "head": [
+        12,
+        3,
+        0.01
+      ],
+      "arm": [
+        "L",
+        80,
+        15
+      ]
+    },
+    "look-up-left": {
+      "head": [
+        -18,
+        -5,
+        0.03,
+        -18
+      ],
+      "ears_x": {
+        "Bunny_Ear_L": -6,
+        "Bunny_Ear_R": -6
+      }
+    },
+    "look-up-right": {
+      "head": [
+        18,
+        5,
+        0.03,
+        -18
+      ],
+      "ears_x": {
+        "Bunny_Ear_L": -6,
+        "Bunny_Ear_R": -6
+      }
+    },
+    "wave-left": {
+      "head": [
+        -6,
+        -5,
+        0.01
+      ],
+      "arm": [
+        "R",
+        80,
+        20
+      ]
+    },
+    "wave-left-b": {
+      "head": [
+        -6,
+        -5,
+        0.01
+      ],
+      "arm": [
+        "R",
+        55,
+        20
+      ]
+    },
+    "wave-right": {
+      "head": [
+        6,
+        5,
+        0.01
+      ],
+      "arm": [
+        "L",
+        80,
+        20
+      ]
+    },
+    "wave-right-b": {
+      "head": [
+        6,
+        5,
+        0.01
+      ],
+      "arm": [
+        "L",
+        55,
+        20
+      ]
+    },
+    "dance-a": {
+      "head": [
+        0,
+        -7,
+        0.02
+      ],
+      "arms": [
+        [
+          "R",
+          78,
+          15
+        ],
+        [
+          "L",
+          40,
+          10
+        ]
+      ],
+      "ears": {
+        "Bunny_Ear_R": -6,
+        "Bunny_Ear_L": -6
+      }
+    },
+    "dance-b": {
+      "head": [
+        0,
+        7,
+        0.02
+      ],
+      "arms": [
+        [
+          "L",
+          78,
+          15
+        ],
+        [
+          "R",
+          40,
+          10
+        ]
+      ],
+      "ears": {
+        "Bunny_Ear_R": 6,
+        "Bunny_Ear_L": 6
+      }
+    },
+    "listen": {
+      "head": [
+        0,
+        6,
+        0.02,
+        -4
+      ],
+      "headphones": "head"
+    }
+  }
+}

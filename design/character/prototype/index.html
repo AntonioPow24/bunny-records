@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bunny Studio · prueba de animación (C7)</title>
+<style>
+  :root {
+    --midnight: #0C111C;
+    --teal: #329DA8;
+    --deep-teal: #267B84;
+    --ivory: #F4F4F2;
+    --ink: #080A0D;
+    --muted: #8A93A3;
+    --card: #141B29;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--midnight); color: var(--ivory);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  body { overflow: hidden; }
+
+  /* ---------- escenario: portadas alrededor, conejo abajo al centro ---------- */
+  .scene { position: relative; height: 100vh; display: grid;
+    grid-template-columns: 1fr minmax(260px, 48vh) 1fr;
+    grid-template-rows: auto 1fr auto; gap: 16px; padding: 16px; }
+  .cover { background: var(--card); border: 1px solid #222C3D; border-radius: 14px;
+    display: grid; place-items: center; color: var(--muted); cursor: pointer;
+    transition: border-color .2s, transform .2s; min-height: 120px; user-select: none; }
+  .cover b { display: block; color: var(--ivory); font-size: 15px; margin-bottom: 2px; }
+  .cover:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .cover.top-left { grid-column: 1; grid-row: 1; height: 22vh; }
+  .cover.top-right { grid-column: 3; grid-row: 1; height: 22vh; }
+  .cover.left { grid-column: 1; grid-row: 2; align-self: center; height: 26vh; }
+  .cover.right { grid-column: 3; grid-row: 2; align-self: center; height: 26vh; }
+
+  .stage { grid-column: 2; grid-row: 2 / 4; align-self: end; position: relative;
+    aspect-ratio: 3 / 4; width: 100%; cursor: pointer; }
+  .canvas { position: absolute; left: 0; top: 0; width: 1200px; height: 1600px;
+    transform-origin: 0 0; transform: scale(var(--s, .3)); }
+  .group { position: absolute; inset: 0; width: 1200px; height: 1600px; }
+  /* corte limpio: sin fundidos (dos capas semitransparentes dejaban ver el fondo) */
+  .layer { position: absolute; opacity: 0; pointer-events: none; user-select: none; }
+  .layer.on { opacity: 1; }
+
+  .halo { position: absolute; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(50,157,168,.38), rgba(50,157,168,.12) 60%, transparent); }
+
+  /* respiración: el cuerpo se estira desde los pies y lo de arriba sube con él */
+  .breathing .g-body { animation: breathe-body 3.6s ease-in-out infinite; }
+  .breathing .g-upper { animation: breathe-upper 3.6s ease-in-out infinite; }
+  @keyframes breathe-body { 50% { transform: scaleY(1.012); } }
+  @keyframes breathe-upper { 50% { transform: translateY(-6px); } }
+
+  /* cabeza: micro-giro hacia el puntero en reposo; orejas con retraso y rebote */
+  .g-head, .g-ears { transition: transform 260ms cubic-bezier(.3,.7,.4,1); }
+  .ear { position: absolute; inset: 0; transition: transform 420ms cubic-bezier(.34,1.7,.5,1) 60ms; }
+
+  /* gesto: pequeño "pop" al cambiar de pose */
+  .pop .g-rig { animation: pop 320ms cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop { 40% { transform: scale(1.025); } }
+
+  /* baile */
+  .dancing .g-rig { animation: sway 800ms ease-in-out 2; }
+  .dancing .ear-left { animation: earL 400ms ease-in-out 4; }
+  .dancing .ear-right { animation: earR 400ms ease-in-out 4; }
+  @keyframes sway { 25% { transform: rotate(-5deg) translateY(-10px); } 50% { transform: rotate(0) translateY(0); }
+                    75% { transform: rotate(5deg) translateY(-10px); } }
+  @keyframes earL { 50% { transform: rotate(-14deg); } }
+  @keyframes earR { 50% { transform: rotate(14deg); } }
+
+  /* panel */
+  .panel { position: fixed; left: 16px; bottom: 16px; width: 300px; background: rgba(20,27,41,.92);
+    border: 1px solid #222C3D; border-radius: 12px; padding: 12px 14px; font-size: 12.5px; z-index: 5; }
+  .panel h1 { font-size: 13px; margin: 0 0 6px; color: var(--teal); letter-spacing: .02em; }
+  .panel .row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .panel button { background: #1D2738; color: var(--ivory); border: 1px solid #2B374C; border-radius: 8px;
+    padding: 4px 8px; font: inherit; cursor: pointer; }
+  .panel button:hover { border-color: var(--teal); }
+  .panel label { display: flex; gap: 6px; align-items: center; color: var(--muted); }
+  .panel .stat { color: var(--muted); }
+  .panel .stat b { color: var(--ivory); font-weight: 600; }
+  .panel .now { color: var(--ivory); }
+
+  .static .g-rig, .static .g-body, .static .g-upper { animation: none !important; }
+  @media (max-width: 700px) {
+    .scene { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr; }
+    .cover.left, .cover.right { grid-row: 2; height: 14vh; }
+    .cover.right { grid-column: 2; }
+    .cover.top-right { grid-column: 2; }
+    .stage { grid-column: 1 / 3; grid-row: 3; width: min(70vw, 42vh); justify-self: center; }
+    .panel { width: auto; right: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="cover top-left" data-side="up-left"><div><b>Proyecto A</b>arriba · izquierda</div></div>
+  <div class="cover top-right" data-side="up-right"><div><b>Proyecto B</b>arriba · derecha</div></div>
+  <div class="cover left" data-side="left"><div><b>Proyecto C</b>izquierda</div></div>
+  <div class="cover right" data-side="right"><div><b>Proyecto D</b>derecha</div></div>
+  <div class="stage" id="stage" title="Haz clic para que baile"><div class="canvas" id="canvas"></div></div>
+</div>
+
+<div class="panel">
+  <h1>Bunny Studio · prueba C7</h1>
+  <div class="now">Pose: <b id="poseName">rest</b></div>
+  <div class="row">
+    <button data-pose="curious-left">Curiosidad ←</button>
+    <button data-pose="curious-right">Curiosidad →</button>
+    <button data-pose="look-up-left">Arriba ↖</button>
+    <button data-pose="look-up-right">Arriba ↗</button>
+    <button data-pose="present-left">Presenta ←</button>
+    <button data-pose="present-right">Presenta →</button>
+    <button id="dance">Bailar</button>
+    <button id="blinkNow">Parpadear</button>
+  </div>
+  <label><input type="checkbox" id="follow" checked> Mirar al puntero</label>
+  <label><input type="checkbox" id="reduce"> Simular «movimiento reducido»</label>
+  <div class="stat" id="weight"></div>
+  <div class="stat">Pasa el ratón por las portadas (curiosidad) y haz clic en ellas (presentación). Clic en el conejo: baile.</div>
+</div>
+
+<script src="layers.web.js"></script>
+<script>
+(() => {
+  const B = window.BUNNY;
+  const P = B.pivots;
+  const canvas = document.getElementById('canvas');
+  const stage = document.getElementById('stage');
+  const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // ---------- montaje ----------
+  const el = (tag, cls, parent) => { const e = document.createElement(tag); if (cls) e.className = cls; parent && parent.appendChild(e); return e; };
+  const img = (key, parent) => {
+    const L = B.layers[key]; const i = el('img', 'layer', parent);
+    i.src = L.file; i.alt = ''; i.dataset.key = key;
+    Object.assign(i.style, { left: L.x + 'px', top: L.y + 'px', width: L.w + 'px', height: L.h + 'px' });
+    return i;
+  };
+  const hw = B.halo_css.half_width, feet = B.halo_css.center;
+  const halo = el('div', 'halo', canvas);
+  Object.assign(halo.style, { left: (feet[0] - hw * 1.15) + 'px', top: (feet[1] - hw * .28) + 'px', width: hw * 2.3 + 'px', height: hw * .56 + 'px' });
+
+  const full = img('bunny-full-rest', canvas);           // movimiento reducido
+  const rig = el('div', 'group g-rig', canvas);
+  rig.style.transformOrigin = `${feet[0]}px ${feet[1]}px`;
+  const shadow = img('bunny-shadow', rig); shadow.classList.add('on');
+  const gBody = el('div', 'group g-body', rig); gBody.style.transformOrigin = `${feet[0]}px ${feet[1]}px`;
+  const gUpper = el('div', 'group g-upper', rig);
+  const gEars = el('div', 'group g-ears', gUpper);
+  const gHead = el('div', 'group g-head', gUpper);
+  gHead.style.transformOrigin = gEars.style.transformOrigin = `${P.head[0]}px ${P.head[1]}px`;
+  const earL = el('div', 'ear ear-left', gEars), earR = el('div', 'ear ear-right', gEars);
+  earL.style.transformOrigin = `${P.ear_left[0]}px ${P.ear_left[1]}px`;
+  earR.style.transformOrigin = `${P.ear_right[0]}px ${P.ear_right[1]}px`;
+  const earImgs = [img('bunny-ear-left', earL), img('bunny-ear-right', earR)];
+
+  // ---------- grafo de poses ----------
+  // Nodos: las poses. Aristas: secuencias de fotogramas intermedios (reposo↔pose y poses vecinas
+  // entre sí, p. ej. mirar arriba↔curiosidad), así que nunca hace falta pasar por el centro si hay atajo.
+  const STEPS = ['t25', 't50', 't75'];
+  const FRAME_MS = 22;
+  const imgs = {};
+  const getImg = (key, parent) => imgs[key] || (imgs[key] = img(key, parent));
+  const has = k => !!B.layers[k];
+  const NODE = { rest: { body: 'bunny-body-rest', head: 'bunny-head-rest-open', blink: 'bunny-head-rest-blink' } };
+  for (const [p, stack] of Object.entries(B.poses)) if (p !== 'rest') {
+    const head = stack[stack.length - 1];
+    NODE[p] = { body: stack[1], head, blink: head.replace(/-open$/, '-blink') };
+  }
+  const EDGE = {};   // 'a|b' → fotogramas intermedios de a hacia b
+  function addEdge(a, b, prefix) {
+    const mids = STEPS.map(s => ({ body: `bunny-body-${prefix}-${s}`, head: `bunny-head-${prefix}-${s}-open` }));
+    if (!mids.every(f => has(f.body) && has(f.head))) return;
+    EDGE[a + '|' + b] = mids; EDGE[b + '|' + a] = [...mids].reverse();
+  }
+  for (const p of Object.keys(NODE)) if (p !== 'rest') addEdge('rest', p, p);
+  for (const [a, b] of (B.transitions || [])) addEdge(a, b, `${a}--${b}`);
+  for (const f of [...Object.values(NODE), ...Object.values(EDGE).flat()]) {
+    getImg(f.body, gBody); getImg(f.head, gHead); if (f.blink) getImg(f.blink, gHead);
+  }
+  const neighbours = n => Object.keys(EDGE).filter(k => k.startsWith(n + '|')).map(k => k.split('|')[1]);
+  function distFrom(src) {   // Dijkstra en fotogramas (el grafo es pequeño)
+    const d = { [src]: 0 }, todo = new Set(Object.keys(NODE));
+    while (todo.size) {
+      let u = null; for (const n of todo) if (d[n] !== undefined && (u === null || d[n] < d[u])) u = n;
+      if (u === null) break; todo.delete(u);
+      for (const v of neighbours(u)) { const w = d[u] + EDGE[u + '|' + v].length + 1; if (d[v] === undefined || w < d[v]) d[v] = w; }
+    }
+    return d;
+  }
+  const DIST = {}; for (const n of Object.keys(NODE)) DIST[n] = distFrom(n);
+  const far = (a, b) => DIST[a][b] ?? 1e9;
+  const nextHop = (u, t) => {
+    let best = null;
+    for (const v of neighbours(u)) { const c = EDGE[u + '|' + v].length + 1 + far(v, t); if (!best || c < best.c) best = { v, c }; }
+    return best && best.v;
+  };
+
+  // ---------- estado: en un nodo (v = null) o en la arista u→v, fotograma i (1..n) ----------
+  let cur = { u: 'rest', v: null, i: 0 }, target = 'rest', timer = null;
+  let blinking = false, busyUntil = 0, shown = [], allReady = false;
+  const atNode = () => cur.v === null;
+  const frameOf = () => atNode() ? NODE[cur.u] : EDGE[cur.u + '|' + cur.v][cur.i - 1];
+  function render() {
+    const f = frameOf();
+    const want = [f.body, blinking && f.blink ? f.blink : f.head];
+    for (const k of want) imgs[k].classList.add('on');          // primero lo nuevo, luego se quita lo viejo
+    for (const k of shown) if (!want.includes(k)) imgs[k].classList.remove('on');
+    shown = want;
+    earImgs.forEach(e => e.classList.toggle('on', atNode() && cur.u === 'rest'));   // orejas sueltas solo en el reposo
+  }
+  // un paso por fotograma por el camino más corto; si el objetivo cambia a mitad, da la vuelta si es más corto
+  function tick() {
+    if (atNode() && cur.u === target) { timer = null; if (target.startsWith('present')) popNow(); return; }
+    if (atNode()) {
+      const v = nextHop(cur.u, target);
+      if (!v) { timer = null; return; }
+      cur = { u: cur.u, v, i: 1 };
+    } else {
+      const n = EDGE[cur.u + '|' + cur.v].length;
+      const fwd = (n + 1 - cur.i) + far(cur.v, target), back = cur.i + far(cur.u, target);
+      if (back < fwd) cur = { u: cur.v, v: cur.u, i: n + 1 - cur.i };
+      cur.i++;
+      if (cur.i > n) cur = { u: cur.v, v: null, i: 0 };
+    }
+    render();
+    timer = setTimeout(tick, FRAME_MS);
+  }
+  function popNow() {
+    if (isStatic()) return;
+    document.body.classList.remove('pop'); void document.body.offsetWidth; document.body.classList.add('pop');
+  }
+  function setPose(p) {
+    if (p === target || !NODE[p] || (!allReady && p !== 'rest')) return;
+    target = p;
+    document.getElementById('poseName').textContent = p;
+    if (p !== 'rest') clearTilt();
+    if (isStatic()) { cur = { u: p, v: null, i: 0 }; render(); return; }
+    if (!timer) tick();
+  }
+
+  // ---------- una sola decisión: adónde mirar según el puntero ----------
+  const sideToCurious = { 'left': 'curious-left', 'right': 'curious-right', 'up-left': 'look-up-left', 'up-right': 'look-up-right' };
+  const sideToPresent = { 'left': 'present-left', 'right': 'present-right', 'up-left': 'present-left', 'up-right': 'present-right' };
+  const follow = document.getElementById('follow');
+  let ptr = null, hoverSide = null, pending = null, pendTimer = null;
+  function headScreenPoint() {
+    const r = canvas.getBoundingClientRect(), s = r.width / 1200;
+    return [r.left + P.head[0] * s, r.top + P.head[1] * s, s];
+  }
+  function desired() {
+    if (hoverSide) return sideToCurious[hoverSide];
+    if (!follow.checked || !ptr) return 'rest';
+    const [hx, hy, s] = headScreenPoint();
+    const dx = (ptr[0] - hx) / s, dy = (ptr[1] - hy) / s;          // en píxeles del lienzo
+    // histéresis: para salir de la pose actual hay que pasar el umbral con margen
+    const keep = (p) => target === p ? 90 : 0;
+    const left = dx < 0;
+    const upPose = left ? 'look-up-left' : 'look-up-right', sidePose = left ? 'curious-left' : 'curious-right';
+    if (dy < -(420 - keep(upPose)) && Math.abs(dx) > 150 - keep(upPose)) return upPose;
+    if (Math.abs(dx) > 520 - keep(sidePose)) return sidePose;
+    return 'rest';
+  }
+  // los cambios se confirman tras una pausa corta: los bordes y huecos entre portadas no hacen rebotar
+  function evaluate() {
+    if (isStatic() || performance.now() < busyUntil) return;
+    const d = desired();
+    if (d === target) { clearTimeout(pendTimer); pending = null; return; }
+    if (d === pending) return;
+    pending = d; clearTimeout(pendTimer);
+    pendTimer = setTimeout(() => { pending = null; setPose(d); }, hoverSide ? 60 : 140);
+  }
+  function clearTilt() { gHead.style.transform = gEars.style.transform = ''; earL.style.transform = earR.style.transform = ''; }
+  function applyTilt() {   // micro-giro y orejas con muelle, solo quieto en el reposo
+    if (!(atNode() && cur.u === 'rest' && target === 'rest') || !ptr || !follow.checked || isStatic()) return;
+    const [hx, , s] = headScreenPoint();
+    const tilt = Math.max(-4, Math.min(4, (ptr[0] - hx) / s / 120));
+    gHead.style.transform = gEars.style.transform = `rotate(${tilt}deg)`;
+    earL.style.transform = earR.style.transform = `rotate(${-tilt * 1.6}deg)`;
+  }
+  window.addEventListener('pointermove', (e) => { ptr = [e.clientX, e.clientY]; evaluate(); applyTilt(); });
+  document.documentElement.addEventListener('pointerleave', () => { ptr = null; hoverSide = null; evaluate(); });
+  follow.addEventListener('change', evaluate);
+
+  // un gesto que dura un rato; al acabar, vuelve a lo que diga el puntero
+  function gesture(p, ms) {
+    clearTimeout(pendTimer); pending = null;
+    setPose(p); busyUntil = performance.now() + ms;
+    clearTimeout(gesture.t); gesture.t = setTimeout(() => { busyUntil = 0; setPose(desired()); }, ms);
+  }
+
+  // ---------- parpadeo ----------
+  function blink() {
+    if (isStatic() || timer) return;            // no parpadear a mitad de un giro
+    blinking = true; render();
+    setTimeout(() => { blinking = false; render(); }, 120);
+  }
+  (function loop() { setTimeout(() => { blink(); loop(); }, 4000 + Math.random() * 3000); })();
+
+  // ---------- portadas ----------
+  document.querySelectorAll('.cover').forEach(c => {
+    c.addEventListener('pointerenter', () => { hoverSide = c.dataset.side; evaluate(); });
+    c.addEventListener('pointerleave', () => { hoverSide = null; evaluate(); });
+    c.addEventListener('click', () => gesture(sideToPresent[c.dataset.side], 2200));
+  });
+  document.querySelectorAll('[data-pose]').forEach(b => b.addEventListener('click', () => gesture(b.dataset.pose, 2200)));
+  document.getElementById('blinkNow').addEventListener('click', blink);
+
+  // ---------- baile ----------
+  function dance() {
+    if (isStatic()) return;
+    gesture('rest', 1700);
+    document.body.classList.remove('dancing'); void document.body.offsetWidth; document.body.classList.add('dancing');
+    setTimeout(() => document.body.classList.remove('dancing'), 1700);
+  }
+  stage.addEventListener('click', dance);
+  document.getElementById('dance').addEventListener('click', dance);
+
+  // ---------- movimiento reducido ----------
+  const reduce = document.getElementById('reduce');
+  function isStatic() { return reduce.checked || reduceMQ.matches; }
+  function applyMotionMode() {
+    const st = isStatic();
+    document.body.classList.toggle('static', st);
+    document.body.classList.toggle('breathing', !st);
+    rig.style.display = st ? 'none' : '';
+    full.classList.toggle('on', st);
+    if (st) { clearTimeout(timer); timer = null; target = 'rest'; cur = { u: 'rest', v: null, i: 0 }; clearTilt(); render();
+              document.getElementById('poseName').textContent = 'rest'; }
+  }
+  reduce.addEventListener('change', applyMotionMode);
+  reduceMQ.addEventListener?.('change', applyMotionMode);
+
+  // ---------- escala ----------
+  function fit() { canvas.style.setProperty('--s', stage.clientWidth / 1200); }
+  new ResizeObserver(fit).observe(stage); fit();
+
+  // ---------- peso ----------
+  const kb = n => Math.round(n / 1024);
+  const all = Object.values(B.layers).reduce((a, l) => a + l.bytes, 0);
+  const restBytes = B.poses.rest.reduce((a, k) => a + B.layers[k].bytes, 0);
+  document.getElementById('weight').innerHTML =
+    `Peso: reposo <b>${kb(restBytes)} KB</b> · todas las capas <b>${kb(all)} KB</b> · imagen fija <b>${kb(B.layers['bunny-full-rest'].bytes)} KB</b>`;
+
+  // se muestra en cuanto el reposo está descodificado; el resto se descodifica después
+  // (hasta entonces el conejo se queda en reposo)
+  const firstPaint = new Set([...B.poses.rest, 'bunny-head-rest-blink', 'bunny-full-rest']);
+  canvas.style.visibility = 'hidden';
+  Promise.all([...canvas.querySelectorAll('img')].filter(i => firstPaint.has(i.dataset.key)).map(i => i.decode().catch(() => {})))
+    .then(() => { canvas.style.visibility = ''; })
+    .then(() => Promise.all(Object.values(imgs).map(i => i.decode().catch(() => {}))))
+    .then(() => { allReady = true; evaluate(); });
+
+  applyMotionMode(); render();
+})();
+</script>
+</body>
+</html>

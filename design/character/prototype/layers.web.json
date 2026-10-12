@@ -1,0 +1,1015 @@
+{
+  "canvas": [
+    1200,
+    1600
+  ],
+  "camera": {
+    "name": "Cam_Main",
+    "yaw_deg": -10,
+    "lens_mm": 85.0
+  },
+  "coords": "píxeles del lienzo, origen arriba a la izquierda. left/right = lado de la pantalla",
+  "draw_order": [
+    "shadow",
+    "body (uno por pose: lleva la sombra de su cabeza)",
+    "ears (solo con head-rest)",
+    "head"
+  ],
+  "blink": "cambiar head-*-open por head-*-blink durante ~120 ms",
+  "halo_css": {
+    "center": [
+      600.0,
+      1465.9
+    ],
+    "half_width": 167.9,
+    "color": "#329DA8",
+    "opacity": 0.38
+  },
+  "pivots": {
+    "head": [
+      600.0,
+      944.9
+    ],
+    "neck": [
+      600.0,
+      996.8
+    ],
+    "ear_left": [
+      450.3,
+      532.4
+    ],
+    "ear_right": [
+      744.1,
+      538.0
+    ],
+    "shoulder_left": [
+      463.8,
+      1075.5
+    ],
+    "shoulder_right": [
+      734.5,
+      1073.8
+    ],
+    "eye_left": [
+      426.9,
+      748.0
+    ],
+    "eye_right": [
+      831.2,
+      751.7
+    ],
+    "feet": [
+      600.0,
+      1465.9
+    ],
+    "halo_half_width": 167.9
+  },
+  "poses": {
+    "rest": [
+      "bunny-shadow",
+      "bunny-body-rest",
+      "bunny-ear-left",
+      "bunny-ear-right",
+      "bunny-head-rest-open"
+    ],
+    "curious-left": [
+      "bunny-shadow",
+      "bunny-body-curious-left",
+      "bunny-head-curious-left-open"
+    ],
+    "curious-right": [
+      "bunny-shadow",
+      "bunny-body-curious-right",
+      "bunny-head-curious-right-open"
+    ],
+    "present-left": [
+      "bunny-shadow",
+      "bunny-body-point-left",
+      "bunny-head-present-left-open"
+    ],
+    "present-right": [
+      "bunny-shadow",
+      "bunny-body-point-right",
+      "bunny-head-present-right-open"
+    ],
+    "look-up-left": [
+      "bunny-shadow",
+      "bunny-body-look-up-left",
+      "bunny-head-look-up-left-open"
+    ],
+    "look-up-right": [
+      "bunny-shadow",
+      "bunny-body-look-up-right",
+      "bunny-head-look-up-right-open"
+    ]
+  },
+  "layers": {
+    "bunny-body-point-left": {
+      "file": "assets/bunny-body-point-left.webp",
+      "x": 236,
+      "y": 839,
+      "w": 588,
+      "h": 636,
+      "bytes": 21128
+    },
+    "bunny-body-point-right": {
+      "file": "assets/bunny-body-point-right.webp",
+      "x": 373,
+      "y": 839,
+      "w": 598,
+      "h": 636,
+      "bytes": 21562
+    },
+    "bunny-body-rest": {
+      "file": "assets/bunny-body-rest.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19594
+    },
+    "bunny-ear-left": {
+      "file": "assets/bunny-ear-left.webp",
+      "x": 292,
+      "y": 146,
+      "w": 216,
+      "h": 425,
+      "bytes": 7388
+    },
+    "bunny-ear-right": {
+      "file": "assets/bunny-ear-right.webp",
+      "x": 684,
+      "y": 163,
+      "w": 199,
+      "h": 413,
+      "bytes": 7386
+    },
+    "bunny-full-rest": {
+      "file": "assets/bunny-full-rest.webp",
+      "x": 4,
+      "y": 146,
+      "w": 1192,
+      "h": 1450,
+      "bytes": 87606
+    },
+    "bunny-head-curious-left-blink": {
+      "file": "assets/bunny-head-curious-left-blink.webp",
+      "x": 176,
+      "y": 105,
+      "w": 762,
+      "h": 898,
+      "bytes": 25460
+    },
+    "bunny-head-curious-left-open": {
+      "file": "assets/bunny-head-curious-left-open.webp",
+      "x": 176,
+      "y": 105,
+      "w": 762,
+      "h": 898,
+      "bytes": 25976
+    },
+    "bunny-head-curious-right-blink": {
+      "file": "assets/bunny-head-curious-right-blink.webp",
+      "x": 278,
+      "y": 97,
+      "w": 669,
+      "h": 905,
+      "bytes": 24224
+    },
+    "bunny-head-curious-right-open": {
+      "file": "assets/bunny-head-curious-right-open.webp",
+      "x": 278,
+      "y": 97,
+      "w": 669,
+      "h": 905,
+      "bytes": 25120
+    },
+    "bunny-head-look-up-left-blink": {
+      "file": "assets/bunny-head-look-up-left-blink.webp",
+      "x": 237,
+      "y": 247,
+      "w": 717,
+      "h": 757,
+      "bytes": 22708
+    },
+    "bunny-head-look-up-left-open": {
+      "file": "assets/bunny-head-look-up-left-open.webp",
+      "x": 237,
+      "y": 247,
+      "w": 717,
+      "h": 757,
+      "bytes": 23376
+    },
+    "bunny-head-look-up-right-blink": {
+      "file": "assets/bunny-head-look-up-right-blink.webp",
+      "x": 242,
+      "y": 230,
+      "w": 683,
+      "h": 772,
+      "bytes": 22690
+    },
+    "bunny-head-look-up-right-open": {
+      "file": "assets/bunny-head-look-up-right-open.webp",
+      "x": 242,
+      "y": 230,
+      "w": 683,
+      "h": 772,
+      "bytes": 23022
+    },
+    "bunny-head-present-left-blink": {
+      "file": "assets/bunny-head-present-left-blink.webp",
+      "x": 229,
+      "y": 137,
+      "w": 728,
+      "h": 860,
+      "bytes": 25080
+    },
+    "bunny-head-present-left-open": {
+      "file": "assets/bunny-head-present-left-open.webp",
+      "x": 229,
+      "y": 137,
+      "w": 728,
+      "h": 860,
+      "bytes": 25978
+    },
+    "bunny-head-present-right-blink": {
+      "file": "assets/bunny-head-present-right-blink.webp",
+      "x": 249,
+      "y": 121,
+      "w": 703,
+      "h": 876,
+      "bytes": 25198
+    },
+    "bunny-head-present-right-open": {
+      "file": "assets/bunny-head-present-right-open.webp",
+      "x": 249,
+      "y": 121,
+      "w": 703,
+      "h": 876,
+      "bytes": 26098
+    },
+    "bunny-head-rest-blink": {
+      "file": "assets/bunny-head-rest-blink.webp",
+      "x": 236,
+      "y": 496,
+      "w": 723,
+      "h": 502,
+      "bytes": 14744
+    },
+    "bunny-head-rest-open": {
+      "file": "assets/bunny-head-rest-open.webp",
+      "x": 236,
+      "y": 496,
+      "w": 723,
+      "h": 502,
+      "bytes": 15414
+    },
+    "bunny-shadow": {
+      "file": "assets/bunny-shadow.webp",
+      "x": 4,
+      "y": 1075,
+      "w": 1192,
+      "h": 521,
+      "bytes": 49230
+    },
+    "bunny-body-curious-left": {
+      "file": "assets/bunny-body-curious-left.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20204
+    },
+    "bunny-body-curious-right": {
+      "file": "assets/bunny-body-curious-right.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19878
+    },
+    "bunny-body-look-up-left": {
+      "file": "assets/bunny-body-look-up-left.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20274
+    },
+    "bunny-body-look-up-right": {
+      "file": "assets/bunny-body-look-up-right.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19994
+    },
+    "bunny-body-curious-left-t25": {
+      "file": "assets/bunny-body-curious-left-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19698
+    },
+    "bunny-body-curious-left-t50": {
+      "file": "assets/bunny-body-curious-left-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19940
+    },
+    "bunny-body-curious-left-t75": {
+      "file": "assets/bunny-body-curious-left-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20128
+    },
+    "bunny-body-curious-right-t25": {
+      "file": "assets/bunny-body-curious-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19508
+    },
+    "bunny-body-curious-right-t50": {
+      "file": "assets/bunny-body-curious-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19650
+    },
+    "bunny-body-curious-right-t75": {
+      "file": "assets/bunny-body-curious-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19702
+    },
+    "bunny-body-look-up-left-t25": {
+      "file": "assets/bunny-body-look-up-left-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19918
+    },
+    "bunny-body-look-up-left-t50": {
+      "file": "assets/bunny-body-look-up-left-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19910
+    },
+    "bunny-body-look-up-left-t75": {
+      "file": "assets/bunny-body-look-up-left-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20214
+    },
+    "bunny-body-look-up-right-t25": {
+      "file": "assets/bunny-body-look-up-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19772
+    },
+    "bunny-body-look-up-right-t50": {
+      "file": "assets/bunny-body-look-up-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19890
+    },
+    "bunny-body-look-up-right-t75": {
+      "file": "assets/bunny-body-look-up-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 19920
+    },
+    "bunny-body-present-left-t25": {
+      "file": "assets/bunny-body-present-left-t25.webp",
+      "x": 321,
+      "y": 839,
+      "w": 503,
+      "h": 636,
+      "bytes": 21048
+    },
+    "bunny-body-present-left-t50": {
+      "file": "assets/bunny-body-present-left-t50.webp",
+      "x": 278,
+      "y": 839,
+      "w": 546,
+      "h": 636,
+      "bytes": 21396
+    },
+    "bunny-body-present-left-t75": {
+      "file": "assets/bunny-body-present-left-t75.webp",
+      "x": 249,
+      "y": 839,
+      "w": 575,
+      "h": 636,
+      "bytes": 21690
+    },
+    "bunny-body-present-right-t25": {
+      "file": "assets/bunny-body-present-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 502,
+      "h": 636,
+      "bytes": 20882
+    },
+    "bunny-body-present-right-t50": {
+      "file": "assets/bunny-body-present-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 547,
+      "h": 636,
+      "bytes": 21598
+    },
+    "bunny-body-present-right-t75": {
+      "file": "assets/bunny-body-present-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 580,
+      "h": 636,
+      "bytes": 21612
+    },
+    "bunny-head-curious-left-t25-open": {
+      "file": "assets/bunny-head-curious-left-t25-open.webp",
+      "x": 229,
+      "y": 143,
+      "w": 728,
+      "h": 855,
+      "bytes": 26220
+    },
+    "bunny-head-curious-left-t50-open": {
+      "file": "assets/bunny-head-curious-left-t50-open.webp",
+      "x": 224,
+      "y": 127,
+      "w": 728,
+      "h": 871,
+      "bytes": 26542
+    },
+    "bunny-head-curious-left-t75-open": {
+      "file": "assets/bunny-head-curious-left-t75-open.webp",
+      "x": 197,
+      "y": 114,
+      "w": 748,
+      "h": 886,
+      "bytes": 26772
+    },
+    "bunny-head-curious-right-t25-open": {
+      "file": "assets/bunny-head-curious-right-t25-open.webp",
+      "x": 243,
+      "y": 128,
+      "w": 717,
+      "h": 869,
+      "bytes": 25670
+    },
+    "bunny-head-curious-right-t50-open": {
+      "file": "assets/bunny-head-curious-right-t50-open.webp",
+      "x": 253,
+      "y": 114,
+      "w": 705,
+      "h": 884,
+      "bytes": 25902
+    },
+    "bunny-head-curious-right-t75-open": {
+      "file": "assets/bunny-head-curious-right-t75-open.webp",
+      "x": 265,
+      "y": 103,
+      "w": 688,
+      "h": 897,
+      "bytes": 25394
+    },
+    "bunny-head-look-up-left-t25-open": {
+      "file": "assets/bunny-head-look-up-left-t25-open.webp",
+      "x": 233,
+      "y": 174,
+      "w": 724,
+      "h": 823,
+      "bytes": 25298
+    },
+    "bunny-head-look-up-left-t50-open": {
+      "file": "assets/bunny-head-look-up-left-t50-open.webp",
+      "x": 231,
+      "y": 193,
+      "w": 724,
+      "h": 805,
+      "bytes": 25088
+    },
+    "bunny-head-look-up-left-t75-open": {
+      "file": "assets/bunny-head-look-up-left-t75-open.webp",
+      "x": 233,
+      "y": 217,
+      "w": 721,
+      "h": 784,
+      "bytes": 24184
+    },
+    "bunny-head-look-up-right-t25-open": {
+      "file": "assets/bunny-head-look-up-right-t25-open.webp",
+      "x": 238,
+      "y": 158,
+      "w": 717,
+      "h": 838,
+      "bytes": 25316
+    },
+    "bunny-head-look-up-right-t50-open": {
+      "file": "assets/bunny-head-look-up-right-t50-open.webp",
+      "x": 240,
+      "y": 177,
+      "w": 707,
+      "h": 820,
+      "bytes": 24810
+    },
+    "bunny-head-look-up-right-t75-open": {
+      "file": "assets/bunny-head-look-up-right-t75-open.webp",
+      "x": 241,
+      "y": 201,
+      "w": 696,
+      "h": 798,
+      "bytes": 23506
+    },
+    "bunny-head-present-left-t25-open": {
+      "file": "assets/bunny-head-present-left-t25-open.webp",
+      "x": 234,
+      "y": 150,
+      "w": 726,
+      "h": 847,
+      "bytes": 25724
+    },
+    "bunny-head-present-left-t50-open": {
+      "file": "assets/bunny-head-present-left-t50-open.webp",
+      "x": 232,
+      "y": 150,
+      "w": 727,
+      "h": 847,
+      "bytes": 25582
+    },
+    "bunny-head-present-left-t75-open": {
+      "file": "assets/bunny-head-present-left-t75-open.webp",
+      "x": 230,
+      "y": 143,
+      "w": 728,
+      "h": 854,
+      "bytes": 26090
+    },
+    "bunny-head-present-right-t25-open": {
+      "file": "assets/bunny-head-present-right-t25-open.webp",
+      "x": 238,
+      "y": 139,
+      "w": 720,
+      "h": 858,
+      "bytes": 25502
+    },
+    "bunny-head-present-right-t50-open": {
+      "file": "assets/bunny-head-present-right-t50-open.webp",
+      "x": 241,
+      "y": 133,
+      "w": 716,
+      "h": 864,
+      "bytes": 26240
+    },
+    "bunny-head-present-right-t75-open": {
+      "file": "assets/bunny-head-present-right-t75-open.webp",
+      "x": 245,
+      "y": 127,
+      "w": 709,
+      "h": 870,
+      "bytes": 26092
+    },
+    "bunny-body-curious-left--present-left-t25": {
+      "file": "assets/bunny-body-curious-left--present-left-t25.webp",
+      "x": 321,
+      "y": 839,
+      "w": 503,
+      "h": 636,
+      "bytes": 21110
+    },
+    "bunny-body-curious-left--present-left-t50": {
+      "file": "assets/bunny-body-curious-left--present-left-t50.webp",
+      "x": 278,
+      "y": 839,
+      "w": 546,
+      "h": 636,
+      "bytes": 21812
+    },
+    "bunny-body-curious-left--present-left-t75": {
+      "file": "assets/bunny-body-curious-left--present-left-t75.webp",
+      "x": 249,
+      "y": 839,
+      "w": 575,
+      "h": 636,
+      "bytes": 21780
+    },
+    "bunny-body-curious-right--present-right-t25": {
+      "file": "assets/bunny-body-curious-right--present-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 502,
+      "h": 636,
+      "bytes": 21100
+    },
+    "bunny-body-curious-right--present-right-t50": {
+      "file": "assets/bunny-body-curious-right--present-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 547,
+      "h": 636,
+      "bytes": 21486
+    },
+    "bunny-body-curious-right--present-right-t75": {
+      "file": "assets/bunny-body-curious-right--present-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 580,
+      "h": 636,
+      "bytes": 21676
+    },
+    "bunny-body-look-up-left--curious-left-t25": {
+      "file": "assets/bunny-body-look-up-left--curious-left-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20322
+    },
+    "bunny-body-look-up-left--curious-left-t50": {
+      "file": "assets/bunny-body-look-up-left--curious-left-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20314
+    },
+    "bunny-body-look-up-left--curious-left-t75": {
+      "file": "assets/bunny-body-look-up-left--curious-left-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20142
+    },
+    "bunny-body-look-up-left--present-left-t25": {
+      "file": "assets/bunny-body-look-up-left--present-left-t25.webp",
+      "x": 321,
+      "y": 839,
+      "w": 503,
+      "h": 636,
+      "bytes": 21324
+    },
+    "bunny-body-look-up-left--present-left-t50": {
+      "file": "assets/bunny-body-look-up-left--present-left-t50.webp",
+      "x": 278,
+      "y": 839,
+      "w": 546,
+      "h": 636,
+      "bytes": 21648
+    },
+    "bunny-body-look-up-left--present-left-t75": {
+      "file": "assets/bunny-body-look-up-left--present-left-t75.webp",
+      "x": 249,
+      "y": 839,
+      "w": 575,
+      "h": 636,
+      "bytes": 21848
+    },
+    "bunny-body-look-up-right--curious-right-t25": {
+      "file": "assets/bunny-body-look-up-right--curious-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20064
+    },
+    "bunny-body-look-up-right--curious-right-t50": {
+      "file": "assets/bunny-body-look-up-right--curious-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20042
+    },
+    "bunny-body-look-up-right--curious-right-t75": {
+      "file": "assets/bunny-body-look-up-right--curious-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 451,
+      "h": 636,
+      "bytes": 20000
+    },
+    "bunny-body-look-up-right--present-right-t25": {
+      "file": "assets/bunny-body-look-up-right--present-right-t25.webp",
+      "x": 373,
+      "y": 839,
+      "w": 502,
+      "h": 636,
+      "bytes": 21270
+    },
+    "bunny-body-look-up-right--present-right-t50": {
+      "file": "assets/bunny-body-look-up-right--present-right-t50.webp",
+      "x": 373,
+      "y": 839,
+      "w": 547,
+      "h": 636,
+      "bytes": 21682
+    },
+    "bunny-body-look-up-right--present-right-t75": {
+      "file": "assets/bunny-body-look-up-right--present-right-t75.webp",
+      "x": 373,
+      "y": 839,
+      "w": 580,
+      "h": 636,
+      "bytes": 21834
+    },
+    "bunny-head-curious-left--present-left-t25-open": {
+      "file": "assets/bunny-head-curious-left--present-left-t25-open.webp",
+      "x": 196,
+      "y": 110,
+      "w": 747,
+      "h": 891,
+      "bytes": 26288
+    },
+    "bunny-head-curious-left--present-left-t50-open": {
+      "file": "assets/bunny-head-curious-left--present-left-t50-open.webp",
+      "x": 219,
+      "y": 117,
+      "w": 729,
+      "h": 882,
+      "bytes": 25962
+    },
+    "bunny-head-curious-left--present-left-t75-open": {
+      "file": "assets/bunny-head-curious-left--present-left-t75-open.webp",
+      "x": 226,
+      "y": 126,
+      "w": 727,
+      "h": 872,
+      "bytes": 26328
+    },
+    "bunny-head-curious-right--present-right-t25-open": {
+      "file": "assets/bunny-head-curious-right--present-right-t25-open.webp",
+      "x": 270,
+      "y": 100,
+      "w": 679,
+      "h": 900,
+      "bytes": 25288
+    },
+    "bunny-head-curious-right--present-right-t50-open": {
+      "file": "assets/bunny-head-curious-right--present-right-t50-open.webp",
+      "x": 263,
+      "y": 105,
+      "w": 687,
+      "h": 894,
+      "bytes": 25414
+    },
+    "bunny-head-curious-right--present-right-t75-open": {
+      "file": "assets/bunny-head-curious-right--present-right-t75-open.webp",
+      "x": 255,
+      "y": 112,
+      "w": 696,
+      "h": 885,
+      "bytes": 25662
+    },
+    "bunny-head-look-up-left--curious-left-t25-open": {
+      "file": "assets/bunny-head-look-up-left--curious-left-t25-open.webp",
+      "x": 233,
+      "y": 203,
+      "w": 718,
+      "h": 799,
+      "bytes": 24192
+    },
+    "bunny-head-look-up-left--curious-left-t50-open": {
+      "file": "assets/bunny-head-look-up-left--curious-left-t50-open.webp",
+      "x": 229,
+      "y": 165,
+      "w": 718,
+      "h": 835,
+      "bytes": 25202
+    },
+    "bunny-head-look-up-left--curious-left-t75-open": {
+      "file": "assets/bunny-head-look-up-left--curious-left-t75-open.webp",
+      "x": 213,
+      "y": 132,
+      "w": 730,
+      "h": 869,
+      "bytes": 25510
+    },
+    "bunny-head-look-up-left--present-left-t25-open": {
+      "file": "assets/bunny-head-look-up-left--present-left-t25-open.webp",
+      "x": 234,
+      "y": 212,
+      "w": 720,
+      "h": 789,
+      "bytes": 23982
+    },
+    "bunny-head-look-up-left--present-left-t50-open": {
+      "file": "assets/bunny-head-look-up-left--present-left-t50-open.webp",
+      "x": 232,
+      "y": 182,
+      "w": 722,
+      "h": 816,
+      "bytes": 24780
+    },
+    "bunny-head-look-up-left--present-left-t75-open": {
+      "file": "assets/bunny-head-look-up-left--present-left-t75-open.webp",
+      "x": 230,
+      "y": 157,
+      "w": 725,
+      "h": 840,
+      "bytes": 25464
+    },
+    "bunny-head-look-up-right--curious-right-t25-open": {
+      "file": "assets/bunny-head-look-up-right--curious-right-t25-open.webp",
+      "x": 250,
+      "y": 188,
+      "w": 680,
+      "h": 813,
+      "bytes": 23380
+    },
+    "bunny-head-look-up-right--curious-right-t50-open": {
+      "file": "assets/bunny-head-look-up-right--curious-right-t50-open.webp",
+      "x": 259,
+      "y": 151,
+      "w": 676,
+      "h": 849,
+      "bytes": 23606
+    },
+    "bunny-head-look-up-right--curious-right-t75-open": {
+      "file": "assets/bunny-head-look-up-right--curious-right-t75-open.webp",
+      "x": 268,
+      "y": 121,
+      "w": 672,
+      "h": 879,
+      "bytes": 24062
+    },
+    "bunny-head-look-up-right--present-right-t25-open": {
+      "file": "assets/bunny-head-look-up-right--present-right-t25-open.webp",
+      "x": 244,
+      "y": 196,
+      "w": 688,
+      "h": 803,
+      "bytes": 23796
+    },
+    "bunny-head-look-up-right--present-right-t50-open": {
+      "file": "assets/bunny-head-look-up-right--present-right-t50-open.webp",
+      "x": 246,
+      "y": 166,
+      "w": 693,
+      "h": 831,
+      "bytes": 24316
+    },
+    "bunny-head-look-up-right--present-right-t75-open": {
+      "file": "assets/bunny-head-look-up-right--present-right-t75-open.webp",
+      "x": 248,
+      "y": 141,
+      "w": 697,
+      "h": 855,
+      "bytes": 25572
+    }
+  },
+  "sequences": {
+    "curious-left": [
+      {
+        "body": "bunny-body-curious-left-t25",
+        "head": "bunny-head-curious-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-curious-left-t50",
+        "head": "bunny-head-curious-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-curious-left-t75",
+        "head": "bunny-head-curious-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "curious-right": [
+      {
+        "body": "bunny-body-curious-right-t25",
+        "head": "bunny-head-curious-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-curious-right-t50",
+        "head": "bunny-head-curious-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-curious-right-t75",
+        "head": "bunny-head-curious-right-t75-open",
+        "t": 0.75
+      }
+    ],
+    "present-left": [
+      {
+        "body": "bunny-body-present-left-t25",
+        "head": "bunny-head-present-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-present-left-t50",
+        "head": "bunny-head-present-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-present-left-t75",
+        "head": "bunny-head-present-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "present-right": [
+      {
+        "body": "bunny-body-present-right-t25",
+        "head": "bunny-head-present-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-present-right-t50",
+        "head": "bunny-head-present-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-present-right-t75",
+        "head": "bunny-head-present-right-t75-open",
+        "t": 0.75
+      }
+    ],
+    "look-up-left": [
+      {
+        "body": "bunny-body-look-up-left-t25",
+        "head": "bunny-head-look-up-left-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-look-up-left-t50",
+        "head": "bunny-head-look-up-left-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-look-up-left-t75",
+        "head": "bunny-head-look-up-left-t75-open",
+        "t": 0.75
+      }
+    ],
+    "look-up-right": [
+      {
+        "body": "bunny-body-look-up-right-t25",
+        "head": "bunny-head-look-up-right-t25-open",
+        "t": 0.25
+      },
+      {
+        "body": "bunny-body-look-up-right-t50",
+        "head": "bunny-head-look-up-right-t50-open",
+        "t": 0.5
+      },
+      {
+        "body": "bunny-body-look-up-right-t75",
+        "head": "bunny-head-look-up-right-t75-open",
+        "t": 0.75
+      }
+    ]
+  },
+  "sequences_nota": "Fotogramas intermedios desde el reposo (t=0) hasta la pose (t=1). Para ir de A a B: los de A al revés hasta el reposo y luego los de B. ~22 ms por fotograma.",
+  "transitions": [
+    [
+      "look-up-left",
+      "curious-left"
+    ],
+    [
+      "look-up-right",
+      "curious-right"
+    ],
+    [
+      "curious-left",
+      "present-left"
+    ],
+    [
+      "curious-right",
+      "present-right"
+    ],
+    [
+      "look-up-left",
+      "present-left"
+    ],
+    [
+      "look-up-right",
+      "present-right"
+    ]
+  ]
+}
