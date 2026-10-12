@@ -120,8 +120,8 @@
     "productionNotes": "Notas de producción",
     "proposedStack": "Stack propuesto",
     "nextValidation": "Próxima validación",
-    "showAll": "Mostrar todas",
     "trackOf": "Pista {number} de {total}",
-    "coverOf": "Portada de {title}"
+    "coverOf": "Portada de {title}",
+    "backToTracks": "Volver a todas las pistas"
   }
 }

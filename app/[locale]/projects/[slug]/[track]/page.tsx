@@ -1,14 +1,12 @@
-import { LayoutList } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 
 import { TrackRow } from "@/components/portfolio/track-row";
-import { buttonVariants } from "@/components/ui/button";
 import { getProject, getProjects, getReadingMinutes, isPublished, loadTrackBody } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
-import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
   return getProjects()
@@ -36,8 +34,9 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
   };
 }
 
-// Pista abierta (Figma V2-D06/M06; BUNNY-RECORDS.md §5.2 paso 5): la fila sube al lugar de la primera,
-// su capítulo se despliega debajo y "Mostrar todas" vuelve a la lista. ⏮ ⏭ están en la bandeja.
+// Pista abierta (Figma V2-D06; BUNNY-RECORDS.md §5.2 paso 5): la fila sube al lugar de la primera y su
+// capítulo se despliega debajo. La flecha ← va pegada a la fila (antes del texto): se vuelve a la lista
+// sin recorrerlo. ⏮ ⏭ están en la bandeja.
 export default async function TrackPage({ params }: PageProps<"/[locale]/projects/[slug]/[track]">) {
   const found = await resolve(params);
   if (!found) notFound();
@@ -48,15 +47,27 @@ export default async function TrackPage({ params }: PageProps<"/[locale]/project
 
   return (
     <article className="flex flex-col gap-6 pb-6">
-      <TrackRow
-        href={`${base}/${track.slug}`}
-        number={String(index + 1).padStart(2, "0")}
-        title={track.title[locale]}
-        subtitle={track.subtitle?.[locale]}
-        duration={format(dict.album.minutes, { n: String(getReadingMinutes(project, track, locale)) })}
-        transitionName={`track-${project.slug}-${track.slug}`}
-        active
-      />
+      <div className="flex items-center gap-2">
+        <Link
+          href={base}
+          aria-label={dict.album.backToTracks}
+          title={dict.album.backToTracks}
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-secondary transition-colors hover:bg-accent"
+        >
+          <ArrowLeft className="size-4" />
+        </Link>
+        <div className="min-w-0 flex-1">
+          <TrackRow
+            href={`${base}/${track.slug}`}
+            number={String(index + 1).padStart(2, "0")}
+            title={track.title[locale]}
+            subtitle={track.subtitle?.[locale]}
+            duration={format(dict.album.minutes, { n: String(getReadingMinutes(project, track, locale)) })}
+            transitionName={`track-${project.slug}-${track.slug}`}
+            active
+          />
+        </div>
+      </div>
       <h2 className="sr-only">
         {format(dict.album.trackOf, { number: String(index + 1), total: String(project.tracks.length) })}
       </h2>
@@ -65,10 +76,6 @@ export default async function TrackPage({ params }: PageProps<"/[locale]/project
           <Body />
         </div>
       </ViewTransition>
-      <Link href={base} className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "self-start")}>
-        <LayoutList />
-        {dict.album.showAll}
-      </Link>
     </article>
   );
 }

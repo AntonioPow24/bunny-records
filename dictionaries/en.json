@@ -120,8 +120,8 @@
     "productionNotes": "Production notes",
     "proposedStack": "Proposed stack",
     "nextValidation": "Next validation",
-    "showAll": "Show all",
     "trackOf": "Track {number} of {total}",
-    "coverOf": "Cover of {title}"
+    "coverOf": "Cover of {title}",
+    "backToTracks": "Back to all tracks"
   }
 }

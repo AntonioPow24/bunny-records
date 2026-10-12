@@ -6,6 +6,7 @@ import { ViewTransition } from "react";
 import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/patterns/status-pill";
 import { CoverArt } from "@/components/portfolio/cover-art";
+import { ScrollPanel } from "@/components/portfolio/scroll-panel";
 import { getAlbumMinutes, getProject, getProjects, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 
@@ -79,7 +80,7 @@ export default async function AlbumLayout({ children, params }: LayoutProps<"/[l
             {published ? project.summary[locale] : project.concept[locale]}
           </p>
         </header>
-        <div className="min-h-0 flex-1 md:-mr-4 md:overflow-y-auto md:pr-4">{children}</div>
+        <ScrollPanel className="min-h-0 flex-1 md:-mr-4 md:overflow-y-auto md:pr-4">{children}</ScrollPanel>
       </section>
     </Container>
   );
