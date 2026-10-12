@@ -1,8 +1,12 @@
-// Página provisional del paso 2. En el paso 4 la reemplaza app/[locale]/page.tsx (la colección).
+import { Logo } from "@/components/brand/logo";
+
+// Página provisional. En el paso 4 la reemplaza app/[locale]/page.tsx (la colección).
 export default function Home() {
   return (
-    <main className="flex min-h-full flex-1 items-center justify-center bg-[#0C111C] p-6 text-[#F4F4F2]">
-      <h1 className="text-2xl font-semibold">Bunny Records</h1>
+    <main className="flex flex-1 flex-col items-center justify-center gap-4 p-6">
+      <Logo title="Bunny Records" className="h-20" />
+      <h1 className="text-h2">Bunny Records</h1>
+      <p className="text-label text-muted-foreground">En construcción</p>
     </main>
   );
 }

@@ -1,3 +1,171 @@
 @import "tailwindcss";
 
-/* Los tokens de la marca (PORTFOLIO.md §3) llegan en el paso 3. */
+/*
+ * Sistema de diseño de Bunny Records.
+ * Fuente: PORTFOLIO.md §3 y las variables de Figma (colecciones brand, semantic y dimension).
+ * Los componentes usan solo tokens semánticos (bg-primary, text-muted-foreground…), nunca HEX sueltos.
+ */
+
+/* Paleta oficial y derivados: solo para definir los tokens semánticos y para arte de marca. */
+@theme {
+  --color-brand-midnight: #0c111c;
+  --color-brand-teal: #329da8;
+  --color-brand-teal-deep: #267b84;
+  --color-brand-ivory: #f4f4f2;
+  --color-brand-ink: #080a0d;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* Tokens semánticos: tema oscuro único (§3.4). */
+:root {
+  --background: #0c111c;
+  --foreground: #f4f4f2;
+  --card: #121927;
+  --card-foreground: #f4f4f2;
+  --primary: #329da8;
+  --primary-foreground: #080a0d;
+  --secondary: #182031;
+  --secondary-foreground: #f4f4f2;
+  --accent: #112530;
+  --accent-foreground: #f4f4f2;
+  --muted: #182031;
+  --muted-foreground: #9ba3b0;
+  --border: #263042;
+  --input: #6b7689;
+  --ring: #329da8;
+  --destructive: #f2555a;
+  --teal-deep: #267b84;
+  --scrim: #080a0d;
+}
+
+/* Zonas marfil: reasignan los mismos tokens (en Figma no hay modo marfil por el plan Starter). */
+.surface-ivory {
+  --background: #f4f4f2;
+  --foreground: #080a0d;
+  --card: #e6e6e2;
+  --card-foreground: #080a0d;
+  --primary: #1f6971;
+  --primary-foreground: #f4f4f2;
+  --secondary: #e6e6e2;
+  --secondary-foreground: #080a0d;
+  --accent: #e6e6e2;
+  --accent-foreground: #080a0d;
+  --muted: #e6e6e2;
+  --muted-foreground: #4a5260;
+  --border: #080a0d;
+  --input: #4a5260;
+  --ring: #080a0d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-teal-deep: var(--teal-deep);
+  --color-scrim: var(--scrim);
+
+  --font-display: var(--font-sora);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Estilos de texto: los mismos nombres que en Figma (§3.6). */
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  text-wrap: balance;
+  @media (width >= 48rem) {
+    font-size: 3.5rem;
+  }
+}
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 1.15;
+  text-wrap: balance;
+  @media (width >= 48rem) {
+    font-size: 2rem;
+  }
+}
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+@utility text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+@utility text-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+@utility text-body-strong {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+@utility text-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@utility text-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background font-sans text-body text-foreground;
+  }
+
+  /* Foco visible en todo lo interactivo: anillo teal de 2 px (§3.5, Figma state=focus). */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

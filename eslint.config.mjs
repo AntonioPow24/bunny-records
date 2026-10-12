@@ -5,6 +5,37 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Capas reutilizables (PORTFOLIO.md §7.2): no conocen el contenido, los idiomas ni las capas de página,
+  // para poder extraerlas después a la UI Component Library.
+  {
+    files: ["components/{ui,patterns,brand,motion}/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@/content",
+                "@/content/*",
+                "@/lib/content",
+                "@/lib/content/*",
+                "@/lib/i18n",
+                "@/lib/i18n/*",
+                "@/dictionaries/*",
+                "@/components/portfolio/*",
+                "@/components/sections/*",
+                "@/components/layout/*",
+                "@/components/bunny/*",
+              ],
+              message:
+                "Las capas ui/patterns/brand/motion reciben todo por props (PORTFOLIO.md §7.2).",
+            },
+          ],
+        },
+      ],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
