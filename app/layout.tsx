@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className="h-full antialiased">
+    // suppressHydrationWarning solo cubre los atributos de <html>: extensiones como
+    // LanguageTool añaden data-lt-installed antes de que React hidrate.
+    <html lang="es" className="h-full antialiased" suppressHydrationWarning>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
