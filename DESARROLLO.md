@@ -79,14 +79,19 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado:** `/` → `/es` (o `/en` con navegador en inglés; la cookie gana), `/about` → `/es/about`, `/es` y `/en` estáticas con `lang` correcto, páginas inexistentes → 404 con `noindex`, cambio de idioma y cookie probados en Chrome.
 - Comportamiento aceptado: `/fr` se trata como ruta sin idioma → `/es/fr` → 404.
 
-## Paso 5 — Contenido tipado
+## Paso 5 — Contenido tipado ✅ (pendiente de revisión)
 
 **Objetivo:** todo el contenido sale de `content/` y se valida en el build.
 
-- Tipos de `PORTFOLIO.md` §6: proyectos (unión discriminada por estado), pistas, créditos, notas, tecnologías y perfil.
-- Los 5 proyectos. Vidriería con sus 5 pistas en MDX a partir de `content-drafts/vidrieria-antonio.es.md` (español primero; inglés después). Los planeados con el concepto de `BUNNY-RECORDS.md` §5.3.
-- `content/profile.ts` con los datos de `ME.md` (después, `ME.md` se archiva).
-- `lib/content`: lectura por idioma, tiempo de lectura calculado y comprobaciones de build (slugs duplicados, MDX que falta, créditos con tecnologías que no existen).
+- `types/content.ts`: `Project` = `PublishedProject | UpcomingProject`. Un proyecto planeado o en desarrollo **no puede** tener demo, resultados ni pistas: lo impide TypeScript (probado). Pistas, créditos, notas de producción y fichas de tecnología tipadas.
+- `content/technologies.ts`: 25 tecnologías con "cómo la uso" en los dos idiomas. Solo se afirma uso real; las que solo están propuestas para planeados lo dicen y no salen en "Equipo de estudio".
+- `content/profile.ts`: datos de `ME.md` (bio, cómo trabajo, gira, ficha técnica y contacto). `ME.md` se puede archivar.
+- `content/projects/`: Vidriería Antonio (publicado, 5 pistas, 10 créditos y notas de producción) y 4 próximos lanzamientos con el concepto, el stack propuesto y la próxima validación del reporte.
+- Capítulos en MDX (`@next/mdx`), español e inglés: `content/projects/case-studies/vidrieria-antonio/{es,en}/NN-slug.mdx`. Los estilos de MDX usan los tokens (`mdx-components.tsx`).
+- Portadas provisionales en `public/images/projects/<slug>/cover.jpg` (las dos con marco claro, recortadas).
+- `lib/content`: proyectos ordenados, tecnologías, "aparece en", estadísticas del sello, tiempo de lectura calculado del MDX (200 palabras/min) y `validateContent()`, que se ejecuta en cada build (slugs duplicados, MDX que falta en algún idioma, créditos con tecnologías inexistentes). Probado: quitar un MDX detiene el build con un mensaje claro.
+- `/lab` muestra el contenido de los dos idiomas y renderiza una pista desde MDX.
+- `npm audit`: 5 avisos "high" solo en dependencias de desarrollo (`braces`, vía ESLint); 0 en producción. No se fuerza la actualización.
 
 ## Paso 6 — Layout persistente y conejo
 

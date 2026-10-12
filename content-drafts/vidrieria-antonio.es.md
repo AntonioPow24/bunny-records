@@ -1,5 +1,7 @@
 # Vidriería Antonio — capítulos del caso de estudio (borrador, es)
 
+> **Reemplazado (2026-10-12):** la fuente ahora es `content/projects/case-studies/vidrieria-antonio/{es,en}/*.mdx` y `content/projects/vidrieria-antonio.ts`. Este borrador se conserva solo como referencia.
+
 *Borrador redactado el 2026-10-12 a partir de `C:\APPS\vidrieria-antonio` (README, ARQUITECTURA.md §1–15 e historial de commits). Antes de publicar lo revisa el usuario. Cuando se programe la web, cada capítulo pasa a `content/projects/case-studies/vidrieria-antonio/es/<nn>-<slug>.mdx` (`PORTFOLIO.md` §6).*
 
 **Qué no se publica** (`PORTFOLIO.md` §8): nombre real del negocio, ciudad, teléfonos, precios, condiciones de la propuesta ni capturas con datos del cliente. El proyecto usa a propósito la marca genérica "Vidriería Antonio" mientras dura el periodo de prueba.

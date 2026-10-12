@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { validateContent } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { locales } from "@/lib/i18n/config";
 import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
@@ -9,6 +10,8 @@ import "../globals.css";
 export const ensureStatic = "navigation";
 
 export function generateStaticParams() {
+  // Comprueba el contenido en cada build (slugs, MDX por idioma, créditos): si algo falla, el build se detiene.
+  validateContent();
   return locales.map((locale) => ({ locale }));
 }
 
