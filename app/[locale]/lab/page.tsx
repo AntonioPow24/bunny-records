@@ -4,9 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { StatusPill } from "@/components/patterns/status-pill";
 import { Button } from "@/components/ui/button";
+import { getAlbumMinutes, getProjects, getReadingMinutes, isPublished, loadTrackBody } from "@/lib/content";
+import { getLocale } from "@/lib/i18n/get-dictionary";
 
-// Banco de pruebas interno del sistema de diseño (DESARROLLO.md paso 3).
-// Se compara con Figma → 01 Sistema. Pasa a /[locale]/lab en el paso 4 y no se indexa.
+// Banco de pruebas interno (DESARROLLO.md pasos 3 y 5): sistema de diseño y contenido tipado.
+// Se compara con Figma → 01 Sistema. No se indexa; se quita o se protege antes de publicar.
 export const metadata: Metadata = {
   title: "Lab · sistema de diseño",
   robots: { index: false, follow: false },
@@ -44,6 +46,44 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-h3">{title}</h2>
       {children}
     </section>
+  );
+}
+
+const statusLabels = { published: "Publicado", "in-development": "En desarrollo", planned: "Planeado" } as const;
+
+async function ContentSection() {
+  const locale = await getLocale();
+  const all = getProjects();
+  const album = all.find(isPublished);
+  const track = album?.tracks[2];
+  const TrackBody = album && track ? await loadTrackBody(album, track, locale) : null;
+
+  return (
+    <Section title={`Contenido (${locale})`}>
+      <ul className="flex flex-col divide-y divide-border border-y border-border">
+        {all.map((p) => (
+          <li key={p.slug} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-3">
+            <span className="text-body-strong">{p.title[locale]}</span>
+            <StatusPill status={p.status} label={statusLabels[p.status]} />
+            <span className="text-body-sm text-muted-foreground">{p.tagline[locale]}</span>
+            {isPublished(p) && (
+              <span className="text-mono text-muted-foreground">
+                {p.tracks.length} pistas · {getAlbumMinutes(p, locale)} min
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+      {album && track && TrackBody && (
+        <article className="max-w-180 rounded-lg border border-border bg-card p-6">
+          <p className="text-label text-primary">
+            03 · {getReadingMinutes(album, track, locale)} min
+          </p>
+          <h3 className="text-h2 mb-4">{track.title[locale]}</h3>
+          <TrackBody />
+        </article>
+      )}
+    </Section>
   );
 }
 
@@ -108,6 +148,8 @@ export default function LabPage() {
           <StatusPill status="planned" label="Planeado" />
         </div>
       </Section>
+
+      <ContentSection />
 
       <Section title="Zona marfil (.surface-ivory)">
         <div className="surface-ivory flex flex-wrap items-center gap-4 rounded-lg bg-background p-6 text-foreground">

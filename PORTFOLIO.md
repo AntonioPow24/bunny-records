@@ -272,6 +272,8 @@ portfolio-antonio/
 
 ## 6. Modelo de contenido
 
+**Implementado en el paso 5** (`types/content.ts`; estados `published` · `in-development` · `planned`; los próximos lanzamientos llevan `concept`, `format` y `nextValidation`). Lo de abajo es la forma original.
+
 Los datos estructurados van en TypeScript, que valida en build y facilita filtrar y derivar información. Solo la narrativa larga de los casos de estudio va en MDX. **Añadir un proyecto** consiste en crear `content/projects/<slug>.ts`, registrarlo en `index.ts` y, si tiene caso de estudio, añadir el `.mdx` de cada pista por idioma. Rutas, colección, sitemap y OG se generan solos. Correspondencia con la metáfora: `BUNNY-RECORDS.md` §5.1.
 
 ```ts

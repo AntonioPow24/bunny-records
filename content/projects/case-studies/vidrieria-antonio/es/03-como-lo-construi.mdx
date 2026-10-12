@@ -1,0 +1,6 @@
+- **Next.js (App Router) + TypeScript.** Las páginas públicas son Server Components que leen directamente de la base. No hay una API intermedia que mantener.
+- **Supabase** para base de datos, autenticación y almacenamiento de fotos. La seguridad real está en la base: políticas RLS de solo lectura para el público y de escritura solo para administradores. La clave privilegiada nunca llega al navegador.
+- **Server Actions** para todo lo que modifica datos desde el panel, con **Zod + React Hook Form** compartiendo el mismo esquema en cliente y servidor.
+- **Fotos comprimidas en el navegador** antes de subirlas (un PNG de 4 MB pasa a un JPG de 1600 px) y buckets limitados a JPG, PNG y WEBP de hasta 8 MB.
+- **Tailwind CSS + shadcn/ui** sobre tokens de diseño, con contraste AA calculado para cada combinación de color.
+- **Una tarea diaria en GitHub Actions** que mantiene activa la base del plan gratuito, que se pausa tras una semana sin actividad.
