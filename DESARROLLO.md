@@ -16,6 +16,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 | 6 | Layout persistente y conejo | `paso-6-layout` | Header, footer, bandeja y conejo por capas; el conejo no se reinicia al navegar |
 | 7 | Colección (Inicio) | `paso-7-coleccion` | Arco de portadas, filtro, selección con ficha y contacto (#contact) |
 | 7.5 | Optimización (todo el proyecto) | `paso-7.5-optimizacion` | Transiciones sin tirones (ningún fotograma > 32 ms) y de ≤ 350 ms; conejo que no bloquea al navegar; Lighthouse móvil medido antes y después |
+| 7.9 | Iluminación de escenario | `paso-7.9-luz` | La luz de Figma (sección "7.9 · Iluminación") en todas las páginas, con un solo elemento fijo de CSS; contraste AA intacto; sin coste medible en las transiciones |
 | 8 | Álbum y pistas | `paso-8-album` | Álbum, pista abierta, créditos, notas, demo; portada y demo persisten entre pistas |
 | 9 | Fichas de tecnología | `paso-9-stack` | Panel sobre el álbum y página completa en entrada directa, con la misma URL |
 | 10 | Sobre mí, 404 y menú móvil | `paso-10-sitio` | Ficha del artista, Lado C y menú móvil iguales a Figma |
@@ -178,6 +179,23 @@ Lighthouse móvil (simulación por defecto):
 - Pulsar el disco de la sección actual relanzaba la navegación: el disco activo ya no es un enlace (marcador `aria-current="page"`).
 
 **Cómo juzgar la velocidad:** siempre con el build de producción (`npm run build && npm run start`). `npm run dev` compila bajo demanda y lleva las comprobaciones de desarrollo de React: es bastante más lento.
+
+## Paso 7.9 — Iluminación de escenario (propuesta, pendiente de aprobación)
+
+**Objetivo:** que el sitio no se vea plano ni oscuro sin perder sobriedad. Referencia: `idea/fondoluz1.jpg`, traducida a la marca (teal en lugar de morado, sin vidrio).
+
+**Diseño** (Figma → `02 Pantallas` → sección "7.9 · Iluminación": comparativa sin luz / con luz de la colección, Sobre mí, Contacto y móvil, y una lámina de especificación):
+
+- **Luz ambiental global** (todas las páginas): baño teal que entra desde arriba, brillos laterales asimétricos (Deep Teal abajo a la izquierda, Teal arriba a la derecha) y viñeta en los bordes.
+- **Foco por escena:** colección, detrás de la portada central más una franja de suelo; Sobre mí, teal detrás del disco; Contacto, marfil + teal (su disco es marfil).
+- **Superficies iluminadas:** fichas y tarjetas con filo superior de luz (Ivory 10 %), sombra profunda y halo teal muy suave. Sin `backdrop-filter`.
+- **Header transparente**, para que la luz continúe por detrás de la barra.
+
+**Implementación prevista:**
+- Un único `<div>` fijo detrás del contenido con degradados radiales de CSS (sin imágenes ni `filter: blur`), por lo que no tiene coste de red y el coste de pintado es mínimo.
+- El foco de cada escena cambia con la ruta (atributo `data-scene`) y se funde con la transición de página.
+- Utilidad `surface-lit` para las tarjetas.
+- **Medir:** contraste AA de los textos sobre las zonas más iluminadas; las transiciones de discos repitiendo la prueba A/B del paso 7.5; Lighthouse.
 
 ## Paso 8 — Álbum y pistas
 
