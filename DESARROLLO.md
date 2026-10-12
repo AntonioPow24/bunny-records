@@ -15,6 +15,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 | 5 | Contenido tipado | `paso-5-contenido` | 5 proyectos, pistas MDX, tecnologías y perfil; un planeado con resultados no compila |
 | 6 | Layout persistente y conejo | `paso-6-layout` | Header, footer, bandeja y conejo por capas; el conejo no se reinicia al navegar |
 | 7 | Colección (Inicio) | `paso-7-coleccion` | Arco de portadas, filtro, selección con ficha y contacto (#contact) |
+| 7.5 | Optimización (todo el proyecto) | `paso-7.5-optimizacion` | Transiciones sin tirones (ningún fotograma > 32 ms) y de ≤ 350 ms; conejo que no bloquea al navegar; Lighthouse móvil medido antes y después |
 | 8 | Álbum y pistas | `paso-8-album` | Álbum, pista abierta, créditos, notas, demo; portada y demo persisten entre pistas |
 | 9 | Fichas de tecnología | `paso-9-stack` | Panel sobre el álbum y página completa en entrada directa, con la misma URL |
 | 10 | Sobre mí, 404 y menú móvil | `paso-10-sitio` | Ficha del artista, Lado C y menú móvil iguales a Figma |
@@ -120,6 +121,34 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - Se eliminaron `footer.tsx`, `mobile-nav.tsx` y `nav-links.tsx`.
 - **Verificado en Chrome (build de producción):** transiciones de discos, pistas con teclado, enlace a créditos, sin scroll en escritorio y en tres tamaños móviles, sin desbordes horizontales.
 - **Aviso:** el servidor de desarrollo puede quedarse con módulos antiguos tras borrar o renombrar exportaciones ("Element type is invalid… ContactSheet" / "did not produce a static shell"); se arregla reiniciando `npm run dev` (y, si persiste, borrando `.next`).
+
+## Paso 7.5 — Optimización de todo el proyecto
+
+**Objetivo:** que las transiciones y la carga se sientan inmediatas, con mediciones antes y después (no a ojo). Se adelanta parte del paso 13 porque la navegación por discos lo necesita ya.
+
+**Medición inicial (2026-10-12, build de producción, Chrome de escritorio, Sobre mí ↔ Contacto):**
+
+| Fase | Medido |
+|---|---|
+| Clic → empieza la transición | 29–37 ms (la ruta ya estaba precargada: la red no es el problema) |
+| Empieza → primer fotograma animado | 47–60 ms |
+| Animación (nominal 450 ms) | **~600 ms reales** |
+| Peor fotograma durante la animación | **146 ms** (tirón visible; el objetivo es ≤ 32 ms) |
+| Página nueva | 98 `<img>` y 339 nodos: el conejo completo crea sus 96 capas al montarse |
+
+**Diagnóstico:** no es que se "renderice toda la página", sino que, mientras el disco viaja, el hilo principal monta el conejo completo de la página nueva (96 imágenes, grafo de poses) y el navegador aplica un desenfoque (`filter: blur`) a las instantáneas del disco en cada fotograma. Además, 450 ms es largo para un gesto que se repite.
+
+**Plan (cada punto se mide):**
+
+1. **Transiciones:** bajar a ~320 ms con ease-out, quitar el desenfoque y fijar el fundido del resto a ~200 ms.
+2. **Conejo en pose fija (`hold`):** construir solo las capas de esa pose (≈ 6–10 en vez de 96).
+3. **Conejo, arranque diferido:** mostrar la imagen fija y arrancar el motor cuando termine la transición o el navegador esté libre (`requestIdleCallback`). Así no compite con la animación.
+4. **Páginas ocultas por Activity:** pausar el motor en vez de destruirlo y recrearlo en cada visita.
+5. **Disco girando:** pausar el giro durante la transición.
+6. **Precarga:** prefetch completo de los enlaces de la barra (son pocos y estáticos).
+7. **Resto del proyecto:** peso de JavaScript por ruta (`next experimental-analyze`), imágenes (formatos y `sizes`), fuentes (subconjuntos), reglas de CSS, Lighthouse en móvil (LCP < 2,5 s, CLS < 0,1, INP < 200 ms) y registro de los resultados aquí.
+
+**Listo cuando:** la transición de discos dura ≤ 350 ms sin fotogramas de más de 32 ms, la colección y las dos escenas pasan Lighthouse en móvil y los números quedan anotados.
 
 ## Paso 8 — Álbum y pistas
 
