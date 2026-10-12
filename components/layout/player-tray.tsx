@@ -3,6 +3,7 @@
 import { SkipBack, SkipForward } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ViewTransition } from "react";
 
 import { Bunny } from "@/components/bunny/bunny";
 import type { Locale } from "@/lib/i18n/config";
@@ -78,7 +79,9 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   return (
     <section aria-label={labels.label} className="relative z-30 shrink-0 border-t border-border bg-card">
       <div className="mx-auto flex h-16 w-full max-w-312 items-center gap-2 px-3 md:h-18 md:gap-4 md:px-6">
-        <Bunny mode="lite" className="-mt-6 w-12 shrink-0 self-end" />
+        <ViewTransition name="host-bunny" default="host-bunny">
+          <Bunny mode="lite" className="-mt-6 w-12 shrink-0 self-end" />
+        </ViewTransition>
         <div className="min-w-0 flex-1" aria-live="polite">
           <p className="text-body-strong truncate">{album.title}</p>
           <p className="text-body-sm truncate text-muted-foreground">{subtitle}</p>

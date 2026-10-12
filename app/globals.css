@@ -148,6 +148,12 @@
     color-scheme: dark;
   }
 
+  /* Barras de scroll de los paneles: finas y del color de los bordes (no el gris del sistema). */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--input) transparent;
+  }
+
   body {
     @apply bg-background font-sans text-body text-foreground;
   }
@@ -206,7 +212,8 @@
   z-index: 110;
 }
 
-/* Conejo DJ de la escena: mismo orden de capas durante la transición que en la página real. */
+/* Conejos (DJ de la escena y anfitrión escenario ↔ bandeja): por encima de discos y portadas. */
+::view-transition-group(.host-bunny),
 ::view-transition-group(.scene-bunny) {
   animation-duration: 320ms;
   animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
@@ -215,6 +222,17 @@
 ::view-transition-old(.morph),
 ::view-transition-new(.morph) {
   animation-duration: 320ms;
+}
+
+/* Texto de una pista abierta: entra con un fundido corto hacia arriba (paso 8). */
+::view-transition-new(.track-body):only-child {
+  animation: track-body-in 260ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+@keyframes track-body-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 /* El resto del contenido se funde, más rápido que el disco. */
