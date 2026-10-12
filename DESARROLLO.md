@@ -149,4 +149,4 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 ## Historial
 
-- **2026-10-12:** primera versión. Paso 1 iniciado.
+- **2026-10-12:** primera versión. **Paso 1 hecho** (commit `51987d8`): repo con identidad personal local (`git config user.*` solo en este repo; la global es la del trabajo), `.gitignore` y `.gitattributes` (LF). Falta el remoto en GitHub, a la espera de confirmación (`gh` no está instalado).
