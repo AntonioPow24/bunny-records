@@ -64,13 +64,20 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - `/lab` (noindex): banco de pruebas del sistema de diseño; pasa a `/[locale]/lab` en el paso 4.
 - **Verificado en Chrome:** fuentes, colores, tamaño del botón y anillo de foco coinciden con Figma; sin errores en consola.
 
-## Paso 4 — Idiomas (es/en)
+## Paso 4 — Idiomas (es/en) ✅ (pendiente de revisión)
 
 **Objetivo:** todas las rutas existen en los dos idiomas desde el principio.
 
-- `lib/i18n/config.ts` (un único array de idiomas), diccionarios `es.json` y `en.json` con tipo derivado.
-- `proxy.ts`: `/` → idioma por cookie, `Accept-Language` o `es`.
-- `app/[locale]/layout.tsx` como layout raíz con `<html lang>`, y selector de idioma que conserva la ruta.
+- `lib/i18n/config.ts`: un único array `["es", "en"]`, `es` por defecto, `hasLocale`, nombres de idioma, locales de Open Graph y `switchLocalePath`. `lib/i18n/localized.ts`: tipo `Localized<T>` para el contenido del paso 5.
+- `dictionaries/es.json` y `en.json`. El tipo sale de `es.json` y una comprobación de tipos exige que los dos tengan las mismas claves (probado: si falta una, el typecheck falla).
+- `getLocale()` y `getDictionary()` leen el idioma con `next/root-params`: cualquier Server Component lo obtiene sin pasarlo por props. Los Client Components reciben los textos ya traducidos.
+- `app/[locale]/layout.tsx` es el layout raíz: `<html lang>` por idioma, metadata por idioma, `generateStaticParams` y `ensureStatic = "navigation"` (si algo vuelve dinámica una ruta, el build falla). Con Cache Components ya no existe `dynamicParams`.
+- `proxy.ts`: las rutas sin idioma se redirigen a `/{idioma}/…`, primero según la cookie del selector, luego `Accept-Language` y, si no, `es`. No toca `/_next`, los archivos ni `/es` o `/en`.
+- `LocaleSwitcher` (ES / EN): conserva la ruta, marca el idioma actual con `aria-current` y guarda la cookie un año.
+- 404: `app/[locale]/not-found.tsx` (traducida, para `notFound()` en páginas) y `app/global-not-found.tsx` (en los dos idiomas, para URLs que no existen; flag `experimental.globalNotFound`). El diseño "Lado C" llega en el paso 10.
+- `/lab` pasa a `/es/lab` y `/en/lab`.
+- **Verificado:** `/` → `/es` (o `/en` con navegador en inglés; la cookie gana), `/about` → `/es/about`, `/es` y `/en` estáticas con `lang` correcto, páginas inexistentes → 404 con `noindex`, cambio de idioma y cookie probados en Chrome.
+- Comportamiento aceptado: `/fr` se trata como ruta sin idioma → `/es/fr` → 404.
 
 ## Paso 5 — Contenido tipado
 

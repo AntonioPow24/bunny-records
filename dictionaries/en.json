@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "siteName": "Bunny Records",
+    "title": "Bunny Records · Antonio García Romero",
+    "description": "Portfolio of Antonio García Romero, Frontend Developer: every project is an album and its case study, the tracks."
+  },
+  "nav": {
+    "home": "Collection",
+    "about": "About",
+    "contact": "Contact",
+    "skipToContent": "Skip to content",
+    "mainLabel": "Main navigation"
+  },
+  "locale": {
+    "label": "Language",
+    "switchTo": "Switch to {language}"
+  },
+  "home": {
+    "eyebrow": "Bunny Records · Collection",
+    "title": "Every project, an album.",
+    "comingSoon": "Under construction"
+  },
+  "notFound": {
+    "eyebrow": "Error 404 · Side C",
+    "title": "This track doesn’t exist.",
+    "body": "The link is scratched or the record moved shelves. Vinyl only has a side A and a side B.",
+    "backHome": "Back to the collection"
+  }
+}
