@@ -87,11 +87,16 @@ export class BunnyEngine {
   private paused = false;
   private destroyed = false;
   private readonly cleanups: (() => void)[] = [];
+  /** Capas que no son del reposo: se crean en tandas cuando el navegador está libre (paso 7.5). */
+  private readonly queue: [string, HTMLElement][] = [];
+  /** Poses permitidas (además del reposo). null = todas. */
+  private readonly only: Set<string> | null;
 
-  constructor(canvas: HTMLElement, mode: BunnyMode, hold: BunnyPose | null = null) {
+  constructor(canvas: HTMLElement, mode: BunnyMode, hold: BunnyPose | null = null, only: BunnyPose[] | null = null) {
     this.canvas = canvas;
     this.mode = mode;
     this.hold = mode === "full" ? hold : null;
+    this.only = only ? new Set(only) : null;
     const P = B.pivots;
     const feet = `${P.feet[0]}px ${P.feet[1]}px`;
 
@@ -113,15 +118,21 @@ export class BunnyEngine {
     this.buildGraph();
     this.render();
 
-    // Se muestra cuando el reposo está descodificado; el resto de poses se descodifica después.
+    // Se muestra cuando el reposo está descodificado. Las demás capas se crean en tandas cuando el
+    // navegador está libre y, al estar todas descodificadas, se habilitan las poses.
     const first = [...B.poses.rest, "bunny-head-rest-blink"];
     Promise.all(first.map((k) => this.imgs[k]?.decode().catch(() => undefined)))
       .then(() => {
         if (this.destroyed) return;
         this.canvas.dataset.ready = "true";
+        return this.createPending();
+      })
+      .then(() => {
+        if (this.destroyed) return;
         return Promise.all(Object.values(this.imgs).map((i) => i.decode().catch(() => undefined)));
       })
       .then(() => {
+        if (this.destroyed) return;
         this.allReady = true;
         if (this.hold) this.setPose(this.hold);
         else this.evaluate();
@@ -158,8 +169,9 @@ export class BunnyEngine {
     const has = (k: string) => k in B.layers;
     this.nodes.rest = { body: "bunny-body-rest", head: "bunny-head-rest-open", blink: "bunny-head-rest-blink" };
     if (this.mode === "full") {
+      // Con pose fija solo hacen falta el reposo, esa pose y su arista (~15 capas en vez de 96). Paso 7.5.
       for (const [pose, stack] of Object.entries(B.poses)) {
-        if (pose === "rest") continue;
+        if (pose === "rest" || (this.hold && pose !== this.hold) || (this.only && !this.only.has(pose))) continue;
         const head = stack[stack.length - 1];
         this.nodes[pose] = { body: stack[1], head, blink: head.replace(/-open$/, "-blink") };
       }
@@ -170,14 +182,38 @@ export class BunnyEngine {
         this.edges[`${b}|${a}`] = [...mids].reverse();
       };
       for (const pose of Object.keys(this.nodes)) if (pose !== "rest") addEdge("rest", pose, pose);
-      for (const [a, b] of B.transitions) addEdge(a, b, `${a}--${b}`);
+      if (!this.hold) {
+        for (const [a, b] of B.transitions) if (this.nodes[a] && this.nodes[b]) addEdge(a, b, `${a}--${b}`);
+      }
     }
+    // El reposo se monta ya (es lo primero que se ve); el resto queda en cola para crearse en tandas.
+    const rest = this.nodes.rest;
+    this.img(rest.body, this.gBody);
+    this.img(rest.head, this.gHead);
+    if (rest.blink) this.img(rest.blink, this.gHead);
+    const queued = new Set<string>();
     for (const f of [...Object.values(this.nodes), ...Object.values(this.edges).flat()]) {
-      this.img(f.body, this.gBody);
-      this.img(f.head, this.gHead);
-      if (f.blink && has(f.blink)) this.img(f.blink, this.gHead);
+      for (const [key, parent] of [[f.body, this.gBody], [f.head, this.gHead], [f.blink, this.gHead]] as const) {
+        if (!key || !has(key) || this.imgs[key] || queued.has(key)) continue;
+        queued.add(key);
+        this.queue.push([key, parent]);
+      }
     }
     for (const n of Object.keys(this.nodes)) this.dist[n] = this.distFrom(n);
+  }
+
+  /** Crea las capas en cola de 8 en 8, en momentos libres del navegador, para no bloquear la interacción. */
+  private createPending(): Promise<void> {
+    return new Promise((resolve) => {
+      const step = () => {
+        if (this.destroyed) return resolve();
+        for (const [key, parent] of this.queue.splice(0, 8)) this.img(key, parent);
+        if (this.queue.length === 0) return resolve();
+        if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(step, { timeout: 300 });
+        else window.setTimeout(step, 16);
+      };
+      step();
+    });
   }
 
   private neighbours(n: string) {

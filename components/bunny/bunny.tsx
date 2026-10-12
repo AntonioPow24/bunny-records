@@ -39,6 +39,9 @@ type BunnyProps = {
   ref?: Ref<BunnyHandle>;
 };
 
+/** Espera tras montarse antes de arrancar el motor: lo que dura la transición de página (320 ms) y un margen. */
+const START_DELAY_MS = 360;
+
 const HEAD_X = 600 / CANVAS_WIDTH;
 const HEAD_Y = 944.9 / CANVAS_HEIGHT;
 
@@ -52,6 +55,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BunnyEngine | null>(null);
+  const engineKeyRef = useRef("");
 
   useImperativeHandle(ref, () => ({
     headPoint: () => {
@@ -76,18 +80,36 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
     fit();
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const key = `${mode}|${hold ?? ""}`;
     let onScreen = true;
+    let delay: number | null = null;
+    let idle: number | null = null;
     const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden);
-    const start = () => {
-      if (reduced.matches || engineRef.current) return;
-      engineRef.current = new BunnyEngine(canvas, mode, hold ?? null);
-      syncPause();
-    };
     const stop = () => {
       engineRef.current?.destroy();
       engineRef.current = null;
     };
-    const onMotionChange = () => (reduced.matches ? stop() : start());
+    const start = () => {
+      if (reduced.matches || engineRef.current) return;
+      // Pantallas táctiles: sin puntero que seguir, sobran las poses de "mirar arriba" (~40 capas menos).
+      const coarse = window.matchMedia("(pointer: coarse)").matches;
+      const only: BunnyPose[] | null =
+        mode === "full" && !hold && coarse ? ["curious-left", "curious-right", "present-left", "present-right"] : null;
+      engineRef.current = new BunnyEngine(canvas, mode, hold ?? null, only);
+      engineKeyRef.current = key;
+      syncPause();
+    };
+    // Paso 7.5: el motor no arranca durante la transición de página (competía con ella y provocaba tirones).
+    // Mientras tanto se ve la imagen fija; arranca al terminar la transición, cuando el navegador queda libre.
+    const scheduleStart = () => {
+      if (engineRef.current && engineKeyRef.current !== key) stop();
+      if (engineRef.current) return syncPause(); // Activity vuelve a mostrar la página: se reanuda
+      delay = window.setTimeout(() => {
+        if ("requestIdleCallback" in window) idle = window.requestIdleCallback(start, { timeout: 600 });
+        else start();
+      }, START_DELAY_MS);
+    };
+    const onMotionChange = () => (reduced.matches ? stop() : scheduleStart());
 
     const visibility = new IntersectionObserver(([entry]) => {
       onScreen = entry.isIntersecting;
@@ -96,15 +118,25 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
     visibility.observe(root);
     document.addEventListener("visibilitychange", syncPause);
     reduced.addEventListener("change", onMotionChange);
-    start();
+    scheduleStart();
 
-    // Al ocultarse la página (Activity) o desmontarse, el motor se detiene y libera sus temporizadores.
     return () => {
       resize.disconnect();
       visibility.disconnect();
       document.removeEventListener("visibilitychange", syncPause);
       reduced.removeEventListener("change", onMotionChange);
-      stop();
+      if (delay !== null) window.clearTimeout(delay);
+      if (idle !== null && "cancelIdleCallback" in window) window.cancelIdleCallback(idle);
+      // Activity oculta la página sin sacarla del DOM: el motor queda en pausa y se reanuda al volver.
+      // Si el conejo sale del documento de verdad, se destruye y libera sus temporizadores.
+      const engine = engineRef.current;
+      engine?.setPaused(true);
+      window.setTimeout(() => {
+        if (engine && !canvas.isConnected) {
+          engine.destroy();
+          if (engineRef.current === engine) engineRef.current = null;
+        }
+      }, 0);
     };
   }, [mode, hold]);
 

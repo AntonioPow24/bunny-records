@@ -28,6 +28,12 @@ Portfolio personal de Antonio García Romero presentado como un sello discográf
 - **Idioma:** `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props. Todo texto de interfaz va en los dos diccionarios.
 - `LayoutProps<"/ruta">` y `PageProps<…>` son tipos globales generados por `next typegen` (incluido en `npm run typecheck`).
 
+## Rendimiento (paso 7.5)
+
+- Medir siempre sobre el build de producción, nunca con `npm run dev`.
+- El conejo no debe arrancar durante una transición; en pose fija carga solo esa pose.
+- En Lighthouse, mirar el LCP **observado** o usar `--throttling-method=devtools`: el simulado exagera el LCP de texto.
+
 ## Reglas de producto que no se rompen
 
 - **Sin scroll de página** (`BUNNY-RECORDS.md` §5.3.2): todo cabe en `100dvh`; lo largo se desplaza dentro de su panel. Comprobar 1920×911, 390×844 y 375×667 en cada pantalla nueva.

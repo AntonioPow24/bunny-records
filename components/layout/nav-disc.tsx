@@ -18,6 +18,7 @@ export function NavDisc({ kind, href, label }: NavDiscProps) {
   return (
     <Link
       href={href}
+      prefetch
       aria-current={active ? "page" : undefined}
       aria-label={label}
       className={cn(

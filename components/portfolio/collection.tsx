@@ -170,7 +170,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
               const art = (
                 <CoverArt
                   src={item.cover.src}
-                  alt={item.cover.alt}
+                  alt=""
                   title={item.title}
                   sticker={item.status === "published" ? undefined : item.statusLabel}
                   sizes="(min-width: 48rem) 320px, 200px"
@@ -187,20 +187,23 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                   onPointerLeave={() => bunny.current?.setHover(null)}
                 >
                   {isCurrent ? (
-                    <Link href={item.href} aria-label={fill(labels.position, { title: item.title, position: index + 1, total: visible.length })} className="block rounded-lg">
+                    <Link href={item.href} className="block rounded-lg">
                       {art}
+                      <span className="sr-only">
+                        {fill(labels.position, { title: "", position: index + 1, total: visible.length }).replace(/^,\s*/, ", ")}
+                      </span>
                     </Link>
                   ) : (
                     <button
                       type="button"
                       tabIndex={-1}
-                      aria-label={fill(labels.select, { title: item.title })}
                       onClick={(e) => {
                         bunny.current?.present(sideOf(e.currentTarget), 1600);
                         select(index);
                       }}
                       className="block w-full cursor-pointer rounded-lg"
                     >
+                      <span className="sr-only">{fill(labels.select, { title: "" }).trim()} </span>
                       {art}
                     </button>
                   )}

@@ -122,7 +122,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado en Chrome (build de producción):** transiciones de discos, pistas con teclado, enlace a créditos, sin scroll en escritorio y en tres tamaños móviles, sin desbordes horizontales.
 - **Aviso:** el servidor de desarrollo puede quedarse con módulos antiguos tras borrar o renombrar exportaciones ("Element type is invalid… ContactSheet" / "did not produce a static shell"); se arregla reiniciando `npm run dev` (y, si persiste, borrando `.next`).
 
-## Paso 7.5 — Optimización de todo el proyecto
+## Paso 7.5 — Optimización de todo el proyecto ✅ (pendiente de revisión)
 
 **Objetivo:** que las transiciones y la carga se sientan inmediatas, con mediciones antes y después (no a ojo). Se adelanta parte del paso 13 porque la navegación por discos lo necesita ya.
 
@@ -138,17 +138,42 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 **Diagnóstico:** no es que se "renderice toda la página", sino que, mientras el disco viaja, el hilo principal monta el conejo completo de la página nueva (96 imágenes, grafo de poses) y el navegador aplica un desenfoque (`filter: blur`) a las instantáneas del disco en cada fotograma. Además, 450 ms es largo para un gesto que se repite.
 
-**Plan (cada punto se mide):**
+**Hecho (2026-10-12):**
 
-1. **Transiciones:** bajar a ~320 ms con ease-out, quitar el desenfoque y fijar el fundido del resto a ~200 ms.
-2. **Conejo en pose fija (`hold`):** construir solo las capas de esa pose (≈ 6–10 en vez de 96).
-3. **Conejo, arranque diferido:** mostrar la imagen fija y arrancar el motor cuando termine la transición o el navegador esté libre (`requestIdleCallback`). Así no compite con la animación.
-4. **Páginas ocultas por Activity:** pausar el motor en vez de destruirlo y recrearlo en cada visita.
-5. **Disco girando:** pausar el giro durante la transición.
-6. **Precarga:** prefetch completo de los enlaces de la barra (son pocos y estáticos).
-7. **Resto del proyecto:** peso de JavaScript por ruta (`next experimental-analyze`), imágenes (formatos y `sizes`), fuentes (subconjuntos), reglas de CSS, Lighthouse en móvil (LCP < 2,5 s, CLS < 0,1, INP < 200 ms) y registro de los resultados aquí.
+1. **Transición de discos:** 450 → 320 ms con salida suave; sin `filter: blur`; fundido del resto 200 ms; el vinilo deja de girar durante la transición (`:active-view-transition`).
+2. **Conejo en pose fija:** solo reposo + esa pose + su arista. Capas en Sobre mí / Contacto: 98 → 32 (contando las dos escenas que Activity mantiene ocultas).
+3. **Conejo, arranque diferido:** imagen fija hasta que termina la transición (360 ms) y el navegador está libre (`requestIdleCallback`).
+4. **Activity:** al ocultarse la página el motor se pausa (no se destruye) y se reanuda al volver; solo se destruye si sale del DOM.
+5. **Capas en tandas:** las capas que no son del reposo se crean de 8 en 8 en momentos libres.
+6. **Pantallas táctiles:** la colección carga solo curiosidad y presentación (sin "mirar arriba"): ~40 capas menos.
+7. **CSS en el HTML** (`experimental.inlineCss`): fuera 3 peticiones que bloqueaban el render.
+8. **Fuentes:** solo el subconjunto `latin` (ya trae á é í ó ú ñ ü ¿ ¡); Geist Mono sin precarga. Precargas de fuentes: 6 → 2.
+9. **Portadas en AVIF** con WebP de respaldo (−24 % a 384 px).
+10. **Accesibilidad (WCAG 2.5.3):** el nombre accesible del selector de idioma y de las portadas del arco empieza por su texto visible.
+11. Prefetch completo en los discos de la barra.
 
-**Listo cuando:** la transición de discos dura ≤ 350 ms sin fotogramas de más de 32 ms, la colección y las dos escenas pasan Lighthouse en móvil y los números quedan anotados.
+**Resultados.** Transición de discos, A/B en la misma sesión (build de producción; `main` frente a la rama), 4 navegaciones cada uno:
+
+| | Antes | Después |
+|---|---|---|
+| Clic → fin de la transición | 623–738 ms | 479–519 ms |
+| Fotogramas largos por navegación | 1–6 (50–146 ms) | 1 (88–117 ms) |
+
+El fotograma largo que queda no es JavaScript nuestro (los scripts suman 6 ms): es el navegador capturando las instantáneas de la View Transition.
+
+Lighthouse móvil (simulación por defecto):
+
+| Página | Rendimiento | LCP sim. | TBT | Peso | Accesib. | Buenas prác. | SEO |
+|---|---|---|---|---|---|---|---|
+| Colección | 83 → **90** | 4,1 → 3,6 s | 220 → **50 ms** | 2,6 → **1,7 MB** | 100 | 92 | 100 |
+| Sobre mí | 93 → **95** | 3,2 → 3,0 s | 50 → 40 ms | 762 → 730 KB | 100 | 96 | 100 |
+| Contacto | 95 → **96** | 3,0 → 2,8 s | 50 → 40 ms | 686 → 654 KB | 100 | 100 | 100 |
+
+**El LCP simulado no es real:** el LCP **observado** es de 95–373 ms; con limitación real (`--throttling-method=devtools`: 4G lento y CPU ×4) sale **LCP 1,3 s (colección) y 1,0 s (Sobre mí), rendimiento 96–97**. La simulación asume que el texto depende del JavaScript.
+
+**Quedan para el paso 13** (calidad): el 404 en consola de la colección (precarga de `/es/projects/…`, desaparece en el paso 8), "imágenes de baja resolución" en las capas del conejo (falso positivo: el lienzo de 1200 px se escala con CSS) y JavaScript sin usar del framework (~29 KB).
+
+**Cómo juzgar la velocidad:** siempre con el build de producción (`npm run build && npm run start`). `npm run dev` compila bajo demanda y lleva las comprobaciones de desarrollo de React: es bastante más lento.
 
 ## Paso 8 — Álbum y pistas
 

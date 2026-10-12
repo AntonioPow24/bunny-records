@@ -42,11 +42,12 @@ export function LocaleSwitcher({ current, label, switchLabels, className }: Loca
               href={switchLocalePath(pathname, locale)}
               hrefLang={locale}
               lang={locale}
-              aria-label={switchLabels[locale]}
               onClick={() => rememberLocale(locale)}
               className="text-mono rounded-sm px-2 py-3 text-muted-foreground transition-colors hover:text-foreground"
             >
               {locale.toUpperCase()}
+              {/* El nombre accesible empieza por el texto visible ("EN · Switch to English"): WCAG 2.5.3. */}
+              <span className="sr-only"> · {switchLabels[locale]}</span>
             </Link>
           )}
         </span>
