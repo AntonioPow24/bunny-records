@@ -25,6 +25,7 @@ Portfolio personal de Antonio García Romero presentado como un sello discográf
 - **Las páginas no se desmontan al navegar:** se ocultan con `<Activity>` (guía `preserving-ui-state.md`). El conejo, la demo y cualquier animación deben pausarse cuando su página queda oculta, y los paneles abiertos deben cerrarse al ocultarse.
 - **View Transitions sin configuración:** `<ViewTransition>` de React 19.3 (guía `view-transitions.md`). Los pares con `name` llevan `share` y `default="none"`; respetar `prefers-reduced-motion`.
 - **Tailwind v4** entra por `@tailwindcss/turbopack` (sin PostCSS).
+- **Idioma:** `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props. Todo texto de interfaz va en los dos diccionarios.
 - `LayoutProps<"/ruta">` y `PageProps<…>` son tipos globales generados por `next typegen` (incluido en `npm run typecheck`).
 
 ## Reglas de producto que no se rompen
