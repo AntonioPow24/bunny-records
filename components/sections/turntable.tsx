@@ -30,11 +30,15 @@ export function Turntable({ kind, discLabel, pose, children, compact = false }: 
             className={compact ? "w-24 md:w-[min(34vw,48vh,30rem)]" : "w-[min(46vw,13rem)] md:w-[min(34vw,48vh,30rem)]"}
           />
         </ViewTransition>
-        <Bunny
-          mode="full"
-          hold={pose}
-          className={cn("w-[min(22vw,7rem)] shrink-0 md:absolute md:bottom-[-8%] md:left-[58%] md:block md:w-[min(15vw,26vh,13rem)]", compact && "hidden")}
-        />
+        {/* El conejo DJ tiene su propia capa de transición, por encima del disco: así el disco pasa
+            por detrás de él también durante la animación (antes lo tapaba y "saltaba" al terminar). */}
+        <ViewTransition name="scene-bunny" default="scene-bunny">
+          <Bunny
+            mode="full"
+            hold={pose}
+            className={cn("w-[min(22vw,7rem)] shrink-0 md:absolute md:bottom-[-8%] md:left-[58%] md:block md:w-[min(15vw,26vh,13rem)]", compact && "hidden")}
+          />
+        </ViewTransition>
       </div>
       <div className="flex min-h-0 min-w-0 flex-col">{children}</div>
     </Container>

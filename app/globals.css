@@ -197,25 +197,37 @@
   animation: none;
 }
 
-/* El disco baja de la barra a la escena (y vuelve): 450 ms, con un leve desenfoque a mitad. */
+/* El disco baja de la barra a la escena (y vuelve). 320 ms con salida suave; sin filtros
+   (un blur sobre la instantánea se recalculaba en cada fotograma y provocaba tirones). Paso 7.5. */
 ::view-transition-group(.morph) {
-  animation-duration: 450ms;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 50;
-}
-::view-transition-image-pair(.morph) {
-  animation-name: via-blur;
-}
-@keyframes via-blur {
-  30% {
-    filter: blur(2px);
-  }
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  /* Por encima de la barra (sale de ella) y por debajo del conejo DJ (queda detrás de él en la escena). */
+  z-index: 110;
 }
 
-/* El resto del contenido se funde (por defecto del navegador), un poco más rápido. */
+/* Conejo DJ de la escena: mismo orden de capas durante la transición que en la página real. */
+::view-transition-group(.scene-bunny) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  z-index: 120;
+}
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  animation-duration: 320ms;
+}
+
+/* El resto del contenido se funde, más rápido que el disco. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 280ms;
+  animation-duration: 200ms;
+}
+
+/* Mientras dura una transición, el vinilo deja de girar (menos trabajo por fotograma). */
+@supports selector(:active-view-transition) {
+  :root:active-view-transition .disc-spin {
+    animation-play-state: paused;
+  }
 }
 
 /* Los clics durante la animación llegan a la página. */
