@@ -30,13 +30,13 @@ export function isPublished(project: Project): project is PublishedProject {
 }
 
 /** Archivo MDX de una pista: case-studies/<proyecto>/<idioma>/<nn>-<slug>.mdx */
-function trackFile(project: PublishedProject, track: Track, locale: Locale) {
+function trackFile(project: PublishedProject, track: Track) {
   const index = project.tracks.indexOf(track) + 1;
   return `${String(index).padStart(2, "0")}-${track.slug}.mdx`;
 }
 
 function trackPath(project: PublishedProject, track: Track, locale: Locale) {
-  return path.join(CASE_STUDIES_DIR, project.slug, locale, trackFile(project, track, locale));
+  return path.join(CASE_STUDIES_DIR, project.slug, locale, trackFile(project, track));
 }
 
 /** "Duración" de la pista: tiempo de lectura real del MDX (mínimo 1 min). */
@@ -57,7 +57,7 @@ export async function loadTrackBody(
   track: Track,
   locale: Locale,
 ): Promise<ComponentType> {
-  const file = trackFile(project, track, locale);
+  const file = trackFile(project, track);
   const mod = await import(`@/content/projects/case-studies/${project.slug}/${locale}/${file}`);
   return mod.default as ComponentType;
 }
@@ -115,7 +115,7 @@ export function validateContent(): void {
       trackSlugs.add(track.slug);
       for (const locale of locales) {
         if (!existsSync(trackPath(project, track, locale))) {
-          errors.push(`${project.slug}: falta el MDX ${locale}/${trackFile(project, track, locale)}`);
+          errors.push(`${project.slug}: falta el MDX ${locale}/${trackFile(project, track)}`);
         }
       }
     }
