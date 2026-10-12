@@ -7,7 +7,7 @@ import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 export default async function NotFound() {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   return (
-    <main className="flex flex-1 flex-col items-start justify-center gap-4 px-6 py-24 md:px-30">
+    <div className="flex flex-1 flex-col items-start justify-center gap-4 px-6 py-24 md:px-30">
       <p className="text-label text-primary">{dict.notFound.eyebrow}</p>
       <h1 className="text-display max-w-xl">{dict.notFound.title}</h1>
       <p className="text-body max-w-md text-muted-foreground">{dict.notFound.body}</p>
@@ -17,6 +17,6 @@ export default async function NotFound() {
       >
         {dict.notFound.backHome}
       </Link>
-    </main>
+    </div>
   );
 }

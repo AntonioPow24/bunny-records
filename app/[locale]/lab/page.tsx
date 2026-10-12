@@ -89,7 +89,7 @@ async function ContentSection() {
 
 export default function LabPage() {
   return (
-    <main className="mx-auto flex w-full max-w-300 flex-col gap-12 px-4 py-16 md:px-6">
+    <div className="mx-auto flex w-full max-w-300 flex-col gap-12 px-4 py-16 md:px-6">
       <header className="flex items-center gap-4">
         <Logo title="Bunny Records" className="h-12" />
         <div>
@@ -160,6 +160,6 @@ export default function LabPage() {
           </a>
         </div>
       </Section>
-    </main>
+    </div>
   );
 }

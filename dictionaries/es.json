@@ -9,7 +9,11 @@
     "about": "Sobre mí",
     "contact": "Contacto",
     "skipToContent": "Saltar al contenido",
-    "mainLabel": "Navegación principal"
+    "mainLabel": "Navegación principal",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "menuTitle": "Menú",
+    "homeLabel": "Bunny Records, ir a la colección"
   },
   "locale": {
     "label": "Idioma",
@@ -25,5 +29,28 @@
     "title": "Esta pista no existe.",
     "body": "El enlace está rayado o el disco cambió de estante. Los vinilos solo tienen lado A y lado B.",
     "backHome": "Volver a la colección"
+  },
+  "footer": {
+    "label": "Pie de página",
+    "copyright": "Bunny Records · © {year} {name}",
+    "siteCredits": "Créditos del sitio",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "tray": {
+    "label": "Reproductor",
+    "idleTitle": "Bunny Records",
+    "idleSubtitle": "Elige un álbum",
+    "albumSummary": "{tracks} pistas · {minutes} min",
+    "trackNow": "Pista {number} · {title}",
+    "upcoming": "Próximo lanzamiento",
+    "prevTrack": "Pista anterior",
+    "nextTrack": "Pista siguiente",
+    "firstTrack": "Escuchar la primera pista",
+    "backToAlbum": "Volver al álbum",
+    "collection": "Colección"
+  },
+  "bunny": {
+    "dance": "Haz bailar al conejo"
   }
 }

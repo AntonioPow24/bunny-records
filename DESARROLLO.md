@@ -93,13 +93,18 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - `/lab` muestra el contenido de los dos idiomas y renderiza una pista desde MDX.
 - `npm audit`: 5 avisos "high" solo en dependencias de desarrollo (`braces`, vía ESLint); 0 en producción. No se fuerza la actualización.
 
-## Paso 6 — Layout persistente y conejo
+## Paso 6 — Layout persistente y conejo ✅ (pendiente de revisión)
 
 **Objetivo:** el esqueleto que no se vuelve a montar al navegar.
 
-- Header, footer, bandeja (modo reproductor y modo reposo) y menú móvil.
-- Componente del conejo a partir del prototipo (`design/character/prototype/`): capas WebP en `public/`, grafo de poses, parpadeo, respiración y mirada, que se pausan fuera de pantalla y con `prefers-reduced-motion`.
-- Dos posiciones: escenario (colección) y bandeja (resto).
+- `app/[locale]/layout.tsx`: enlace "Saltar al contenido", header, `<main id="contenido">`, footer y bandeja. Las páginas ya no ponen su propio `<main>`.
+- **Header** (Figma): logo → colección, Sobre mí y Contacto con `aria-current`, ES / EN. En móvil: ☰ abre el **menú a pantalla completa** (M13) con Base UI Dialog: trampa de foco, cierre con Esc y vuelta del foco al botón (probado); `+` en la página actual y `−` en el resto; selector de idioma y conejo.
+- **Footer**: logo, © con el año del build, Sobre mí, Contacto, GitHub, LinkedIn, Créditos del sitio (→ Sobre mí, "Equipo de estudio") y ES / EN. Sin ofertas de servicios.
+- **Bandeja** (`PlayerTray`): no aparece en la colección; dentro de un álbum publicado muestra el título, "5 pistas · 5 min" o "Pista 03 · …" y ⏮ ⏭ (en el álbum, ⏭ abre la 01; en la última pista ⏭ queda desactivado); en el resto (Sobre mí, ficha, planeados) queda en reposo: "Bunny Records · Elige un álbum" + "Colección". Reserva su alto para no tapar el final de la página. El modo reproductor se verá en el paso 8, cuando existan las rutas de álbum.
+- **Conejo** (`components/bunny/`): motor portado del prototipo (grafo de poses con fotogramas intermedios, parpadeo, respiración, mirada al puntero con histéresis, presentación, baile). Dos modos: *full* (escenario; 96 capas) y *lite* (bandeja y menú; 6 capas: reposo + parpadeo). Se pinta primero como imagen fija desde el servidor y se sustituye por el montaje animado al descodificarse; con `prefers-reduced-motion` se queda la imagen fija. Se pausa fuera de pantalla, con la pestaña oculta y cuando Activity oculta la página. Capas en `public/bunny/` (2,5 MB en total; el reposo pesa ~111 KB).
+- La portada provisional muestra el conejo completo (baila al pulsarlo) hasta el paso 7.
+- Next 16.4 no deja usar `new Date()` al prerenderizar: el año del footer sale de `getBuildYear()` con `"use cache"`.
+- **Verificado en Chrome:** el conejo pasa a curiosidad izquierda y a mirar arriba a la derecha según el puntero; bandeja en reposo en `/es/lab` y oculta en `/es`; vista móvil de 390 px (header, bandeja y menú) probada dentro de un iframe; sin errores en consola.
 
 ## Paso 7 — Colección (Inicio)
 
