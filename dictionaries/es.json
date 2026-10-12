@@ -10,9 +10,6 @@
     "contact": "Contacto",
     "skipToContent": "Saltar al contenido",
     "mainLabel": "Navegación principal",
-    "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú",
-    "menuTitle": "Menú",
     "homeLabel": "Bunny Records, ir a la colección"
   },
   "locale": {
@@ -46,25 +43,15 @@
     "body": "El enlace está rayado o el disco cambió de estante. Los vinilos solo tienen lado A y lado B.",
     "backHome": "Volver a la colección"
   },
-  "footer": {
-    "label": "Pie de página",
-    "copyright": "Bunny Records · © {year} {name}",
-    "siteCredits": "Créditos del sitio",
-    "github": "GitHub",
-    "linkedin": "LinkedIn"
-  },
   "tray": {
     "label": "Reproductor",
-    "idleTitle": "Bunny Records",
-    "idleSubtitle": "Elige un álbum",
     "albumSummary": "{tracks} pistas · {minutes} min",
     "trackNow": "Pista {number} · {title}",
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",
     "nextTrack": "Pista siguiente",
     "firstTrack": "Escuchar la primera pista",
-    "backToAlbum": "Volver al álbum",
-    "collection": "Colección"
+    "backToAlbum": "Volver al álbum"
   },
   "bunny": {
     "dance": "Haz bailar al conejo"
@@ -96,6 +83,30 @@
     "copy": "Copiar email",
     "copied": "Email copiado",
     "copyFailed": "No se pudo copiar: selecciónalo a mano",
-    "opensNewTab": "(se abre en una pestaña nueva)"
+    "opensNewTab": "(se abre en una pestaña nueva)",
+    "metaTitle": "Contacto",
+    "copyright": "Bunny Records · © {year} {name}",
+    "siteCredits": "Créditos del sitio",
+    "discLabel": "Contacto"
+  },
+  "about": {
+    "metaTitle": "Sobre mí",
+    "eyebrow": "Sobre el artista · Lado A",
+    "tracksLabel": "Pistas de Sobre mí",
+    "tracks": [
+      "Quién soy",
+      "Cómo trabajo",
+      "Gira",
+      "Equipo de estudio"
+    ],
+    "principlesTitle": "Tres reglas del sello",
+    "gearIntro": "Las herramientas que uso, sin barras de nivel.",
+    "gearGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend y datos",
+      "design": "Diseño y 3D",
+      "workflow": "Flujo e IA"
+    },
+    "discLabel": "Sobre mí"
   }
 }

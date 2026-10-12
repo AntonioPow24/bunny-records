@@ -169,3 +169,65 @@
     }
   }
 }
+
+/* ---------- v2 · sin scroll: discos y transiciones (BUNNY-RECORDS.md §5.3.2) ---------- */
+
+@layer components {
+  /* El vinilo de la escena gira despacio; se detiene con movimiento reducido (regla base). */
+  .disc-spin {
+    animation: disc-spin 9s linear infinite;
+  }
+}
+
+@keyframes disc-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* La barra no se mueve: es la referencia fija mientras cambia el contenido. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* El disco baja de la barra a la escena (y vuelve): 450 ms, con un leve desenfoque a mitad. */
+::view-transition-group(.morph) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 50;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  30% {
+    filter: blur(2px);
+  }
+}
+
+/* El resto del contenido se funde (por defecto del navegador), un poco más rápido. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+}
+
+/* Los clics durante la animación llegan a la página. */
+::view-transition {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

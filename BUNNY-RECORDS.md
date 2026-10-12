@@ -193,7 +193,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 
 **Bandeja fuera de un álbum** (Sobre mí, ficha, 404): modo *reposo*, con "Bunny Records · Elige un álbum" y "Colección", sin ⏮ ⏭.
 
-### 5.3.2 v2 · Sin scroll (propuesta del 2026-10-12, pendiente de aprobación)
+### 5.3.2 v2 · Sin scroll (aprobada e implementada el 2026-10-12, paso 7)
 
 Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección es una animación, no un desplazamiento.
 

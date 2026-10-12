@@ -10,9 +10,6 @@
     "contact": "Contact",
     "skipToContent": "Skip to content",
     "mainLabel": "Main navigation",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "menuTitle": "Menu",
     "homeLabel": "Bunny Records, go to the collection"
   },
   "locale": {
@@ -46,25 +43,15 @@
     "body": "The link is scratched or the record moved shelves. Vinyl only has a side A and a side B.",
     "backHome": "Back to the collection"
   },
-  "footer": {
-    "label": "Footer",
-    "copyright": "Bunny Records · © {year} {name}",
-    "siteCredits": "Site credits",
-    "github": "GitHub",
-    "linkedin": "LinkedIn"
-  },
   "tray": {
     "label": "Player",
-    "idleTitle": "Bunny Records",
-    "idleSubtitle": "Pick an album",
     "albumSummary": "{tracks} tracks · {minutes} min",
     "trackNow": "Track {number} · {title}",
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",
     "nextTrack": "Next track",
     "firstTrack": "Play the first track",
-    "backToAlbum": "Back to the album",
-    "collection": "Collection"
+    "backToAlbum": "Back to the album"
   },
   "bunny": {
     "dance": "Make the bunny dance"
@@ -96,6 +83,30 @@
     "copy": "Copy email",
     "copied": "Email copied",
     "copyFailed": "Couldn’t copy: select it manually",
-    "opensNewTab": "(opens in a new tab)"
+    "opensNewTab": "(opens in a new tab)",
+    "metaTitle": "Contact",
+    "copyright": "Bunny Records · © {year} {name}",
+    "siteCredits": "Site credits",
+    "discLabel": "Contact"
+  },
+  "about": {
+    "metaTitle": "About",
+    "eyebrow": "About the artist · Side A",
+    "tracksLabel": "About tracks",
+    "tracks": [
+      "Who I am",
+      "How I work",
+      "Tour",
+      "Studio gear"
+    ],
+    "principlesTitle": "Three label rules",
+    "gearIntro": "The tools I use, no skill bars.",
+    "gearGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend and data",
+      "design": "Design and 3D",
+      "workflow": "Workflow and AI"
+    },
+    "discLabel": "About"
   }
 }

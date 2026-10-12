@@ -121,9 +121,9 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
   const arrow = "inline-flex size-12 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-secondary";
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex min-h-0 flex-1 flex-col gap-4 md:gap-6">
       {filters.length > 2 && (
-        <div role="group" aria-label={labels.filterLabel} className="flex gap-2 overflow-x-auto pb-1">
+        <div role="group" aria-label={labels.filterLabel} className="flex shrink-0 gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
           {filters.map((f) => (
             <button
               key={f}
@@ -146,13 +146,13 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
       {visible.length === 0 || !current ? (
         <p className="text-body text-muted-foreground">{labels.empty}</p>
       ) : (
-        <div className="relative -mx-4 flex flex-col items-center gap-6 overflow-x-clip px-4 pb-2 md:mx-0 md:block md:min-h-[38rem] md:px-0">
+        <div className="stage -mx-4 flex flex-col items-center gap-3 overflow-x-clip px-4 md:mx-0 md:block md:px-0">
           <Bunny
             ref={bunny}
             mode="full"
             priority
             danceLabel={labels.dance}
-            className="w-40 md:absolute md:top-28 md:left-[calc(50%-25rem)] md:z-10 md:w-72"
+            className="stage-bunny"
           />
 
           <section
@@ -209,7 +209,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
             })}
           </section>
 
-          <div className="flex items-center gap-4 md:absolute md:top-36 md:right-0 md:left-0 md:justify-between md:gap-0">
+          <div className="stage-arrows flex items-center gap-4 md:justify-between md:gap-0">
             <button type="button" aria-label={labels.prev} onClick={() => select(selected - 1)} className={arrow}>
               <ChevronLeft className="size-5" />
             </button>
@@ -229,19 +229,19 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
           {/* Ficha breve de la seleccionada (Figma CoverInfo), debajo de la portada. */}
           <div
             aria-live="polite"
-            className="w-full max-w-[26rem] rounded-lg border border-border bg-card p-5 md:absolute md:top-[23rem] md:left-[calc(50%-10rem)] md:z-20"
+            className="stage-info w-full max-w-[26rem] rounded-lg border border-border bg-card p-4 md:p-5"
           >
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-h3">{current.title}</h2>
               <StatusPill status={current.status} label={current.statusLabel} />
             </div>
-            <p className="text-body-sm mt-2 text-muted-foreground">{current.tagline}</p>
-            <Link href={current.href} className={cn(buttonVariants({ size: "sm" }), "mt-4")}>
+            <p className="text-body-sm mt-1.5 line-clamp-2 text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
+            <Link href={current.href} className={cn(buttonVariants({ size: "sm" }), "mt-3")}>
               {current.status === "published" ? labels.open : labels.openPlanned}
             </Link>
           </div>
 
-          <p className="text-mono hidden text-muted-foreground md:absolute md:bottom-0 md:left-1/2 md:block md:-translate-x-1/2">
+          <p className="text-mono absolute right-0 bottom-0 hidden text-muted-foreground [@media(min-height:52rem)]:md:block">
             {labels.hint}
           </p>
         </div>

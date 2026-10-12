@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/container";
 import { Collection, type CollectionItem } from "@/components/portfolio/collection";
-import { ContactSection } from "@/components/sections/contact";
 import { profile } from "@/content/profile";
 import { getProjects } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
@@ -12,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: { absolute: dict.meta.title }, description: dict.meta.description };
 }
 
-// Inicio = colección (BUNNY-RECORDS.md §5.2) + contacto al final (#contact).
+// Inicio = colección (BUNNY-RECORDS.md §5.2 y §5.3.2): una sola pantalla, sin scroll.
 export default async function HomePage() {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   const statusLabel = {
@@ -32,12 +31,11 @@ export default async function HomePage() {
   }));
 
   return (
-    <>
-      <Container className="flex flex-col gap-8 pt-8 pb-16 md:pt-12">
-        <div className="flex max-w-xl flex-col gap-3">
+    <Container className="flex min-h-0 flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+        <div className="flex max-w-xl shrink-0 flex-col gap-1.5 md:gap-3">
           <p className="text-label text-primary">{dict.home.eyebrow}</p>
           <h1 className="text-h2">{dict.home.title}</h1>
-          <p className="text-body text-muted-foreground">
+          <p className="text-body hidden text-muted-foreground md:block">
             {format(dict.home.intro, { name: profile.name, role: profile.role[locale] })}
           </p>
         </div>
@@ -64,8 +62,6 @@ export default async function HomePage() {
             dance: dict.bunny.dance,
           }}
         />
-      </Container>
-      <ContactSection />
-    </>
+    </Container>
   );
 }
