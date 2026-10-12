@@ -173,6 +173,10 @@ Lighthouse móvil (simulación por defecto):
 
 **Quedan para el paso 13** (calidad): el 404 en consola de la colección (precarga de `/es/projects/…`, desaparece en el paso 8), "imágenes de baja resolución" en las capas del conejo (falso positivo: el lienzo de 1200 px se escala con CSS) y JavaScript sin usar del framework (~29 KB).
 
+**Bugs corregidos tras la revisión del usuario (2026-10-12):**
+- El disco pasaba por delante del conejo durante la transición y "saltaba" detrás al terminar: el conejo DJ ahora tiene su propia capa de transición (`scene-bunny`, z-index 120) por encima de los discos (110), y los discos por encima de la barra (100). Comprobado leyendo el z-index de cada grupo durante la transición.
+- Pulsar el disco de la sección actual relanzaba la navegación: el disco activo ya no es un enlace (marcador `aria-current="page"`).
+
 **Cómo juzgar la velocidad:** siempre con el build de producción (`npm run build && npm run start`). `npm run dev` compila bajo demanda y lleva las comprobaciones de desarrollo de React: es bastante más lento.
 
 ## Paso 8 — Álbum y pistas
