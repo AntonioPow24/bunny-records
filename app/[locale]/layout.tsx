@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Layout persistente (BUNNY-RECORDS.md §5.3.2 y §5.4): una sola pantalla fija; header y bandeja no se vuelven a
 // montar al navegar. El documento nunca hace scroll: si un contenido no cabe, se desplaza dentro de <main>.
-export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
+export default async function LocaleLayout({ children, panel }: LayoutProps<"/[locale]">) {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
   const albums: TrayAlbum[] = getProjects().map((project) => ({
@@ -57,6 +57,8 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
           {children}
         </main>
         <PlayerTray locale={locale} albums={albums} labels={dict.tray} />
+        {/* Ficha de tecnología como panel (ruta interceptada @panel/(.)stack/[tech]). */}
+        {panel}
       </body>
     </html>
   );

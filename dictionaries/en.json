@@ -123,5 +123,19 @@
     "trackOf": "Track {number} of {total}",
     "coverOf": "Cover of {title}",
     "backToTracks": "Back to all tracks"
+  },
+  "tech": {
+    "eyebrow": "Technology sheet · shared credits",
+    "howIUseIt": "How I use it",
+    "learned": "What I learned",
+    "appearsIn": "Appears on",
+    "appearsCount": {
+      "one": "Appears on {count} album",
+      "other": "Appears on {count} albums"
+    },
+    "notInAlbums": "Not on any album yet.",
+    "close": "Close sheet",
+    "back": "Collection",
+    "openAlbum": "Open {title}"
   }
 }

@@ -207,12 +207,18 @@ Lighthouse móvil (simulación por defecto):
 - Los créditos todavía no enlazan a la ficha de tecnología: llega en el paso 9.
 - **Verificado en Chrome:** colección → álbum → pista → ⏭ → "Mostrar todas"; álbum planeado; móvil 390×844 (álbum, pista y planeado en inglés) sin scroll de página ni desbordes.
 
-## Paso 9 — Fichas de tecnología
+## Paso 9 — Fichas de tecnología ✅ (pendiente de revisión)
 
 **Objetivo:** créditos compartidos con URL propia.
 
-- `stack/[tech]/page.tsx` (página completa) y `@panel/(.)stack/[tech]` (panel lateral / hoja inferior).
-- "Aparece en" derivado de los créditos; canónica a la página completa.
+- `TechSheet` (contenido compartido): cómo la uso, qué aprendí y "Aparece en", derivado de los créditos de cada proyecto.
+- `stack/[tech]/page.tsx`: página completa con "← Colección" (entrada directa o recarga). Ids inexistentes → 404.
+- `@panel/(.)stack/[tech]`: la misma URL abierta desde el sitio intercepta la ruta y muestra `TechPanel` (Base UI Dialog): panel lateral en escritorio, hoja inferior en móvil, sobre la página atenuada. Cerrar (X, Esc o fondo) = `router.back()`, y el foco vuelve al enlace que lo abrió.
+- `@panel/default.tsx`, `@panel/page.tsx` y `@panel/[...catchAll]` devuelven `null`: al navegar a otra ruta (incluido el logo → `/es`) el panel se cierra.
+- Activity conserva el estado de las rutas visitadas: el Dialog es controlado y vuelve a `open` al ocultarse, así la misma ficha se puede reabrir.
+- Créditos del álbum y chips de "Equipo de estudio" (Sobre mí) enlazan a la ficha.
+- La URL del panel y la de la página completa es la misma; la canónica se revisa en el paso 12.
+- **Verificado en Chrome (build de producción):** abrir/cerrar/reabrir 3 veces, foco dentro y de vuelta al crédito, cierre con el logo, apertura desde Sobre mí, entrada directa y hoja inferior a 390×844 y 375×667.
 
 ## Paso 10 — Sobre mí, 404 y menú móvil
 
