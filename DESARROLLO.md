@@ -106,13 +106,20 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - Next 16.4 no deja usar `new Date()` al prerenderizar: el año del footer sale de `getBuildYear()` con `"use cache"`.
 - **Verificado en Chrome:** el conejo pasa a curiosidad izquierda y a mirar arriba a la derecha según el puntero; bandeja en reposo en `/es/lab` y oculta en `/es`; vista móvil de 390 px (header, bandeja y menú) probada dentro de un iframe; sin errores en consola.
 
-## Paso 7 — Colección (Inicio)
+## Paso 7 — Colección, Sobre mí y Contacto, sin scroll (v2) ✅ (pendiente de revisión)
 
-**Objetivo:** la portada del sitio.
+**Objetivo:** la portada del sitio y la navegación por discos (`BUNNY-RECORDS.md` §5.3.2, aprobada el 2026-10-12).
 
-- Arco de portadas con flechas, teclado y desplazamiento táctil en móvil.
-- Filtro por estado; selección con `CoverInfo` debajo de la portada; conejo en curiosidad mirando la central.
-- Sección de contacto (#contact) como ficha técnica informativa (sin oferta de servicios), con email copiable, GitHub y LinkedIn.
+- **Una sola pantalla fija:** `<html>`/`<body>` a `100dvh` sin scroll; si algo no cabe, se desplaza dentro de `<main>` (o de su panel). Sin footer.
+- **Barra** (Figma Header v2): logo = volver a la colección; discos **Sobre mí** (etiqueta teal) y **Contacto** (marfil) con `aria-current`; ES / EN. El disco activo deja su hueco (aro discontinuo). En móvil, solo los discos (sin menú ☰).
+- **Transición del disco:** `<ViewTransition name="disc-about|disc-contact" share="morph">` en la barra y en la escena; el disco baja (450 ms, leve desenfoque) y el resto se funde (280 ms). La barra queda fija (`site-header`). Probado: al pasar de Sobre mí a Contacto el navegador anima los grupos `disc-about` y `disc-contact` a la vez. Sin animación con `prefers-reduced-motion`.
+- **Colección** (`/[locale]`): arco circular, filtros (solo estados con álbumes), flechas, teclado, deslizar, ficha bajo la portada, conejo que mira y presenta. Todo se dimensiona desde `--cover`, que depende del alto de la pantalla: cabe sin scroll en 1920×911, 390×844 y 375×667 (medido).
+- **Sobre mí** (`/[locale]/about`): escena de tocadiscos (disco girando + conejo DJ mirando el contenido) y cuatro **pistas** accesibles (`tablist`, flechas, Inicio/Fin): Quién soy · Cómo trabajo · Gira · Equipo de estudio. Cambiar de pista funde el contenido; `#bio|#principles|#tour|#gear` enlaza una pista.
+- **Contacto** (`/[locale]/contact`): escena con el disco marfil y el conejo señalando; ficha técnica, email con Copiar, GitHub, LinkedIn y, al final, © y "Créditos del sitio" (→ `/about#gear`). En móvil, escena compacta (disco pequeño, sin conejo).
+- **Bandeja:** solo en el flujo de proyectos.
+- Se eliminaron `footer.tsx`, `mobile-nav.tsx` y `nav-links.tsx`.
+- **Verificado en Chrome (build de producción):** transiciones de discos, pistas con teclado, enlace a créditos, sin scroll en escritorio y en tres tamaños móviles, sin desbordes horizontales.
+- **Aviso:** el servidor de desarrollo puede quedarse con módulos antiguos tras borrar o renombrar exportaciones ("Element type is invalid… ContactSheet" / "did not produce a static shell"); se arregla reiniciando `npm run dev` (y, si persiste, borrando `.next`).
 
 ## Paso 8 — Álbum y pistas
 

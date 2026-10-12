@@ -1,5 +1,6 @@
 /* Conejo por capas (BUNNY-RECORDS.md §4). Las clases las crea components/bunny/engine.ts. */
 
+@layer components {
 .bunny {
   position: relative;
   aspect-ratio: 3 / 4;
@@ -132,4 +133,5 @@
   .bunny-canvas {
     display: none;
   }
+}
 }

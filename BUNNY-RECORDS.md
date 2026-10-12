@@ -193,6 +193,19 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 
 **Bandeja fuera de un álbum** (Sobre mí, ficha, 404): modo *reposo*, con "Bunny Records · Elige un álbum" y "Colección", sin ⏮ ⏭.
 
+### 5.3.2 v2 · Sin scroll (aprobada e implementada el 2026-10-12, paso 7)
+
+Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección es una animación, no un desplazamiento.
+
+- **El documento nunca hace scroll.** Lo largo (pistas, créditos y notas de un álbum; el texto de una pista) se desplaza **dentro de su panel**, como en Spotify de escritorio.
+- **Barra:** logo (= volver a la colección), dos **discos** (Sobre mí, etiqueta teal; Contacto, etiqueta marfil) y ES / EN. Al elegir un disco, **baja de la barra a la escena** (transición compartida) y el contenido anterior se desvanece; en la barra queda su **hueco** (aro discontinuo). En móvil, los discos sin texto sustituyen al menú ☰.
+- **Escena de Sobre mí y Contacto = tocadiscos:** disco grande a la izquierda y el conejo de DJ a su lado (mira o señala el contenido).
+- **Sobre mí se divide en "pistas"** (01 Quién soy · 02 Cómo trabajo · 03 Gira · 04 Equipo de estudio) para caber sin scroll. "Discografía" desaparece: la colección ya lo es.
+- **Contacto pasa a ser una vista propia** (sale del final del inicio) y recoge lo que tenía el footer (©, créditos del sitio). **Ya no hay footer.**
+- **Volver:** solo el flujo de proyectos tiene "← Colección"; Sobre mí y Contacto no, se vuelve con el logo. La **bandeja** solo existe en el flujo de proyectos (reproductor); en Sobre mí y Contacto el conejo está en la escena.
+- Rutas: se mantienen `/[locale]/about` y `/[locale]/contact` (URL compartible, botón Atrás del navegador), con View Transitions.
+- Figma: sección "v2 · Sin scroll" en `02 Pantallas` (V2-D01, V2-D10, V2-D10b, V2-D11, V2-D04, V2-M01, V2-M10, V2-M11) y flujo "v2 · Sin scroll" en `03 Prototipo`. Componentes nuevos: `DiscGraphic`, `NavDisc` y `Header v2`.
+
 ### 5.4 Rutas (confirmadas 2026-10-12; implementación en `PORTFOLIO.md` §5)
 
 | Ruta | Pantalla | Qué persiste al llegar desde la anterior |

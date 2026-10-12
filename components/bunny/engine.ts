@@ -57,6 +57,8 @@ const SIDE_TO_PRESENT: Record<BunnySide, BunnyPose> = {
 export class BunnyEngine {
   private readonly canvas: HTMLElement;
   private readonly mode: BunnyMode;
+  /** Pose fija (sin seguir al puntero), p. ej. presentando la ficha de Contacto. */
+  private readonly hold: BunnyPose | null;
   private readonly nodes: Record<string, Frame> = {};
   private readonly edges: Record<string, Frame[]> = {};
   private readonly dist: Record<string, Record<string, number>> = {};
@@ -86,9 +88,10 @@ export class BunnyEngine {
   private destroyed = false;
   private readonly cleanups: (() => void)[] = [];
 
-  constructor(canvas: HTMLElement, mode: BunnyMode) {
+  constructor(canvas: HTMLElement, mode: BunnyMode, hold: BunnyPose | null = null) {
     this.canvas = canvas;
     this.mode = mode;
+    this.hold = mode === "full" ? hold : null;
     const P = B.pivots;
     const feet = `${P.feet[0]}px ${P.feet[1]}px`;
 
@@ -120,11 +123,12 @@ export class BunnyEngine {
       })
       .then(() => {
         this.allReady = true;
-        this.evaluate();
+        if (this.hold) this.setPose(this.hold);
+        else this.evaluate();
       });
 
     this.scheduleBlink();
-    if (mode === "full") this.listenToPointer();
+    if (mode === "full" && !this.hold) this.listenToPointer();
   }
 
   // ---------- montaje ----------
@@ -296,7 +300,7 @@ export class BunnyEngine {
 
   /** Los cambios se confirman tras una pausa corta, para que bordes y huecos no lo hagan rebotar. */
   private evaluate = () => {
-    if (this.mode !== "full" || this.paused || performance.now() < this.busyUntil) return;
+    if (this.mode !== "full" || this.hold || this.paused || performance.now() < this.busyUntil) return;
     const d = this.desired();
     if (d === this.target) {
       this.clearPending();
@@ -388,7 +392,7 @@ export class BunnyEngine {
     if (this.gestureTimer !== null) window.clearTimeout(this.gestureTimer);
     this.gestureTimer = window.setTimeout(() => {
       this.busyUntil = 0;
-      this.setPose(this.mode === "full" ? this.desired() : "rest");
+      this.setPose(this.hold ?? (this.mode === "full" ? this.desired() : "rest"));
     }, ms);
   }
 

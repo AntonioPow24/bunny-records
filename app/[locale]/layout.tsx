@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { PlayerTray, type TrayAlbum } from "@/components/layout/player-tray";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -27,7 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Layout persistente (BUNNY-RECORDS.md §5.4): header, footer y bandeja no se vuelven a montar al navegar.
+// Layout persistente (BUNNY-RECORDS.md §5.3.2 y §5.4): una sola pantalla fija; header y bandeja no se vuelven a
+// montar al navegar. El documento nunca hace scroll: si un contenido no cabe, se desplaza dentro de <main>.
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
@@ -47,14 +47,13 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   return (
     // suppressHydrationWarning solo cubre los atributos de <html>: extensiones como
     // LanguageTool añaden data-lt-installed antes de que React hidrate.
-    <html lang={locale} className={`${fontVariables} h-full antialiased`} suppressHydrationWarning>
-      <body className="flex min-h-full flex-col">
+    <html lang={locale} className={`${fontVariables} h-full overflow-hidden antialiased`} suppressHydrationWarning>
+      <body className="flex h-dvh flex-col overflow-hidden">
         <SkipLink label={dict.nav.skipToContent} />
         <Header />
-        <main id="contenido" tabIndex={-1} className="flex flex-1 flex-col outline-none">
+        <main id="contenido" tabIndex={-1} className="flex min-h-0 flex-1 flex-col overflow-y-auto outline-none">
           {children}
         </main>
-        <Footer />
         <PlayerTray locale={locale} albums={albums} labels={dict.tray} />
       </body>
     </html>

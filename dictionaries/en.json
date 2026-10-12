@@ -10,9 +10,6 @@
     "contact": "Contact",
     "skipToContent": "Skip to content",
     "mainLabel": "Main navigation",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "menuTitle": "Menu",
     "homeLabel": "Bunny Records, go to the collection"
   },
   "locale": {
@@ -22,7 +19,23 @@
   "home": {
     "eyebrow": "Bunny Records · Collection",
     "title": "Every project, an album.",
-    "comingSoon": "Under construction"
+    "intro": "{name} · {role}. Pick a cover to see how it was made.",
+    "metaTitle": "Collection",
+    "filterLabel": "Filter by status",
+    "filterAll": "All",
+    "collectionLabel": "Album collection",
+    "collectionRole": "carousel",
+    "prev": "Previous album",
+    "next": "Next album",
+    "select": "Select {title}",
+    "position": "{title}, {position} of {total}",
+    "hint": "← → to browse · Enter to open",
+    "open": "Open project",
+    "openPlanned": "See the concept",
+    "empty": "No albums with this status yet.",
+    "filterPublished": "Published",
+    "filterInDevelopment": "In development",
+    "filterPlanned": "Planned"
   },
   "notFound": {
     "eyebrow": "Error 404 · Side C",
@@ -30,27 +43,70 @@
     "body": "The link is scratched or the record moved shelves. Vinyl only has a side A and a side B.",
     "backHome": "Back to the collection"
   },
-  "footer": {
-    "label": "Footer",
-    "copyright": "Bunny Records · © {year} {name}",
-    "siteCredits": "Site credits",
-    "github": "GitHub",
-    "linkedin": "LinkedIn"
-  },
   "tray": {
     "label": "Player",
-    "idleTitle": "Bunny Records",
-    "idleSubtitle": "Pick an album",
     "albumSummary": "{tracks} tracks · {minutes} min",
     "trackNow": "Track {number} · {title}",
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",
     "nextTrack": "Next track",
     "firstTrack": "Play the first track",
-    "backToAlbum": "Back to the album",
-    "collection": "Collection"
+    "backToAlbum": "Back to the album"
   },
   "bunny": {
     "dance": "Make the bunny dance"
+  },
+  "status": {
+    "published": "Published",
+    "inDevelopment": "In development",
+    "planned": "Planned"
+  },
+  "contact": {
+    "eyebrow": "Contact · Liner notes",
+    "title": "Who’s behind the label",
+    "body": "The essentials about me, like the back cover of a record, and where to find me.",
+    "statsLabel": "On this label",
+    "published": {
+      "one": "{count} published album",
+      "other": "{count} published albums"
+    },
+    "inDevelopment": {
+      "one": "{count} in development",
+      "other": "{count} in development"
+    },
+    "planned": {
+      "one": "{count} planned",
+      "other": "{count} planned"
+    },
+    "whereTitle": "Where to find me",
+    "emailLabel": "Email",
+    "copy": "Copy email",
+    "copied": "Email copied",
+    "copyFailed": "Couldn’t copy: select it manually",
+    "opensNewTab": "(opens in a new tab)",
+    "metaTitle": "Contact",
+    "copyright": "Bunny Records · © {year} {name}",
+    "siteCredits": "Site credits",
+    "discLabel": "Contact"
+  },
+  "about": {
+    "metaTitle": "About",
+    "eyebrow": "About the artist · Side A",
+    "tracksLabel": "About tracks",
+    "tracks": [
+      "Who I am",
+      "How I work",
+      "Tour",
+      "Studio gear"
+    ],
+    "principlesTitle": "Three label rules",
+    "gearIntro": "The tools I use, no skill bars.",
+    "gearGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend and data",
+      "design": "Design and 3D",
+      "workflow": "Workflow and AI"
+    },
+    "discLabel": "About"
   }
 }
