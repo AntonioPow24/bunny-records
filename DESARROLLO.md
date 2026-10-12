@@ -106,13 +106,17 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - Next 16.4 no deja usar `new Date()` al prerenderizar: el año del footer sale de `getBuildYear()` con `"use cache"`.
 - **Verificado en Chrome:** el conejo pasa a curiosidad izquierda y a mirar arriba a la derecha según el puntero; bandeja en reposo en `/es/lab` y oculta en `/es`; vista móvil de 390 px (header, bandeja y menú) probada dentro de un iframe; sin errores en consola.
 
-## Paso 7 — Colección (Inicio)
+## Paso 7 — Colección (Inicio) ✅ (pendiente de revisión)
 
 **Objetivo:** la portada del sitio.
 
-- Arco de portadas con flechas, teclado y desplazamiento táctil en móvil.
-- Filtro por estado; selección con `CoverInfo` debajo de la portada; conejo en curiosidad mirando la central.
-- Sección de contacto (#contact) como ficha técnica informativa (sin oferta de servicios), con email copiable, GitHub y LinkedIn.
+- **Colección** (`components/portfolio/collection.tsx`, Figma D01/D02/M01): presentación, filtros por estado (solo los que tienen álbumes; hoy "Todos · Publicados · Planeados"), arco circular de portadas con vecinas a los dos lados, flechas de 48 px, teclado (← → y Enter), deslizar en móvil y puntos de posición.
+- Seleccionar = la portada avanza al centro y su **ficha** aparece debajo (título, estado, una línea y "Abrir proyecto" o "Ver concepto" en los planeados); abrir = la portada central o el botón llevan a `/[locale]/projects/[slug]` (llega en el paso 8).
+- **Conejo en el escenario**, delante y a la izquierda: mira la portada bajo el puntero (lado calculado respecto a su cabeza) y la presenta al elegirla; baila al pulsarlo.
+- **Portadas** (`cover-art.tsx`, Figma Cover): imagen con degradado para el título, sello "Planeado"; la primera carga con prioridad alta (LCP).
+- **Contacto · ficha técnica** (`#contact`, Figma D11/M11): quién está detrás del sello, filas de `profile.spec` + "En este sello" calculado ("1 álbum publicado · 4 planeados", con plurales por idioma), email con botón Copiar (aviso accesible), GitHub y LinkedIn (pestaña nueva, avisado). Conejo con pose fija de presentación (nueva opción `hold` del motor).
+- CSS de componentes en `@layer components`: si no, ganaba a las utilidades de Tailwind (el conejo no se podía posicionar con `md:absolute`).
+- **Verificado en Chrome:** escritorio igual a Figma D02, flecha y teclado cambian de álbum y la ficha se actualiza, el conejo mira hacia el puntero, contacto con el conejo señalando; móvil de 390 px sin scroll horizontal; textos en inglés.
 
 ## Paso 8 — Álbum y pistas
 

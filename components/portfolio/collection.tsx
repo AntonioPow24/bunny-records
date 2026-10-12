@@ -1,0 +1,251 @@
+"use client";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { StaticImageData } from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+
+import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
+import type { BunnySide } from "@/components/bunny/engine";
+import { StatusPill, type ProjectStatusVariant } from "@/components/patterns/status-pill";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+import "./collection.css";
+import { CoverArt } from "./cover-art";
+
+export type CollectionItem = {
+  slug: string;
+  href: string;
+  title: string;
+  tagline: string;
+  status: ProjectStatusVariant;
+  statusLabel: string;
+  cover: { src: StaticImageData; alt: string };
+};
+
+type Filter = "all" | ProjectStatusVariant;
+
+type CollectionLabels = {
+  filterLabel: string;
+  filters: Record<Filter, string>;
+  collectionLabel: string;
+  collectionRole: string;
+  prev: string;
+  next: string;
+  select: string;
+  position: string;
+  hint: string;
+  open: string;
+  openPlanned: string;
+  empty: string;
+  dance: string;
+};
+
+const fill = (template: string, values: Record<string, string | number>) =>
+  template.replace(/\{(\w+)\}/g, (_, k: string) => String(values[k] ?? ""));
+
+/** Distancia a la seleccionada → posición en el arco (collection.css). Circular: vecinas a los dos lados. */
+function offsetOf(index: number, selected: number, total: number) {
+  let d = index - selected;
+  if (total >= 3) {
+    d = (((d % total) + total) % total);
+    if (d > total / 2) d -= total;
+  }
+  if (d < -2) return "far-left";
+  if (d > 2) return "far-right";
+  return String(d);
+}
+
+// Colección (Figma D01, D02 y M01; BUNNY-RECORDS.md §5.2 pasos 1–2).
+// Seleccionar = explorar (la portada avanza y aparece su ficha); abrir = entrar al álbum.
+export function Collection({ items, labels }: { items: CollectionItem[]; labels: CollectionLabels }) {
+  const router = useRouter();
+  const bunny = useRef<BunnyHandle>(null);
+  const swipeStart = useRef<number | null>(null);
+  const [filter, setFilter] = useState<Filter>("all");
+  const [selected, setSelected] = useState(0);
+
+  const filters = (["all", "published", "in-development", "planned"] as Filter[]).filter(
+    (f) => f === "all" || items.some((i) => i.status === f),
+  );
+  const visible = filter === "all" ? items : items.filter((i) => i.status === filter);
+  const current = visible[Math.min(selected, visible.length - 1)];
+
+  function chooseFilter(f: Filter) {
+    setFilter(f);
+    const list = f === "all" ? items : items.filter((i) => i.status === f);
+    const keep = list.findIndex((i) => i.slug === current?.slug);
+    setSelected(keep >= 0 ? keep : 0);
+  }
+
+  function select(index: number) {
+    if (visible.length === 0) return;
+    setSelected((index + visible.length) % visible.length);
+  }
+
+  /** Lado del conejo hacia el que queda un elemento (mira o señala hacia él). */
+  function sideOf(el: Element): BunnySide {
+    const head = bunny.current?.headPoint();
+    const r = el.getBoundingClientRect();
+    if (!head) return "right";
+    const dx = r.left + r.width / 2 - head.x;
+    const dy = r.top + r.height / 2 - head.y;
+    if (dy < -120 && Math.abs(dx) > 60) return dx < 0 ? "up-left" : "up-right";
+    return dx < 0 ? "left" : "right";
+  }
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      select(selected - 1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      select(selected + 1);
+    } else if (e.key === "Enter" && e.target === e.currentTarget && current) {
+      router.push(current.href);
+    }
+  }
+
+  function onPointerDown(e: PointerEvent) {
+    if (e.pointerType !== "mouse") swipeStart.current = e.clientX;
+  }
+  function onPointerUp(e: PointerEvent) {
+    if (swipeStart.current === null) return;
+    const dx = e.clientX - swipeStart.current;
+    swipeStart.current = null;
+    if (Math.abs(dx) > 40) select(selected + (dx < 0 ? 1 : -1));
+  }
+
+  const arrow = "inline-flex size-12 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-secondary";
+
+  return (
+    <div className="flex flex-col gap-8">
+      {filters.length > 2 && (
+        <div role="group" aria-label={labels.filterLabel} className="flex gap-2 overflow-x-auto pb-1">
+          {filters.map((f) => (
+            <button
+              key={f}
+              type="button"
+              aria-pressed={filter === f}
+              onClick={() => chooseFilter(f)}
+              className={cn(
+                "text-body-sm h-11 shrink-0 rounded-full border px-4 transition-colors",
+                filter === f
+                  ? "border-transparent bg-foreground text-background"
+                  : "border-border text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
+            >
+              {labels.filters[f]}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {visible.length === 0 || !current ? (
+        <p className="text-body text-muted-foreground">{labels.empty}</p>
+      ) : (
+        <div className="relative -mx-4 flex flex-col items-center gap-6 overflow-x-clip px-4 pb-2 md:mx-0 md:block md:min-h-[38rem] md:px-0">
+          <Bunny
+            ref={bunny}
+            mode="full"
+            priority
+            danceLabel={labels.dance}
+            className="w-40 md:absolute md:top-28 md:left-[calc(50%-25rem)] md:z-10 md:w-72"
+          />
+
+          <section
+            aria-roledescription={labels.collectionRole}
+            aria-label={labels.collectionLabel}
+            tabIndex={0}
+            onKeyDown={onKeyDown}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            className="arc w-full rounded-lg"
+          >
+            {visible.map((item, index) => {
+              const offset = offsetOf(index, selected, visible.length);
+              const isCurrent = offset === "0";
+              const art = (
+                <CoverArt
+                  src={item.cover.src}
+                  alt={item.cover.alt}
+                  title={item.title}
+                  sticker={item.status === "published" ? undefined : item.statusLabel}
+                  sizes="(min-width: 48rem) 320px, 200px"
+                  eager={index === 0}
+                  titleSize={isCurrent ? "lg" : "sm"}
+                />
+              );
+              return (
+                <div
+                  key={item.slug}
+                  data-offset={offset}
+                  className="arc-item"
+                  onPointerEnter={(e) => bunny.current?.setHover(sideOf(e.currentTarget))}
+                  onPointerLeave={() => bunny.current?.setHover(null)}
+                >
+                  {isCurrent ? (
+                    <Link href={item.href} aria-label={fill(labels.position, { title: item.title, position: index + 1, total: visible.length })} className="block rounded-lg">
+                      {art}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      aria-label={fill(labels.select, { title: item.title })}
+                      onClick={(e) => {
+                        bunny.current?.present(sideOf(e.currentTarget), 1600);
+                        select(index);
+                      }}
+                      className="block w-full cursor-pointer rounded-lg"
+                    >
+                      {art}
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </section>
+
+          <div className="flex items-center gap-4 md:absolute md:top-36 md:right-0 md:left-0 md:justify-between md:gap-0">
+            <button type="button" aria-label={labels.prev} onClick={() => select(selected - 1)} className={arrow}>
+              <ChevronLeft className="size-5" />
+            </button>
+            <ol aria-hidden="true" className="flex gap-1.5 md:hidden">
+              {visible.map((item, index) => (
+                <li
+                  key={item.slug}
+                  className={cn("size-1.5 rounded-full", index === selected ? "bg-primary" : "bg-border")}
+                />
+              ))}
+            </ol>
+            <button type="button" aria-label={labels.next} onClick={() => select(selected + 1)} className={arrow}>
+              <ChevronRight className="size-5" />
+            </button>
+          </div>
+
+          {/* Ficha breve de la seleccionada (Figma CoverInfo), debajo de la portada. */}
+          <div
+            aria-live="polite"
+            className="w-full max-w-[26rem] rounded-lg border border-border bg-card p-5 md:absolute md:top-[23rem] md:left-[calc(50%-10rem)] md:z-20"
+          >
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="text-h3">{current.title}</h2>
+              <StatusPill status={current.status} label={current.statusLabel} />
+            </div>
+            <p className="text-body-sm mt-2 text-muted-foreground">{current.tagline}</p>
+            <Link href={current.href} className={cn(buttonVariants({ size: "sm" }), "mt-4")}>
+              {current.status === "published" ? labels.open : labels.openPlanned}
+            </Link>
+          </div>
+
+          <p className="text-mono hidden text-muted-foreground md:absolute md:bottom-0 md:left-1/2 md:block md:-translate-x-1/2">
+            {labels.hint}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}

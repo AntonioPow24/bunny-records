@@ -1,0 +1,95 @@
+/* Arco de portadas (Figma D01/D02 y M01). La posición depende solo de la distancia a la seleccionada. */
+
+@layer components {
+.arc {
+  --cover: 200px;
+  position: relative;
+  height: var(--cover);
+  touch-action: pan-y;
+}
+
+.arc-item {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--cover);
+  transform-origin: 50% 50%;
+  transition:
+    transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 300ms ease-out;
+}
+
+/* Móvil: carrusel horizontal, la seleccionada al centro y las vecinas asomando. */
+.arc-item[data-offset="0"] {
+  transform: translateX(-50%);
+  z-index: 3;
+}
+.arc-item[data-offset="-1"] {
+  transform: translateX(calc(-50% - 245px));
+  opacity: 0.6;
+  z-index: 2;
+}
+.arc-item[data-offset="1"] {
+  transform: translateX(calc(-50% + 245px));
+  opacity: 0.6;
+  z-index: 2;
+}
+.arc-item[data-offset="far-left"] {
+  transform: translateX(calc(-50% - 490px));
+  opacity: 0;
+  pointer-events: none;
+}
+.arc-item[data-offset="far-right"] {
+  transform: translateX(calc(-50% + 490px));
+  opacity: 0;
+  pointer-events: none;
+}
+.arc-item[data-offset="-2"],
+.arc-item[data-offset="2"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.arc-item[data-offset="-2"] {
+  transform: translateX(calc(-50% - 490px));
+}
+.arc-item[data-offset="2"] {
+  transform: translateX(calc(-50% + 490px));
+}
+
+/* Escritorio: arco en perspectiva detrás del conejo. */
+@media (width >= 48rem) {
+  .arc {
+    --cover: 320px;
+    height: calc(var(--cover) + 90px);
+  }
+  .arc-item[data-offset="-1"] {
+    transform: translateX(calc(-50% - 120px)) translateY(40px) scale(0.625) rotate(4deg);
+    opacity: 0.75;
+  }
+  .arc-item[data-offset="1"] {
+    transform: translateX(calc(-50% + 120px)) translateY(40px) scale(0.625) rotate(-4deg);
+    opacity: 0.75;
+  }
+  .arc-item[data-offset="-2"] {
+    transform: translateX(calc(-50% - 320px)) translateY(80px) scale(0.625) rotate(8deg);
+    opacity: 0.4;
+    pointer-events: auto;
+    z-index: 1;
+  }
+  .arc-item[data-offset="2"] {
+    transform: translateX(calc(-50% + 320px)) translateY(80px) scale(0.625) rotate(-8deg);
+    opacity: 0.4;
+    pointer-events: auto;
+    z-index: 1;
+  }
+  .arc-item[data-offset="far-left"] {
+    transform: translateX(calc(-50% - 460px)) translateY(100px) scale(0.5);
+  }
+  .arc-item[data-offset="far-right"] {
+    transform: translateX(calc(-50% + 460px)) translateY(100px) scale(0.5);
+  }
+  .arc-item:not([data-offset="0"]):hover {
+    opacity: 1;
+  }
+}
+}

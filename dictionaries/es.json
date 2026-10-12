@@ -22,7 +22,23 @@
   "home": {
     "eyebrow": "Bunny Records · Colección",
     "title": "Cada proyecto, un álbum.",
-    "comingSoon": "En construcción"
+    "intro": "{name} · {role}. Elige una portada para ver cómo se hizo.",
+    "metaTitle": "Colección",
+    "filterLabel": "Filtrar por estado",
+    "filterAll": "Todos",
+    "collectionLabel": "Colección de álbumes",
+    "collectionRole": "carrusel",
+    "prev": "Álbum anterior",
+    "next": "Álbum siguiente",
+    "select": "Seleccionar {title}",
+    "position": "{title}, {position} de {total}",
+    "hint": "← → para explorar · Enter para abrir",
+    "open": "Abrir proyecto",
+    "openPlanned": "Ver concepto",
+    "empty": "No hay álbumes con este estado todavía.",
+    "filterPublished": "Publicados",
+    "filterInDevelopment": "En desarrollo",
+    "filterPlanned": "Planeados"
   },
   "notFound": {
     "eyebrow": "Error 404 · Lado C",
@@ -52,5 +68,34 @@
   },
   "bunny": {
     "dance": "Haz bailar al conejo"
+  },
+  "status": {
+    "published": "Publicado",
+    "inDevelopment": "En desarrollo",
+    "planned": "Planeado"
+  },
+  "contact": {
+    "eyebrow": "Contacto · Ficha técnica",
+    "title": "Quién está detrás del sello",
+    "body": "Lo esencial sobre mí, como en la contraportada de un disco, y dónde encontrarme.",
+    "statsLabel": "En este sello",
+    "published": {
+      "one": "{count} álbum publicado",
+      "other": "{count} álbumes publicados"
+    },
+    "inDevelopment": {
+      "one": "{count} en desarrollo",
+      "other": "{count} en desarrollo"
+    },
+    "planned": {
+      "one": "{count} planeado",
+      "other": "{count} planeados"
+    },
+    "whereTitle": "Dónde encontrarme",
+    "emailLabel": "Email",
+    "copy": "Copiar email",
+    "copied": "Email copiado",
+    "copyFailed": "No se pudo copiar: selecciónalo a mano",
+    "opensNewTab": "(se abre en una pestaña nueva)"
   }
 }

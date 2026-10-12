@@ -18,6 +18,8 @@ import {
 } from "./engine";
 
 export type BunnyHandle = {
+  /** Punto de la cabeza en pantalla, para decidir hacia qué lado mira. */
+  headPoint: () => { x: number; y: number } | null;
   setHover: (side: BunnySide | null) => void;
   present: (side: BunnySide, ms?: number) => void;
   gesture: (pose: BunnyPose, ms?: number) => void;
@@ -27,6 +29,8 @@ export type BunnyHandle = {
 type BunnyProps = {
   /** "full": escenario de la colección (poses, mirada). "lite": bandeja (reposo, parpadeo y respiración). */
   mode?: BunnyMode;
+  /** Pose fija en modo full (no sigue al puntero). */
+  hold?: BunnyPose;
   /** Si se pasa, el conejo es un botón que baila al pulsarlo; si no, es decorativo. */
   danceLabel?: string;
   /** Carga prioritaria de la imagen fija (cuando el conejo es lo primero que se ve). */
@@ -35,18 +39,26 @@ type BunnyProps = {
   ref?: Ref<BunnyHandle>;
 };
 
+const HEAD_X = 600 / CANVAS_WIDTH;
+const HEAD_Y = 944.9 / CANVAS_HEIGHT;
+
 const pct = (value: number, total: number) => `${(value / total) * 100}%`;
 
 /**
  * Conejo anfitrión. Se pinta primero como imagen fija (servidor, sin JavaScript); el montaje por capas la
  * sustituye cuando el reposo está descodificado. Con prefers-reduced-motion se queda la imagen fija.
  */
-export function Bunny({ mode = "lite", danceLabel, priority = false, className, ref }: BunnyProps) {
+export function Bunny({ mode = "lite", hold, danceLabel, priority = false, className, ref }: BunnyProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BunnyEngine | null>(null);
 
   useImperativeHandle(ref, () => ({
+    headPoint: () => {
+      const r = rootRef.current?.getBoundingClientRect();
+      if (!r) return null;
+      return { x: r.left + r.width * HEAD_X, y: r.top + r.height * HEAD_Y };
+    },
     setHover: (side) => engineRef.current?.setHover(side),
     present: (side, ms) => engineRef.current?.present(side, ms),
     gesture: (pose, ms) => engineRef.current?.gesture(pose, ms),
@@ -68,7 +80,7 @@ export function Bunny({ mode = "lite", danceLabel, priority = false, className, 
     const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden);
     const start = () => {
       if (reduced.matches || engineRef.current) return;
-      engineRef.current = new BunnyEngine(canvas, mode);
+      engineRef.current = new BunnyEngine(canvas, mode, hold ?? null);
       syncPause();
     };
     const stop = () => {
@@ -94,7 +106,7 @@ export function Bunny({ mode = "lite", danceLabel, priority = false, className, 
       reduced.removeEventListener("change", onMotionChange);
       stop();
     };
-  }, [mode]);
+  }, [mode, hold]);
 
   const still = (
     // eslint-disable-next-line @next/next/no-img-element -- capa posicionada sobre el lienzo de 1200×1600, no una foto

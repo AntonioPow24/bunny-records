@@ -22,7 +22,23 @@
   "home": {
     "eyebrow": "Bunny Records · Collection",
     "title": "Every project, an album.",
-    "comingSoon": "Under construction"
+    "intro": "{name} · {role}. Pick a cover to see how it was made.",
+    "metaTitle": "Collection",
+    "filterLabel": "Filter by status",
+    "filterAll": "All",
+    "collectionLabel": "Album collection",
+    "collectionRole": "carousel",
+    "prev": "Previous album",
+    "next": "Next album",
+    "select": "Select {title}",
+    "position": "{title}, {position} of {total}",
+    "hint": "← → to browse · Enter to open",
+    "open": "Open project",
+    "openPlanned": "See the concept",
+    "empty": "No albums with this status yet.",
+    "filterPublished": "Published",
+    "filterInDevelopment": "In development",
+    "filterPlanned": "Planned"
   },
   "notFound": {
     "eyebrow": "Error 404 · Side C",
@@ -52,5 +68,34 @@
   },
   "bunny": {
     "dance": "Make the bunny dance"
+  },
+  "status": {
+    "published": "Published",
+    "inDevelopment": "In development",
+    "planned": "Planned"
+  },
+  "contact": {
+    "eyebrow": "Contact · Liner notes",
+    "title": "Who’s behind the label",
+    "body": "The essentials about me, like the back cover of a record, and where to find me.",
+    "statsLabel": "On this label",
+    "published": {
+      "one": "{count} published album",
+      "other": "{count} published albums"
+    },
+    "inDevelopment": {
+      "one": "{count} in development",
+      "other": "{count} in development"
+    },
+    "planned": {
+      "one": "{count} planned",
+      "other": "{count} planned"
+    },
+    "whereTitle": "Where to find me",
+    "emailLabel": "Email",
+    "copy": "Copy email",
+    "copied": "Email copied",
+    "copyFailed": "Couldn’t copy: select it manually",
+    "opensNewTab": "(opens in a new tab)"
   }
 }
