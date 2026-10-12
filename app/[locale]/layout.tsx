@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { PlayerTray, type TrayAlbum } from "@/components/layout/player-tray";
 import { SkipLink } from "@/components/layout/skip-link";
+import { StageLights } from "@/components/layout/stage-lights";
 import { getAlbumMinutes, getProjects, isPublished, validateContent } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { locales } from "@/lib/i18n/config";
@@ -49,6 +50,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
     // LanguageTool añaden data-lt-installed antes de que React hidrate.
     <html lang={locale} className={`${fontVariables} h-full overflow-hidden antialiased`} suppressHydrationWarning>
       <body className="flex h-dvh flex-col overflow-hidden">
+        <StageLights />
         <SkipLink label={dict.nav.skipToContent} />
         <Header />
         <main id="contenido" tabIndex={-1} className="flex min-h-0 flex-1 flex-col overflow-y-auto outline-none">

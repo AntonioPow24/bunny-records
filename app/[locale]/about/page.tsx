@@ -31,7 +31,7 @@ export default async function AboutPage() {
       content: (
         <ul className="flex flex-col gap-3">
           {profile.principles.map((p) => (
-            <li key={p.title.es} className="flex gap-4 rounded-lg border border-border bg-card p-4">
+            <li key={p.title.es} className="surface-lit flex gap-4 rounded-lg border border-border bg-card p-4">
               <span aria-hidden="true" className="text-h2 leading-none text-primary">
                 {p.glyph}
               </span>

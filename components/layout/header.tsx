@@ -14,7 +14,7 @@ export async function Header() {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
   return (
-    <header className="relative z-40 shrink-0 bg-background [view-transition-name:site-header]">
+    <header className="relative z-40 shrink-0 [view-transition-name:site-header]">
       <Container className="flex h-16 items-center justify-between md:h-18">
         <Link href={`/${locale}`} aria-label={dict.nav.homeLabel} className="rounded-sm">
           <Logo className="h-9" />

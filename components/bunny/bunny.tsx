@@ -177,16 +177,17 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
   );
 
   if (danceLabel) {
+    // La caja del lienzo (3:4) es mucho más ancha que la figura y tapaba las portadas vecinas: el
+    // contenedor deja pasar los clics y solo la silueta (cabeza + cuerpo) es pulsable.
     return (
-      <div ref={rootRef} className={cn("bunny", className)}>
+      <div ref={rootRef} className={cn("bunny pointer-events-none", className)}>
+        {body}
         <button
           type="button"
           aria-label={danceLabel}
           onClick={() => engineRef.current?.dance()}
-          className="absolute inset-0 cursor-pointer rounded-lg"
-        >
-          {body}
-        </button>
+          className="pointer-events-auto absolute top-[9%] right-[25%] bottom-[8%] left-[25%] cursor-pointer rounded-[45%]"
+        />
       </div>
     );
   }
