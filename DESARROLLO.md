@@ -52,18 +52,17 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado:** `npm run check` en verde; `/` sale como estática y `next start` sirve `lang="es"` y el título.
 - Aviso de npm sin resolver: `unrs-resolver` (dependencia de ESLint) tiene un script de instalación que npm 11 bloquea por defecto. ESLint funciona igual; no se aprueba mientras no haga falta.
 
-## Paso 3 — Sistema de diseño en código
+## Paso 3 — Sistema de diseño en código ✅ (pendiente de revisión)
 
 **Objetivo:** que el código use exactamente los tokens y estilos de Figma.
 
-- `components.json` (shadcn `base-nova`) y `lib/utils.ts` con `cn()`, reutilizados de Vidriería.
-
-- `globals.css`: paleta (`PORTFOLIO.md` §3.2–3.4) como variables CSS + `@theme inline`.
-- `next/font`: Sora, Geist y Geist Mono (subconjuntos `latin` y `latin-ext`).
-- Estilos de texto de Figma como utilidades (`display`, `h2`, `h3`, `body`, `body-sm`, `label`, `mono`).
-- shadcn/ui (`base-nova`) y solo los primitivos que pide el diseño: Button, Badge, Sheet.
-- Regla ESLint de capas (`PORTFOLIO.md` §7.2).
-- Ruta interna `/[locale]/lab` (noindex) para ver tokens y componentes; se quita o se protege antes de publicar.
+- `app/globals.css`: paleta oficial (`brand-*`), tokens semánticos del tema oscuro, `.surface-ivory`, radios (6/12/20), estilos de texto de Figma como utilidades (`text-display`, `text-h2`, `text-h3`, `text-body`, `text-body-sm`, `text-body-strong`, `text-label`, `text-mono`), anillo de foco teal de 2 px y `prefers-reduced-motion`.
+- `lib/fonts.ts`: Sora, Geist y Geist Mono con `next/font` (`latin` + `latin-ext`).
+- `components.json` (shadcn `base-nova`) y `lib/utils.ts` con `cn()`. Dependencias: `clsx`, `tailwind-merge`, `class-variance-authority`, `lucide-react`, `@base-ui/react`.
+- Componentes: `ui/button` (primary · secondary · ghost; default 48 px · sm 44 px · icon 44 px; hover, foco y deshabilitado como en Figma), `patterns/status-pill` y `brand/logo`. Sheet se añade en el paso 9, cuando haga falta.
+- Regla ESLint de capas: `components/{ui,patterns,brand,motion}` no pueden importar contenido, idiomas ni capas de página (probada con un import prohibido).
+- `/lab` (noindex): banco de pruebas del sistema de diseño; pasa a `/[locale]/lab` en el paso 4.
+- **Verificado en Chrome:** fuentes, colores, tamaño del botón y anillo de foco coinciden con Figma; sin errores en consola.
 
 ## Paso 4 — Idiomas (es/en)
 
