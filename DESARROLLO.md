@@ -118,6 +118,8 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - CSS de componentes en `@layer components`: si no, ganaba a las utilidades de Tailwind (el conejo no se podía posicionar con `md:absolute`).
 - **Verificado en Chrome:** escritorio igual a Figma D02, flecha y teclado cambian de álbum y la ficha se actualiza, el conejo mira hacia el puntero, contacto con el conejo señalando; móvil de 390 px sin scroll horizontal; textos en inglés.
 
+> **2026-10-12, revisión del paso 7:** el usuario pide un sitio sin scroll de página (`BUNNY-RECORDS.md` §5.3.2). Antes de mergear el paso 7 hay que adaptar: header con discos, contacto como vista propia, sin footer, colección ajustada al alto de la pantalla y bandeja solo en el flujo de proyectos. Pendiente de aprobación.
+
 ## Paso 8 — Álbum y pistas
 
 **Objetivo:** el caso de estudio completo.
