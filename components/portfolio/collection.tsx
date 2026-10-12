@@ -232,7 +232,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
           {/* Ficha breve de la seleccionada (Figma CoverInfo), debajo de la portada. */}
           <div
             aria-live="polite"
-            className="stage-info w-full max-w-[26rem] rounded-lg border border-border bg-card p-4 md:p-5"
+            className="stage-info surface-lit w-full max-w-[26rem] rounded-lg border border-border bg-card p-4 md:p-5"
           >
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-h3">{current.title}</h2>

@@ -180,22 +180,19 @@ Lighthouse móvil (simulación por defecto):
 
 **Cómo juzgar la velocidad:** siempre con el build de producción (`npm run build && npm run start`). `npm run dev` compila bajo demanda y lleva las comprobaciones de desarrollo de React: es bastante más lento.
 
-## Paso 7.9 — Iluminación de escenario (propuesta, pendiente de aprobación)
+## Paso 7.9 — Iluminación de escenario ✅ (aprobado por el usuario)
 
-**Objetivo:** que el sitio no se vea plano ni oscuro sin perder sobriedad. Referencia: `idea/fondoluz1.jpg`, traducida a la marca (teal en lugar de morado, sin vidrio).
+**Objetivo:** que el sitio no se vea plano ni oscuro sin perder sobriedad. Referencia: `idea/fondoluz1.jpg`, traducida a la marca (teal, sin vidrio). Diseño en Figma → `02 Pantallas` → "7.9 · Iluminación".
 
-**Diseño** (Figma → `02 Pantallas` → sección "7.9 · Iluminación": comparativa sin luz / con luz de la colección, Sobre mí, Contacto y móvil, y una lámina de especificación):
+- `components/layout/stage-lights.tsx`: un único `<div>` fijo detrás del contenido (z-index −1) con degradados radiales CSS. **Luz global:** baño teal desde arriba, brillos laterales asimétricos y viñeta. **Foco por escena** (`data-scene` según la ruta, fundido de 400 ms): colección (portada central y "suelo" del arco), Sobre mí (teal detrás del disco), Contacto (marfil + teal; en móvil, sobre el disco compacto).
+- Utilidad `surface-lit` (filo superior Ivory 10 %, sombra profunda y halo teal) en la ficha de la portada y las tarjetas de "Cómo trabajo".
+- **Header transparente:** la luz continúa por detrás de la barra.
+- Rendimiento: `contain: strict` en el bloque de luces y `will-change: opacity` en los focos, para que el fundido lo haga la GPU. Sin imágenes ni `filter`.
+- **Medido:** transición de discos 482–545 ms con 1–3 fotogramas largos (antes de la luz: 479–519 ms, 1); el coste extra (~20 ms) es la luz dentro de la instantánea de la transición. Lighthouse móvil con limitación real: rendimiento 96–97, LCP 1,1–1,3 s, **contraste aprobado** en las tres páginas.
 
-- **Luz ambiental global** (todas las páginas): baño teal que entra desde arriba, brillos laterales asimétricos (Deep Teal abajo a la izquierda, Teal arriba a la derecha) y viñeta en los bordes.
-- **Foco por escena:** colección, detrás de la portada central más una franja de suelo; Sobre mí, teal detrás del disco; Contacto, marfil + teal (su disco es marfil).
-- **Superficies iluminadas:** fichas y tarjetas con filo superior de luz (Ivory 10 %), sombra profunda y halo teal muy suave. Sin `backdrop-filter`.
-- **Header transparente**, para que la luz continúe por detrás de la barra.
+**Bug corregido en el mismo paso:** el botón para hacer bailar al conejo ocupaba toda la caja 3:4 del lienzo (301×401 px en escritorio) y tapaba las portadas de la izquierda. Ahora el contenedor deja pasar los clics y solo la silueta (25–75 % de ancho, 9–92 % de alto) es pulsable. Probado con un clic real en el hueco: selecciona la portada y el conejo la presenta.
 
-**Implementación prevista:**
-- Un único `<div>` fijo detrás del contenido con degradados radiales de CSS (sin imágenes ni `filter: blur`), por lo que no tiene coste de red y el coste de pintado es mínimo.
-- El foco de cada escena cambia con la ruta (atributo `data-scene`) y se funde con la transición de página.
-- Utilidad `surface-lit` para las tarjetas.
-- **Medir:** contraste AA de los textos sobre las zonas más iluminadas; las transiciones de discos repitiendo la prueba A/B del paso 7.5; Lighthouse.
+**Observación:** justo después de reconstruir el servidor, la primera navegación puede hacer una recarga completa (el navegador tenía precargas del build anterior y Next recarga para no mezclar versiones). Es el comportamiento esperado tras un despliegue; revisar la protección de "version skew" en el paso 14.
 
 ## Paso 8 — Álbum y pistas
 
