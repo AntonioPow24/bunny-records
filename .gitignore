@@ -32,3 +32,8 @@ design/character/sheet/
 design/character/observations/
 design/character/poses/*.png
 design/character/layers/*.png
+
+# Next.js / Vercel
+/coverage
+.vercel
+*.pem

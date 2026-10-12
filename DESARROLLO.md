@@ -38,20 +38,25 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 **Pendiente aparte:** sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a una carpeta de archivo fuera del proyecto (`PORTFOLIO.md` §11.7).
 
-## Paso 2 — Proyecto Next.js base
+## Paso 2 — Proyecto Next.js base ✅ (pendiente de revisión)
 
-**Objetivo:** un proyecto Next.js vacío y estricto, con la configuración heredada de Vidriería.
+**Objetivo:** un proyecto Next.js vacío y estricto.
 
-- `create-next-app` en una carpeta temporal (la carpeta del proyecto ya tiene archivos) y mover el resultado aquí: App Router, TypeScript, Tailwind v4, ESLint, sin `src/`, alias `@/*`.
-- **Leer `node_modules/next/dist/docs/`** antes de escribir código (Next cambia entre versiones).
-- TypeScript strict y scripts `typecheck`, `lint` y `build`.
-- Reutilizar de Vidriería (solo lectura): configuración de ESLint, `components.json` de shadcn, `lib/utils.ts` y `buildMetadata()`.
-- Estructura de carpetas vacía según `PORTFOLIO.md` §5.
-- `CLAUDE.md` del proyecto con las reglas operativas.
+- `create-next-app@16.4.0` generado en una carpeta temporal y traído aquí: App Router, TypeScript strict, Tailwind v4 (por `@tailwindcss/turbopack`), ESLint, sin `src/`, alias `@/*`. La plantilla trae **Cache Components y Partial Prefetching** activados; se mantienen.
+- Documentación de Next leída en `node_modules/next/dist/docs/`: lo que afecta al proyecto está en `CLAUDE.md`.
+- Scripts `typecheck` (`next typegen && tsc --noEmit`) y `check` (typecheck + lint + build). Node ≥ 24.
+- ESLint ignora `design/` y `content-drafts/`.
+- `CLAUDE.md` (reglas operativas), `AGENTS.md` (lo genera Next) y `README.md`.
+- Página y layout provisionales; las carpetas se crean en el paso que las necesita (no se dejan vacías).
+- `components.json`, `cn()` y shadcn pasan al paso 3, donde se usan.
+- **Verificado:** `npm run check` en verde; `/` sale como estática y `next start` sirve `lang="es"` y el título.
+- Aviso de npm sin resolver: `unrs-resolver` (dependencia de ESLint) tiene un script de instalación que npm 11 bloquea por defecto. ESLint funciona igual; no se aprueba mientras no haga falta.
 
 ## Paso 3 — Sistema de diseño en código
 
 **Objetivo:** que el código use exactamente los tokens y estilos de Figma.
+
+- `components.json` (shadcn `base-nova`) y `lib/utils.ts` con `cn()`, reutilizados de Vidriería.
 
 - `globals.css`: paleta (`PORTFOLIO.md` §3.2–3.4) como variables CSS + `@theme inline`.
 - `next/font`: Sora, Geist y Geist Mono (subconjuntos `latin` y `latin-ext`).
