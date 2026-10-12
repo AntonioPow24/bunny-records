@@ -49,7 +49,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function LabPage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1200px] flex-col gap-12 px-4 py-16 md:px-6">
+    <main className="mx-auto flex w-full max-w-300 flex-col gap-12 px-4 py-16 md:px-6">
       <header className="flex items-center gap-4">
         <Logo title="Bunny Records" className="h-12" />
         <div>
