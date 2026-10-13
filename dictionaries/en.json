@@ -29,7 +29,7 @@
     "next": "Next album",
     "select": "Select {title}",
     "position": "{title}, {position} of {total}",
-    "hint": "← → to browse · Enter to open",
+    "hint": "← → to browse · press the collection",
     "open": "Play album",
     "openPlanned": "See the concept",
     "empty": "No albums with this status yet.",
