@@ -29,7 +29,7 @@
     "next": "Álbum siguiente",
     "select": "Seleccionar {title}",
     "position": "{title}, {position} de {total}",
-    "hint": "← → para explorar · Enter para abrir",
+    "hint": "← → para explorar · presiona la colleción",
     "open": "Escuchar álbum",
     "openPlanned": "Ver concepto",
     "empty": "No hay álbumes con este estado todavía.",

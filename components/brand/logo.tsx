@@ -1,3 +1,5 @@
+import type { SVGProps } from "react";
+
 import { cn } from "@/lib/utils";
 
 type LogoProps = {
@@ -23,6 +25,30 @@ export function Logo({ title, className }: LogoProps) {
       aria-label={title}
     >
       <path d={EAR_PATH} fill="#329DA8" transform="translate(-38 -9)" />
+      <path d={EAR_PATH} fill="#080A0D" />
+      <path d={FACE_PATH} fill="#F4F4F2" />
+      <path
+        d="M196.5 681H261M228.5 648.5V713.5M558.5 681H623.5M591 648.5V713.5"
+        fill="none"
+        stroke="#080A0D"
+        strokeWidth="25"
+        strokeLinecap="round"
+      />
+      <rect x="347" y="731" width="123" height="41" rx="20.5" fill="#080A0D" />
+    </svg>
+  );
+}
+
+type BunnyMarkProps = Omit<SVGProps<SVGSVGElement>, "viewBox"> & {
+  /** Oreja teal desplazada detrás, como en el logo: da borde al conejo sobre fondo oscuro. */
+  shadow?: boolean;
+};
+
+// El conejo del logo sin texto ni accesibilidad propia: etiquetas de vinilo y fundas de créditos.
+export function BunnyMark({ shadow = false, ...props }: BunnyMarkProps) {
+  return (
+    <svg viewBox={shadow ? "-38 -9 838 931" : "0 0 800 922"} aria-hidden="true" {...props}>
+      {shadow && <path d={EAR_PATH} fill="#329DA8" transform="translate(-38 -9)" />}
       <path d={EAR_PATH} fill="#080A0D" />
       <path d={FACE_PATH} fill="#F4F4F2" />
       <path

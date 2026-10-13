@@ -347,6 +347,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 
 **Tarea 9 (2026-10-13):** en desarrollo, al cambiar de lado con un sobre abierto React avisaba de dos <ViewTransition> con el mismo nombre: el sobre de delante era un elemento aparte y los de detrás otra lista, así que al cambiar se desmontaba uno y se montaba otro con el mismo nombre en el mismo paso. Ahora la pila es una sola lista con key por letra: cada sobre es siempre el mismo elemento y solo cambia de sitio (y la transición los recoloca a los tres). En reposo, 18 px entre el título, los sobres y la indicación (antes 16). Verificado: sin avisos en dev en 11 navegaciones (abrir, ›, reposo, pistas, colección, ES ↔ EN); QA sobre el build en 1920×911, 390×844, 375×667 y planeado; teclado y axe sin cambios.
 
+**Tarea 10 (2026-10-13):** las fundas de los créditos llevan arte en vez de la letra grande: A marfil con el conejo en silueta negra (como el disco de Contacto), B oscuro (#080A0D) con el logo y su oreja teal para que el conejo tenga borde, C teal como el disco de Sobre mí (y D teal oscuro por si un álbum llega a 4 lados). Colores de marca fijos, como el logo; "Lado A" pequeño arriba y área + nº de créditos abajo. El conejo sale a `BunnyMark` (`components/brand/logo.tsx`), que también usa la etiqueta de `Disc`. En móvil la funda es pequeña: el área va debajo de la funda. Sin diseño en Figma (cambio directo sobre T9). QA nivel 2 sobre el build: 1920×911, 390×844 y 375×667, reposo y abierto; sin scroll de documento ni desborde; axe sin violaciones en la sección.
+
 ---
 
 ## Historial
