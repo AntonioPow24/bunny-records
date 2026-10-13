@@ -145,7 +145,7 @@ Poses en la bandeja: *escucha* mientras se lee una pista, *baile* mientras suena
 | Pistas | Capítulos **del** caso de estudio del proyecto (un proyecto = un caso de estudio) |
 | Duración de una pista | Tiempo de lectura real del capítulo (calculado, no inventado) |
 | Créditos técnicos | Stack y función de cada tecnología **en ese proyecto** |
-| Videoclip | Demostración del producto: clip de 4–5 s en bucle bajo la portada del álbum (§5.2.1) |
+| Videoclip | Demostración del producto: clip de 6 s en bucle bajo la portada del álbum (§5.2.1) |
 | Notas de producción (*liner notes*) | Aprendizajes y decisiones |
 | Próximo lanzamiento | Proyecto planeado |
 
@@ -169,7 +169,7 @@ Todo el recorrido **se siente como una sola página que se transforma** (estilo 
 Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la versión anterior.
 
 - **Dónde:** solo en la vista del álbum (`/[locale]/projects/[slug]` y sus pistas), debajo de la portada, en la columna que persiste al cambiar de pista. **No va en el Inicio** (la colección de portadas en arco).
-- **Qué:** un clip de **4–5 s, sin audio y en bucle**, grabado del producto real. Solo en álbumes publicados con grabación propia; los planeados y los que no tienen grabación no muestran nada (ni hueco ni marcador).
+- **Qué:** un clip de **6 s, sin audio y en bucle**, grabado del producto real. Solo en álbumes publicados con grabación propia; los planeados y los que no tienen grabación no muestran nada (ni hueco ni marcador).
 - **Reproducción:** empieza **solo al entrar en el álbum**. **Sin controles visibles** (ni barra, ni tiempo, ni botón de pausa dibujado).
 - **Interacción:** la caja del vídeo es el control: pulsarla (clic, toque o Enter/Espacio con el foco) **alterna pausa y reproducción**. Necesita nombre accesible que cambie con el estado ("Pausar demo" / "Reproducir demo") y foco visible: es lo que cumple WCAG 2.2.2 (pausar contenido en movimiento) sin controles a la vista.
 - **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
@@ -355,7 +355,7 @@ Los **vinilos** que asoman detrás de las portadas, los surcos, los brillos de d
 
 | # | Recurso | Formato | Detalle |
 |---|---|---|---|
-| D1 | Clip de demo ("videoclip", §5.2.1) | Grabación de pantalla en MP4, 1920 × 1080 o mayor; el tramo útil se recorta a 4–5 s | Sin audio. A partir de la grabación se generan MP4 H.264 + WebM ligeros al tamaño de la caja, en bucle limpio, y la imagen de póster |
+| D1 | Clip de demo ("videoclip", §5.2.1) | Grabación de pantalla en MP4, 1920 × 1080 o mayor; el tramo útil se recorta a 6 s | Sin audio. A partir de la grabación se generan MP4 H.264 + WebM ligeros al tamaño de la caja, en bucle limpio, y la imagen de póster |
 | D2 | Capturas de escritorio | PNG 1920 × 1200 (16:10) | 3–6 por proyecto, de pantallas reales |
 | D3 | Capturas de móvil | PNG a 3× (p. ej. 1170 × 2532) | 2–3 por proyecto |
 | D4 | Bocetos de proyectos planeados | PNG/JPG | Solo si existen, y se muestran rotulados como boceto |
@@ -411,7 +411,7 @@ Orden propuesto:
 
 ## Historial
 
-- **2026-10-13:** clip de demo de 4–5 s bajo la portada del álbum: se reproduce solo, sin controles, la caja alterna pausa/reproducción y queda en pausa cuando no se ve (§5.2.1). Diseño en Figma pendiente (Codex).
+- **2026-10-13:** clip de demo de 6 s bajo la portada del álbum: se reproduce solo, sin controles, la caja alterna pausa/reproducción y queda en pausa cuando no se ve (§5.2.1). Diseño en Figma aprobado e implementado por Claude; pendientes las grabaciones reales. Duración actualizada a 6 s por el usuario.
 - **2026-10-12:** navegación cerrada: una sola página que se transforma con URL por estado; pistas como rutas animadas; ficha de tecnología como panel con URL; conejo en el escenario (colección) y en la bandeja (resto); metáfora ampliada (detalles, duración = tiempo de lectura, notas de producción). Nuevo `FIGMA-DESIGN.md`.
 - **2026-10-11:** recomendada vía Blender + MCP; contorno: ninguno; se añaden las referencias fino 1–4.
 - **2026-10-11:** primera versión, a partir de `idea/PortfolioIdea.txt`, el logo y las referencias.

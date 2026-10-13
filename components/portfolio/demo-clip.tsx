@@ -17,7 +17,7 @@ type DemoClipProps = {
 const PERFORATIONS = 6;
 
 // Videoclip bajo la portada del álbum (Figma T15; BUNNY-RECORDS.md §5.2.1): ventana de película con marco mate y
-// perforaciones decorativas. Clip de 4–5 s, mudo y en bucle, que arranca solo y sin controles visibles: la caja
+// perforaciones decorativas. Clip de 6 s, mudo y en bucle, que arranca solo y sin controles visibles: la caja
 // entera es el botón que pausa o reanuda. Se pausa cuando no se ve (fuera de pantalla, pestaña oculta o página
 // oculta por <Activity>, que desmonta los efectos). Con prefers-reduced-motion no arranca solo.
 export function DemoClip({ mp4, webm, poster, description, labels, className }: DemoClipProps) {

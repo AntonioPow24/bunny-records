@@ -85,7 +85,7 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
         )}
       </div>
 
-      <section className="flex min-h-0 flex-col gap-5 md:row-start-2">
+      <section className="relative flex min-h-0 flex-col gap-5 md:row-start-2">
         <header className="flex flex-col gap-3">
           <p className="text-label hidden text-primary md:block">
             {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}

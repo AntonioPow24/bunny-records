@@ -1,3 +1,4 @@
+import demoPoster from "@/public/demos/bunny-records/poster.jpg";
 import cover from "@/public/images/projects/bunny-records/cover.jpg";
 import type { PublishedProject } from "@/types/content";
 
@@ -77,5 +78,13 @@ export const bunnyRecords: PublishedProject = {
       "Measuring the production build changed the diagnosis: the transitions weren’t slow because of the network, but because the bunny was mounting mid-animation.",
     ],
   },
-  // Sin demo (falta la grabación) ni enlaces: el repositorio es privado.
+  demo: {
+    mp4: "/demos/bunny-records/bunny-records-demo-6s.mp4",
+    webm: "/demos/bunny-records/bunny-records-demo-6s.webm",
+    poster: demoPoster,
+    alt: {
+      es: "Recorrido por el sitio: la colección de portadas con el conejo y el disco de Sobre mí bajando al tocadiscos.",
+      en: "A walk through the site: the cover collection with the bunny, and the About disc dropping onto the turntable.",
+    },
+  },
 };
