@@ -255,7 +255,7 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ### 8.2 T14 — Contacto: la contraportada del artista (2026-10-13)
 
-**Estado: diseño T14 v3 aprobado por el usuario el 2026-10-13; implementación por Claude pendiente de indicación manual y de aportar el CV.** Originales preservados: escritorio T6 `119:247`, móvil A-M11 `109:2197`. No se creó una página Lab.
+**Estado: diseño T14 v3 aprobado por el usuario el 2026-10-13 e implementado (`mejora-14-contacto-contraportada`, ver `DESARROLLO.md` Tarea 14).** En escritorio, la firma queda más arriba que en el frame, justo bajo el disco, a petición del usuario. Originales preservados: escritorio T6 `119:247`, móvil A-M11 `109:2197`. No se creó una página Lab.
 
 - **Versión vigente, aprobada: T14 v3.** [Propuesta completa](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=152-309), [escritorio](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=152-310) `152:310`, [móvil](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=152-430) `152:430`. Las versiones v1 `143:307` y v2 `147:309` están descartadas: no implementarlas.
 - **Concepto v3:** conservar disco, etiqueta, giro y conejo originales. Añadir la firma decorativa «Antonio G.» fuera del disco: debajo en escritorio y junto al disco compacto en móvil. Firma y rúbrica son elementos independientes del nodo que gira; no deben rotar, alterar el vinilo ni tapar al personaje. No crear funda ni álbum nuevo. Exportar la firma como SVG; Caveat solo sirve como recurso gráfico en Figma. El resto de los datos y enlaces se conserva.

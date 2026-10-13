@@ -14,7 +14,24 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ContactPage() {
   const dict = await getDictionary();
   return (
-    <Turntable kind="contact" discLabel={dict.contact.discLabel} pose="present-right" compact>
+    <Turntable
+      kind="contact"
+      discLabel={dict.contact.discLabel}
+      pose="present-right"
+      compact
+      signature={
+        // Firma de Figma (T14 v3) exportada a SVG: decorativa y estática, no gira con el disco.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src="/brand/firma-antonio.svg"
+          alt=""
+          aria-hidden="true"
+          width={188}
+          height={81}
+          className="w-32 self-center md:absolute md:top-[calc(100%-0.5rem)] md:left-[8%] md:w-44 md:self-auto"
+        />
+      }
+    >
       <ContactSheet />
     </Turntable>
   );

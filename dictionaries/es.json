@@ -66,32 +66,20 @@
     "planned": "Planeado"
   },
   "contact": {
-    "eyebrow": "Contacto · Pase del sello",
-    "allAccess": "All Access",
-    "artist": "Artista",
-    "body": "Lo esencial sobre mí, como en la contraportada de un disco, y dónde encontrarme.",
-    "statsLabel": "En este sello",
-    "published": {
-      "one": "álbum publicado",
-      "other": "álbumes publicados"
-    },
-    "inDevelopment": {
-      "one": "en desarrollo",
-      "other": "en desarrollo"
-    },
-    "planned": {
-      "one": "planeado",
-      "other": "planeados"
-    },
-    "whereTitle": "Dónde encontrarme",
-    "emailLabel": "Email",
-    "copy": "Copiar email",
-    "copyShort": "Copiar",
-    "copied": "Email copiado",
-    "copyFailed": "No se pudo copiar: selecciónalo a mano",
+    "eyebrow": "Contacto · Contraportada",
+    "title": "Detrás de cada álbum.",
+    "intro": "Interfaces cuidadas, ideas claras y código con intención.",
+    "baseLabel": "Base",
+    "cvLabel": "Notas del artista",
+    "cvBody": "Mi trayectoria, formación y herramientas.",
+    "cvDownload": "Descargar CV",
+    "emailLabel": "Correo",
+    "linksTitle": "Dónde encontrarme",
     "opensNewTab": "(se abre en una pestaña nueva)",
+    "sign": "{name} · Bunny Records",
+    "copyright": "© {year}",
     "metaTitle": "Contacto",
-    "copyright": "Bunny Records · © {year} {name}",
+    "body": "Lo esencial sobre mí, como en la contraportada de un disco, y dónde encontrarme.",
     "siteCredits": "Créditos del sitio",
     "discLabel": "Contacto"
   },
