@@ -302,6 +302,14 @@ Lighthouse móvil (simulación por defecto):
 - Remoto privado en GitHub, despliegue de prueba con `SITE_NOINDEX=true` y revisión.
 - Dominio en Cloudflare cuando se decida; primer despliegue de producción solo con aprobación del usuario.
 
+**Hecho (2026-10-12):**
+- Textos revisados: ninguno ofrece servicios, precios, pagos ni disponibilidad; las coincidencias ("servicios", "presupuestos") describen proyectos.
+- Proyecto en Vercel Hobby importado desde GitHub, con `SITE_NOINDEX=true` y sin `NEXT_PUBLIC_SITE_URL` (usa `VERCEL_PROJECT_PRODUCTION_URL`): **https://bunny-records.vercel.app** (dirección de prueba, no indexada).
+- **Verificado en la URL publicada:** `robots.txt` con `Disallow: /`, `noindex, nofollow`, canónica y hreflang con el dominio de Vercel, cabeceras de seguridad (CSP, HSTS, X-Frame-Options…), redirección por idioma (307), las 76 URLs del sitemap en 200, 404 propio, `/lab` redirigido, imágenes OG (general y de álbum) en 200. Sin scroll de documento en 1920×911, 390×844 y 375×667 (en Contacto a 375×667 se desplaza `<main>`, como manda la regla); navegación álbum → pista → pista sin errores de consola. Lighthouse en Inicio (`--throttling-method=devtools`): móvil 95/100/96, LCP 1,7 s, CLS 0; escritorio 100/96/96, LCP 0,7 s. SEO 69 solo por el `noindex`; el resto son los avisos ya conocidos del paso 13.
+- En desarrollo, pasar de pista a pista muestra "This library called use() to suspend…": es de Next 16.4.0 (`InnerLayoutRouter`), solo existe en el React de desarrollo y no afecta a producción.
+
+**Pendiente:** dominio en Cloudflare → `NEXT_PUBLIC_SITE_URL`, quitar `SITE_NOINDEX` y volver a desplegar (con aprobación); después, validar tarjetas en Facebook/LinkedIn y el Rich Results Test.
+
 ## Fase de mejoras (después del paso 14)
 
 Rediseños visuales anotados en la revisión del usuario; se diseñan primero en Figma.
