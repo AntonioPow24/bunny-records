@@ -1,119 +1,107 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import Link from "next/link";
 
-import { CopyEmail } from "@/components/portfolio/copy-email";
+import { buttonVariants } from "@/components/ui/button";
 import { profile } from "@/content/profile";
 import { getBuildYear } from "@/lib/build-info";
-import { getLabelStats } from "@/lib/content";
-import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
+import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { cn } from "@/lib/utils";
 
-// Contacto · pase backstage (mejora 6; Figma "Mejoras · T6"). Informativo: sin ofertas de servicios, precios ni
-// disponibilidad freelance (PORTFOLIO.md §2.1, Vercel Hobby). Recoge lo que tenía el footer (©, créditos).
+/** CV aportado por el usuario (solo en español; la versión inglesa del texto lo indica). */
+const CV_HREF = "/cv/cv-antonio-garcia-romero-2026.pdf";
+
+// Contacto · contraportada del artista (Figma T14 v3, FIGMA-DESIGN.md §8.2). Informativo: sin ofertas de
+// servicios, precios ni disponibilidad freelance (PORTFOLIO.md §2.1). El correo es un dato de texto, sin
+// botón de copiar ni mailto. La firma va en la escena (Turntable), fuera del disco que gira.
 export async function ContactSheet() {
   const [locale, dict, year] = await Promise.all([getLocale(), getDictionary(), getBuildYear()]);
-  const stats = getLabelStats();
-  // Etiquetas sin número (el número va aparte, en grande): plural() solo elige la forma.
-  const figures = [
-    { n: stats.published, label: plural(locale, dict.contact.published, stats.published) },
-    { n: stats.inDevelopment, label: plural(locale, dict.contact.inDevelopment, stats.inDevelopment) },
-    { n: stats.planned, label: plural(locale, dict.contact.planned, stats.planned) },
-  ].filter((f) => f.n > 0);
   const links = [
     { name: "GitHub", handle: profile.contact.github.handle, href: profile.contact.github.url },
     { name: "LinkedIn", handle: profile.contact.linkedin.handle, href: profile.contact.linkedin.url },
   ];
 
   return (
-    <div className="flex flex-col gap-3 md:gap-4">
-      <p className="text-label text-primary">{dict.contact.eyebrow}</p>
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-col gap-3">
+        <p className="text-label text-primary">{dict.contact.eyebrow}</p>
+        <h1 className="text-h2 max-w-[12ch] md:text-display">{dict.contact.title}</h1>
+        <p className="text-body text-muted-foreground max-md:hidden">{dict.contact.intro}</p>
+      </header>
 
-      <article aria-labelledby="contact-name" className="surface-lit overflow-hidden rounded-lg border border-border bg-card">
-        <div aria-hidden="true" className="flex items-center justify-between bg-primary px-5 py-2.5 text-primary-foreground md:px-7">
-          <span className="text-label">{dict.contact.allAccess}</span>
-          <span className="text-label">Bunny Records</span>
-        </div>
-
-        <div className="flex flex-col gap-5 p-5 md:gap-6 md:p-7">
-          <header className="flex flex-col gap-1">
-            <p className="text-label text-primary">{dict.contact.artist}</p>
-            <h1 id="contact-name" className="text-h2">
+      <section aria-labelledby="contact-name" className="flex flex-col gap-6 border-t border-border pt-3 md:gap-6">
+        <div className="flex flex-col gap-1 md:grid md:grid-cols-[minmax(0,1fr)_13.5rem] md:gap-6">
+          <div className="flex flex-col gap-1">
+            <h2 id="contact-name" className="text-h3">
               {profile.name}
-            </h1>
-            <p className="text-body-sm text-muted-foreground">
-              {profile.role[locale]} · {profile.degree[locale]}
-            </p>
-          </header>
-
-          {figures.length > 0 && (
-            <section aria-labelledby="contact-stats">
-              <h2 id="contact-stats" className="sr-only">
-                {dict.contact.statsLabel}
-              </h2>
-              <ul className="grid grid-cols-2 gap-3">
-                {figures.map((f) => (
-                  <li key={f.label} className="flex flex-col gap-0.5 rounded-md bg-secondary px-3.5 py-2.5">
-                    <span className="text-h2 text-primary">{f.n}</span>
-                    <span className="text-label text-muted-foreground">{f.label}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          <dl className="grid grid-cols-2 gap-x-4 gap-y-4">
-            {profile.spec.map((row) => (
-              <div key={row.label.es} className="flex flex-col gap-1">
-                <dt className="text-label text-muted-foreground">{row.label[locale]}</dt>
-                <dd className="text-body-sm md:text-body-strong">{row.value[locale]}</dd>
-              </div>
-            ))}
-          </dl>
-
-          {/* Corte de entrada: el pase se "arranca" aquí. */}
-          <hr className="border-t-[1.5px] border-dashed border-border" />
-
-          <section aria-labelledby="contact-where" className="flex flex-col gap-1">
-            <h2 id="contact-where" className="sr-only">
-              {dict.contact.whereTitle}
             </h2>
-            <CopyEmail
-              email={profile.contact.email}
-              labels={{
-                copy: dict.contact.copy,
-                copyShort: dict.contact.copyShort,
-                copied: dict.contact.copied,
-                copyFailed: dict.contact.copyFailed,
-              }}
-            />
-            <ul className="grid grid-cols-2 gap-2.5">
-              {links.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex min-h-11 flex-col gap-0.5 rounded-md bg-secondary px-3.5 py-2.5 transition-colors hover:bg-accent"
-                  >
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="text-body-strong">{link.name}</span>
-                      <ArrowUpRight aria-hidden="true" className="size-4 text-muted-foreground group-hover:text-primary" />
-                    </span>
-                    <span className="text-label truncate text-muted-foreground normal-case">{link.handle}</span>
-                    <span className="sr-only">{dict.contact.opensNewTab}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+            <p className="text-body-sm text-muted-foreground">{profile.role[locale]}</p>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-label text-muted-foreground max-md:sr-only">{dict.contact.baseLabel}</p>
+            <p className="text-body-sm max-md:text-muted-foreground">{profile.location[locale]}</p>
+          </div>
         </div>
-      </article>
 
-      <p className="text-body-sm text-muted-foreground">
-        {format(dict.contact.copyright, { year: String(year), name: profile.name })} ·{" "}
-        <Link href={`/${locale}/about#gear`} className="underline-offset-4 hover:text-foreground hover:underline">
-          {dict.contact.siteCredits}
-        </Link>
-      </p>
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-3">
+          <div className="flex flex-col gap-1 max-md:hidden">
+            <p className="text-label text-primary">{dict.contact.cvLabel}</p>
+            <p className="text-body-sm text-muted-foreground">{dict.contact.cvBody}</p>
+          </div>
+          <a
+            href={CV_HREF}
+            download="CV_Antonio_Garcia_Romero_2026.pdf"
+            hrefLang="es"
+            type="application/pdf"
+            className={cn(buttonVariants(), "w-full gap-2.5 md:w-52")}
+          >
+            {dict.contact.cvDownload}
+            <Download aria-hidden="true" className="size-5" />
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="contact-where" className="flex flex-col gap-3 border-t border-border pt-3">
+        <h2 id="contact-where" className="sr-only">
+          {dict.contact.linksTitle}
+        </h2>
+        <div className="flex flex-col gap-1">
+          <p className="text-label text-muted-foreground">{dict.contact.emailLabel}</p>
+          <p className="text-body-sm [overflow-wrap:anywhere]">{profile.contact.email}</p>
+        </div>
+        <ul className="grid grid-cols-2 gap-x-8">
+          {links.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex min-h-11 flex-col justify-center gap-1 rounded-md py-2"
+              >
+                <span className="text-body-strong flex items-center gap-1.5 transition-colors group-hover:text-primary">
+                  {link.name}
+                  <ArrowUpRight aria-hidden="true" className="size-4" />
+                </span>
+                <span className="text-body-sm truncate text-muted-foreground">{link.handle}</span>
+                <span className="sr-only">{dict.contact.opensNewTab}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <footer className="flex flex-col gap-2 border-t border-border pt-2">
+        <p className="text-body-sm text-muted-foreground max-md:hidden">{format(dict.contact.sign, { name: profile.name })}</p>
+        <p className="text-label text-muted-foreground">
+          {format(dict.contact.copyright, { year: String(year) })} ·{" "}
+          <Link
+            href={`/${locale}/about#gear`}
+            className="inline-flex min-h-11 items-center gap-1 transition-colors hover:text-primary md:min-h-0"
+          >
+            {dict.contact.siteCredits}
+            <ArrowUpRight aria-hidden="true" className="size-3" />
+          </Link>
+        </p>
+      </footer>
     </div>
   );
 }

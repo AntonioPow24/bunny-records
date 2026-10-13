@@ -66,32 +66,20 @@
     "planned": "Planned"
   },
   "contact": {
-    "eyebrow": "Contact · Label pass",
-    "allAccess": "All Access",
-    "artist": "Artist",
-    "body": "The essentials about me, like the back cover of a record, and where to find me.",
-    "statsLabel": "On this label",
-    "published": {
-      "one": "published album",
-      "other": "published albums"
-    },
-    "inDevelopment": {
-      "one": "in development",
-      "other": "in development"
-    },
-    "planned": {
-      "one": "planned",
-      "other": "planned"
-    },
-    "whereTitle": "Where to find me",
+    "eyebrow": "Contact · Back cover",
+    "title": "Behind every album.",
+    "intro": "Thoughtful interfaces, clear ideas and code with intent.",
+    "baseLabel": "Base",
+    "cvLabel": "Artist notes",
+    "cvBody": "My background, education and tools (PDF in Spanish).",
+    "cvDownload": "Download CV",
     "emailLabel": "Email",
-    "copy": "Copy email",
-    "copyShort": "Copy",
-    "copied": "Email copied",
-    "copyFailed": "Couldn’t copy: select it manually",
+    "linksTitle": "Where to find me",
     "opensNewTab": "(opens in a new tab)",
+    "sign": "{name} · Bunny Records",
+    "copyright": "© {year}",
     "metaTitle": "Contact",
-    "copyright": "Bunny Records · © {year} {name}",
+    "body": "The essentials about me, like the back cover of a record, and where to find me.",
     "siteCredits": "Site credits",
     "discLabel": "Contact"
   },
