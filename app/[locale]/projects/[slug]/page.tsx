@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { CreditsList } from "@/components/portfolio/credits-list";
 import { TrackRow } from "@/components/portfolio/track-row";
@@ -16,7 +17,18 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
 
 // Contenido del álbum: lista de pistas, créditos y notas de producción (publicado), o concepto, stack
 // propuesto y próxima validación (próximo lanzamiento, sin pistas ni demo).
-export default async function AlbumPage({ params }: PageProps<"/[locale]/projects/[slug]">) {
+// Navegación instantánea (Partial Prefetching): lo que depende de `params` va en <Suspense>, así el
+// esqueleto de la ruta no espera al servidor; los enlaces llevan `prefetch` para traer también el
+// contenido. En el HTML estático no cambia nada: los parámetros se conocen al compilar.
+export default function AlbumPage({ params }: PageProps<"/[locale]/projects/[slug]">) {
+  return (
+    <Suspense>
+      <AlbumContent params={params} />
+    </Suspense>
+  );
+}
+
+async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug]">, "params">) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegments } from "next/navigation";
 import { ViewTransition } from "react";
 
 import { Disc, type DiscKind } from "@/components/brand/disc";
@@ -12,8 +12,10 @@ type NavDiscProps = { kind: DiscKind; href: string; label: string };
 // Disco de la barra (Figma: NavDisc). Al abrir su sección, el disco "baja" a la escena (misma
 // ViewTransition name que el disco grande) y aquí queda su hueco: aro discontinuo.
 export function NavDisc({ kind, href, label }: NavDiscProps) {
-  const pathname = usePathname();
-  const active = pathname === href;
+  // Sección de la página de fondo, no la URL: con el panel de una tecnología abierto encima de Sobre mí
+  // la URL es /stack/…, pero el disco sigue en la escena (antes volvía a la barra y quedaba duplicado).
+  const [section] = useSelectedLayoutSegments();
+  const active = section === kind;
   const base = "inline-flex h-11 items-center gap-2 rounded-full pr-1.5 pl-1.5 md:pr-3.5";
 
   // Disco activo: su sección ya está en pantalla. No es un enlace (volver a pulsarlo relanzaba la

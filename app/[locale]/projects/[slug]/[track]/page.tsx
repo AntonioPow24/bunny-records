@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ViewTransition } from "react";
+import { Suspense, ViewTransition } from "react";
 
 import { TrackRow } from "@/components/portfolio/track-row";
 import { getProject, getProjects, getReadingMinutes, isPublished, loadTrackBody } from "@/lib/content";
@@ -37,7 +37,16 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
 // Pista abierta (Figma V2-D06; BUNNY-RECORDS.md §5.2 paso 5): la fila sube al lugar de la primera y su
 // capítulo se despliega debajo. La flecha ← va pegada a la fila (antes del texto): se vuelve a la lista
 // sin recorrerlo. ⏮ ⏭ están en la bandeja.
-export default async function TrackPage({ params }: PageProps<"/[locale]/projects/[slug]/[track]">) {
+// Lo que depende de `params` va en <Suspense>: ver app/[locale]/projects/[slug]/page.tsx.
+export default function TrackPage({ params }: PageProps<"/[locale]/projects/[slug]/[track]">) {
+  return (
+    <Suspense>
+      <TrackContent params={params} />
+    </Suspense>
+  );
+}
+
+async function TrackContent({ params }: Pick<PageProps<"/[locale]/projects/[slug]/[track]">, "params">) {
   const found = await resolve(params);
   if (!found) notFound();
   const { project, track, index } = found;
@@ -50,6 +59,7 @@ export default async function TrackPage({ params }: PageProps<"/[locale]/project
       <div className="flex items-center gap-2">
         <Link
           href={base}
+          prefetch
           aria-label={dict.album.backToTracks}
           title={dict.album.backToTracks}
           className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-secondary transition-colors hover:bg-accent"

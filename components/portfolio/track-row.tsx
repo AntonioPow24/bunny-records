@@ -36,7 +36,7 @@ export function TrackRow({ href, number, title, subtitle, duration, active = fal
           {content}
         </div>
       ) : (
-        <Link href={href} className={cn(base, "transition-colors hover:bg-accent")}>
+        <Link href={href} prefetch className={cn(base, "transition-colors hover:bg-accent")}>
           {content}
         </Link>
       )}

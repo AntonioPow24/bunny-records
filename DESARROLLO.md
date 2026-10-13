@@ -250,6 +250,14 @@ Lighthouse móvil (simulación por defecto):
 - Sin soporte, React cambia de página sin animar; con `prefers-reduced-motion`, duración 0 (regla de `globals.css`) y las transiciones CSS a 0,01 ms.
 - **Pendiente para medir tú:** los tiempos reales. El Chrome de automatización iba a 2 fps (ventana tapada), así que solo se verificó qué anima y con qué duración, no la fluidez.
 
+## Paso 11.1 — Avisos de desarrollo y navegación instantánea ✅
+
+- **"This library called use() to suspend…" y "uncached data" en `/[locale]`:** venían de un servidor de desarrollo con módulos viejos (horas abierto mientras se cambiaba de rama). Reiniciado con `.next` limpio no se reproducen en ningún flujo. Si vuelven a salir: parar `npm run dev`, borrar `.next` y arrancar de nuevo.
+- **"URL data… outside of `<Suspense>`"** (validación de navegación instantánea de Next, solo en desarrollo) en el layout del álbum, álbum, pista, panel y ficha: lo que lee `params` va ahora en `<Suspense>` y los enlaces a álbum, pista y ficha llevan `prefetch` (se precarga el contenido, no solo el esqueleto). El HTML estático no cambia: los parámetros se conocen al compilar.
+- **`disc-about` duplicado:** con el panel de una tecnología abierto sobre Sobre mí, la URL es `/stack/…` y la barra creía que ya no estabas en Sobre mí. Disco de la barra, luces, bandeja y reinicio de scroll del panel leen ahora la sección de la página de fondo (`useSelectedLayoutSegments`), no la URL. Efectos corregidos de paso: con el panel abierto sobre un álbum, la bandeja ya no desaparece y el scroll del panel no salta arriba.
+- "Transition was aborted… Document hidden": aparece solo cuando la ventana del navegador está oculta o tapada; es el navegador cancelando la animación, sin efecto.
+- **Verificado:** recorrido completo en desarrollo sin avisos en consola; en producción, HTML estático con el contenido completo y 404 correctos.
+
 ## Paso 12 — SEO y compartir
 
 **Objetivo:** que cada página se indexe y se comparta bien.

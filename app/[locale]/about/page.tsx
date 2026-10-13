@@ -78,6 +78,7 @@ export default async function AboutPage() {
                     <li key={t.id}>
                       <Link
                         href={`/${locale}/stack/${t.id}`}
+                        prefetch
                         className="text-body-sm inline-flex min-h-11 items-center rounded-full border border-border bg-secondary px-3.5 transition-colors hover:bg-accent"
                       >
                         {t.name}

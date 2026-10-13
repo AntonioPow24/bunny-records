@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegments } from "next/navigation";
 import { Suspense, useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
 
 // Panel con scroll del álbum. Vive en el layout (persiste entre pistas), así que conservaba la posición:
@@ -22,10 +22,11 @@ export function ScrollPanel({ children, className }: { children: ReactNode; clas
 }
 
 function ScrollToTop({ panel }: { panel: RefObject<HTMLDivElement | null> }) {
-  const pathname = usePathname();
+  // La pista abierta (segmento bajo el álbum), no la URL: abrir el panel de una tecnología no debe subir el scroll.
+  const track = useSelectedLayoutSegments().join("/");
   useLayoutEffect(() => {
     panel.current?.scrollTo({ top: 0 });
     document.getElementById("contenido")?.scrollTo({ top: 0 });
-  }, [panel, pathname]);
+  }, [panel, track]);
   return null;
 }
