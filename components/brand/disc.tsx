@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 import { EAR_PATH, FACE_PATH } from "./logo";
 
-export type DiscKind = "about" | "contact";
+export type DiscKind = "about" | "contact" | "side-c";
 
 type DiscProps = {
   kind: DiscKind;
@@ -13,10 +13,11 @@ type DiscProps = {
   className?: string;
 };
 
-// Vinilo de Sobre mí (etiqueta teal) y Contacto (etiqueta marfil). Figma: DiscGraphic.
+// Vinilo de Sobre mí (etiqueta teal), Contacto (etiqueta marfil) y 404 (lado "C", rayado; Figma D12).
+// Figma: DiscGraphic.
 // Decorativo: el nombre accesible lo pone el enlace o la sección que lo contiene.
 export function Disc({ kind, label, spinning = false, className }: DiscProps) {
-  const labelFill = kind === "about" ? "var(--primary)" : "var(--foreground)";
+  const labelFill = kind === "contact" ? "var(--foreground)" : "var(--primary)";
   const gradientId = `disc-shine-${kind}`;
   return (
     <svg
@@ -37,6 +38,15 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
       ))}
       <circle cx="210" cy="210" r="209" fill={`url(#${gradientId})`} />
       <circle cx="210" cy="210" r="80" fill={labelFill} />
+      {kind === "side-c" ? (
+        <>
+          <text x="210" y="234" textAnchor="middle" fill="#080A0D" style={{ font: "700 76px var(--font-display)" }}>
+            C
+          </text>
+          {/* La raya: un arco claro que cruza los surcos hasta la etiqueta. */}
+          <path d="M58 292 Q112 214 182 298" fill="none" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
+        </>
+      ) : (
       <svg x="187" y="150" width="46" height="53" viewBox="0 0 800 922">
         <path d={EAR_PATH} fill="#080A0D" />
         <path d={FACE_PATH} fill="#F4F4F2" />
@@ -49,6 +59,7 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
         />
         <rect x="347" y="731" width="123" height="41" rx="20.5" fill="#080A0D" />
       </svg>
+      )}
       {label && (
         <text
           x="210"
