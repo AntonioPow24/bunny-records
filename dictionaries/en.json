@@ -135,7 +135,6 @@
     },
     "notInAlbums": "Not on any album yet.",
     "close": "Close sheet",
-    "back": "Collection",
-    "openAlbum": "Open {title}"
+    "back": "Collection"
   }
 }

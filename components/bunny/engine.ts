@@ -37,7 +37,10 @@ export const CANVAS_HEIGHT = B.canvas[1];
 export const FULL_REST = B.layers["bunny-full-rest"];
 export const HALO = B.halo_css;
 
-export const layerSrc = (key: string) => `/bunny/${B.layers[key].file.split("/").pop()}`;
+/** Capas a media resolución (public/bunny/sm/, scripts/bunny-small.mjs) cuando el conejo se ve pequeño. Paso 13. */
+export const SMALL_MAX_PX = 660;
+export const layerSrc = (key: string, small = false) =>
+  `/bunny/${small ? "sm/" : ""}${B.layers[key].file.split("/").pop()}`;
 
 const STEPS = ["t25", "t50", "t75"];
 const FRAME_MS = 22;
@@ -91,9 +94,18 @@ export class BunnyEngine {
   private readonly queue: [string, HTMLElement][] = [];
   /** Poses permitidas (además del reposo). null = todas. */
   private readonly only: Set<string> | null;
+  /** Usa las capas de public/bunny/sm/. */
+  private readonly small: boolean;
 
-  constructor(canvas: HTMLElement, mode: BunnyMode, hold: BunnyPose | null = null, only: BunnyPose[] | null = null) {
+  constructor(
+    canvas: HTMLElement,
+    mode: BunnyMode,
+    hold: BunnyPose | null = null,
+    only: BunnyPose[] | null = null,
+    small = false,
+  ) {
     this.canvas = canvas;
+    this.small = small;
     this.mode = mode;
     this.hold = mode === "full" ? hold : null;
     this.only = only ? new Set(only) : null;
@@ -155,7 +167,7 @@ export class BunnyEngine {
     const L = B.layers[key];
     const i = document.createElement("img");
     i.className = "bunny-layer";
-    i.src = layerSrc(key);
+    i.src = layerSrc(key, this.small);
     i.alt = "";
     i.decoding = "async";
     i.draggable = false;
