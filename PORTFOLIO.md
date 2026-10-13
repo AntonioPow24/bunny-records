@@ -298,7 +298,7 @@ interface ProjectBase {
   featured: boolean;
   order: number;
   cover?: { src: StaticImageData; alt: Localized<string> };
-  demo?: { src: string; poster: StaticImageData; alt: Localized<string> };  // clip de 4–5 s en bucle (BUNNY-RECORDS.md §5.2.1); solo si existe de verdad
+  demo?: { mp4: string; webm?: string; poster: StaticImageData; alt: Localized<string> };  // clip de 4–5 s en bucle (BUNNY-RECORDS.md §5.2.1); solo si existe de verdad
 }
 
 interface Credit { tech: TechnologyId; role: Localized<string> }   // TechnologyId = clave de content/technologies.ts

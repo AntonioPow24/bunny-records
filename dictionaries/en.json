@@ -131,7 +131,10 @@
     "nextValidation": "Next validation",
     "trackOf": "Track {number} of {total}",
     "coverOf": "Cover of {title}",
-    "backToTracks": "Back to all tracks"
+    "backToTracks": "Back to all tracks",
+    "demoCaption": "In action",
+    "demoPlay": "Play demo",
+    "demoPause": "Pause demo"
   },
   "tech": {
     "eyebrow": "Technology sheet",

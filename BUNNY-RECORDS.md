@@ -174,7 +174,7 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 - **Interacción:** la caja del vídeo es el control: pulsarla (clic, toque o Enter/Espacio con el foco) **alterna pausa y reproducción**. Necesita nombre accesible que cambie con el estado ("Pausar demo" / "Reproducir demo") y foco visible: es lo que cumple WCAG 2.2.2 (pausar contenido en movimiento) sin controles a la vista.
 - **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
-- **Diseño:** pendiente en Figma (lo prepara Codex): tamaño y proporción de la caja, estado en pausa y foco, y cómo encaja en móvil. Hasta su aprobación no se implementa.
+- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §8.3), aprobado e implementado el 2026-10-13 (`components/portfolio/demo-clip.tsx`). Falta solo la grabación de cada proyecto: hasta entonces ningún álbum muestra el bloque.
 
 Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla aparece ya en su estado final, sin animación.
 
