@@ -333,6 +333,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 15 | Clip de demo de 6 s bajo la portada del álbum (autoplay, sin controles, pausa al pulsar y cuando no se ve) | Codex Figma → aprobación → Claude código | Hecho (`mejora-15-videoclip`); faltan las grabaciones. Especificación en `BUNNY-RECORDS.md` §5.2.1 y diseño en `FIGMA-DESIGN.md` §8.3 |
 | 16 | Revisión de seguridad: escape del JSON-LD y `/lab` fuera de producción | Código | Hecho (`mejora-16-seguridad`) |
 | 17 | Primer videoclip real: Bunny Records | Contenido | Hecho (`mejora-17-demo-bunny-records`) |
+| 18 | MP4 del videoclip a 960×540 (5,5 MB → 200 KB) y receta de `ffmpeg` | Contenido | Hecho (`mejora-18-mp4-ligero`) |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
@@ -384,7 +385,17 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 
 Sin hallazgos: `proxy.ts` no redirige fuera del dominio (`//evil.com` → `/es/evil.com` → 404); la cookie de idioma no es sensible (`SameSite=Lax`); los enlaces externos llevan `rel="noopener noreferrer"`; solo se leen `NEXT_PUBLIC_SITE_URL`, `VERCEL_PROJECT_PRODUCTION_URL` y `SITE_NOINDEX` (ningún secreto); ningún `.env` ni clave en el historial; el sitio publicado envía CSP, HSTS con `preload`, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy` y `Permissions-Policy`. Verificado sobre el build: `/lab` 404 y el resto de rutas 200.
 
-**Tarea 17 (2026-10-13):** primer clip real, aportado por el usuario: `public/demos/bunny-records/bunny-records-demo-6s.{webm,mp4}` (6 s, recorrido colección → Sobre mí → Contacto → colección, bucle limpio). Póster generado del primer fotograma (`poster.jpg`, 720×405, 16 KB) para que el bucle y la pausa empiecen en la misma imagen. Descripción accesible en es/en. Chrome usa el WebM (960×540, 240 KB); el MP4 (1920×1080, **5,5 MB**) solo lo descargan los navegadores sin WebM: conviene volver a exportarlo a 960×540 cuando se pueda. Al alargarse la columna en móvil apareció un `h2` `sr-only` sin contenedor posicionado que agrandaba el documento 22 px (375×667): la sección del álbum es ahora `relative`. Verificado sobre el build: reproducción automática, pausa al pulsar, persistencia al pasar a una pista, pausa en Sobre mí y reanudación al volver, sin vídeo en Inicio ni en Vidriería, movimiento reducido con póster, 1440×900, 1920×911 (en), 390×844 y 375×667 (en) sin scroll de documento.
+**Tarea 17 (2026-10-13):** primer clip real, aportado por el usuario: `public/demos/bunny-records/bunny-records-demo-6s.{webm,mp4}` (6 s, recorrido colección → Sobre mí → Contacto → colección, bucle limpio). Póster generado del primer fotograma (`poster.jpg`, 720×405, 16 KB) para que el bucle y la pausa empiecen en la misma imagen. Descripción accesible en es/en. Chrome usa el WebM (960×540, 240 KB); el MP4 se reexportó con `ffmpeg` (Tarea 18): de 1920×1080 y 5,5 MB a 960×540 y 200 KB. Al alargarse la columna en móvil apareció un `h2` `sr-only` sin contenedor posicionado que agrandaba el documento 22 px (375×667): la sección del álbum es ahora `relative`. Verificado sobre el build: reproducción automática, pausa al pulsar, persistencia al pasar a una pista, pausa en Sobre mí y reanudación al volver, sin vídeo en Inicio ni en Vidriería, movimiento reducido con póster, 1440×900, 1920×911 (en), 390×844 y 375×667 (en) sin scroll de documento.
+
+**Tarea 18 (2026-10-13):** `ffmpeg` 9.0.2 instalado con permiso del usuario (`winget install Gyan.FFmpeg`). El MP4 de Bunny Records pasa de 1920×1080 con pista de audio AAC (5,5 MB) a 960×540, H.264 High, sin audio y con `faststart` (200 KB); fotograma revisado y decodificación comprobada en Chrome. **Receta para los próximos clips** (desde la carpeta del proyecto en `public/demos/<slug>/`):
+
+```
+ffmpeg -i original.mp4 -ss 0 -t 6 -vf "scale=960:540:flags=lanczos,fps=30" -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 26 -preset slow -an -movflags +faststart <slug>-demo-6s.mp4
+ffmpeg -i original.mp4 -ss 0 -t 6 -vf "scale=960:540:flags=lanczos,fps=30" -c:v libvpx-vp9 -crf 36 -b:v 0 -an <slug>-demo-6s.webm
+ffmpeg -i <slug>-demo-6s.mp4 -frames:v 1 -vf scale=720:-2 -q:v 4 poster.jpg
+```
+
+`-ss`/`-t` eligen el tramo; `-an` quita el audio; el póster es el primer fotograma, para que el bucle y la pausa empiecen en la misma imagen.
 
 ## Historial
 
