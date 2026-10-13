@@ -5,8 +5,9 @@ import { Suspense } from "react";
 import { CreditsList } from "@/components/portfolio/credits-list";
 import { JsonLd } from "@/components/seo/json-ld";
 import { TrackRow } from "@/components/portfolio/track-row";
-import { getProject, getReadingMinutes, getTechnology, isPublished } from "@/lib/content";
-import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { technologies } from "@/content/technologies";
+import { getProject, getReadingMinutes, isPublished } from "@/lib/content";
+import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
@@ -69,23 +70,21 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     />
   );
 
-  const credits = project.credits.map((c) => {
-    const tech = getTechnology(c.tech);
-    return {
-      id: c.tech,
-      name: tech?.name ?? c.tech,
-      role: c.role[locale],
-      href: `/${locale}/stack/${c.tech}`,
-      group: tech?.group ?? "workflow",
-    };
-  });
-  const plural = new Intl.PluralRules(locale);
-  const count = (forms: { one: string; other: string }, n: number) =>
-    format(plural.select(n) === "one" ? forms.one : forms.other, { count: String(n) });
+  // validateContent() garantiza que cada crédito apunta a una tecnología existente.
+  const credits = project.credits.map((c) => ({
+    id: c.tech,
+    name: technologies[c.tech].name,
+    role: c.role[locale],
+    href: `/${locale}/stack/${c.tech}`,
+    group: technologies[c.tech].group,
+  }));
+  const areas = new Set(credits.map((c) => c.group)).size;
   const creditsProps = {
+    // Id por álbum: los álbumes visitados siguen montados (ocultos con <Activity>).
+    id: `credits-${project.slug}`,
     items: credits,
     groupLabels: dict.about.gearGroups,
-    summary: `${count(dict.album.creditsCount, credits.length)} · ${count(dict.album.areasCount, new Set(credits.map((c) => c.group)).size)}`,
+    summary: `${plural(locale, dict.album.creditsCount, credits.length)} · ${plural(locale, dict.album.areasCount, areas)}`,
   };
 
   if (!isPublished(project)) {

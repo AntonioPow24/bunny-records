@@ -337,6 +337,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 
 **Tarea 6 (2026-10-13):** Contacto es un "pase backstage": franja teal "All Access · Bunny Records" (texto ink), el nombre como `h1` con el rol debajo, cifras del sello en grande (solo las que no son cero; etiquetas con plural, sin el número), los otros cuatro datos de la ficha en 2 columnas, corte perforado y "Dónde encontrarme": `CopyEmail` como píldora con el email (en móvil se parte en dos líneas) y botón primario "Copiar" (nombre accesible "Copiar email"), y GitHub y LinkedIn como botones con su usuario. Sin ofertas ni disponibilidad. QA nivel 2 sobre el build: es 1920×911, 390×844 y 375×667, en 1920×911 y 375×667; en escritorio cabe sin scroll, en móvil se desplaza `<main>` (regla), el botón copia y avisa; axe sin violaciones.
 
+**Revisión de 4–6 (code-review, 2026-10-13), corregido:** id de créditos por álbum (los álbumes ocultos por <Activity> siguen en el DOM y repetían `credits-title`); grupo de cada crédito leído directamente de `technologies` (validateContent ya impide ids inexistentes); cifras de Contacto solo si hay alguna; el rol del pase sale de `profile.role` + `profile.degree` (fuera la fila "Rol" de `profile.spec`, que dependía del orden); "N pistas" con plural (`tray.tracks`); un único `plural(locale, forms, n)` en `lib/i18n/get-dictionary.ts`. No se cambia: la pegatina estrecha en pantallas bajas (es para no pisar al conejo; revisada a 1280×720) ni la doble lectura de minutos en el build (solo coste de build).
+
 ---
 
 ## Historial

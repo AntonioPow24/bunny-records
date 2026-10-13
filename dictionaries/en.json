@@ -45,7 +45,11 @@
   },
   "tray": {
     "label": "Player",
-    "albumSummary": "{tracks} tracks · {minutes} min",
+    "albumSummary": "{tracks} · {minutes} min",
+    "tracks": {
+      "one": "{count} track",
+      "other": "{count} tracks"
+    },
     "trackNow": "Track {number} · {title}",
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",

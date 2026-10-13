@@ -74,15 +74,8 @@ export const profile = {
       place: { es: "Java, MySQL, C# y Firebase", en: "Java, MySQL, C# and Firebase" },
     },
   ] satisfies TourStop[],
-  /** Contacto · ficha técnica. "En este sello" se calcula a partir de los proyectos. */
+  /** Datos del pase de Contacto (el rol sale de role + degree; las cifras del sello, de los proyectos). */
   spec: [
-    {
-      label: { es: "Rol", en: "Role" },
-      value: {
-        es: "Frontend Developer · Ingeniero de Sistemas e Informática",
-        en: "Frontend Developer · Systems and Computer Engineer",
-      },
-    },
     {
       label: { es: "Ahora", en: "Now" },
       value: { es: "Frontend en NTT DATA, con React y TypeScript", en: "Frontend at NTT DATA, with React and TypeScript" },

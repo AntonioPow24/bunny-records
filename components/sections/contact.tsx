@@ -5,23 +5,19 @@ import { CopyEmail } from "@/components/portfolio/copy-email";
 import { profile } from "@/content/profile";
 import { getBuildYear } from "@/lib/build-info";
 import { getLabelStats } from "@/lib/content";
-import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 
 // Contacto · pase backstage (mejora 6; Figma "Mejoras · T6"). Informativo: sin ofertas de servicios, precios ni
 // disponibilidad freelance (PORTFOLIO.md §2.1, Vercel Hobby). Recoge lo que tenía el footer (©, créditos).
 export async function ContactSheet() {
   const [locale, dict, year] = await Promise.all([getLocale(), getDictionary(), getBuildYear()]);
   const stats = getLabelStats();
-  const plural = new Intl.PluralRules(locale);
-  const form = (forms: { one: string; other: string }, n: number) => (plural.select(n) === "one" ? forms.one : forms.other);
+  // Etiquetas sin número (el número va aparte, en grande): plural() solo elige la forma.
   const figures = [
-    { n: stats.published, label: form(dict.contact.published, stats.published) },
-    { n: stats.inDevelopment, label: form(dict.contact.inDevelopment, stats.inDevelopment) },
-    { n: stats.planned, label: form(dict.contact.planned, stats.planned) },
+    { n: stats.published, label: plural(locale, dict.contact.published, stats.published) },
+    { n: stats.inDevelopment, label: plural(locale, dict.contact.inDevelopment, stats.inDevelopment) },
+    { n: stats.planned, label: plural(locale, dict.contact.planned, stats.planned) },
   ].filter((f) => f.n > 0);
-
-  // La primera fila de la ficha (Rol) va bajo el nombre; el resto, en la rejilla.
-  const [roleRow, ...facts] = profile.spec;
   const links = [
     { name: "GitHub", handle: profile.contact.github.handle, href: profile.contact.github.url },
     { name: "LinkedIn", handle: profile.contact.linkedin.handle, href: profile.contact.linkedin.url },
@@ -43,25 +39,29 @@ export async function ContactSheet() {
             <h1 id="contact-name" className="text-h2">
               {profile.name}
             </h1>
-            <p className="text-body-sm text-muted-foreground">{roleRow.value[locale]}</p>
+            <p className="text-body-sm text-muted-foreground">
+              {profile.role[locale]} · {profile.degree[locale]}
+            </p>
           </header>
 
-          <section aria-labelledby="contact-stats">
-            <h2 id="contact-stats" className="sr-only">
-              {dict.contact.statsLabel}
-            </h2>
-            <ul className="grid grid-cols-2 gap-3">
-              {figures.map((f) => (
-                <li key={f.label} className="flex flex-col gap-0.5 rounded-md bg-secondary px-3.5 py-2.5">
-                  <span className="text-h2 text-primary">{f.n}</span>
-                  <span className="text-label text-muted-foreground">{f.label}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {figures.length > 0 && (
+            <section aria-labelledby="contact-stats">
+              <h2 id="contact-stats" className="sr-only">
+                {dict.contact.statsLabel}
+              </h2>
+              <ul className="grid grid-cols-2 gap-3">
+                {figures.map((f) => (
+                  <li key={f.label} className="flex flex-col gap-0.5 rounded-md bg-secondary px-3.5 py-2.5">
+                    <span className="text-h2 text-primary">{f.n}</span>
+                    <span className="text-label text-muted-foreground">{f.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <dl className="grid grid-cols-2 gap-x-4 gap-y-4">
-            {facts.map((row) => (
+            {profile.spec.map((row) => (
               <div key={row.label.es} className="flex flex-col gap-1">
                 <dt className="text-label text-muted-foreground">{row.label[locale]}</dt>
                 <dd className="text-body-sm md:text-body-strong">{row.value[locale]}</dd>

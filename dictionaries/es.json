@@ -45,7 +45,11 @@
   },
   "tray": {
     "label": "Reproductor",
-    "albumSummary": "{tracks} pistas · {minutes} min",
+    "albumSummary": "{tracks} · {minutes} min",
+    "tracks": {
+      "one": "{count} pista",
+      "other": "{count} pistas"
+    },
     "trackNow": "Pista {number} · {title}",
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",

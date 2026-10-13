@@ -5,7 +5,7 @@ import { Collection, type CollectionItem } from "@/components/portfolio/collecti
 import { profile } from "@/content/profile";
 import { getAlbumMinutes, getProjects, isPublished } from "@/lib/content";
 import { JsonLd } from "@/components/seo/json-ld";
-import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { SITE_NAME, SITE_URL, absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,7 +29,7 @@ export default async function HomePage() {
     tagline: p.tagline[locale],
     // Ficha breve: "2026 · 5 pistas · 5 min" o "Próximo lanzamiento".
     meta: isPublished(p)
-      ? `${p.year} · ${format(dict.tray.albumSummary, { tracks: String(p.tracks.length), minutes: String(getAlbumMinutes(p, locale)) })}`
+      ? `${p.year} · ${format(dict.tray.albumSummary, { tracks: plural(locale, dict.tray.tracks, p.tracks.length), minutes: String(getAlbumMinutes(p, locale)) })}`
       : dict.tray.upcoming,
     status: p.status,
     statusLabel: statusLabel[p.status],

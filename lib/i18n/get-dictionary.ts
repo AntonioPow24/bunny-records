@@ -29,6 +29,12 @@ export async function getDictionary(): Promise<Dictionary> {
   return dictionaries[await getLocale()]();
 }
 
+/** Elige la forma singular o plural ({ one, other }) según el idioma y sustituye {count}. */
+export function plural(locale: Locale, forms: { one: string; other: string }, count: number): string {
+  const form = new Intl.PluralRules(locale).select(count) === "one" ? forms.one : forms.other;
+  return format(form, { count: String(count) });
+}
+
 /** Sustituye {variables} en un texto del diccionario. */
 export function format(template: string, values: Record<string, string>): string {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? `{${key}}`);

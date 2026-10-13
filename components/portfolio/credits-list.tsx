@@ -9,6 +9,8 @@ type CreditItem = { id: string; name: string; role: string; href: string; group:
 const GROUP_ORDER: CreditGroup[] = ["frontend", "backend", "design", "workflow"];
 
 type CreditsListProps = {
+  /** Único por página (los álbumes ocultos por <Activity> siguen en el DOM). */
+  id: string;
   title: string;
   /** Resumen ya traducido: "10 créditos · 3 áreas". */
   summary: string;
@@ -19,15 +21,15 @@ type CreditsListProps = {
 // Créditos como notas de contraportada (mejora 4; Figma "Mejoras · T4"): agrupados por área, cada uno en una
 // tarjeta con su función en este álbum arriba y la tecnología debajo. Las funciones son cortas a propósito
 // (la ficha compartida ya no tiene textos propios). Cada tarjeta abre la ficha de la tecnología.
-export function CreditsList({ title, summary, groupLabels, items }: CreditsListProps) {
+export function CreditsList({ id, title, summary, groupLabels, items }: CreditsListProps) {
   const groups = GROUP_ORDER.map((group) => ({ group, items: items.filter((i) => i.group === group) })).filter(
     (g) => g.items.length > 0,
   );
 
   return (
-    <section aria-labelledby="credits-title" className="flex flex-col gap-5">
+    <section aria-labelledby={id} className="flex flex-col gap-5">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h2 id="credits-title" className="text-h3">
+        <h2 id={id} className="text-h3">
           {title}
         </h2>
         <p className="text-label text-muted-foreground">{summary}</p>
