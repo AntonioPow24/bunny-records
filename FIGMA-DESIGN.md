@@ -239,6 +239,18 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 **Espacio experimental pendiente:** `Redesign Lab` es una opción, no una página obligatoria. Evaluar primero el plan/asiento vigente, capacidades MCP, consumo de llamadas y utilidad del espacio. Preferir una copia de los frames afectados o una sección existente cuando sea suficiente y compatible con el plan. No crear un lab ni ampliar el plan por defecto.
 
+### 8.1 T11 — Equipo de estudio: instrumentos del repertorio (2026-10-13)
+
+**Estado: propuesta de Codex, pendiente de aprobación; sin implementación.** En `02 Pantallas`, sección independiente junto a las existentes; no se creó una página Lab. Original Sobre mí conservado (`103:2197`).
+
+- [Propuesta completa](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=137-247): escritorio `137:248`, detalle móvil `137:446`, componente `StudioToolLink / T11` `137:362`.
+- **Concepto:** el repertorio representa los instrumentos con los que se construye cada proyecto. Sustituir las cápsulas de herramientas por una ficha editorial con separadores, cuatro categorías numeradas y nombres enlazables. Mantener las pestañas como navegación y conservar las 15 tecnologías `inGear` actuales.
+- **Responsive:** categoría a la izquierda + tres columnas de herramientas en escritorio; categoría encima + dos columnas en móvil. El detalle móvil muestra el contenido completo; al implementar, integrarlo en el panel `#gear` con su scroll interno, conservando `100dvh`, disco, conejo, cabecera y navegación.
+- **Interacción:** enlaces a `/[locale]/stack/[tech]`; reposo transparente, hover con fondo/acento teal, foco de 2 px; objetivo táctil de 44 px. La propuesta incluye muestras default/hover/focus; el comportamiento navegable sigue pendiente de implementación.
+- **Contenido propuesto:** «Instrumentos del estudio» y «Las herramientas con las que doy forma a cada proyecto». Traducir a ES/EN al implementar. Sin niveles de dominio, herramientas nuevas ni resultados inventados.
+- **Traspaso tras aprobación:** afecta al contenido de `gear` en `app/[locale]/about/page.tsx` y sus textos en los diccionarios. Conservar `AboutTracks`, `#gear`, rutas de tecnologías y reglas del layout. Validar móvil 390×844 y 375×667, escritorio, teclado, textos EN y ausencia de scroll del documento.
+- **Verificación de diseño:** 30 instancias (15 por tamaño), UI editable y tipografía Sora/Geist/Geist Mono; colores vinculados al sistema existente. Captura de composición revisada. No se probó el responsive en navegador ni se modificó el código.
+
 ---
 
 ## 9. Atajos (elegidos 2026-10-12)
@@ -246,6 +258,8 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 ### 9.0 Plan de Figma y costes (consultado el 2026-10-12)
 
 **Registro histórico, no comprobación de cuenta en vivo:** se empezó en Starter con asiento Full y el 2026-10-12 se documentó el paso a Professional por un mes (§9.0.2). La vigencia, renovación y límites efectivos deben verificarse antes de decidir cómo trabajar. La tabla conserva los datos consultados entonces; no constituye una tarifa ni un cupo vigente confirmado.
+
+**Conexión de Codex comprobada (2026-10-13):** cuenta personal con plan Professional, asiento Full y permiso de IA; lectura del archivo y escritura de la propuesta T11 verificadas mediante el conector Figma. `02 Pantallas` es accesible con el ID `1:21`, aunque el listado inicial sin nodo solo devolvió `01 Sistema`. Fecha de renovación y cupo restante no comprobados.
 
 | | Starter (consulta histórica) | Professional, asiento Full (consulta histórica) |
 |---|---|---|

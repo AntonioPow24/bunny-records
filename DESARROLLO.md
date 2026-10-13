@@ -326,6 +326,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 8 | Créditos como sobres por lado (A, B, C): las pistas siguen siendo las protagonistas | Concepto → Figma → código | Hecho (`mejora-8-creditos-sobres`) |
 | 9 | Mantener identidad de los sobres al cambiar de lado; corregir View Transitions | Código | Hecho; detalle en Tarea 9 |
 | 10 | Arte de las fundas con la identidad del conejo | Código | Hecho (`mejora-10-sobres-conejo`); sin actualización equivalente de Figma confirmada |
+| 11 | Equipo de estudio: instrumentos del repertorio, sin cápsulas de herramientas | Codex Figma → aprobación → Claude código | Propuesta T11 en Figma, pendiente de aprobación; detalle en `FIGMA-DESIGN.md` §8.1 |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
