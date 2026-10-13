@@ -329,7 +329,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 11 | Equipo de estudio: instrumentos del repertorio, sin cápsulas de herramientas | Codex Figma → aprobación → Claude código | Hecho (`mejora-11-equipo-estudio`); T11 aprobada el 2026-10-13, detalle en `FIGMA-DESIGN.md` §8.1 |
 | 12 | Créditos de los álbumes estáticos: la ficha de tecnología solo se abre desde "Equipo de estudio"; antetítulo "Ficha de tecnología" | Código | Hecho (`mejora-12-creditos-estaticos`) |
 | 13 | Álbum "Bunny Records": el propio portfolio como proyecto publicado | Contenido + portada | Hecho (`mejora-13-album-bunny-records`) |
-| 14 | Contacto con disco original y firma independiente: correo informativo y Descargar CV con icono centrado | Codex Figma → aprobación → Claude código | T14 v1/v2 descartadas; v3 con disco original y firma fija pendiente de aprobación visual, CV e implementación. `FIGMA-DESIGN.md` §8.2 |
+| 14 | Contacto con disco original y firma independiente: correo informativo y Descargar CV con icono centrado | Codex Figma → aprobación → Claude código | T14 v3 aprobada el 2026-10-13; v1/v2 descartadas. Pendiente: aportar CV e indicar manualmente a Claude que implemente. `FIGMA-DESIGN.md` §8.2 |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
