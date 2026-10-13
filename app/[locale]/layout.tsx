@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 
 import { Header } from "@/components/layout/header";
@@ -9,6 +9,7 @@ import { getAlbumMinutes, getProjects, isPublished, validateContent } from "@/li
 import { fontVariables } from "@/lib/fonts";
 import { locales } from "@/lib/i18n/config";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { NOINDEX, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 // Todo el sitio es estático (PORTFOLIO.md §5): si un cambio lo volviera dinámico, el build falla.
@@ -23,10 +24,17 @@ export function generateStaticParams() {
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
   return {
-    title: { default: dict.meta.title, template: `%s · ${dict.meta.siteName}` },
+    // Base de las URLs absolutas (og:image, canónicas, hreflang).
+    metadataBase: new URL(SITE_URL),
+    title: { default: dict.meta.title, template: `%s · ${SITE_NAME}` },
     description: dict.meta.description,
+    // Previsualizaciones (SITE_NOINDEX=true): se pueden compartir, pero no se indexan.
+    ...(NOINDEX && { robots: { index: false, follow: false } }),
   };
 }
+
+// Color de la barra del navegador móvil y de la tarjeta en Discord (design/logo/meta/README.md).
+export const viewport: Viewport = { themeColor: "#0C111C" };
 
 // Layout persistente (BUNNY-RECORDS.md §5.3.2 y §5.4): una sola pantalla fija; header y bandeja no se vuelven a
 // montar al navegar. El documento nunca hace scroll: si un contenido no cabe, se desplaza dentro de <main>.

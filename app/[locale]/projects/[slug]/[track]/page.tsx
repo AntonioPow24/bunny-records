@@ -5,8 +5,10 @@ import { notFound } from "next/navigation";
 import { Suspense, ViewTransition } from "react";
 
 import { TrackRow } from "@/components/portfolio/track-row";
+import { JsonLd } from "@/components/seo/json-ld";
 import { getProject, getProjects, getReadingMinutes, isPublished, loadTrackBody } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getProjects()
@@ -28,10 +30,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
   const locale = await getLocale();
   if (!found) return {};
   const { project, track } = found;
-  return {
+  return buildMetadata({
+    locale,
+    path: `/projects/${project.slug}/${track.slug}`,
     title: `${track.title[locale]} · ${project.title[locale]}`,
     description: track.subtitle?.[locale] ?? project.tagline[locale],
-  };
+    image: albumImage(locale, project.slug, project.title[locale]),
+  });
 }
 
 // Pista abierta (Figma V2-D06; BUNNY-RECORDS.md §5.2 paso 5): la fila sube al lugar de la primera y su
@@ -56,6 +61,29 @@ async function TrackContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
 
   return (
     <article className="flex flex-col gap-6 pb-6">
+      {/* Pista = capítulo (CreativeWork) que forma parte del álbum, con sus migas. */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "CreativeWork",
+              name: track.title[locale],
+              description: track.subtitle?.[locale] ?? project.tagline[locale],
+              url: absoluteUrl(locale, `/projects/${project.slug}/${track.slug}`),
+              inLanguage: locale,
+              position: index + 1,
+              isPartOf: { "@type": "CreativeWork", name: project.title[locale], url: absoluteUrl(locale, `/projects/${project.slug}`) },
+              author: { "@id": `${SITE_URL}/#person` },
+            },
+            breadcrumbJsonLd(locale, [
+              { name: dict.album.back, path: "" },
+              { name: project.title[locale], path: `/projects/${project.slug}` },
+              { name: track.title[locale], path: `/projects/${project.slug}/${track.slug}` },
+            ]),
+          ],
+        }}
+      />
       <div className="flex items-center gap-2">
         <Link
           href={base}

@@ -6,10 +6,11 @@ import { Turntable } from "@/components/sections/turntable";
 import { profile } from "@/content/profile";
 import { getTechnologies } from "@/lib/content";
 import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
-  return { title: dict.about.metaTitle, description: profile.bio[locale] };
+  return buildMetadata({ locale, path: "/about", title: dict.about.metaTitle, description: profile.bio[locale] });
 }
 
 const GEAR_GROUPS = ["frontend", "backend", "design", "workflow"] as const;
