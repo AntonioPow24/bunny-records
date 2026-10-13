@@ -305,6 +305,12 @@ Archivo: https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28
   - en la colección no hay bandeja (aparece al entrar en un álbum);
   - las duraciones de pista del diseño son de ejemplo.
 
+- **2026-10-13 · limpieza y estado actual:**
+  - Borradas las pantallas obsoletas de `02 Pantallas` (primera versión con scroll D01–D12/M01–M13, "v2 · Sin scroll" a mano, comparativa de luz 7.9) y todo el prototipo de Smart Animate de `03 Prototipo` (su nota ahora remite al sitio). Se conservan la plantilla OG y la especificación de luz en "Referencias vigentes".
+  - Secciones **"Actual · Escritorio / Móvil"**: capturas del build (rama `mejora-3`, con las mejoras 1–3) como capas editables con `generate_figma_design`: A-D01 Colección, A-D04 Álbum, A-D06 Pista, A-D07 Panel de tecnología, A-D09 Planeado, A-D10 Sobre mí, A-D11 Contacto, A-D12 404; A-M01, A-M04, A-M06, A-M10, A-M11. Método: puppeteer con `setBypassCSP`, inyectar `capture.js` y lanzar `captureForDesign` sin esperar la promesa (no se resuelve).
+  - Sección **"Mejoras · propuestas"** (sobre copias de las capturas, con variables y estilos del sistema): T4 créditos como "notas del disco" (rejilla por área, función en mono teal arriba y nombre debajo, una tarjeta en hover); T5 ficha breve de la colección como "pegatina" (sin título ni caja: estado y meta en mono, frase y ▶ "Escuchar álbum"; variante planeado con "Ver concepto"); T6 Contacto como "pase backstage" (franja All Access, nombre y rol, cifras del sello, datos en 2 columnas, corte perforado, email con "Copiar", GitHub y LinkedIn).
+  - Pendiente de limpiar en `01 Sistema`: componentes de la primera versión sin uso (`Footer`, `Header` v1, `TrackNav`, `CoverInfo`, `CreditRow`…), cuando se aprueben las propuestas.
+
 ### 9.0.1 Cómo funciona la conexión
 
 - **No hace falta abrir la app de Figma ni reiniciar Claude.** El MCP que usamos es el **remoto** de Figma (`mcp.figma.com`), que trabaja contra tu cuenta en la nube y ya está conectado y autenticado en Claude Code. El servidor local, que sí requiere la app de escritorio abierta, no es necesario.
