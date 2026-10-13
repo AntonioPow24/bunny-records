@@ -37,3 +37,6 @@ design/character/layers/*.png
 /coverage
 .vercel
 *.pem
+
+# Guía personal del código (no se versiona)
+GUIA-DEL-CODIGO.md
