@@ -2,13 +2,20 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { CreditsList } from "@/components/portfolio/credits-list";
+import { CreditSleeves, type CreditSide } from "@/components/portfolio/credits-list";
 import { JsonLd } from "@/components/seo/json-ld";
 import { TrackRow } from "@/components/portfolio/track-row";
 import { technologies } from "@/content/technologies";
+import type { Technology } from "@/types/content";
 import { getProject, getReadingMinutes, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+
+// Orden de los lados de los créditos. Exhaustivo: si aparece un grupo nuevo en Technology, no compila.
+const CREDIT_GROUPS = ["frontend", "backend", "design", "workflow"] as const satisfies readonly Technology["group"][];
+type MissingGroup = Exclude<Technology["group"], (typeof CREDIT_GROUPS)[number]>;
+const allGroupsCovered: [MissingGroup] extends [never] ? true : never = true;
+void allGroupsCovered;
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -78,20 +85,35 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     href: `/${locale}/stack/${c.tech}`,
     group: technologies[c.tech].group,
   }));
-  const areas = new Set(credits.map((c) => c.group)).size;
+  // Un lado del disco por área con créditos, en orden fijo y con letra A, B, C…
+  const sides: CreditSide[] = CREDIT_GROUPS.map((group) => credits.filter((c) => c.group === group))
+    .filter((items) => items.length > 0)
+    .map((items, index) => ({
+      letter: String.fromCharCode(65 + index),
+      name: format(dict.album.side, { letter: String.fromCharCode(65 + index) }),
+      area: dict.about.gearGroups[items[0].group],
+      count: plural(locale, dict.album.creditsCount, items.length),
+      items,
+    }));
   const creditsProps = {
     // Id por álbum: los álbumes visitados siguen montados (ocultos con <Activity>).
     id: `credits-${project.slug}`,
-    items: credits,
-    groupLabels: dict.about.gearGroups,
-    summary: `${plural(locale, dict.album.creditsCount, credits.length)} · ${plural(locale, dict.album.areasCount, areas)}`,
+    sides,
+    summary: `${plural(locale, dict.album.creditsCount, credits.length)} · ${plural(locale, dict.album.sidesCount, sides.length)}`,
+    labels: {
+      sideWord: dict.album.sideWord,
+      hint: dict.album.sidesHint,
+      prev: dict.album.prevSide,
+      next: dict.album.nextSide,
+      all: dict.album.allSides,
+    },
   };
 
   if (!isPublished(project)) {
     return (
       <div className="flex flex-col gap-8 pb-6">
         {jsonLd}
-        <CreditsList title={dict.album.proposedStack} {...creditsProps} />
+        <CreditSleeves title={dict.album.proposedStack} {...creditsProps} />
         <section className="flex flex-col gap-2">
           <h2 className="text-h3">{dict.album.nextValidation}</h2>
           <p className="text-body max-w-prose text-muted-foreground">{project.nextValidation[locale]}</p>
@@ -121,7 +143,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
           ))}
         </ol>
       </section>
-      <CreditsList title={dict.album.credits} {...creditsProps} />
+      <CreditSleeves title={dict.album.credits} {...creditsProps} />
       <section className="flex flex-col gap-2">
         <h2 className="text-h3">{dict.album.productionNotes}</h2>
         <ul className="flex flex-col gap-2">

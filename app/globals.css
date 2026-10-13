@@ -224,6 +224,12 @@
   animation-duration: 320ms;
 }
 
+/* Sobres de créditos (mejora 8): el elegido viaja de la fila a la pila. Solo con el tipo "sleeve". */
+::view-transition-group(.sleeve-morph) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
 /* La fila de la pista sube a la cabecera de la lista (y vuelve): más corta que la portada, porque es un
    cambio dentro del mismo álbum (PORTFOLIO.md §3.7: pistas 200–250 ms). Paso 11. */
 ::view-transition-group(.track-morph),

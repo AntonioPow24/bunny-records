@@ -127,10 +127,16 @@
       "one": "{count} credit",
       "other": "{count} credits"
     },
-    "areasCount": {
-      "one": "{count} area",
-      "other": "{count} areas"
+    "sidesCount": {
+      "one": "{count} side",
+      "other": "{count} sides"
     },
+    "side": "Side {letter}",
+    "sideWord": "Side",
+    "sidesHint": "Pick a side to see its credits",
+    "prevSide": "Previous side",
+    "nextSide": "Next side",
+    "allSides": "Back to all sides",
     "productionNotes": "Production notes",
     "proposedStack": "Proposed stack",
     "nextValidation": "Next validation",

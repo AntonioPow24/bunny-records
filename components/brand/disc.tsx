@@ -10,14 +10,21 @@ type DiscProps = {
   label?: string;
   /** Gira despacio (escena). Se detiene con prefers-reduced-motion. */
   spinning?: boolean;
+  /** Conejo en la etiqueta (por defecto sí). Los sobres de créditos lo quitan: solo asoma el borde del disco. */
+  bunny?: boolean;
+  /** Color de la etiqueta, si no es el de su tipo (sobres de créditos: un tono por lado). */
+  tone?: "teal" | "ivory" | "deep" | "muted";
+  /** Brillo diagonal (por defecto sí). Los sobres lo quitan: no repiten el id del degradado en la página. */
+  shine?: boolean;
   className?: string;
 };
 
 // Vinilo de Sobre mí (etiqueta teal), Contacto (etiqueta marfil) y 404 (lado "C", rayado; Figma D12).
 // Figma: DiscGraphic.
 // Decorativo: el nombre accesible lo pone el enlace o la sección que lo contiene.
-export function Disc({ kind, label, spinning = false, className }: DiscProps) {
-  const labelFill = kind === "contact" ? "var(--foreground)" : "var(--primary)";
+export function Disc({ kind, label, spinning = false, bunny = true, tone, shine = true, className }: DiscProps) {
+  const toneFill = { teal: "var(--primary)", ivory: "var(--foreground)", deep: "var(--teal-deep)", muted: "var(--muted-foreground)" } as const;
+  const labelFill = tone ? toneFill[tone] : kind === "contact" ? "var(--foreground)" : "var(--primary)";
   const gradientId = `disc-shine-${kind}`;
   return (
     <svg
@@ -25,18 +32,20 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
       aria-hidden="true"
       className={cn("block aspect-square", spinning && "disc-spin", className)}
     >
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0.35" stopColor="#fff" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#fff" stopOpacity="0.07" />
-          <stop offset="0.65" stopColor="#fff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
+      {shine && (
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0.35" stopColor="#fff" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#fff" stopOpacity="0.07" />
+            <stop offset="0.65" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      )}
       <circle cx="210" cy="210" r="209" fill="var(--scrim)" stroke="var(--border)" strokeWidth="2" />
       {[194, 176, 158, 140, 122, 104].map((r) => (
         <circle key={r} cx="210" cy="210" r={r} fill="none" stroke="var(--border)" strokeWidth="1.5" opacity="0.8" />
       ))}
-      <circle cx="210" cy="210" r="209" fill={`url(#${gradientId})`} />
+      {shine && <circle cx="210" cy="210" r="209" fill={`url(#${gradientId})`} />}
       <circle cx="210" cy="210" r="80" fill={labelFill} />
       {kind === "side-c" ? (
         <>
@@ -46,7 +55,7 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
           {/* La raya: un arco claro que cruza los surcos hasta la etiqueta. */}
           <path d="M58 292 Q112 214 182 298" fill="none" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
         </>
-      ) : (
+      ) : bunny ? (
       <svg x="187" y="150" width="46" height="53" viewBox="0 0 800 922">
         <path d={EAR_PATH} fill="#080A0D" />
         <path d={FACE_PATH} fill="#F4F4F2" />
@@ -59,7 +68,7 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
         />
         <rect x="347" y="731" width="123" height="41" rx="20.5" fill="#080A0D" />
       </svg>
-      )}
+      ) : null}
       {label && (
         <text
           x="210"
