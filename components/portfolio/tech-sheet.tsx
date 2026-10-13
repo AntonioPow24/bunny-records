@@ -8,7 +8,8 @@ import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 import { CoverArt } from "./cover-art";
 
 // Contenido de la ficha de tecnología (Figma TechPanel / D08). Lo usan el panel sobre el álbum y la
-// página completa. "Aparece en" se deriva de los créditos de cada proyecto.
+// página completa. Solo "Aparece en", derivado de los créditos de cada proyecto: la ficha escala sin
+// textos propios por tecnología (la función en cada álbum ya va en su crédito).
 export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: string }) {
   const tech = getTechnology(id);
   if (!tech) return null;
@@ -36,18 +37,6 @@ export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: st
         </p>
       </header>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-h3">{dict.tech.howIUseIt}</h2>
-        <p className="text-body text-muted-foreground">{tech.howIUseIt[locale]}</p>
-      </section>
-
-      {tech.learned && (
-        <section className="flex flex-col gap-2">
-          <h2 className="text-h3">{dict.tech.learned}</h2>
-          <p className="text-body text-muted-foreground">{tech.learned[locale]}</p>
-        </section>
-      )}
-
       {uses.length > 0 && (
         <section className="flex flex-col gap-3">
           <h2 className="text-h3">{dict.tech.appearsIn}</h2>
@@ -70,6 +59,8 @@ export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: st
                   <span className="min-w-0 flex-1">
                     <span className="text-body-strong block truncate">{project.title[locale]}</span>
                     <span className="text-body-sm block truncate text-muted-foreground">{role[locale]}</span>
+                    {/* Móvil: el estado va bajo la función (que un planeado no parezca experiencia real). */}
+                    <StatusPill status={project.status} label={statusLabel[project.status]} className="mt-1.5 sm:hidden" />
                   </span>
                   <StatusPill status={project.status} label={statusLabel[project.status]} className="hidden sm:inline-flex" />
                 </Link>

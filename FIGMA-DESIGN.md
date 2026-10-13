@@ -104,7 +104,7 @@ Construye cada uno con Auto Layout, variables `semantic` y propiedades de varian
 | `ProductionNotes` | — | Lista de aprendizajes y decisiones |
 | `PlayerTray` | escritorio / móvil · `bunny`: listen / dance / wave / rest | Ranura del conejo a la izquierda, título actual, **⏮ ⏭ pista anterior/siguiente** (juntos, 44 px) y "Colección" |
 | `BunnySlot` | stage (grande) / tray (pequeño) / peek (contacto) | Marco con el PNG y el halo teal bajo los pies (elipse con desenfoque) |
-| `TechPanel` | lateral (escritorio) / hoja inferior (móvil) / página completa | Nombre e icono, "Cómo la uso", "Aparece en" (portadas `mini`), "Qué aprendí", cerrar ✕ |
+| `TechPanel` | lateral (escritorio) / hoja inferior (móvil) / página completa | Nombre e icono, "Aparece en" (portadas `mini` con la función en cada álbum), cerrar ✕. Sin "Cómo la uso" ni "Qué aprendí" desde la mejora 2 |
 | `Button` | primary / secondary / ghost · default / hover / focus / disabled | Primario: teal + ink |
 | `Scrim` | — | Atenuado del álbum detrás del panel |
 
@@ -177,9 +177,7 @@ D06 Pista abierta (solo cambia la columna derecha bajo la cabecera)
 D07 Panel de tecnología
 │ (álbum atenuado)              ┌────────────── ✕ ┐        │
 │                               │ ⬡ Next.js        │        │
-│                               │ Cómo la uso…     │        │
 │                               │ Aparece en ▢ ▢ ▢ │        │
-│                               │ Qué aprendí…     │        │
 │                               └──────────────────┘        │
 ```
 
@@ -306,6 +304,12 @@ Archivo: https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28
   - la pista elegida sube al lugar de la primera;
   - en la colección no hay bandeja (aparece al entrar en un álbum);
   - las duraciones de pista del diseño son de ejemplo.
+
+- **2026-10-13 · limpieza y estado actual:**
+  - Borradas las pantallas obsoletas de `02 Pantallas` (primera versión con scroll D01–D12/M01–M13, "v2 · Sin scroll" a mano, comparativa de luz 7.9) y todo el prototipo de Smart Animate de `03 Prototipo` (su nota ahora remite al sitio). Se conservan la plantilla OG y la especificación de luz en "Referencias vigentes".
+  - Secciones **"Actual · Escritorio / Móvil"**: capturas del build (rama `mejora-3`, con las mejoras 1–3) como capas editables con `generate_figma_design`: A-D01 Colección, A-D04 Álbum, A-D06 Pista, A-D07 Panel de tecnología, A-D09 Planeado, A-D10 Sobre mí, A-D11 Contacto, A-D12 404; A-M01, A-M04, A-M06, A-M10, A-M11. Método: puppeteer con `setBypassCSP`, inyectar `capture.js` y lanzar `captureForDesign` sin esperar la promesa (no se resuelve).
+  - Sección **"Mejoras · propuestas"** (sobre copias de las capturas, con variables y estilos del sistema): T4 créditos como "notas del disco" (rejilla por área, función en mono teal arriba y nombre debajo, una tarjeta en hover); T5 ficha breve de la colección como "pegatina" (sin título ni caja: estado y meta en mono, frase y ▶ "Escuchar álbum"; variante planeado con "Ver concepto"); T6 Contacto como "pase backstage" (franja All Access, nombre y rol, cifras del sello, datos en 2 columnas, corte perforado, email con "Copiar", GitHub y LinkedIn).
+  - Pendiente de limpiar en `01 Sistema`: componentes de la primera versión sin uso (`Footer`, `Header` v1, `TrackNav`, `CoverInfo`, `CreditRow`…), cuando se aprueben las propuestas.
 
 ### 9.0.1 Cómo funciona la conexión
 

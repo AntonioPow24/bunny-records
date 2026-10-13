@@ -89,11 +89,9 @@ export type UpcomingProject = ProjectBase & {
 
 export type Project = PublishedProject | UpcomingProject;
 
-/** Ficha compartida de una tecnología. "Aparece en" se deriva de los créditos. */
+/** Ficha compartida de una tecnología: solo nombre y grupo; "Aparece en" se deriva de los créditos. */
 export type Technology = {
   name: string;
-  howIUseIt: Localized<string>;
-  learned?: Localized<string>;
   /** Grupo del "Equipo de estudio" en Sobre mí. */
   group: "frontend" | "backend" | "design" | "workflow";
   /** Si sale en "Equipo de estudio". Las tecnologías solo propuestas para planeados no salen. */

@@ -1,6 +1,6 @@
 "use client";
 
-import { SkipBack, SkipForward } from "lucide-react";
+import { Play, SkipBack, SkipForward } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { ViewTransition } from "react";
@@ -31,11 +31,12 @@ type PlayerTrayProps = { locale: Locale; albums: TrayAlbum[]; labels: TrayLabels
 
 type Control = { href: string; label: string } | null;
 
-const iconButton =
-  "inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-secondary";
+const iconButton = "inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors";
 
 // Bandeja tipo reproductor (BUNNY-RECORDS.md §5.3.2): solo existe en el flujo de proyectos.
-// En un álbum publicado ⏮ ⏭ cambian de pista; en un próximo lanzamiento solo muestra el título.
+// En la lista de pistas de un álbum publicado hay un solo ▶ (abre la pista 1); dentro de una pista,
+// ⏮ ⏭ cambian de pista (⏮ en la 1 vuelve a la lista; ⏭ en la última queda desactivado, como al final
+// de un disco). En un próximo lanzamiento solo muestra el título.
 export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   // Segmentos de la página de fondo (ver nav-disc.tsx): con el panel de tecnología abierto sobre un álbum,
   // la bandeja sigue ahí.
@@ -47,6 +48,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   let subtitle = album.summary;
   let prev: Control = null;
   let next: Control = null;
+  let play: Control = null;
 
   if (album.published) {
     const index = album.tracks.findIndex((t) => t.slug === trackSlug);
@@ -62,17 +64,27 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           ? { href: `${base}/${album.tracks[index + 1].slug}`, label: labels.nextTrack }
           : null;
     } else if (album.tracks[0]) {
-      next = { href: `${base}/${album.tracks[0].slug}`, label: labels.firstTrack };
+      play = { href: `${base}/${album.tracks[0].slug}`, label: labels.firstTrack };
     }
   }
 
-  const control = (c: Control, Icon: typeof SkipBack, fallback: string) =>
+  // ▶ es el botón primario (fondo teal, texto ink); ⏮ ⏭ son discretos. Desactivado = sin enlace.
+  const control = (c: Control, Icon: typeof SkipBack, fallback: string, primary = false) =>
     c ? (
-      <Link href={c.href} prefetch aria-label={c.label} className={iconButton}>
-        <Icon className="size-4 fill-current" />
+      <Link
+        href={c.href}
+        prefetch
+        aria-label={c.label}
+        title={c.label}
+        className={cn(
+          iconButton,
+          primary ? "bg-primary text-primary-foreground hover:bg-foreground hover:text-background" : "hover:bg-secondary",
+        )}
+      >
+        <Icon className={cn("size-4 fill-current", primary && "translate-x-px")} />
       </Link>
     ) : (
-      <span aria-hidden="true" title={fallback} className={cn(iconButton, "opacity-30 hover:bg-transparent")}>
+      <span aria-hidden="true" title={fallback} className={cn(iconButton, "opacity-30")}>
         <Icon className="size-4 fill-current" />
       </span>
     );
@@ -89,9 +101,16 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           <p className="text-body-sm truncate text-muted-foreground">{subtitle}</p>
         </div>
         {album.published && (
-          <div className="flex items-center">
-            {control(prev, SkipBack, labels.prevTrack)}
-            {control(next, SkipForward, labels.nextTrack)}
+          // Ancho fijo (dos botones): al cambiar ▶ ↔ ⏮ ⏭ el título no cambia de ancho.
+          <div className="flex w-22 shrink-0 items-center justify-end">
+            {play ? (
+              control(play, Play, labels.firstTrack, true)
+            ) : (
+              <>
+                {control(prev, SkipBack, labels.prevTrack)}
+                {control(next, SkipForward, labels.nextTrack)}
+              </>
+            )}
           </div>
         )}
       </div>

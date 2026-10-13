@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 
-import { getProjects, getTechnologies, isPublished } from "@/lib/content";
+import { getProjects, getProjectsUsing, getTechnologies, isPublished } from "@/lib/content";
 import { defaultLocale, locales } from "@/lib/i18n/config";
 import { absoluteUrl } from "@/lib/seo";
 
-// Todas las páginas en cada idioma, con sus alternativas (PORTFOLIO.md §4.4). Se genera en el build.
+// Las páginas indexables en cada idioma, con sus alternativas (PORTFOLIO.md §4.4). Se genera en el build.
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "",
@@ -14,7 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       `/projects/${p.slug}`,
       ...(isPublished(p) ? p.tracks.map((t) => `/projects/${p.slug}/${t.slug}`) : []),
     ]),
-    ...getTechnologies().map((t) => `/stack/${t.id}`),
+    // Solo las fichas con álbumes: las demás llevan noindex (app/[locale]/stack/[tech]/page.tsx).
+    ...getTechnologies()
+      .filter((t) => getProjectsUsing(t.id).length > 0)
+      .map((t) => `/stack/${t.id}`),
   ];
 
   return paths.flatMap((path) =>
