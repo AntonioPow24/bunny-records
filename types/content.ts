@@ -67,7 +67,7 @@ export type PublishedProject = ProjectBase & {
   /** Notas de producción: aprendizajes y decisiones. */
   productionNotes: Localized<string[]>;
   /**
-   * Videoclip bajo la portada (BUNNY-RECORDS.md §5.2.1): 4–5 s, mudo y en bucle. Solo si existe una grabación
+   * Videoclip bajo la portada (BUNNY-RECORDS.md §5.2.1): 6 s, mudo y en bucle. Solo si existe una grabación
    * real; sin él no se pinta el bloque. Archivos en public/demos/<slug>/ (MP4 H.264 obligatorio, WebM opcional).
    */
   demo?: { mp4: string; webm?: string; poster: StaticImageData; alt: Localized<string> };

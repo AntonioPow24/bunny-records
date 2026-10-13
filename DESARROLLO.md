@@ -330,8 +330,9 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 12 | Créditos de los álbumes estáticos: la ficha de tecnología solo se abre desde "Equipo de estudio"; antetítulo "Ficha de tecnología" | Código | Hecho (`mejora-12-creditos-estaticos`) |
 | 13 | Álbum "Bunny Records": el propio portfolio como proyecto publicado | Contenido + portada | Hecho (`mejora-13-album-bunny-records`) |
 | 14 | Contacto como contraportada del artista (T14 v3): firma fija, CV descargable y correo informativo | Codex Figma → aprobación → Claude código | Hecho (`mejora-14-contacto-contraportada`) |
-| 15 | Clip de demo de 4–5 s bajo la portada del álbum (autoplay, sin controles, pausa al pulsar y cuando no se ve) | Codex Figma → aprobación → Claude código | Hecho (`mejora-15-videoclip`); faltan las grabaciones. Especificación en `BUNNY-RECORDS.md` §5.2.1 y diseño en `FIGMA-DESIGN.md` §8.3 |
+| 15 | Clip de demo de 6 s bajo la portada del álbum (autoplay, sin controles, pausa al pulsar y cuando no se ve) | Codex Figma → aprobación → Claude código | Hecho (`mejora-15-videoclip`); faltan las grabaciones. Especificación en `BUNNY-RECORDS.md` §5.2.1 y diseño en `FIGMA-DESIGN.md` §8.3 |
 | 16 | Revisión de seguridad: escape del JSON-LD y `/lab` fuera de producción | Código | Hecho (`mejora-16-seguridad`) |
+| 17 | Primer videoclip real: Bunny Records | Contenido | Hecho (`mejora-17-demo-bunny-records`) |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
@@ -382,6 +383,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 5 | El CV público incluye teléfono y el nombre real de la vidriería | Informativa (privacidad) | **Aceptado por el usuario** (Tarea 14) |
 
 Sin hallazgos: `proxy.ts` no redirige fuera del dominio (`//evil.com` → `/es/evil.com` → 404); la cookie de idioma no es sensible (`SameSite=Lax`); los enlaces externos llevan `rel="noopener noreferrer"`; solo se leen `NEXT_PUBLIC_SITE_URL`, `VERCEL_PROJECT_PRODUCTION_URL` y `SITE_NOINDEX` (ningún secreto); ningún `.env` ni clave en el historial; el sitio publicado envía CSP, HSTS con `preload`, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy` y `Permissions-Policy`. Verificado sobre el build: `/lab` 404 y el resto de rutas 200.
+
+**Tarea 17 (2026-10-13):** primer clip real, aportado por el usuario: `public/demos/bunny-records/bunny-records-demo-6s.{webm,mp4}` (6 s, recorrido colección → Sobre mí → Contacto → colección, bucle limpio). Póster generado del primer fotograma (`poster.jpg`, 720×405, 16 KB) para que el bucle y la pausa empiecen en la misma imagen. Descripción accesible en es/en. Chrome usa el WebM (960×540, 240 KB); el MP4 (1920×1080, **5,5 MB**) solo lo descargan los navegadores sin WebM: conviene volver a exportarlo a 960×540 cuando se pueda. Al alargarse la columna en móvil apareció un `h2` `sr-only` sin contenedor posicionado que agrandaba el documento 22 px (375×667): la sección del álbum es ahora `relative`. Verificado sobre el build: reproducción automática, pausa al pulsar, persistencia al pasar a una pista, pausa en Sobre mí y reanudación al volver, sin vídeo en Inicio ni en Vidriería, movimiento reducido con póster, 1440×900, 1920×911 (en), 390×844 y 375×667 (en) sin scroll de documento.
 
 ## Historial
 
