@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { Header } from "@/components/layout/header";
 import { PlayerTray, type TrayAlbum } from "@/components/layout/player-tray";
@@ -50,13 +51,18 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
     // LanguageTool añaden data-lt-installed antes de que React hidrate.
     <html lang={locale} className={`${fontVariables} h-full overflow-hidden antialiased`} suppressHydrationWarning>
       <body className="flex h-dvh flex-col overflow-hidden">
-        <StageLights />
+        {/* <Suspense> en lo que lee la ruta: ver components/layout/header.tsx. */}
+        <Suspense>
+          <StageLights />
+        </Suspense>
         <SkipLink label={dict.nav.skipToContent} />
         <Header />
         <main id="contenido" tabIndex={-1} className="flex min-h-0 flex-1 flex-col overflow-y-auto outline-none">
           {children}
         </main>
-        <PlayerTray locale={locale} albums={albums} labels={dict.tray} />
+        <Suspense>
+          <PlayerTray locale={locale} albums={albums} labels={dict.tray} />
+        </Suspense>
         {/* Ficha de tecnología como panel (ruta interceptada @panel/(.)stack/[tech]). */}
         {panel}
       </body>

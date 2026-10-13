@@ -227,12 +227,14 @@ Lighthouse móvil (simulación por defecto):
 - **Conejo de la bandeja** como en Figma V2-D06 (60×80): las orejas sobresalen por encima de la bandeja.
 - **Verificado en Chrome (build de producción):** ES → EN → ES con otra portada; Sobre mí `#gear` EN → ES; bandeja en escritorio y 375×667; colección a 390 px.
 
-## Paso 10 — Sobre mí, 404 y menú móvil
+## Paso 10 — 404 "Lado C" ✅ (pendiente de revisión)
 
-**Objetivo:** las páginas del sello.
+**Objetivo:** las páginas del sello que faltaban.
 
-- Sobre mí como ficha del artista: cómo trabajo, gira, equipo de estudio y discografía.
-- 404 "Lado C" y menú móvil abierto.
+- Sobre mí (ficha del artista con pistas) ya se hizo en el paso 7 (v2). El menú móvil abierto (Figma M13) era de la v1: en la v2 los discos de la barra lo sustituyen, así que no aplica.
+- `[locale]/not-found.tsx` según Figma D12/M12: vinilo rayado con etiqueta "C" (`Disc kind="side-c"`), conejo en pose `curious-left` mirándolo, "Volver a la colección" y "Sobre mí". Sin scroll a 1920×855, 390×844 y 375×667.
+- **Bug corregido:** una pista inexistente (`/es/projects/vidrieria-antonio/nope`) daba **500**. Con Cache Components, un parámetro fuera de `generateStaticParams` se renderiza al pedirlo, y `usePathname()` fuera de `<Suspense>` hace fallar ese render. Discos, idioma, luces, bandeja y el reinicio de scroll del panel van ahora en `<Suspense>`; en las rutas reales la ruta se conoce al compilar y el HTML estático no cambia. Comprobado: 4 URLs inexistentes → 404, rutas reales → 200.
+- `global-not-found.tsx` (URLs sin idioma válido) se queda sencillo y bilingüe.
 
 ## Paso 11 — Transiciones
 
