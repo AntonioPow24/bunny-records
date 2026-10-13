@@ -258,7 +258,7 @@ Lighthouse móvil (simulación por defecto):
 - "Transition was aborted… Document hidden": aparece solo cuando la ventana del navegador está oculta o tapada; es el navegador cancelando la animación, sin efecto.
 - **Verificado:** recorrido completo en desarrollo sin avisos en consola; en producción, HTML estático con el contenido completo y 404 correctos.
 
-## Paso 12 — SEO y compartir ✅ (pendiente de revisión)
+## Paso 12 — SEO y compartir ✅
 
 **Objetivo:** que cada página se indexe y se comparta bien.
 
@@ -270,7 +270,7 @@ Lighthouse móvil (simulación por defecto):
 - **Verificado** con un build de prueba (`NEXT_PUBLIC_SITE_URL=https://ejemplo.dev`): etiquetas `<head>` de Inicio, Sobre mí, álbum y pista en los dos idiomas, `sitemap.xml`, `robots.txt`, JSON-LD y las imágenes OG de 3 álbumes (es/en).
 - Pendiente para el paso 14: fijar `NEXT_PUBLIC_SITE_URL` cuando haya dominio y validar las tarjetas con las herramientas de Facebook/LinkedIn y el Rich Results Test de Google.
 
-## Paso 13 — Calidad ✅ (pendiente de revisión)
+## Paso 13 — Calidad ✅
 
 **Objetivo:** cumplir `PORTFOLIO.md` §8 con mediciones, no con suposiciones.
 
@@ -292,6 +292,7 @@ Lighthouse móvil (simulación por defecto):
   - axe marca contraste en la pegatina "Planeado" de la portada a ±2 de la colección (opacidad 0,3 a propósito; es decorativa, y la misma portada al centro cumple).
   - Contacto a 375×667 se desplaza ~190 px dentro de `main` (no es scroll de página); se revisará en el rediseño de Contacto.
 - No hecho: prueba con lector de pantalla real (NVDA). Solo se revisaron nombres y roles con axe y Lighthouse.
+- Aviso de hidratación ("attributes… didn't match") en el conejo tras la revisión: era el servidor de desarrollo con el `bunny.tsx` anterior (sin `srcSet`) en el render del servidor. Con `.next` limpio no se reproduce en ninguna ruta a 1920 ni a 390 px.
 
 ## Paso 14 — Publicación
 
