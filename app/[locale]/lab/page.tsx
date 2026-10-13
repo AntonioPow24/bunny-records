@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
+import { notFound } from "next/navigation";
 
 import { Logo } from "@/components/brand/logo";
 import { StatusPill } from "@/components/patterns/status-pill";
@@ -8,7 +9,7 @@ import { getAlbumMinutes, getProjects, getReadingMinutes, isPublished, loadTrack
 import { getLocale } from "@/lib/i18n/get-dictionary";
 
 // Banco de pruebas interno (DESARROLLO.md pasos 3 y 5): sistema de diseño y contenido tipado.
-// Se compara con Figma → 01 Sistema. No se indexa; se quita o se protege antes de publicar.
+// Se compara con Figma → 01 Sistema. Solo existe en desarrollo: en el build de producción es un 404.
 export const metadata: Metadata = {
   title: "Lab · sistema de diseño",
   robots: { index: false, follow: false },
@@ -88,6 +89,7 @@ async function ContentSection() {
 }
 
 export default function LabPage() {
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <div className="mx-auto flex w-full max-w-300 flex-col gap-12 px-4 py-16 md:px-6">
       <header className="flex items-center gap-4">
