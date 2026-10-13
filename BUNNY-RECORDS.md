@@ -145,7 +145,7 @@ Poses en la bandeja: *escucha* mientras se lee una pista, *baile* mientras suena
 | Pistas | Capítulos **del** caso de estudio del proyecto (un proyecto = un caso de estudio) |
 | Duración de una pista | Tiempo de lectura real del capítulo (calculado, no inventado) |
 | Créditos técnicos | Stack y función de cada tecnología **en ese proyecto** |
-| Videoclip | Demostración del producto (minivídeo bajo la portada) |
+| Videoclip | Demostración del producto: clip de 4–5 s en bucle bajo la portada del álbum (§5.2.1) |
 | Notas de producción (*liner notes*) | Aprendizajes y decisiones |
 | Próximo lanzamiento | Proyecto planeado |
 
@@ -157,12 +157,24 @@ Todo el recorrido **se siente como una sola página que se transforma** (estilo 
 
 1. **Entrar en la colección** (Inicio): las portadas en arco (la central, protagonista, siempre visible entera; las demás parcialmente), el conejo delante y a la izquierda mirándola, presentación breve, accesos a Sobre mí y Contacto, filtro por estado: **Publicados · En desarrollo · Planeados**.
 2. **Seleccionar una portada:** avanza un poco en su sitio y muestra justo debajo una ficha breve (título, una línea, estado, "Abrir proyecto"). Seleccionar = explorar; abrir = entrar. Flechas y selección directa, no solo deslizar. En móvil: tarjetas con desplazamiento táctil.
-3. **Abrir el álbum:** la portada viaja a la columna izquierda y se convierte en la cabecera; el resto de portadas sale; el conejo se encoge y se sienta en la bandeja. Bajo la portada aparece el **minivídeo de demo**. A la derecha: detalles del disco y lo esencial (problema, para quién, participación, estado real).
+3. **Abrir el álbum:** la portada viaja a la columna izquierda y se convierte en la cabecera; el resto de portadas sale; el conejo se encoge y se sienta en la bandeja. Bajo la portada aparece el **clip de demo**, que empieza a reproducirse solo (§5.2.1). A la derecha: detalles del disco y lo esencial (problema, para quién, participación, estado real).
 4. **Pistas = capítulos** numerados con su duración (tiempo de lectura): 01 El problema · 02 La solución · 03 Cómo lo construí · 04 Decisiones importantes · 05 Lo que aprendí. Cada uno puede tener subtítulo propio.
 5. **Abrir una pista:** las demás pistas se desvanecen y la elegida se expande **dentro de la misma sección** para mostrar su texto. Portada, demo, conejo y bandeja no se mueven. Al pie: el botón **"Mostrar todas"**, que hace la animación inversa (igual que el botón Atrás).
 6. **Créditos técnicos** (bajo las pistas): tecnología → función en este proyecto. Pulsar una tecnología abre su **ficha compartida como panel lateral** (hoja inferior en móvil) encima del álbum atenuado: cómo la uso, en qué álbumes aparece y qué aprendí. Al cerrarla, el álbum sigue como estaba.
 7. **Notas de producción:** aprendizajes y decisiones, al final del álbum.
-8. **Demostrar y volver:** el minivídeo se reproduce a mano. **Controles de reproducción solo para vídeo/audio reales**, nunca simulados sobre texto. La bandeja inferior funciona como un reproductor: **⏮ ⏭ = pista anterior / siguiente** del álbum (en el álbum, ⏭ abre la 01) y "Colección" vuelve al arco. El cambio de álbum se hace desde la colección. No hay bandeja en la colección; al volver, la portada regresa a su sitio en el arco y el conejo al escenario.
+8. **Demostrar y volver:** el clip de demo se comporta como indica §5.2.1. **Nunca se simulan controles de reproducción sobre texto.** La bandeja inferior funciona como un reproductor: **⏮ ⏭ = pista anterior / siguiente** del álbum (en el álbum, ⏭ abre la 01) y "Colección" vuelve al arco. El cambio de álbum se hace desde la colección. No hay bandeja en la colección; al volver, la portada regresa a su sitio en el arco y el conejo al escenario.
+
+#### 5.2.1 Clip de demo bajo la portada (decidido el 2026-10-13)
+
+Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la versión anterior.
+
+- **Dónde:** solo en la vista del álbum (`/[locale]/projects/[slug]` y sus pistas), debajo de la portada, en la columna que persiste al cambiar de pista. **No va en el Inicio** (la colección de portadas en arco).
+- **Qué:** un clip de **4–5 s, sin audio y en bucle**, grabado del producto real. Solo en álbumes publicados con grabación propia; los planeados y los que no tienen grabación no muestran nada (ni hueco ni marcador).
+- **Reproducción:** empieza **solo al entrar en el álbum**. **Sin controles visibles** (ni barra, ni tiempo, ni botón de pausa dibujado).
+- **Interacción:** la caja del vídeo es el control: pulsarla (clic, toque o Enter/Espacio con el foco) **alterna pausa y reproducción**. Necesita nombre accesible que cambie con el estado ("Pausar demo" / "Reproducir demo") y foco visible: es lo que cumple WCAG 2.2.2 (pausar contenido en movimiento) sin controles a la vista.
+- **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
+- **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
+- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §8.3), aprobado e implementado el 2026-10-13 (`components/portfolio/demo-clip.tsx`). Falta solo la grabación de cada proyecto: hasta entonces ningún álbum muestra el bloque.
 
 Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla aparece ya en su estado final, sin animación.
 
@@ -343,7 +355,7 @@ Los **vinilos** que asoman detrás de las portadas, los surcos, los brillos de d
 
 | # | Recurso | Formato | Detalle |
 |---|---|---|---|
-| D1 | Vídeo demo ("videoclip") | MP4 H.264, 1920 × 1080 o 2560 × 1440, 10–30 s | Grabación de pantalla sin audio (o con audio que no sea necesario). Yo genero MP4 + WebM ligero y la imagen de póster |
+| D1 | Clip de demo ("videoclip", §5.2.1) | Grabación de pantalla en MP4, 1920 × 1080 o mayor; el tramo útil se recorta a 4–5 s | Sin audio. A partir de la grabación se generan MP4 H.264 + WebM ligeros al tamaño de la caja, en bucle limpio, y la imagen de póster |
 | D2 | Capturas de escritorio | PNG 1920 × 1200 (16:10) | 3–6 por proyecto, de pantallas reales |
 | D3 | Capturas de móvil | PNG a 3× (p. ej. 1170 × 2532) | 2–3 por proyecto |
 | D4 | Bocetos de proyectos planeados | PNG/JPG | Solo si existen, y se muestran rotulados como boceto |
@@ -399,6 +411,7 @@ Orden propuesto:
 
 ## Historial
 
+- **2026-10-13:** clip de demo de 4–5 s bajo la portada del álbum: se reproduce solo, sin controles, la caja alterna pausa/reproducción y queda en pausa cuando no se ve (§5.2.1). Diseño en Figma pendiente (Codex).
 - **2026-10-12:** navegación cerrada: una sola página que se transforma con URL por estado; pistas como rutas animadas; ficha de tecnología como panel con URL; conejo en el escenario (colección) y en la bandeja (resto); metáfora ampliada (detalles, duración = tiempo de lectura, notas de producción). Nuevo `FIGMA-DESIGN.md`.
 - **2026-10-11:** recomendada vía Blender + MCP; contorno: ninguno; se añaden las referencias fino 1–4.
 - **2026-10-11:** primera versión, a partir de `idea/PortfolioIdea.txt`, el logo y las referencias.

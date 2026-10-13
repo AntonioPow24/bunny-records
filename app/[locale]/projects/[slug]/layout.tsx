@@ -6,6 +6,7 @@ import { Suspense, ViewTransition } from "react";
 import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/patterns/status-pill";
 import { CoverArt } from "@/components/portfolio/cover-art";
+import { DemoClip } from "@/components/portfolio/demo-clip";
 import { ScrollPanel } from "@/components/portfolio/scroll-panel";
 import { getAlbumMinutes, getProject, getProjects, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
@@ -49,26 +50,39 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
         {dict.album.back}
       </Link>
 
-      <div className="flex items-center gap-4 md:row-start-2 md:block">
-        <ViewTransition name={`cover-${project.slug}`} share="morph" default="none">
-          <CoverArt
-            src={project.cover.src}
-            alt={project.cover.alt[locale]}
-            title={title}
-            sticker={published ? undefined : statusLabel}
-            sizes="(min-width: 48rem) 352px, 96px"
-            eager
-            titleSize="none"
-            className="w-24 shrink-0 md:w-full"
-          />
-        </ViewTransition>
-        {/* Móvil: cabecera compacta junto a la portada (Figma M04). */}
-        <div className="min-w-0 md:hidden">
-          <p className="text-label text-primary">
-            {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}
-          </p>
-          <p className="text-h3 mt-1">{title}</p>
+      {/* Portada y videoclip: columna persistente al cambiar de pista (Figma T15). */}
+      <div className="flex flex-col gap-4 md:row-start-2">
+        <div className="flex items-center gap-4 md:block">
+          <ViewTransition name={`cover-${project.slug}`} share="morph" default="none">
+            <CoverArt
+              src={project.cover.src}
+              alt={project.cover.alt[locale]}
+              title={title}
+              sticker={published ? undefined : statusLabel}
+              sizes="(min-width: 48rem) 352px, 96px"
+              eager
+              titleSize="none"
+              className="w-24 shrink-0 md:w-full"
+            />
+          </ViewTransition>
+          {/* Móvil: cabecera compacta junto a la portada (Figma M04). */}
+          <div className="min-w-0 md:hidden">
+            <p className="text-label text-primary">
+              {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}
+            </p>
+            <p className="text-h3 mt-1">{title}</p>
+          </div>
         </div>
+        {published && project.demo && (
+          <DemoClip
+            mp4={project.demo.mp4}
+            webm={project.demo.webm}
+            poster={project.demo.poster.src}
+            description={project.demo.alt[locale]}
+            labels={{ caption: dict.album.demoCaption, play: dict.album.demoPlay, pause: dict.album.demoPause }}
+            className="w-full max-w-70 md:max-w-none"
+          />
+        )}
       </div>
 
       <section className="flex min-h-0 flex-col gap-5 md:row-start-2">

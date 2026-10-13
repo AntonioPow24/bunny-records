@@ -131,7 +131,10 @@
     "nextValidation": "Próxima validación",
     "trackOf": "Pista {number} de {total}",
     "coverOf": "Portada de {title}",
-    "backToTracks": "Volver a todas las pistas"
+    "backToTracks": "Volver a todas las pistas",
+    "demoCaption": "En acción",
+    "demoPlay": "Reproducir demo",
+    "demoPause": "Pausar demo"
   },
   "tech": {
     "eyebrow": "Ficha de tecnología",
