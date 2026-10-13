@@ -8,7 +8,7 @@ import { StageLights } from "@/components/layout/stage-lights";
 import { getAlbumMinutes, getProjects, isPublished, validateContent } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { locales } from "@/lib/i18n/config";
-import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { NOINDEX, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
@@ -47,7 +47,7 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
     published: isPublished(project),
     summary: isPublished(project)
       ? format(dict.tray.albumSummary, {
-          tracks: String(project.tracks.length),
+          tracks: plural(locale, dict.tray.tracks, project.tracks.length),
           minutes: String(getAlbumMinutes(project, locale)),
         })
       : dict.tray.upcoming,

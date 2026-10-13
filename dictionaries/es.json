@@ -30,7 +30,7 @@
     "select": "Seleccionar {title}",
     "position": "{title}, {position} de {total}",
     "hint": "← → para explorar · Enter para abrir",
-    "open": "Abrir proyecto",
+    "open": "Escuchar álbum",
     "openPlanned": "Ver concepto",
     "empty": "No hay álbumes con este estado todavía.",
     "filterPublished": "Publicados",
@@ -45,7 +45,11 @@
   },
   "tray": {
     "label": "Reproductor",
-    "albumSummary": "{tracks} pistas · {minutes} min",
+    "albumSummary": "{tracks} · {minutes} min",
+    "tracks": {
+      "one": "{count} pista",
+      "other": "{count} pistas"
+    },
     "trackNow": "Pista {number} · {title}",
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",
@@ -62,25 +66,27 @@
     "planned": "Planeado"
   },
   "contact": {
-    "eyebrow": "Contacto · Ficha técnica",
-    "title": "Quién está detrás del sello",
+    "eyebrow": "Contacto · Pase del sello",
+    "allAccess": "All Access",
+    "artist": "Artista",
     "body": "Lo esencial sobre mí, como en la contraportada de un disco, y dónde encontrarme.",
     "statsLabel": "En este sello",
     "published": {
-      "one": "{count} álbum publicado",
-      "other": "{count} álbumes publicados"
+      "one": "álbum publicado",
+      "other": "álbumes publicados"
     },
     "inDevelopment": {
-      "one": "{count} en desarrollo",
-      "other": "{count} en desarrollo"
+      "one": "en desarrollo",
+      "other": "en desarrollo"
     },
     "planned": {
-      "one": "{count} planeado",
-      "other": "{count} planeados"
+      "one": "planeado",
+      "other": "planeados"
     },
     "whereTitle": "Dónde encontrarme",
     "emailLabel": "Email",
     "copy": "Copiar email",
+    "copyShort": "Copiar",
     "copied": "Email copiado",
     "copyFailed": "No se pudo copiar: selecciónalo a mano",
     "opensNewTab": "(se abre en una pestaña nueva)",
@@ -117,6 +123,14 @@
     "tracklistLabel": "Pistas de {title}",
     "minutes": "{n} min",
     "credits": "Créditos",
+    "creditsCount": {
+      "one": "{count} crédito",
+      "other": "{count} créditos"
+    },
+    "areasCount": {
+      "one": "{count} área",
+      "other": "{count} áreas"
+    },
     "productionNotes": "Notas de producción",
     "proposedStack": "Stack propuesto",
     "nextValidation": "Próxima validación",

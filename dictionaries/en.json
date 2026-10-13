@@ -30,7 +30,7 @@
     "select": "Select {title}",
     "position": "{title}, {position} of {total}",
     "hint": "← → to browse · Enter to open",
-    "open": "Open project",
+    "open": "Play album",
     "openPlanned": "See the concept",
     "empty": "No albums with this status yet.",
     "filterPublished": "Published",
@@ -45,7 +45,11 @@
   },
   "tray": {
     "label": "Player",
-    "albumSummary": "{tracks} tracks · {minutes} min",
+    "albumSummary": "{tracks} · {minutes} min",
+    "tracks": {
+      "one": "{count} track",
+      "other": "{count} tracks"
+    },
     "trackNow": "Track {number} · {title}",
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",
@@ -62,25 +66,27 @@
     "planned": "Planned"
   },
   "contact": {
-    "eyebrow": "Contact · Liner notes",
-    "title": "Who’s behind the label",
+    "eyebrow": "Contact · Label pass",
+    "allAccess": "All Access",
+    "artist": "Artist",
     "body": "The essentials about me, like the back cover of a record, and where to find me.",
     "statsLabel": "On this label",
     "published": {
-      "one": "{count} published album",
-      "other": "{count} published albums"
+      "one": "published album",
+      "other": "published albums"
     },
     "inDevelopment": {
-      "one": "{count} in development",
-      "other": "{count} in development"
+      "one": "in development",
+      "other": "in development"
     },
     "planned": {
-      "one": "{count} planned",
-      "other": "{count} planned"
+      "one": "planned",
+      "other": "planned"
     },
     "whereTitle": "Where to find me",
     "emailLabel": "Email",
     "copy": "Copy email",
+    "copyShort": "Copy",
     "copied": "Email copied",
     "copyFailed": "Couldn’t copy: select it manually",
     "opensNewTab": "(opens in a new tab)",
@@ -117,6 +123,14 @@
     "tracklistLabel": "Tracks of {title}",
     "minutes": "{n} min",
     "credits": "Credits",
+    "creditsCount": {
+      "one": "{count} credit",
+      "other": "{count} credits"
+    },
+    "areasCount": {
+      "one": "{count} area",
+      "other": "{count} areas"
+    },
     "productionNotes": "Production notes",
     "proposedStack": "Proposed stack",
     "nextValidation": "Next validation",

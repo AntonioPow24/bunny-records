@@ -5,8 +5,9 @@ import { Suspense } from "react";
 import { CreditsList } from "@/components/portfolio/credits-list";
 import { JsonLd } from "@/components/seo/json-ld";
 import { TrackRow } from "@/components/portfolio/track-row";
-import { getProject, getReadingMinutes, getTechnology, isPublished } from "@/lib/content";
-import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { technologies } from "@/content/technologies";
+import { getProject, getReadingMinutes, isPublished } from "@/lib/content";
+import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
@@ -69,18 +70,28 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     />
   );
 
+  // validateContent() garantiza que cada crédito apunta a una tecnología existente.
   const credits = project.credits.map((c) => ({
     id: c.tech,
-    name: getTechnology(c.tech)?.name ?? c.tech,
+    name: technologies[c.tech].name,
     role: c.role[locale],
     href: `/${locale}/stack/${c.tech}`,
+    group: technologies[c.tech].group,
   }));
+  const areas = new Set(credits.map((c) => c.group)).size;
+  const creditsProps = {
+    // Id por álbum: los álbumes visitados siguen montados (ocultos con <Activity>).
+    id: `credits-${project.slug}`,
+    items: credits,
+    groupLabels: dict.about.gearGroups,
+    summary: `${plural(locale, dict.album.creditsCount, credits.length)} · ${plural(locale, dict.album.areasCount, areas)}`,
+  };
 
   if (!isPublished(project)) {
     return (
       <div className="flex flex-col gap-8 pb-6">
         {jsonLd}
-        <CreditsList title={dict.album.proposedStack} items={credits} />
+        <CreditsList title={dict.album.proposedStack} {...creditsProps} />
         <section className="flex flex-col gap-2">
           <h2 className="text-h3">{dict.album.nextValidation}</h2>
           <p className="text-body max-w-prose text-muted-foreground">{project.nextValidation[locale]}</p>
@@ -110,7 +121,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
           ))}
         </ol>
       </section>
-      <CreditsList title={dict.album.credits} items={credits} />
+      <CreditsList title={dict.album.credits} {...creditsProps} />
       <section className="flex flex-col gap-2">
         <h2 className="text-h3">{dict.album.productionNotes}</h2>
         <ul className="flex flex-col gap-2">
