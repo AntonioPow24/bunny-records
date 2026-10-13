@@ -135,7 +135,6 @@
     },
     "notInAlbums": "Todavía no aparece en ningún álbum.",
     "close": "Cerrar ficha",
-    "back": "Colección",
-    "openAlbum": "Abrir {title}"
+    "back": "Colección"
   }
 }

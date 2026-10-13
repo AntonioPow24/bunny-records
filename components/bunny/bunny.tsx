@@ -12,6 +12,7 @@ import {
   FULL_REST,
   HALO,
   layerSrc,
+  SMALL_MAX_PX,
   type BunnyMode,
   type BunnyPose,
   type BunnySide,
@@ -95,7 +96,9 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
       const coarse = window.matchMedia("(pointer: coarse)").matches;
       const only: BunnyPose[] | null =
         mode === "full" && !hold && coarse ? ["curious-left", "curious-right", "present-left", "present-right"] : null;
-      engineRef.current = new BunnyEngine(canvas, mode, hold ?? null, only);
+      // Píxeles reales del conejo: por debajo de SMALL_MAX_PX bastan las capas a media resolución (~1/3 del peso).
+      const small = root.clientWidth * window.devicePixelRatio <= SMALL_MAX_PX;
+      engineRef.current = new BunnyEngine(canvas, mode, hold ?? null, only, small);
       engineKeyRef.current = key;
       syncPause();
     };
@@ -145,6 +148,9 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
     <img
       className="bunny-still"
       src={layerSrc("bunny-full-rest")}
+      // Paso 13: la versión a media resolución (596 px) basta casi siempre; la completa, en pantallas densas grandes.
+      srcSet={`${layerSrc("bunny-full-rest", true)} ${Math.round(FULL_REST.w / 2)}w, ${layerSrc("bunny-full-rest")} ${FULL_REST.w}w`}
+      sizes={mode === "lite" ? "64px" : "(min-width: 48rem) 22vw, 60vw"}
       alt=""
       draggable={false}
       fetchPriority={priority ? "high" : undefined}

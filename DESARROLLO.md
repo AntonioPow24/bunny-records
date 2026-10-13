@@ -270,13 +270,28 @@ Lighthouse móvil (simulación por defecto):
 - **Verificado** con un build de prueba (`NEXT_PUBLIC_SITE_URL=https://ejemplo.dev`): etiquetas `<head>` de Inicio, Sobre mí, álbum y pista en los dos idiomas, `sitemap.xml`, `robots.txt`, JSON-LD y las imágenes OG de 3 álbumes (es/en).
 - Pendiente para el paso 14: fijar `NEXT_PUBLIC_SITE_URL` cuando haya dominio y validar las tarjetas con las herramientas de Facebook/LinkedIn y el Rich Results Test de Google.
 
-## Paso 13 — Calidad
+## Paso 13 — Calidad ✅ (pendiente de revisión)
 
 **Objetivo:** cumplir `PORTFOLIO.md` §8 con mediciones, no con suposiciones.
 
 - Teclado y foco, axe, lector de pantalla en los flujos principales.
 - Lighthouse en móvil y peso del conejo (WebP, carga diferida de poses).
 - Responsive de 320 a 1920 px y cabeceras de seguridad.
+
+**Hecho** (todo medido sobre `next build` + `next start`):
+
+- **Cabeceras** (`next.config.ts`): CSP básica sin nonces (guía `content-security-policy.md`; los nonces obligarían a renderizar cada petición), `nosniff`, `Referrer-Policy`, `X-Frame-Options: DENY`, `Permissions-Policy` y sin `X-Powered-By`. Recorrido completo sin violaciones de CSP en consola.
+- **CLS 0,18 → 0 en álbum y pista (móvil):** Geist Mono no se precarga y su respaldo automático era Arial; al llegar la fuente, la lista de pistas cambiaba de ancho. Respaldo ahora monoespaciado del sistema (`lib/fonts.ts`).
+- **Peso del conejo:** capas a media resolución en `public/bunny/sm/` (`scripts/bunny-small.mjs`, 2,2 MB → 765 KB). El motor las usa cuando el conejo mide ≤ 660 px reales (ancho × devicePixelRatio); la imagen fija lleva `srcSet`. Transferido: Inicio 1,3 MB → 480 KB, Sobre mí 408 → 147 KB, Contacto 332 → 118 KB, álbum 202 → 68 KB.
+- Ficha de tecnología: los enlaces de "Aparece en" tenían un `aria-label` que no contenía el texto visible (WCAG 2.5.3); se quitó.
+- **Lighthouse móvil** (`--throttling-method=devtools`): rendimiento 95–97, accesibilidad 100, SEO 100, buenas prácticas 96–100; LCP 1,1–1,3 s, CLS ≤ 0,03, TBT 200–250 ms.
+- **axe** (WCAG 2.2 AA + buenas prácticas) en 10 rutas a 320, 390 y 1920 px y **responsive** en 7 tamaños (320×568 a 1920×911): sin desbordes horizontales ni texto cortado. Teclado: el skip link es la primera parada, todas las paradas tienen foco visible y el orden es el visual.
+- **Aceptado, sin cambios:**
+  - `image-size-responsive` (−4 en buenas prácticas): falso positivo, las capas del conejo miden 1200 px en CSS y se reducen con `transform`.
+  - JS sin usar (~29 KB) y JS antiguo (~14 KB): están en el chunk del propio Next/React.
+  - axe marca contraste en la pegatina "Planeado" de la portada a ±2 de la colección (opacidad 0,3 a propósito; es decorativa, y la misma portada al centro cumple).
+  - Contacto a 375×667 se desplaza ~190 px dentro de `main` (no es scroll de página); se revisará en el rediseño de Contacto.
+- No hecho: prueba con lector de pantalla real (NVDA). Solo se revisaron nombres y roles con axe y Lighthouse.
 
 ## Paso 14 — Publicación
 

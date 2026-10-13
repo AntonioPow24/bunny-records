@@ -57,7 +57,6 @@ export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: st
                 <Link
                   href={`/${locale}/projects/${project.slug}`}
                   prefetch
-                  aria-label={format(dict.tech.openAlbum, { title: project.title[locale] })}
                   className="surface-lit flex items-center gap-3 rounded-md border border-border bg-card p-2.5 pr-3 transition-colors hover:bg-accent"
                 >
                   <CoverArt

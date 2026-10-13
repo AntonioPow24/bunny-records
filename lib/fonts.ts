@@ -21,6 +21,10 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   preload: false,
+  // Paso 13: el respaldo automático es Arial (proporcional) y, al llegar la fuente, la lista de pistas
+  // cambiaba de ancho y saltaba (CLS 0,18 en móvil). Una monoespaciada del sistema ocupa casi lo mismo.
+  adjustFontFallback: false,
+  fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Menlo", "monospace"],
 });
 
 export const fontVariables = `${sora.variable} ${geist.variable} ${geistMono.variable}`;
