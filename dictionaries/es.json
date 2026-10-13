@@ -62,25 +62,27 @@
     "planned": "Planeado"
   },
   "contact": {
-    "eyebrow": "Contacto · Ficha técnica",
-    "title": "Quién está detrás del sello",
+    "eyebrow": "Contacto · Pase del sello",
+    "allAccess": "All Access",
+    "artist": "Artista",
     "body": "Lo esencial sobre mí, como en la contraportada de un disco, y dónde encontrarme.",
     "statsLabel": "En este sello",
     "published": {
-      "one": "{count} álbum publicado",
-      "other": "{count} álbumes publicados"
+      "one": "álbum publicado",
+      "other": "álbumes publicados"
     },
     "inDevelopment": {
-      "one": "{count} en desarrollo",
-      "other": "{count} en desarrollo"
+      "one": "en desarrollo",
+      "other": "en desarrollo"
     },
     "planned": {
-      "one": "{count} planeado",
-      "other": "{count} planeados"
+      "one": "planeado",
+      "other": "planeados"
     },
     "whereTitle": "Dónde encontrarme",
     "emailLabel": "Email",
     "copy": "Copiar email",
+    "copyShort": "Copiar",
     "copied": "Email copiado",
     "copyFailed": "No se pudo copiar: selecciónalo a mano",
     "opensNewTab": "(se abre en una pestaña nueva)",
