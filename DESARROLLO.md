@@ -319,7 +319,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 1 | Disco por encima del conejo al entrar a Sobre mí / Contacto desde otra ruta | Fallo | Hecho (`mejora-1-disco-conejo`) |
 | 2 | Ficha de tecnología: quitar "Cómo la uso" y "Qué aprendí"; solo queda "Aparece en" | Código + contenido | Hecho (`mejora-2-ficha-tecnologia`) |
 | 3 | Bandeja: en la lista de pistas, botón Play (abre la pista 1); ⏮ ⏭ solo dentro de una pista | Código | Hecho (`mejora-3-bandeja-play`) |
-| 4 | Créditos del álbum: rediseño sin la línea continua hasta la función, para textos cortos | Figma → código | Pendiente |
+| 4 | Créditos del álbum: rediseño sin la línea continua hasta la función, para textos cortos | Figma → código | Hecho (`mejora-4-creditos`) |
 | 5 | Ficha breve de la colección: sin título repetido; caja de descripción y botón rediseñada | Figma → código | Pendiente |
 | 6 | Contacto: parte informativa más vistosa | Figma → código | Pendiente |
 
@@ -330,6 +330,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 **Tarea 3 (2026-10-13):** en la lista de pistas, la bandeja muestra un solo ▶ (botón primario: fondo teal, texto ink) que abre la pista 1. Dentro de una pista, ⏮ ⏭; ⏮ en la pista 1 vuelve a la lista y ⏭ en la última queda desactivado (decisión del usuario: no salta a créditos). Próximos lanzamientos: sin controles. Verificado sobre el build en 1920×911 y 375×667: ▶ → pista 1, ⏭ hasta la 5 (desactivado), ⏮, y álbum planeado sin controles; sin errores de consola.
 
 **Revisión de 2 y 3 (code-review, 2026-10-13), corregido:** las fichas sin álbumes (8 del Equipo de estudio) llevan descripción propia ("…todavía no aparece en ningún álbum"), `noindex, follow` y salen del sitemap; en móvil, "Aparece en" muestra el estado bajo la función (antes se ocultaba y un planeado parecía experiencia real); la bandeja tiene un solo renderizador de controles (▶ como variante primaria, título en todos) y una zona de ancho fijo para que el título no cambie de ancho al pasar de ▶ a ⏮ ⏭; `PORTFOLIO.md` describe el modelo real de `Technology`.
+
+**Tarea 4 (2026-10-13):** `CreditsList` agrupa los créditos por área (orden frontend, backend, diseño, flujo; etiquetas de `about.gearGroups`) en una rejilla de tarjetas (2 columnas, 3 desde `lg`): función en mono teal arriba y tecnología debajo, flecha ↗ que se enciende al pasar. Cabecera con resumen ("10 créditos · 3 áreas", con plurales). Sirve igual para "Stack propuesto" de los planeados. En el DOM va primero el nombre (lo que se lee al tabular). QA nivel 2 sobre el build: 1920×911, 390×844 y 375×667 en un álbum publicado y uno planeado (en/es), sin scroll de documento ni desborde horizontal, axe sin violaciones.
 
 ---
 

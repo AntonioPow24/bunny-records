@@ -69,18 +69,30 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     />
   );
 
-  const credits = project.credits.map((c) => ({
-    id: c.tech,
-    name: getTechnology(c.tech)?.name ?? c.tech,
-    role: c.role[locale],
-    href: `/${locale}/stack/${c.tech}`,
-  }));
+  const credits = project.credits.map((c) => {
+    const tech = getTechnology(c.tech);
+    return {
+      id: c.tech,
+      name: tech?.name ?? c.tech,
+      role: c.role[locale],
+      href: `/${locale}/stack/${c.tech}`,
+      group: tech?.group ?? "workflow",
+    };
+  });
+  const plural = new Intl.PluralRules(locale);
+  const count = (forms: { one: string; other: string }, n: number) =>
+    format(plural.select(n) === "one" ? forms.one : forms.other, { count: String(n) });
+  const creditsProps = {
+    items: credits,
+    groupLabels: dict.about.gearGroups,
+    summary: `${count(dict.album.creditsCount, credits.length)} · ${count(dict.album.areasCount, new Set(credits.map((c) => c.group)).size)}`,
+  };
 
   if (!isPublished(project)) {
     return (
       <div className="flex flex-col gap-8 pb-6">
         {jsonLd}
-        <CreditsList title={dict.album.proposedStack} items={credits} />
+        <CreditsList title={dict.album.proposedStack} {...creditsProps} />
         <section className="flex flex-col gap-2">
           <h2 className="text-h3">{dict.album.nextValidation}</h2>
           <p className="text-body max-w-prose text-muted-foreground">{project.nextValidation[locale]}</p>
@@ -110,7 +122,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
           ))}
         </ol>
       </section>
-      <CreditsList title={dict.album.credits} items={credits} />
+      <CreditsList title={dict.album.credits} {...creditsProps} />
       <section className="flex flex-col gap-2">
         <h2 className="text-h3">{dict.album.productionNotes}</h2>
         <ul className="flex flex-col gap-2">

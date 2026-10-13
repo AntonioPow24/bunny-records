@@ -117,6 +117,14 @@
     "tracklistLabel": "Tracks of {title}",
     "minutes": "{n} min",
     "credits": "Credits",
+    "creditsCount": {
+      "one": "{count} credit",
+      "other": "{count} credits"
+    },
+    "areasCount": {
+      "one": "{count} area",
+      "other": "{count} areas"
+    },
     "productionNotes": "Production notes",
     "proposedStack": "Proposed stack",
     "nextValidation": "Next validation",

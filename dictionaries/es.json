@@ -117,6 +117,14 @@
     "tracklistLabel": "Pistas de {title}",
     "minutes": "{n} min",
     "credits": "Créditos",
+    "creditsCount": {
+      "one": "{count} crédito",
+      "other": "{count} créditos"
+    },
+    "areasCount": {
+      "one": "{count} área",
+      "other": "{count} áreas"
+    },
     "productionNotes": "Notas de producción",
     "proposedStack": "Stack propuesto",
     "nextValidation": "Próxima validación",
