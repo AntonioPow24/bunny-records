@@ -40,7 +40,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 
 **Pendiente aparte:** sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a una carpeta de archivo fuera del proyecto (`PORTFOLIO.md` §11.7).
 
-## Paso 2 — Proyecto Next.js base ✅ (pendiente de revisión)
+## Paso 2 — Proyecto Next.js base ✅
 
 **Objetivo:** un proyecto Next.js vacío y estricto.
 
@@ -54,7 +54,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado:** `npm run check` en verde; `/` sale como estática y `next start` sirve `lang="es"` y el título.
 - Aviso de npm sin resolver: `unrs-resolver` (dependencia de ESLint) tiene un script de instalación que npm 11 bloquea por defecto. ESLint funciona igual; no se aprueba mientras no haga falta.
 
-## Paso 3 — Sistema de diseño en código ✅ (pendiente de revisión)
+## Paso 3 — Sistema de diseño en código ✅
 
 **Objetivo:** que el código use exactamente los tokens y estilos de Figma.
 
@@ -66,7 +66,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - `/lab` (noindex): banco de pruebas del sistema de diseño; pasa a `/[locale]/lab` en el paso 4.
 - **Verificado en Chrome:** fuentes, colores, tamaño del botón y anillo de foco coinciden con Figma; sin errores en consola.
 
-## Paso 4 — Idiomas (es/en) ✅ (pendiente de revisión)
+## Paso 4 — Idiomas (es/en) ✅
 
 **Objetivo:** todas las rutas existen en los dos idiomas desde el principio.
 
@@ -81,7 +81,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado:** `/` → `/es` (o `/en` con navegador en inglés; la cookie gana), `/about` → `/es/about`, `/es` y `/en` estáticas con `lang` correcto, páginas inexistentes → 404 con `noindex`, cambio de idioma y cookie probados en Chrome.
 - Comportamiento aceptado: `/fr` se trata como ruta sin idioma → `/es/fr` → 404.
 
-## Paso 5 — Contenido tipado ✅ (pendiente de revisión)
+## Paso 5 — Contenido tipado ✅
 
 **Objetivo:** todo el contenido sale de `content/` y se valida en el build.
 
@@ -95,7 +95,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - `/lab` muestra el contenido de los dos idiomas y renderiza una pista desde MDX.
 - `npm audit`: 5 avisos "high" solo en dependencias de desarrollo (`braces`, vía ESLint); 0 en producción. No se fuerza la actualización.
 
-## Paso 6 — Layout persistente y conejo ✅ (pendiente de revisión)
+## Paso 6 — Layout persistente y conejo ✅
 
 **Objetivo:** el esqueleto que no se vuelve a montar al navegar.
 
@@ -108,7 +108,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - Next 16.4 no deja usar `new Date()` al prerenderizar: el año del footer sale de `getBuildYear()` con `"use cache"`.
 - **Verificado en Chrome:** el conejo pasa a curiosidad izquierda y a mirar arriba a la derecha según el puntero; bandeja en reposo en `/es/lab` y oculta en `/es`; vista móvil de 390 px (header, bandeja y menú) probada dentro de un iframe; sin errores en consola.
 
-## Paso 7 — Colección, Sobre mí y Contacto, sin scroll (v2) ✅ (pendiente de revisión)
+## Paso 7 — Colección, Sobre mí y Contacto, sin scroll (v2) ✅
 
 **Objetivo:** la portada del sitio y la navegación por discos (`BUNNY-RECORDS.md` §5.3.2, aprobada el 2026-10-12).
 
@@ -123,7 +123,7 @@ Cada paso es **un bloque que se entiende solo**: tiene un objetivo, un resultado
 - **Verificado en Chrome (build de producción):** transiciones de discos, pistas con teclado, enlace a créditos, sin scroll en escritorio y en tres tamaños móviles, sin desbordes horizontales.
 - **Aviso:** el servidor de desarrollo puede quedarse con módulos antiguos tras borrar o renombrar exportaciones ("Element type is invalid… ContactSheet" / "did not produce a static shell"); se arregla reiniciando `npm run dev` (y, si persiste, borrando `.next`).
 
-## Paso 7.5 — Optimización de todo el proyecto ✅ (pendiente de revisión)
+## Paso 7.5 — Optimización de todo el proyecto ✅
 
 **Objetivo:** que las transiciones y la carga se sientan inmediatas, con mediciones antes y después (no a ojo). Se adelanta parte del paso 13 porque la navegación por discos lo necesita ya.
 
@@ -194,7 +194,7 @@ Lighthouse móvil (simulación por defecto):
 
 **Observación:** justo después de reconstruir el servidor, la primera navegación puede hacer una recarga completa (el navegador tenía precargas del build anterior y Next recarga para no mezclar versiones). Es el comportamiento esperado tras un despliegue; revisar la protección de "version skew" en el paso 14.
 
-## Paso 8 — Álbum y pistas ✅ (pendiente de revisión)
+## Paso 8 — Álbum y pistas ✅
 
 **Objetivo:** el caso de estudio completo.
 
@@ -207,7 +207,7 @@ Lighthouse móvil (simulación por defecto):
 - Los créditos todavía no enlazan a la ficha de tecnología: llega en el paso 9.
 - **Verificado en Chrome:** colección → álbum → pista → ⏭ → "Mostrar todas"; álbum planeado; móvil 390×844 (álbum, pista y planeado en inglés) sin scroll de página ni desbordes.
 
-## Paso 9 — Fichas de tecnología ✅ (pendiente de revisión)
+## Paso 9 — Fichas de tecnología ✅
 
 **Objetivo:** créditos compartidos con URL propia.
 
@@ -220,14 +220,14 @@ Lighthouse móvil (simulación por defecto):
 - La URL del panel y la de la página completa es la misma; la canónica se revisa en el paso 12.
 - **Verificado en Chrome (build de producción):** abrir/cerrar/reabrir 3 veces, foco dentro y de vuelta al crédito, cierre con el logo, apertura desde Sobre mí, entrada directa y hoja inferior a 390×844 y 375×667.
 
-## Paso 9.1 — Ajustes tras revisión ✅ (pendiente de revisión)
+## Paso 9.1 — Ajustes tras revisión ✅
 
 - **Colección (escritorio):** la vecina de la central quedaba casi tapada y la siguiente se veía entera, así que parecía "la siguiente". Ahora las vecinas asoman ~40 % y las de después son más pequeñas y tenues.
 - **Idioma sin efectos en el estado:** /es y /en tienen layouts raíz distintos, así que cambiar de idioma recarga el documento y la colección volvía siempre a la primera portada. `lib/session-state.ts` (`useSessionState`, sessionStorage de la pestaña) conserva filtro y portada elegida; la selección restaurada se coloca sin animar. El selector de idioma conserva también el `#hash` (pista abierta de Sobre mí).
 - **Conejo de la bandeja** como en Figma V2-D06 (60×80): las orejas sobresalen por encima de la bandeja.
 - **Verificado en Chrome (build de producción):** ES → EN → ES con otra portada; Sobre mí `#gear` EN → ES; bandeja en escritorio y 375×667; colección a 390 px.
 
-## Paso 10 — 404 "Lado C" ✅ (pendiente de revisión)
+## Paso 10 — 404 "Lado C" ✅
 
 **Objetivo:** las páginas del sello que faltaban.
 
@@ -236,7 +236,7 @@ Lighthouse móvil (simulación por defecto):
 - **Bug corregido:** una pista inexistente (`/es/projects/vidrieria-antonio/nope`) daba **500**. Con Cache Components, un parámetro fuera de `generateStaticParams` se renderiza al pedirlo, y `usePathname()` fuera de `<Suspense>` hace fallar ese render. Discos, idioma, luces, bandeja y el reinicio de scroll del panel van ahora en `<Suspense>`; en las rutas reales la ruta se conoce al compilar y el HTML estático no cambia. Comprobado: 4 URLs inexistentes → 404, rutas reales → 200.
 - `global-not-found.tsx` (URLs sin idioma válido) se queda sencillo y bilingüe.
 
-## Paso 11 — Transiciones ✅ (pendiente de revisión)
+## Paso 11 — Transiciones ✅
 
 **Objetivo:** la sensación de una sola página que se transforma.
 
