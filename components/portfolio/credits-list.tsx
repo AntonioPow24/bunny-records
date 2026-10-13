@@ -14,6 +14,7 @@ import {
 } from "react";
 
 import { Disc } from "@/components/brand/disc";
+import { BunnyMark } from "@/components/brand/logo";
 import { cn } from "@/lib/utils";
 
 type CreditItem = { id: string; name: string; role: string; href: string };
@@ -38,7 +39,15 @@ type CreditSleevesProps = {
   labels: { sideWord: string; hint: string; prev: string; next: string; all: string };
 };
 
-const TONES = ["teal", "ivory", "deep", "muted"] as const;
+// Arte de cada funda (mejora 10), en orden de lado: A marfil con el conejo en silueta (como el disco de Contacto),
+// B oscuro con el logo (la oreja teal le da borde), C teal como el disco de Sobre mí; D por si un álbum llega a 4.
+// Colores de marca fijos, como el logo. disc: color de la etiqueta del vinilo que asoma.
+const LOOKS = [
+  { face: "bg-[#F4F4F2] text-[#080A0D]", shadow: false, disc: "teal" },
+  { face: "bg-[#080A0D] text-[#F4F4F2]", shadow: true, disc: "ivory" },
+  { face: "bg-[#329DA8] text-[#080A0D]", shadow: false, disc: "ivory" },
+  { face: "bg-[#267B84] text-[#F4F4F2]", shadow: false, disc: "teal" },
+] as const;
 
 // Créditos como sobres (mejora 8; Figma "Mejoras · T9"). En reposo, un sobre por lado (A, B, C…) con su vinilo
 // asomando. Al elegir uno, el sobre pasa a la izquierda (los demás quedan apilados detrás) y a la derecha salen
@@ -104,7 +113,9 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
                   onClick={() => choose(index)}
                   className="group block w-full rounded-md text-left"
                 >
-                  <SleeveArt id={id} side={side} tone={TONES[index % TONES.length]} sideWord={labels.sideWord} />
+                  <SleeveArt id={id} side={side} look={LOOKS[index % LOOKS.length]} sideWord={labels.sideWord} />
+                  {/* En móvil la funda es pequeña: el área va debajo para no pisar al conejo. */}
+                  <span className="text-label mt-1.5 line-clamp-2 block w-[69%] text-[0.625rem] sm:hidden">{side.area}</span>
                 </button>
               </li>
             ))}
@@ -148,7 +159,7 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
                     <SleeveArt
                       id={id}
                       side={side}
-                      tone={TONES[index % TONES.length]}
+                      look={LOOKS[index % LOOKS.length]}
                       sideWord={labels.sideWord}
                       active={front}
                       compact={front}
@@ -215,7 +226,7 @@ const arrow =
 type SleeveArtProps = {
   id: string;
   side: CreditSide;
-  tone: (typeof TONES)[number];
+  look: (typeof LOOKS)[number];
   sideWord: string;
   active?: boolean;
   /** En la pila: sin el pie (área y número). */
@@ -225,7 +236,7 @@ type SleeveArtProps = {
 };
 
 /** Funda cuadrada con el vinilo (el de Sobre mí / Contacto, sin conejo) asomando por la derecha. */
-function SleeveArt({ id, side, tone, sideWord, active = false, compact = false, back = false }: SleeveArtProps) {
+function SleeveArt({ id, side, look, sideWord, active = false, compact = false, back = false }: SleeveArtProps) {
   return (
     <ViewTransition
       name={`${id}-sleeve-${side.letter}`}
@@ -240,32 +251,34 @@ function SleeveArt({ id, side, tone, sideWord, active = false, compact = false, 
             kind="about"
             bunny={false}
             shine={false}
-            tone={tone}
+            tone={look.disc}
             className="absolute top-[5%] left-[50%] w-[90%] transition-transform duration-300 group-hover:translate-x-[6%]"
           />
         )}
         <span
           className={cn(
-            "relative flex aspect-square flex-col justify-between rounded-md border bg-card p-2.5 shadow-[6px_8px_18px_rgb(0_0_0/0.35)] md:p-3.5",
+            "relative flex aspect-square flex-col justify-between overflow-hidden rounded-md border p-2.5 shadow-[6px_8px_18px_rgb(0_0_0/0.35)] md:p-3.5",
+            look.face,
             active ? "border-primary/80" : "border-border",
           )}
         >
           {!back && (
             <>
-              <span className="text-label text-muted-foreground max-sm:hidden">{sideWord}</span>
-              <span
-                className={cn(
-                  "font-display leading-none font-bold",
-                  compact ? "text-[2.375rem] md:text-[3rem]" : "text-[2rem] md:text-[3.25rem]",
-                  active ? "text-primary" : "text-foreground",
-                )}
-              >
+              <span className="text-label relative">
+                <span className="max-sm:hidden">{sideWord} </span>
                 {side.letter}
               </span>
+              <BunnyMark
+                shadow={look.shadow}
+                className={cn(
+                  "absolute top-1/2 left-1/2 h-auto -translate-x-1/2 -translate-y-1/2",
+                  compact ? "w-[44%]" : "w-[42%] sm:w-[32%]",
+                )}
+              />
               {!compact && (
-                <span className="flex min-w-0 flex-col">
-                  <span className="text-label line-clamp-2 max-sm:text-[0.625rem]">{side.area}</span>
-                  <span className="text-label hidden text-muted-foreground sm:block">{side.count}</span>
+                <span className="relative flex min-w-0 flex-col max-sm:hidden">
+                  <span className="text-label line-clamp-2">{side.area}</span>
+                  <span className="text-label opacity-80">{side.count}</span>
                 </span>
               )}
             </>

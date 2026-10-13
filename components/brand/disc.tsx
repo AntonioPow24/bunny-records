@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import { EAR_PATH, FACE_PATH } from "./logo";
+import { BunnyMark } from "./logo";
 
 export type DiscKind = "about" | "contact" | "side-c";
 
@@ -56,18 +56,7 @@ export function Disc({ kind, label, spinning = false, bunny = true, tone, shine 
           <path d="M58 292 Q112 214 182 298" fill="none" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
         </>
       ) : bunny ? (
-      <svg x="187" y="150" width="46" height="53" viewBox="0 0 800 922">
-        <path d={EAR_PATH} fill="#080A0D" />
-        <path d={FACE_PATH} fill="#F4F4F2" />
-        <path
-          d="M196.5 681H261M228.5 648.5V713.5M558.5 681H623.5M591 648.5V713.5"
-          fill="none"
-          stroke="#080A0D"
-          strokeWidth="25"
-          strokeLinecap="round"
-        />
-        <rect x="347" y="731" width="123" height="41" rx="20.5" fill="#080A0D" />
-      </svg>
+        <BunnyMark x="187" y="150" width="46" height="53" />
       ) : null}
       {label && (
         <text
