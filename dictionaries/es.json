@@ -127,10 +127,15 @@
       "one": "{count} crédito",
       "other": "{count} créditos"
     },
-    "areasCount": {
-      "one": "{count} área",
-      "other": "{count} áreas"
+    "sidesCount": {
+      "one": "{count} lado",
+      "other": "{count} lados"
     },
+    "side": "Lado {letter}",
+    "sidesHint": "Elige un lado para ver sus créditos",
+    "prevSide": "Lado anterior",
+    "nextSide": "Lado siguiente",
+    "allSides": "Volver a todos los lados",
     "productionNotes": "Notas de producción",
     "proposedStack": "Stack propuesto",
     "nextValidation": "Próxima validación",

@@ -10,14 +10,19 @@ type DiscProps = {
   label?: string;
   /** Gira despacio (escena). Se detiene con prefers-reduced-motion. */
   spinning?: boolean;
+  /** Conejo en la etiqueta (por defecto sí). Los sobres de créditos lo quitan: solo asoma el borde del disco. */
+  bunny?: boolean;
+  /** Color de la etiqueta, si no es el de su tipo (sobres de créditos: un tono por lado). */
+  tone?: "teal" | "ivory" | "deep";
   className?: string;
 };
 
 // Vinilo de Sobre mí (etiqueta teal), Contacto (etiqueta marfil) y 404 (lado "C", rayado; Figma D12).
 // Figma: DiscGraphic.
 // Decorativo: el nombre accesible lo pone el enlace o la sección que lo contiene.
-export function Disc({ kind, label, spinning = false, className }: DiscProps) {
-  const labelFill = kind === "contact" ? "var(--foreground)" : "var(--primary)";
+export function Disc({ kind, label, spinning = false, bunny = true, tone, className }: DiscProps) {
+  const toneFill = { teal: "var(--primary)", ivory: "var(--foreground)", deep: "var(--teal-deep)" } as const;
+  const labelFill = tone ? toneFill[tone] : kind === "contact" ? "var(--foreground)" : "var(--primary)";
   const gradientId = `disc-shine-${kind}`;
   return (
     <svg
@@ -46,7 +51,7 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
           {/* La raya: un arco claro que cruza los surcos hasta la etiqueta. */}
           <path d="M58 292 Q112 214 182 298" fill="none" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
         </>
-      ) : (
+      ) : bunny ? (
       <svg x="187" y="150" width="46" height="53" viewBox="0 0 800 922">
         <path d={EAR_PATH} fill="#080A0D" />
         <path d={FACE_PATH} fill="#F4F4F2" />
@@ -59,7 +64,7 @@ export function Disc({ kind, label, spinning = false, className }: DiscProps) {
         />
         <rect x="347" y="731" width="123" height="41" rx="20.5" fill="#080A0D" />
       </svg>
-      )}
+      ) : null}
       {label && (
         <text
           x="210"
