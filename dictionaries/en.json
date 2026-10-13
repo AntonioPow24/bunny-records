@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Bunny Records",
-    "title": "Bunny Records · Antonio García Romero",
-    "description": "Portfolio of Antonio García Romero, Frontend Developer: every project is an album and its case study, the tracks."
+    "title": "Bunny Records · Antonio Garcia Romero",
+    "description": "Portfolio of Antonio Garcia Romero, Frontend Developer: every project is an album and its case study, the tracks."
   },
   "nav": {
     "home": "Collection",
@@ -106,7 +106,8 @@
       "Studio gear"
     ],
     "principlesTitle": "Three label rules",
-    "gearIntro": "The tools I use, no skill bars.",
+    "gearTitle": "Studio instruments",
+    "gearIntro": "The tools I use to shape every project.",
     "gearGroups": {
       "frontend": "Frontend",
       "backend": "Backend and data",
@@ -145,9 +146,9 @@
     "backToTracks": "Back to all tracks"
   },
   "tech": {
-    "eyebrow": "Technology sheet · shared credits",
-    "metaDescription": "{name} at Bunny Records: the albums by Antonio García Romero it appears on and its role in each.",
-    "metaDescriptionNoAlbums": "{name} in Antonio García Romero’s studio gear. Not on any album yet.",
+    "eyebrow": "Technology sheet",
+    "metaDescription": "{name} at Bunny Records: the albums by Antonio Garcia Romero it appears on and its role in each.",
+    "metaDescriptionNoAlbums": "{name} in Antonio Garcia Romero’s studio gear. Not on any album yet.",
     "appearsIn": "Appears on",
     "appearsCount": {
       "one": "Appears on {count} album",

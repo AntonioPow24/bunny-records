@@ -198,6 +198,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección es una animación, no un desplazamiento.
 
 - **El documento nunca hace scroll.** Lo largo (pistas, créditos y notas de un álbum; el texto de una pista) se desplaza **dentro de su panel**, como en Spotify de escritorio.
+- **Excepción móvil (2026-10-13, petición del usuario):** en Sobre mí y Contacto, si el contenido no cabe, se desplaza toda la vista bajo la cabecera fija (no solo el panel de la pista). En escritorio, el bloque de Sobre mí arranca arriba para que las pestañas no cambien de sitio entre pistas.
 - **Barra:** logo (= volver a la colección), dos **discos** (Sobre mí, etiqueta teal; Contacto, etiqueta marfil) y ES / EN. Al elegir un disco, **baja de la barra a la escena** (transición compartida) y el contenido anterior se desvanece; en la barra queda su **hueco** (aro discontinuo). En móvil, los discos sin texto sustituyen al menú ☰.
 - **Escena de Sobre mí y Contacto = tocadiscos:** disco grande a la izquierda y el conejo de DJ a su lado (mira o señala el contenido).
 - **Sobre mí se divide en "pistas"** (01 Quién soy · 02 Cómo trabajo · 03 Gira · 04 Equipo de estudio) para caber sin scroll. "Discografía" desaparece: la colección ya lo es.
@@ -213,7 +214,7 @@ Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección e
 | `/[locale]` | Colección | Conejo (en el escenario). La bandeja no se muestra aquí: sube al entrar en un álbum |
 | `/[locale]/projects/[slug]` | Álbum: pistas, créditos y notas (o edición "planeado") | Conejo (en la bandeja); la portada viaja |
 | `/[locale]/projects/[slug]/[track]` | Pista abierta dentro del álbum | Portada, demo, cabecera, conejo y bandeja |
-| `/[locale]/stack/[tech]` | Ficha de tecnología: panel sobre el álbum si vienes de él; página completa si entras directo | Todo el álbum, atenuado detrás |
+| `/[locale]/stack/[tech]` | Ficha de tecnología: panel sobre Sobre mí si vienes de "Equipo de estudio" (los créditos de los álbumes son estáticos desde 2026-10-13); página completa si entras directo | La página de origen, atenuada detrás |
 | `/[locale]/about` | Sobre mí | Conejo y bandeja |
 | `#contact` | Contacto (con la pose de despedida) | — |
 

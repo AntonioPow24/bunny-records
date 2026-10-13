@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Bunny Records",
-    "title": "Bunny Records · Antonio García Romero",
-    "description": "Portfolio de Antonio García Romero, Frontend Developer: cada proyecto es un álbum y su caso de estudio, las pistas."
+    "title": "Bunny Records · Antonio Garcia Romero",
+    "description": "Portfolio de Antonio Garcia Romero, Frontend Developer: cada proyecto es un álbum y su caso de estudio, las pistas."
   },
   "nav": {
     "home": "Colección",
@@ -106,7 +106,8 @@
       "Equipo de estudio"
     ],
     "principlesTitle": "Tres reglas del sello",
-    "gearIntro": "Las herramientas que uso, sin barras de nivel.",
+    "gearTitle": "Instrumentos del estudio",
+    "gearIntro": "Las herramientas con las que doy forma a cada proyecto.",
     "gearGroups": {
       "frontend": "Frontend",
       "backend": "Backend y datos",
@@ -145,9 +146,9 @@
     "backToTracks": "Volver a todas las pistas"
   },
   "tech": {
-    "eyebrow": "Ficha de tecnología · créditos compartidos",
-    "metaDescription": "{name} en Bunny Records: los álbumes de Antonio García Romero en los que aparece y qué papel tiene en cada uno.",
-    "metaDescriptionNoAlbums": "{name} en el equipo de estudio de Antonio García Romero. Todavía no aparece en ningún álbum.",
+    "eyebrow": "Ficha de tecnología",
+    "metaDescription": "{name} en Bunny Records: los álbumes de Antonio Garcia Romero en los que aparece y qué papel tiene en cada uno.",
+    "metaDescriptionNoAlbums": "{name} en el equipo de estudio de Antonio Garcia Romero. Todavía no aparece en ningún álbum.",
     "appearsIn": "Aparece en",
     "appearsCount": {
       "one": "Aparece en {count} álbum",

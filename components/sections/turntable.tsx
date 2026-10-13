@@ -14,13 +14,17 @@ type TurntableProps = {
   children: ReactNode;
   /** Móvil compacto: disco pequeño y sin conejo, para fichas largas (Contacto, Figma V2-M11). */
   compact?: boolean;
+  /** "start": el contenido arranca arriba y no se mueve al cambiar de pista (Sobre mí); el disco sigue centrado. */
+  align?: "center" | "start";
 };
 
 // Escena de tocadiscos de Sobre mí y Contacto (Figma V2-D10/V2-D11; BUNNY-RECORDS.md §5.3.2):
 // el disco que bajó de la barra gira a la izquierda y el conejo hace de DJ a su lado.
-export function Turntable({ kind, discLabel, pose, children, compact = false }: TurntableProps) {
+// En escritorio todo cabe en la pantalla (lo largo se desplaza en su panel); en móvil la escena crece
+// con el contenido y se desplaza toda la vista (<main>), sin que el documento haga scroll.
+export function Turntable({ kind, discLabel, pose, children, compact = false, align = "center" }: TurntableProps) {
   return (
-    <Container className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)] gap-4 py-4 md:grid-cols-[minmax(0,1fr)_minmax(0,40rem)] md:grid-rows-1 md:items-center md:gap-12 md:py-8">
+    <Container className="grid flex-1 grid-cols-[minmax(0,1fr)] content-start gap-4 py-4 md:min-h-0 md:grid-cols-[minmax(0,1fr)_minmax(0,40rem)] md:grid-rows-1 md:content-stretch md:items-center md:gap-12 md:py-8">
       <div className={cn("relative mx-auto flex w-full max-w-104 items-end gap-2 md:max-w-none md:justify-start", compact ? "justify-start" : "justify-center")}>
         <ViewTransition name={`disc-${kind}`} share="morph" default="none">
           <Disc
@@ -44,7 +48,9 @@ export function Turntable({ kind, discLabel, pose, children, compact = false }: 
           )}
         />
       </div>
-      <div className="flex min-h-0 min-w-0 flex-col">{children}</div>
+      <div className={cn("relative flex min-w-0 flex-col md:min-h-0", align === "start" && "md:self-stretch md:pt-[max(0px,calc(50dvh-26rem))]")}>
+        {children}
+      </div>
     </Container>
   );
 }

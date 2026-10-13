@@ -82,7 +82,6 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     id: c.tech,
     name: technologies[c.tech].name,
     role: c.role[locale],
-    href: `/${locale}/stack/${c.tech}`,
     group: technologies[c.tech].group,
   }));
   // Un lado del disco por área con créditos, en orden fijo y con letra A, B, C…

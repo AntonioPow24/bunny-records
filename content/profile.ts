@@ -15,7 +15,7 @@ export type SpecRow = {
 };
 
 export const profile = {
-  name: "Antonio García Romero",
+  name: "Antonio Garcia Romero",
   role: { es: "Frontend Developer", en: "Frontend Developer" },
   degree: { es: "Ingeniero de Sistemas e Informática", en: "Systems and Computer Engineer" },
   location: { es: "Chimbote, Perú", en: "Chimbote, Peru" },

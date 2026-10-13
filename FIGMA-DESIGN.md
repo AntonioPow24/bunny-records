@@ -241,7 +241,7 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ### 8.1 T11 — Equipo de estudio: instrumentos del repertorio (2026-10-13)
 
-**Estado: propuesta de Codex, pendiente de aprobación; sin implementación.** En `02 Pantallas`, sección independiente junto a las existentes; no se creó una página Lab. Original Sobre mí conservado (`103:2197`).
+**Estado: aprobada por el usuario e implementada el 2026-10-13 (`mejora-11-equipo-estudio`, ver `DESARROLLO.md` Tarea 11).** En `02 Pantallas`, sección independiente junto a las existentes; no se creó una página Lab. Original Sobre mí conservado (`103:2197`).
 
 - [Propuesta completa](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=137-247): escritorio `137:248`, detalle móvil `137:446`, componente `StudioToolLink / T11` `137:362`.
 - **Concepto:** el repertorio representa los instrumentos con los que se construye cada proyecto. Sustituir las cápsulas de herramientas por una ficha editorial con separadores, cuatro categorías numeradas y nombres enlazables. Mantener las pestañas como navegación y conservar las 15 tecnologías `inGear` actuales.

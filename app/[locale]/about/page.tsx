@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 import { AboutTracks, type AboutTrack } from "@/components/sections/about-tracks";
@@ -66,37 +67,50 @@ export default async function AboutPage() {
     {
       id: "gear",
       title: gearTitle,
+      // Instrumentos del estudio (Figma T11, FIGMA-DESIGN.md §8.1): ficha editorial con categorías numeradas.
       content: (
         <div className="flex flex-col gap-4">
-          <p className="text-body-sm text-muted-foreground">{dict.about.gearIntro}</p>
-          {GEAR_GROUPS.map((group) => (
-            <div key={group} className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-              <p className="text-mono w-40 shrink-0 text-muted-foreground">{dict.about.gearGroups[group]}</p>
-              <ul className="flex flex-wrap gap-2">
-                {gear
-                  .filter((t) => t.group === group)
-                  .map((t) => (
-                    <li key={t.id}>
-                      <Link
-                        href={`/${locale}/stack/${t.id}`}
-                        prefetch
-                        className="text-body-sm inline-flex min-h-11 items-center rounded-full border border-border bg-secondary px-3.5 transition-colors hover:bg-accent"
-                      >
-                        {t.name}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
+          <div className="flex flex-col gap-1">
+            <p className="text-label text-primary">{dict.about.gearTitle}</p>
+            <p className="text-body-sm text-muted-foreground">{dict.about.gearIntro}</p>
+          </div>
+          <ol className="flex flex-col border-t border-border">
+            {GEAR_GROUPS.map((group, index) => (
+              <li key={group} className="flex flex-col gap-2 border-b border-border py-4 md:flex-row md:gap-4 md:py-3">
+                <p className="text-body-sm flex shrink-0 items-baseline gap-2 text-muted-foreground md:w-40 md:pt-3">
+                  <span className="text-mono text-primary">{String(index + 1).padStart(2, "0")}</span>
+                  {dict.about.gearGroups[group]}
+                </p>
+                <ul className="grid flex-1 grid-cols-2 gap-x-2 md:grid-cols-3">
+                  {gear
+                    .filter((t) => t.group === group)
+                    .map((t) => (
+                      <li key={t.id}>
+                        <Link
+                          href={`/${locale}/stack/${t.id}`}
+                          prefetch
+                          className="group text-body-sm flex min-h-11 items-center justify-between gap-2 rounded-md px-2 text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+                        >
+                          {t.name}
+                          <ArrowUpRight
+                            aria-hidden="true"
+                            className="size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-primary"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </div>
       ),
     },
   ];
 
   return (
-    <Turntable kind="about" discLabel={dict.about.discLabel} pose="curious-right">
-      <div className="flex min-h-0 flex-1 flex-col gap-5">
+    <Turntable kind="about" discLabel={dict.about.discLabel} pose="curious-right" align="start">
+      <div className="flex flex-col gap-5 md:min-h-0 md:flex-1">
         <div className="flex flex-col gap-2">
           <p className="text-label text-primary">{dict.about.eyebrow}</p>
           <h1 className="text-display">{profile.name}</h1>
