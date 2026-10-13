@@ -312,10 +312,18 @@ Lighthouse móvil (simulación por defecto):
 
 ## Fase de mejoras (después del paso 14)
 
-Rediseños visuales anotados en la revisión del usuario; se diseñan primero en Figma.
+Rediseños visuales anotados en la revisión del usuario; se diseñan primero en Figma. Una rama por tarea (`mejora-N-…`).
 
-- Ficha breve de la colección (caja con nombre, estado y "Abrir proyecto"): se ve genérica.
-- Vista de Contacto: se ve genérica.
+| # | Tarea | Tipo | Estado |
+|---|---|---|---|
+| 1 | Disco por encima del conejo al entrar a Sobre mí / Contacto desde otra ruta | Fallo | Hecho (`mejora-1-disco-conejo`) |
+| 2 | Ficha de tecnología: quitar "Cómo la uso" y "Qué aprendí"; solo queda "Aparece en" | Código + contenido | Pendiente |
+| 3 | Bandeja: en la lista de pistas, botón Play (abre la pista 1); ⏮ ⏭ solo dentro de una pista | Código | Pendiente |
+| 4 | Créditos del álbum: rediseño sin la línea continua hasta la función, para textos cortos | Figma → código | Pendiente |
+| 5 | Ficha breve de la colección: sin título repetido; caja de descripción y botón rediseñada | Figma → código | Pendiente |
+| 6 | Contacto: parte informativa más vistosa | Figma → código | Pendiente |
+
+**Tarea 1 (2026-10-12):** al entrar desde otra ruta, el `<ViewTransition name="scene-bunny">` de React no creaba capa para el conejo (entraba con la página), así que se pintaba en `root` y el disco (z-index 110) lo tapaba hasta el final. Ahora el nombre y la clase van en CSS sobre el conejo (`components/sections/turntable.tsx`) y la capa existe siempre. Verificado sobre el build con la animación a 0,1×: Inicio → Sobre mí y álbum → Contacto en escritorio, Inicio → Sobre mí en 390×844, y Sobre mí ↔ Contacto sigue con su capa compartida.
 
 ---
 

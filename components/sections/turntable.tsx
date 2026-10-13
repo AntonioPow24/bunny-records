@@ -31,14 +31,18 @@ export function Turntable({ kind, discLabel, pose, children, compact = false }: 
           />
         </ViewTransition>
         {/* El conejo DJ tiene su propia capa de transición, por encima del disco: así el disco pasa
-            por detrás de él también durante la animación (antes lo tapaba y "saltaba" al terminar). */}
-        <ViewTransition name="scene-bunny" default="scene-bunny">
-          <Bunny
-            mode="full"
-            hold={pose}
-            className={cn("w-[min(22vw,7rem)] shrink-0 md:absolute md:bottom-[-8%] md:left-[58%] md:block md:w-[min(15vw,26vh,13rem)]", compact && "hidden")}
-          />
-        </ViewTransition>
+            por detrás de él también durante la animación (antes lo tapaba y "saltaba" al terminar).
+            El nombre va en CSS y no en <ViewTransition>: React no activa la capa cuando la escena entra
+            desde otra ruta (Inicio → Sobre mí), y el conejo quedaba en `root`, debajo del disco. Las
+            páginas ocultas por <Activity> tienen display: none, así que nunca hay dos con el mismo nombre. */}
+        <Bunny
+          mode="full"
+          hold={pose}
+          className={cn(
+            "w-[min(22vw,7rem)] shrink-0 [view-transition-class:scene-bunny] [view-transition-name:scene-bunny] md:absolute md:bottom-[-8%] md:left-[58%] md:block md:w-[min(15vw,26vh,13rem)]",
+            compact && "hidden",
+          )}
+        />
       </div>
       <div className="flex min-h-0 min-w-0 flex-col">{children}</div>
     </Container>
