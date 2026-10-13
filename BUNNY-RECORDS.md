@@ -214,7 +214,7 @@ Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección e
 | `/[locale]` | Colección | Conejo (en el escenario). La bandeja no se muestra aquí: sube al entrar en un álbum |
 | `/[locale]/projects/[slug]` | Álbum: pistas, créditos y notas (o edición "planeado") | Conejo (en la bandeja); la portada viaja |
 | `/[locale]/projects/[slug]/[track]` | Pista abierta dentro del álbum | Portada, demo, cabecera, conejo y bandeja |
-| `/[locale]/stack/[tech]` | Ficha de tecnología: panel sobre el álbum si vienes de él; página completa si entras directo | Todo el álbum, atenuado detrás |
+| `/[locale]/stack/[tech]` | Ficha de tecnología: panel sobre Sobre mí si vienes de "Equipo de estudio" (los créditos de los álbumes son estáticos desde 2026-10-13); página completa si entras directo | La página de origen, atenuada detrás |
 | `/[locale]/about` | Sobre mí | Conejo y bandeja |
 | `#contact` | Contacto (con la pose de despedida) | — |
 

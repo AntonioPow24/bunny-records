@@ -213,7 +213,7 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 | `/[locale]` | Colección (Inicio) con filtro por estado | `[locale]/layout`: conejo + bandeja |
 | `/[locale]/projects/[slug]` | Álbum: lista de pistas, créditos y notas de producción; o edición "planeado" | `projects/[slug]/layout`: portada, demo y detalles del disco |
 | `/[locale]/projects/[slug]/[track]` | Pista abierta (capítulo del caso de estudio) | Ídem |
-| `/[locale]/stack/[tech]` | Ficha de tecnología: **panel** sobre el álbum (ruta interceptada `(.)` en el slot paralelo `@panel`) o **página completa** si se entra directamente | — |
+| `/[locale]/stack/[tech]` | Ficha de tecnología: **panel** sobre Sobre mí, desde "Equipo de estudio" (ruta interceptada `(.)` en el slot paralelo `@panel`) o **página completa** si se entra directamente | — |
 | `/[locale]/about` | Perfil, experiencia y enfoque | `[locale]/layout` |
 | `/[locale]/contact` | Contacto como pase backstage: datos y enlaces, sin formulario ni backend | `[locale]/layout` |
 

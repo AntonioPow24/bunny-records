@@ -10,7 +10,7 @@ export function generateStaticParams() {
   return Object.keys(technologies).map((tech) => ({ tech }));
 }
 
-// Ficha como panel encima de la página actual (navegación interna desde los créditos o "Equipo de estudio").
+// Ficha como panel encima de la página actual (navegación interna desde "Equipo de estudio" en Sobre mí).
 // Lo que depende de `params` va en <Suspense>: ver app/[locale]/projects/[slug]/page.tsx.
 export default function TechPanelRoute({ params }: PageProps<"/[locale]/stack/[tech]">) {
   return (

@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   addTransitionType,
   startTransition,
@@ -17,7 +16,7 @@ import { Disc } from "@/components/brand/disc";
 import { BunnyMark } from "@/components/brand/logo";
 import { cn } from "@/lib/utils";
 
-type CreditItem = { id: string; name: string; role: string; href: string };
+type CreditItem = { id: string; name: string; role: string };
 /** Un lado del disco = un área (Frontend, Backend y datos…), con su letra y sus créditos. */
 export type CreditSide = {
   letter: string;
@@ -202,13 +201,11 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
               <ul className="grid grid-cols-2 gap-x-6 gap-y-3.5">
                 {current.items.map((item) => (
                   <li key={item.id}>
-                    <Link href={item.href} prefetch className="group flex flex-col gap-0.5 rounded-sm">
-                      <span className="flex items-center gap-1.5 text-[0.9375rem] font-medium transition-colors group-hover:text-primary">
-                        {item.name}
-                        <ArrowUpRight aria-hidden="true" className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
-                      </span>
+                    {/* Créditos estáticos: la ficha de cada tecnología se abre desde Sobre mí (Equipo de estudio). */}
+                    <p className="flex flex-col gap-0.5">
+                      <span className="text-[0.9375rem] font-medium">{item.name}</span>
                       <span className="text-[0.8125rem] leading-snug text-muted-foreground">{item.role}</span>
-                    </Link>
+                    </p>
                   </li>
                 ))}
               </ul>
