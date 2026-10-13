@@ -82,8 +82,9 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
   const panelId = `${id}-panel`;
   const current = active === null ? null : sides[active];
 
+  // En reposo, 2 px más de aire entre el título, los sobres y la indicación (18 px en vez de 16).
   return (
-    <section ref={sectionRef} aria-labelledby={id} className="flex flex-col gap-4">
+    <section ref={sectionRef} aria-labelledby={id} className={cn("flex flex-col", active === null ? "gap-[1.125rem]" : "gap-4")}>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h2 id={id} className="text-h3">
           {title}
@@ -113,41 +114,49 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
       ) : (
         <div className="flex flex-col gap-4 md:grid md:grid-cols-[12.5rem_minmax(0,1fr)] md:gap-7">
           <div className="flex items-center gap-4 md:flex-col md:items-start" onKeyDown={onKeyDown}>
-            {/* Pila: el activo delante; los demás asoman detrás (se pueden pulsar para cambiar). */}
+            {/* Pila: el activo delante; los demás asoman detrás (se pueden pulsar para cambiar). Una sola lista con
+                key por letra: cada sobre es siempre el mismo elemento y al cambiar de lado solo cambia de sitio (si el
+                de delante fuera otro elemento, React montaría dos sobres con el mismo nombre de transición a la vez). */}
             <div className="relative w-24 shrink-0 pt-3.5 pr-4 md:w-[10.5rem]">
               {sides.map((side, index) => {
                 const depth = (index - active + sides.length) % sides.length;
-                if (depth === 0) return null;
+                const front = depth === 0;
                 return (
                   <button
                     key={side.letter}
                     type="button"
-                    tabIndex={-1}
-                    aria-hidden="true"
-                    onClick={() => choose(index)}
-                    className="absolute top-0 left-0 w-[calc(100%-1rem)]"
-                    style={{
-                      translate: `${depth * 0.55}rem ${0.875 - depth * 0.45}rem`,
-                      zIndex: 10 - depth,
-                      opacity: 1 - depth * 0.3,
-                    }}
+                    {...(front
+                      ? {
+                          "data-sleeve-active": "",
+                          "aria-expanded": true,
+                          "aria-controls": panelId,
+                          "aria-label": `${side.name} · ${labels.all}`,
+                          title: labels.all,
+                        }
+                      : { tabIndex: -1, "aria-hidden": true })}
+                    onClick={() => choose(front ? null : index)}
+                    className={cn(
+                      "rounded-md text-left",
+                      front ? "relative z-20 block w-full" : "absolute top-0 left-0 w-[calc(100%-1rem)]",
+                    )}
+                    style={
+                      front
+                        ? undefined
+                        : { translate: `${depth * 0.55}rem ${0.875 - depth * 0.45}rem`, zIndex: 10 - depth, opacity: 1 - depth * 0.3 }
+                    }
                   >
-                    <SleeveArt id={id} side={side} tone={TONES[index % TONES.length]} sideWord={labels.sideWord} back />
+                    <SleeveArt
+                      id={id}
+                      side={side}
+                      tone={TONES[index % TONES.length]}
+                      sideWord={labels.sideWord}
+                      active={front}
+                      compact={front}
+                      back={!front}
+                    />
                   </button>
                 );
               })}
-              <button
-                type="button"
-                data-sleeve-active=""
-                aria-expanded
-                aria-controls={panelId}
-                aria-label={`${current.name} · ${labels.all}`}
-                title={labels.all}
-                onClick={() => choose(null)}
-                className="relative z-20 block w-full rounded-md text-left"
-              >
-                <SleeveArt id={id} side={current} tone={TONES[active % TONES.length]} sideWord={labels.sideWord} active compact />
-              </button>
             </div>
 
             <div className="flex min-w-0 flex-col gap-2 md:w-full md:items-center">
