@@ -93,6 +93,16 @@ export const technologies = {
     group: "workflow",
     inGear: false,
   },
+  vercel: {
+    name: "Vercel",
+    group: "workflow",
+    inGear: false,
+  },
+  codex: {
+    name: "Codex",
+    group: "workflow",
+    inGear: false,
+  },
   "claude-code": {
     name: "Claude Code",
     group: "workflow",

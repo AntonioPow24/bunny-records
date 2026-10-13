@@ -1,0 +1,5 @@
+- **Medir antes de optimizar.** La transición entre discos tardaba 620–740 ms, con fotogramas de hasta 146 ms. No era la red: el conejo de la página nueva montaba sus 96 capas en mitad de la animación. Diferir su arranque, cargar solo la pose necesaria y acortar la animación la dejó en 480–520 ms.
+- **Probar sobre el build de producción.** El modo de desarrollo es más lento y avisa de cosas que en producción no existen; las mediciones solo valen sobre el build.
+- **El LCP simulado engaña con el texto.** Lighthouse lo estimaba en más de 3 s; con limitación real de red y CPU fue de 1,0–1,3 s.
+- **Las fuentes también mueven la página.** Un respaldo de fuente mal elegido daba un CLS de 0,18 en móvil; con uno monoespaciado bajó a 0.
+- **Dos asistentes, papeles separados.** Codex propone y revisa en Figma; Claude Code implementa lo aprobado. Que yo apruebe cada diseño antes de implementarlo evitó trabajo duplicado.

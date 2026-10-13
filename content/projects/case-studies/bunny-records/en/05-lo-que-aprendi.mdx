@@ -1,0 +1,5 @@
+- **Measure before optimising.** The disc transition took 620–740 ms, with frames of up to 146 ms. It wasn’t the network: the new page’s bunny was mounting its 96 layers mid-animation. Deferring its start, loading only the pose it needs and shortening the animation brought it to 480–520 ms.
+- **Test the production build.** Development mode is slower and warns about things that don’t exist in production; measurements only count on the build.
+- **Simulated LCP misleads on text.** Lighthouse estimated it at over 3 s; with real network and CPU throttling it was 1.0–1.3 s.
+- **Fonts move the page too.** A poorly chosen fallback font caused a CLS of 0.18 on mobile; a monospaced one brought it to 0.
+- **Two assistants, separate roles.** Codex proposes and reviews in Figma; Claude Code implements what’s approved. Approving each design myself before implementation avoided duplicated work.

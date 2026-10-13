@@ -23,7 +23,7 @@ export const uiComponentLibrary: UpcomingProject = {
   categories: ["library"],
   year: 2026,
   featured: false,
-  order: 2,
+  order: 3,
   cover: {
     src: uiLibraryCover,
     alt: placeholderAlt("dibujo técnico de piezas de interfaz sobre una cuadrícula.", "technical drawing of interface pieces on a grid."),
@@ -57,7 +57,7 @@ export const officeToPdfConverter: UpcomingProject = {
   categories: ["desktop"],
   year: 2026,
   featured: false,
-  order: 3,
+  order: 4,
   cover: {
     src: officeCover,
     alt: placeholderAlt("documentos apilados que se convierten en una hoja limpia.", "stacked documents turning into a single clean sheet."),
@@ -90,7 +90,7 @@ export const educationalPlatform: UpcomingProject = {
   categories: ["saas"],
   year: 2026,
   featured: false,
-  order: 4,
+  order: 5,
   cover: {
     src: educationalCover,
     alt: placeholderAlt("un libro abierto del que sale una escalera.", "an open book with a staircase rising from it."),
@@ -123,7 +123,7 @@ export const aiConstructionEstimator: UpcomingProject = {
   categories: ["ai"],
   year: 2026,
   featured: false,
-  order: 5,
+  order: 6,
   cover: {
     src: aiEstimatorCover,
     alt: placeholderAlt("estructura de un edificio en construcción bajo una red de nodos.", "a building frame under construction beneath a network of nodes."),
