@@ -317,7 +317,7 @@ type Project =
 interface VerifiableResult { statement: Localized<string>; source: string; verifiedOn: string }
 
 // content/technologies.ts: la ficha compartida
-interface Technology { id: TechnologyId; name: string; icon: string; howIUseIt: Localized<string>; learned?: Localized<string> }
+interface Technology { id: TechnologyId; name: string; icon: string }  // la ficha solo muestra "Aparece en" (derivado de los créditos)
 // "En qué álbumes aparece" se deriva de los credits; no se escribe a mano.
 ```
 

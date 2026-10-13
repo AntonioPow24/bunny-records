@@ -104,7 +104,7 @@ Construye cada uno con Auto Layout, variables `semantic` y propiedades de varian
 | `ProductionNotes` | — | Lista de aprendizajes y decisiones |
 | `PlayerTray` | escritorio / móvil · `bunny`: listen / dance / wave / rest | Ranura del conejo a la izquierda, título actual, **⏮ ⏭ pista anterior/siguiente** (juntos, 44 px) y "Colección" |
 | `BunnySlot` | stage (grande) / tray (pequeño) / peek (contacto) | Marco con el PNG y el halo teal bajo los pies (elipse con desenfoque) |
-| `TechPanel` | lateral (escritorio) / hoja inferior (móvil) / página completa | Nombre e icono, "Cómo la uso", "Aparece en" (portadas `mini`), "Qué aprendí", cerrar ✕ |
+| `TechPanel` | lateral (escritorio) / hoja inferior (móvil) / página completa | Nombre e icono, "Aparece en" (portadas `mini` con la función en cada álbum), cerrar ✕. Sin "Cómo la uso" ni "Qué aprendí" desde la mejora 2 |
 | `Button` | primary / secondary / ghost · default / hover / focus / disabled | Primario: teal + ink |
 | `Scrim` | — | Atenuado del álbum detrás del panel |
 
@@ -177,9 +177,7 @@ D06 Pista abierta (solo cambia la columna derecha bajo la cabecera)
 D07 Panel de tecnología
 │ (álbum atenuado)              ┌────────────── ✕ ┐        │
 │                               │ ⬡ Next.js        │        │
-│                               │ Cómo la uso…     │        │
 │                               │ Aparece en ▢ ▢ ▢ │        │
-│                               │ Qué aprendí…     │        │
 │                               └──────────────────┘        │
 ```
 

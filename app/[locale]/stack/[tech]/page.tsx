@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/layout/container";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
 import { technologies, type TechnologyId } from "@/content/technologies";
-import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/stack/[t
   const { tech } = await params;
   if (!(tech in technologies)) return {};
   const t = technologies[tech as TechnologyId];
-  const locale = await getLocale();
-  return buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description: t.howIUseIt[locale] });
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
+  return buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description: format(dict.tech.metaDescription, { name: t.name }) });
 }
 
 // Ficha a página completa (Figma D08): entrada directa o recarga. Indexable y con la misma URL que el panel.

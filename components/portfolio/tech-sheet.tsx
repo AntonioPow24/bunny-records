@@ -8,7 +8,8 @@ import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 import { CoverArt } from "./cover-art";
 
 // Contenido de la ficha de tecnología (Figma TechPanel / D08). Lo usan el panel sobre el álbum y la
-// página completa. "Aparece en" se deriva de los créditos de cada proyecto.
+// página completa. Solo "Aparece en", derivado de los créditos de cada proyecto: la ficha escala sin
+// textos propios por tecnología (la función en cada álbum ya va en su crédito).
 export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: string }) {
   const tech = getTechnology(id);
   if (!tech) return null;
@@ -35,18 +36,6 @@ export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: st
             : dict.tech.notInAlbums}
         </p>
       </header>
-
-      <section className="flex flex-col gap-2">
-        <h2 className="text-h3">{dict.tech.howIUseIt}</h2>
-        <p className="text-body text-muted-foreground">{tech.howIUseIt[locale]}</p>
-      </section>
-
-      {tech.learned && (
-        <section className="flex flex-col gap-2">
-          <h2 className="text-h3">{dict.tech.learned}</h2>
-          <p className="text-body text-muted-foreground">{tech.learned[locale]}</p>
-        </section>
-      )}
 
       {uses.length > 0 && (
         <section className="flex flex-col gap-3">

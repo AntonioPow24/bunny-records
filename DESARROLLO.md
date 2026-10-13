@@ -317,13 +317,15 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | # | Tarea | Tipo | Estado |
 |---|---|---|---|
 | 1 | Disco por encima del conejo al entrar a Sobre mí / Contacto desde otra ruta | Fallo | Hecho (`mejora-1-disco-conejo`) |
-| 2 | Ficha de tecnología: quitar "Cómo la uso" y "Qué aprendí"; solo queda "Aparece en" | Código + contenido | Pendiente |
+| 2 | Ficha de tecnología: quitar "Cómo la uso" y "Qué aprendí"; solo queda "Aparece en" | Código + contenido | Hecho (`mejora-2-ficha-tecnologia`) |
 | 3 | Bandeja: en la lista de pistas, botón Play (abre la pista 1); ⏮ ⏭ solo dentro de una pista | Código | Pendiente |
 | 4 | Créditos del álbum: rediseño sin la línea continua hasta la función, para textos cortos | Figma → código | Pendiente |
 | 5 | Ficha breve de la colección: sin título repetido; caja de descripción y botón rediseñada | Figma → código | Pendiente |
 | 6 | Contacto: parte informativa más vistosa | Figma → código | Pendiente |
 
 **Tarea 1 (2026-10-12):** al entrar desde otra ruta, el `<ViewTransition name="scene-bunny">` de React no creaba capa para el conejo (entraba con la página), así que se pintaba en `root` y el disco (z-index 110) lo tapaba hasta el final. Ahora el nombre y la clase van en CSS sobre el conejo (`components/sections/turntable.tsx`) y la capa existe siempre. Verificado sobre el build con la animación a 0,1×: Inicio → Sobre mí y álbum → Contacto en escritorio, Inicio → Sobre mí en 390×844, y Sobre mí ↔ Contacto sigue con su capa compartida.
+
+**Tarea 2 (2026-10-12):** la ficha (panel y página) solo muestra cabecera y "Aparece en"; la función en cada álbum sale de los créditos. Fuera los campos `howIUseIt` y `learned` (`content/technologies.ts`, `types/content.ts`) y sus claves de diccionario. La descripción para buscadores de `/stack/[tech]` pasa a `tech.metaDescription` ("{name} en Bunny Records: los álbumes… en los que aparece…"). Verificado sobre el build: panel sobre el álbum (1920×911), página completa en 390×844 y descripción en es/en, sin errores de consola. Ojo: un `next start` que sigue vivo mientras se reconstruye `.next` sirve un build roto (el panel se abría como página completa); pararlo antes de cada build.
 
 ---
 
