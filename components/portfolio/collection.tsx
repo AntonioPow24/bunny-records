@@ -4,12 +4,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, ViewTransition, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useRef, ViewTransition, type KeyboardEvent, type PointerEvent } from "react";
 
 import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
 import type { BunnySide } from "@/components/bunny/engine";
 import { StatusPill, type ProjectStatusVariant } from "@/components/patterns/status-pill";
 import { buttonVariants } from "@/components/ui/button";
+import { useSessionState } from "@/lib/session-state";
 import { cn } from "@/lib/utils";
 
 import "./collection.css";
@@ -26,6 +27,8 @@ export type CollectionItem = {
 };
 
 type Filter = "all" | ProjectStatusVariant;
+type CollectionView = { filter: Filter; slug: string | null };
+const INITIAL_VIEW: CollectionView = { filter: "all", slug: null };
 
 type CollectionLabels = {
   filterLabel: string;
@@ -64,25 +67,34 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
   const router = useRouter();
   const bunny = useRef<BunnyHandle>(null);
   const swipeStart = useRef<number | null>(null);
-  const [filter, setFilter] = useState<Filter>("all");
-  const [selected, setSelected] = useState(0);
+  const arc = useRef<HTMLElement>(null);
+  // Filtro y portada elegida, por slug: se conservan al cambiar de idioma (lib/session-state.ts).
+  const [view, setView] = useSessionState("collection", INITIAL_VIEW);
 
   const filters = (["all", "published", "in-development", "planned"] as Filter[]).filter(
     (f) => f === "all" || items.some((i) => i.status === f),
   );
+  const filter = filters.includes(view.filter) ? view.filter : "all";
   const visible = filter === "all" ? items : items.filter((i) => i.status === filter);
-  const current = visible[Math.min(selected, visible.length - 1)];
+  const found = visible.findIndex((i) => i.slug === view.slug);
+  const selected = found >= 0 ? found : 0;
+  const current = visible[selected];
+
+  // La selección restaurada al cargar se coloca sin animar; a partir de ahí, las portadas se deslizan.
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => arc.current?.setAttribute("data-settled", ""));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   function chooseFilter(f: Filter) {
-    setFilter(f);
     const list = f === "all" ? items : items.filter((i) => i.status === f);
-    const keep = list.findIndex((i) => i.slug === current?.slug);
-    setSelected(keep >= 0 ? keep : 0);
+    const keep = list.some((i) => i.slug === current?.slug);
+    setView({ filter: f, slug: keep ? (current?.slug ?? null) : (list[0]?.slug ?? null) });
   }
 
   function select(index: number) {
     if (visible.length === 0) return;
-    setSelected((index + visible.length) % visible.length);
+    setView({ filter, slug: visible[(index + visible.length) % visible.length].slug });
   }
 
   /** Lado del conejo hacia el que queda un elemento (mira o señala hacia él). */
@@ -153,6 +165,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
           </ViewTransition>
 
           <section
+            ref={arc}
             aria-roledescription={labels.collectionRole}
             aria-label={labels.collectionLabel}
             tabIndex={0}
