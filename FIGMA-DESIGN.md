@@ -269,7 +269,7 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ### 8.3 T15 — Videoclip: ventana de película bajo la portada (2026-10-13)
 
-**Estado: propuesta visual pendiente de aprobación.** Ubicación confirmada por el usuario: solo al entrar al proyecto y en sus pistas, no en Inicio. Originales preservados; sin código ni funcionalidad implementados.
+**Estado: diseño T15 aprobado por el usuario el 2026-10-13; pendientes grabaciones e implementación por Claude tras indicación manual.** Ubicación confirmada por el usuario: solo al entrar al proyecto y en sus pistas, no en Inicio. Originales preservados; sin código ni funcionalidad implementados.
 
 - [Propuesta completa](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=162-309), [contexto escritorio](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=162-652) `162:652`, [detalle móvil](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=162-1081) `162:1081`; componente `DemoClip / T15` `162:651`, estados default/focus.
 - **Concepto:** pequeña ventana cinematográfica con marco mate oscuro, perforaciones discretas en los laterales y etiqueta «En acción». Sin botón Play, controles, duración, barra de progreso ni indicador animado. El vídeo es protagonista dentro de su caja; la portada y las pistas mantienen su jerarquía.
