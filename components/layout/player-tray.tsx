@@ -31,8 +31,7 @@ type PlayerTrayProps = { locale: Locale; albums: TrayAlbum[]; labels: TrayLabels
 
 type Control = { href: string; label: string } | null;
 
-const iconButton =
-  "inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-secondary";
+const iconButton = "inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors";
 
 // Bandeja tipo reproductor (BUNNY-RECORDS.md §5.3.2): solo existe en el flujo de proyectos.
 // En la lista de pistas de un álbum publicado hay un solo ▶ (abre la pista 1); dentro de una pista,
@@ -69,13 +68,23 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
     }
   }
 
-  const control = (c: Control, Icon: typeof SkipBack, fallback: string) =>
+  // ▶ es el botón primario (fondo teal, texto ink); ⏮ ⏭ son discretos. Desactivado = sin enlace.
+  const control = (c: Control, Icon: typeof SkipBack, fallback: string, primary = false) =>
     c ? (
-      <Link href={c.href} prefetch aria-label={c.label} className={iconButton}>
-        <Icon className="size-4 fill-current" />
+      <Link
+        href={c.href}
+        prefetch
+        aria-label={c.label}
+        title={c.label}
+        className={cn(
+          iconButton,
+          primary ? "bg-primary text-primary-foreground hover:bg-foreground hover:text-background" : "hover:bg-secondary",
+        )}
+      >
+        <Icon className={cn("size-4 fill-current", primary && "translate-x-px")} />
       </Link>
     ) : (
-      <span aria-hidden="true" title={fallback} className={cn(iconButton, "opacity-30 hover:bg-transparent")}>
+      <span aria-hidden="true" title={fallback} className={cn(iconButton, "opacity-30")}>
         <Icon className="size-4 fill-current" />
       </span>
     );
@@ -91,21 +100,17 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           <p className="text-body-strong truncate">{album.title}</p>
           <p className="text-body-sm truncate text-muted-foreground">{subtitle}</p>
         </div>
-        {play && (
-          <Link
-            href={play.href}
-            prefetch
-            aria-label={play.label}
-            title={play.label}
-            className={cn(iconButton, "bg-primary text-primary-foreground hover:bg-foreground hover:text-background")}
-          >
-            <Play className="size-4 translate-x-px fill-current" />
-          </Link>
-        )}
-        {(prev || next) && (
-          <div className="flex items-center">
-            {control(prev, SkipBack, labels.prevTrack)}
-            {control(next, SkipForward, labels.nextTrack)}
+        {album.published && (
+          // Ancho fijo (dos botones): al cambiar ▶ ↔ ⏮ ⏭ el título no cambia de ancho.
+          <div className="flex w-22 shrink-0 items-center justify-end">
+            {play ? (
+              control(play, Play, labels.firstTrack, true)
+            ) : (
+              <>
+                {control(prev, SkipBack, labels.prevTrack)}
+                {control(next, SkipForward, labels.nextTrack)}
+              </>
+            )}
           </div>
         )}
       </div>

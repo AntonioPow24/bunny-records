@@ -8,7 +8,8 @@ import { Container } from "@/components/layout/container";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
 import { technologies, type TechnologyId } from "@/content/technologies";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
-import { buildMetadata } from "@/lib/seo";
+import { getProjectsUsing } from "@/lib/content";
+import { NOINDEX, buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return Object.keys(technologies).map((tech) => ({ tech }));
@@ -19,7 +20,11 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/stack/[t
   if (!(tech in technologies)) return {};
   const t = technologies[tech as TechnologyId];
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
-  return buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description: format(dict.tech.metaDescription, { name: t.name }) });
+  // Sin álbumes, la ficha solo tiene el nombre: descripción honesta y fuera del índice (y del sitemap).
+  const inAlbums = getProjectsUsing(tech as TechnologyId).length > 0;
+  const description = format(inAlbums ? dict.tech.metaDescription : dict.tech.metaDescriptionNoAlbums, { name: t.name });
+  const metadata = buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description });
+  return inAlbums || NOINDEX ? metadata : { ...metadata, robots: { index: false, follow: true } };
 }
 
 // Ficha a página completa (Figma D08): entrada directa o recarga. Indexable y con la misma URL que el panel.

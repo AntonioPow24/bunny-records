@@ -89,7 +89,7 @@ export type UpcomingProject = ProjectBase & {
 
 export type Project = PublishedProject | UpcomingProject;
 
-/** Ficha compartida de una tecnología. "Aparece en" se deriva de los créditos. */
+/** Ficha compartida de una tecnología: solo nombre y grupo; "Aparece en" se deriva de los créditos. */
 export type Technology = {
   name: string;
   /** Grupo del "Equipo de estudio" en Sobre mí. */

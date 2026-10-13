@@ -329,6 +329,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 
 **Tarea 3 (2026-10-13):** en la lista de pistas, la bandeja muestra un solo ▶ (botón primario: fondo teal, texto ink) que abre la pista 1. Dentro de una pista, ⏮ ⏭; ⏮ en la pista 1 vuelve a la lista y ⏭ en la última queda desactivado (decisión del usuario: no salta a créditos). Próximos lanzamientos: sin controles. Verificado sobre el build en 1920×911 y 375×667: ▶ → pista 1, ⏭ hasta la 5 (desactivado), ⏮, y álbum planeado sin controles; sin errores de consola.
 
+**Revisión de 2 y 3 (code-review, 2026-10-13), corregido:** las fichas sin álbumes (8 del Equipo de estudio) llevan descripción propia ("…todavía no aparece en ningún álbum"), `noindex, follow` y salen del sitemap; en móvil, "Aparece en" muestra el estado bajo la función (antes se ocultaba y un planeado parecía experiencia real); la bandeja tiene un solo renderizador de controles (▶ como variante primaria, título en todos) y una zona de ancho fijo para que el título no cambie de ancho al pasar de ▶ a ⏮ ⏭; `PORTFOLIO.md` describe el modelo real de `Technology`.
+
 ---
 
 ## Historial

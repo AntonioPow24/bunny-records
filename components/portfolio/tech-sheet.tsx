@@ -59,6 +59,8 @@ export async function TechSheet({ id, titleId }: { id: TechnologyId; titleId: st
                   <span className="min-w-0 flex-1">
                     <span className="text-body-strong block truncate">{project.title[locale]}</span>
                     <span className="text-body-sm block truncate text-muted-foreground">{role[locale]}</span>
+                    {/* Móvil: el estado va bajo la función (que un planeado no parezca experiencia real). */}
+                    <StatusPill status={project.status} label={statusLabel[project.status]} className="mt-1.5 sm:hidden" />
                   </span>
                   <StatusPill status={project.status} label={statusLabel[project.status]} className="hidden sm:inline-flex" />
                 </Link>

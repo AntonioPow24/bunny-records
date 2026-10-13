@@ -127,6 +127,7 @@
   "tech": {
     "eyebrow": "Ficha de tecnología · créditos compartidos",
     "metaDescription": "{name} en Bunny Records: los álbumes de Antonio García Romero en los que aparece y qué papel tiene en cada uno.",
+    "metaDescriptionNoAlbums": "{name} en el equipo de estudio de Antonio García Romero. Todavía no aparece en ningún álbum.",
     "appearsIn": "Aparece en",
     "appearsCount": {
       "one": "Aparece en {count} álbum",

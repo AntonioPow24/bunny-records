@@ -127,6 +127,7 @@
   "tech": {
     "eyebrow": "Technology sheet · shared credits",
     "metaDescription": "{name} at Bunny Records: the albums by Antonio García Romero it appears on and its role in each.",
+    "metaDescriptionNoAlbums": "{name} in Antonio García Romero’s studio gear. Not on any album yet.",
     "appearsIn": "Appears on",
     "appearsCount": {
       "one": "Appears on {count} album",
