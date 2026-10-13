@@ -4,11 +4,13 @@ import { Container } from "@/components/layout/container";
 import { Collection, type CollectionItem } from "@/components/portfolio/collection";
 import { profile } from "@/content/profile";
 import { getProjects } from "@/lib/content";
+import { JsonLd } from "@/components/seo/json-ld";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { SITE_NAME, SITE_URL, absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
-  return { title: { absolute: dict.meta.title }, description: dict.meta.description };
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
+  return buildMetadata({ locale, path: "", title: dict.meta.title, description: dict.meta.description, absoluteTitle: true });
 }
 
 // Inicio = colección (BUNNY-RECORDS.md §5.2 y §5.3.2): una sola pantalla, sin scroll.
@@ -32,6 +34,23 @@ export default async function HomePage() {
 
   return (
     <Container className="flex min-h-0 flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_URL}/#website`,
+                name: SITE_NAME,
+                url: absoluteUrl(locale, ""),
+                inLanguage: locale,
+                description: dict.meta.description,
+                author: { "@id": `${SITE_URL}/#person` },
+              },
+              personJsonLd(locale),
+            ],
+          }}
+        />
         <div className="flex max-w-xl shrink-0 flex-col gap-1.5 md:gap-3">
           <p className="text-label text-primary">{dict.home.eyebrow}</p>
           <h1 className="text-h2">{dict.home.title}</h1>

@@ -258,12 +258,17 @@ Lighthouse móvil (simulación por defecto):
 - "Transition was aborted… Document hidden": aparece solo cuando la ventana del navegador está oculta o tapada; es el navegador cancelando la animación, sin efecto.
 - **Verificado:** recorrido completo en desarrollo sin avisos en consola; en producción, HTML estático con el contenido completo y 404 correctos.
 
-## Paso 12 — SEO y compartir
+## Paso 12 — SEO y compartir ✅ (pendiente de revisión)
 
 **Objetivo:** que cada página se indexe y se comparta bien.
 
-- `buildMetadata()` con canónica, hreflang y OG explícita; sitemap y robots según `SITE_NOINDEX`.
-- JSON-LD (`Person`, `WebSite`, `CreativeWork`, `BreadcrumbList`); OG por álbum con la plantilla de Figma; `icon.svg` y `apple-icon`.
+- `lib/seo.ts` (adaptado de Vidriería): `buildMetadata()` da canónica, hreflang (es, en, x-default), Open Graph (`es_PE`/`en_US` y alternativa) y Twitter `summary_large_image`, con la imagen **siempre explícita** (si una página define `openGraph`, pierde la heredada). `metadataBase` y `SITE_URL`: `NEXT_PUBLIC_SITE_URL` → dominio de producción de Vercel → localhost.
+- `app/robots.ts` y `app/sitemap.ts`: con `SITE_NOINDEX=true` se bloquea todo y las páginas llevan `noindex`; si no, sitemap con las 2 × (3 + 5 álbumes + 5 pistas + tecnologías) URLs y sus alternativas; `/lab` fuera.
+- **Imágenes al compartir:** general `public/og-default.png` (conejo + logo, de `design/logo/meta/`); una por álbum generada en el build (`projects/[slug]/opengraph-image.tsx`, plantilla Figma "OG · plantilla por álbum"), que usan también sus pistas. Fuentes TTF en `assets/fonts/` (OFL). Con Cache Components, la lectura de archivos va en `"use cache"` (sin eso la imagen daba 500 al servirla).
+- **JSON-LD:** `WebSite` + `Person` (con GitHub y LinkedIn) en Inicio; `CreativeWork` + `BreadcrumbList` en álbumes y pistas.
+- Iconos del logo: `app/favicon.ico` (sustituye al de Next por defecto), `app/icon.svg`, `app/apple-icon.png`; `themeColor` `#0C111C`.
+- **Verificado** con un build de prueba (`NEXT_PUBLIC_SITE_URL=https://ejemplo.dev`): etiquetas `<head>` de Inicio, Sobre mí, álbum y pista en los dos idiomas, `sitemap.xml`, `robots.txt`, JSON-LD y las imágenes OG de 3 álbumes (es/en).
+- Pendiente para el paso 14: fijar `NEXT_PUBLIC_SITE_URL` cuando haya dominio y validar las tarjetas con las herramientas de Facebook/LinkedIn y el Rich Results Test de Google.
 
 ## Paso 13 — Calidad
 

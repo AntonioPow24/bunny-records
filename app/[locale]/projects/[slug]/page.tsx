@@ -3,16 +3,24 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { CreditsList } from "@/components/portfolio/credits-list";
+import { JsonLd } from "@/components/seo/json-ld";
 import { TrackRow } from "@/components/portfolio/track-row";
 import { getProject, getReadingMinutes, getTechnology, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   const locale = await getLocale();
   if (!project) return {};
-  return { title: project.title[locale], description: project.tagline[locale] };
+  return buildMetadata({
+    locale,
+    path: `/projects/${project.slug}`,
+    title: project.title[locale],
+    description: project.tagline[locale],
+    image: albumImage(locale, project.slug, project.title[locale]),
+  });
 }
 
 // Contenido del álbum: lista de pistas, créditos y notas de producción (publicado), o concepto, stack
@@ -34,6 +42,33 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
   if (!project) notFound();
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
 
+  const path = `/projects/${project.slug}`;
+  // Álbum = CreativeWork del autor, con sus migas (PORTFOLIO.md §8).
+  const jsonLd = (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CreativeWork",
+            name: project.title[locale],
+            description: project.tagline[locale],
+            url: absoluteUrl(locale, path),
+            image: `${SITE_URL}${project.cover.src.src}`,
+            dateCreated: String(project.year),
+            inLanguage: locale,
+            creativeWorkStatus: dict.status[project.status === "in-development" ? "inDevelopment" : project.status],
+            author: { "@id": `${SITE_URL}/#person` },
+          },
+          breadcrumbJsonLd(locale, [
+            { name: dict.album.back, path: "" },
+            { name: project.title[locale], path },
+          ]),
+        ],
+      }}
+    />
+  );
+
   const credits = project.credits.map((c) => ({
     id: c.tech,
     name: getTechnology(c.tech)?.name ?? c.tech,
@@ -44,6 +79,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
   if (!isPublished(project)) {
     return (
       <div className="flex flex-col gap-8 pb-6">
+        {jsonLd}
         <CreditsList title={dict.album.proposedStack} items={credits} />
         <section className="flex flex-col gap-2">
           <h2 className="text-h3">{dict.album.nextValidation}</h2>
@@ -56,6 +92,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
   const base = `/${locale}/projects/${project.slug}`;
   return (
     <div className="flex flex-col gap-8 pb-6">
+      {jsonLd}
       <section aria-label={format(dict.album.tracklistLabel, { title: project.title[locale] })}>
         <h2 className="sr-only">{dict.album.tracks}</h2>
         <ol className="flex flex-col gap-1">

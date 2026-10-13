@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/container";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
 import { technologies, type TechnologyId } from "@/content/technologies";
 import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return Object.keys(technologies).map((tech) => ({ tech }));
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/stack/[t
   if (!(tech in technologies)) return {};
   const t = technologies[tech as TechnologyId];
   const locale = await getLocale();
-  return { title: t.name, description: t.howIUseIt[locale] };
+  return buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description: t.howIUseIt[locale] });
 }
 
 // Ficha a página completa (Figma D08): entrada directa o recarga. Indexable y con la misma URL que el panel.
