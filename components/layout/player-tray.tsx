@@ -2,7 +2,7 @@
 
 import { SkipBack, SkipForward } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegments } from "next/navigation";
 import { ViewTransition } from "react";
 
 import { Bunny } from "@/components/bunny/bunny";
@@ -37,8 +37,9 @@ const iconButton =
 // Bandeja tipo reproductor (BUNNY-RECORDS.md §5.3.2): solo existe en el flujo de proyectos.
 // En un álbum publicado ⏮ ⏭ cambian de pista; en un próximo lanzamiento solo muestra el título.
 export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
-  const pathname = usePathname();
-  const [, , section, slug, trackSlug] = pathname.split("/");
+  // Segmentos de la página de fondo (ver nav-disc.tsx): con el panel de tecnología abierto sobre un álbum,
+  // la bandeja sigue ahí.
+  const [section, slug, trackSlug] = useSelectedLayoutSegments();
   const album = section === "projects" ? albums.find((a) => a.slug === slug) : undefined;
   if (!album) return null;
 
@@ -67,7 +68,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
 
   const control = (c: Control, Icon: typeof SkipBack, fallback: string) =>
     c ? (
-      <Link href={c.href} aria-label={c.label} className={iconButton}>
+      <Link href={c.href} prefetch aria-label={c.label} className={iconButton}>
         <Icon className="size-4 fill-current" />
       </Link>
     ) : (

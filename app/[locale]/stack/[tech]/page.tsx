@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { Container } from "@/components/layout/container";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
@@ -21,7 +22,16 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/stack/[t
 }
 
 // Ficha a página completa (Figma D08): entrada directa o recarga. Indexable y con la misma URL que el panel.
-export default async function TechPage({ params }: PageProps<"/[locale]/stack/[tech]">) {
+// Lo que depende de `params` va en <Suspense>: ver app/[locale]/projects/[slug]/page.tsx.
+export default function TechPage({ params }: PageProps<"/[locale]/stack/[tech]">) {
+  return (
+    <Suspense>
+      <TechPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function TechPageContent({ params }: Pick<PageProps<"/[locale]/stack/[tech]">, "params">) {
   const { tech } = await params;
   if (!(tech in technologies)) notFound();
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);

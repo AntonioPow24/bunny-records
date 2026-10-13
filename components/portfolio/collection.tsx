@@ -200,7 +200,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                   onPointerLeave={() => bunny.current?.setHover(null)}
                 >
                   {isCurrent ? (
-                    <Link href={item.href} className="block rounded-lg">
+                    <Link href={item.href} prefetch className="block rounded-lg">
                       {art}
                       <span className="sr-only">
                         {fill(labels.position, { title: "", position: index + 1, total: visible.length }).replace(/^,\s*/, ", ")}
@@ -252,7 +252,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
               <StatusPill status={current.status} label={current.statusLabel} />
             </div>
             <p className="text-body-sm mt-1.5 line-clamp-2 text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
-            <Link href={current.href} className={cn(buttonVariants({ size: "sm" }), "mt-3")}>
+            <Link href={current.href} prefetch className={cn(buttonVariants({ size: "sm" }), "mt-3")}>
               {current.status === "published" ? labels.open : labels.openPlanned}
             </Link>
           </div>

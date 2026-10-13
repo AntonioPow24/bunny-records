@@ -15,6 +15,7 @@ export function CreditsList({ title, items }: { title: string; items: CreditItem
           <li key={item.id}>
             <Link
               href={item.href}
+              prefetch
               className="group flex min-h-12 items-center gap-4 rounded-md px-2 transition-colors hover:bg-accent"
             >
               <span className="text-body-strong shrink-0">{item.name}</span>

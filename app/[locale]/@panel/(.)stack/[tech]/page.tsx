@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { TechPanel } from "@/components/portfolio/tech-panel";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
@@ -10,7 +11,16 @@ export function generateStaticParams() {
 }
 
 // Ficha como panel encima de la página actual (navegación interna desde los créditos o "Equipo de estudio").
-export default async function TechPanelRoute({ params }: PageProps<"/[locale]/stack/[tech]">) {
+// Lo que depende de `params` va en <Suspense>: ver app/[locale]/projects/[slug]/page.tsx.
+export default function TechPanelRoute({ params }: PageProps<"/[locale]/stack/[tech]">) {
+  return (
+    <Suspense>
+      <TechPanelContent params={params} />
+    </Suspense>
+  );
+}
+
+async function TechPanelContent({ params }: Pick<PageProps<"/[locale]/stack/[tech]">, "params">) {
   const { tech } = await params;
   if (!(tech in technologies)) notFound();
   const dict = await getDictionary();

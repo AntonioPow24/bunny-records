@@ -224,6 +224,15 @@
   animation-duration: 320ms;
 }
 
+/* La fila de la pista sube a la cabecera de la lista (y vuelve): más corta que la portada, porque es un
+   cambio dentro del mismo álbum (PORTFOLIO.md §3.7: pistas 200–250 ms). Paso 11. */
+::view-transition-group(.track-morph),
+::view-transition-old(.track-morph),
+::view-transition-new(.track-morph) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
 /* Texto de una pista abierta: entra con un fundido corto hacia arriba (paso 8). */
 ::view-transition-new(.track-body):only-child {
   animation: track-body-in 260ms cubic-bezier(0.2, 0, 0, 1) both;

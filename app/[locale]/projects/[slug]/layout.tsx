@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ViewTransition } from "react";
+import { Suspense, ViewTransition } from "react";
 
 import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/patterns/status-pill";
@@ -16,7 +16,16 @@ export function generateStaticParams() {
 
 // Álbum (Figma V2-D04/D09, M04; BUNNY-RECORDS.md §5.2): portada y cabecera fijas a la izquierda/arriba, que
 // persisten al cambiar de pista (este layout no se vuelve a montar). Lo largo hace scroll solo en su panel.
-export default async function AlbumLayout({ children, params }: LayoutProps<"/[locale]/projects/[slug]">) {
+// Lo que depende de `params` va en <Suspense>: ver app/[locale]/projects/[slug]/page.tsx.
+export default function AlbumLayout({ children, params }: LayoutProps<"/[locale]/projects/[slug]">) {
+  return (
+    <Suspense>
+      <Album params={params}>{children}</Album>
+    </Suspense>
+  );
+}
+
+async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/[slug]">, "children" | "params">) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
