@@ -43,7 +43,7 @@ type BuildMetadataInput = {
 };
 
 /** Imagen general (design/logo/meta/og-default.png): el conejo y el logo. */
-const DEFAULT_IMAGE = { url: "/og-default.png", alt: "Bunny Records · Antonio García Romero" };
+const DEFAULT_IMAGE = { url: "/og-default.png", alt: "Bunny Records · Antonio Garcia Romero" };
 
 /** Imagen generada de un álbum (app/[locale]/projects/[slug]/opengraph-image.tsx). */
 export const albumImage = (locale: Locale, slug: string, alt: string) => ({

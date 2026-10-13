@@ -2,7 +2,7 @@
 
 # Bunny Records — reglas del proyecto
 
-Portfolio personal de Antonio García Romero presentado como un sello discográfico. Documentos que mandan:
+Portfolio personal de Antonio Garcia Romero presentado como un sello discográfico. Documentos que mandan:
 
 | Documento | Para qué |
 |---|---|

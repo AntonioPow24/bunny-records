@@ -1,6 +1,6 @@
 # Bunny Records
 
-Portfolio de Antonio García Romero, presentado como un sello discográfico: cada proyecto es un álbum, su caso de estudio son las pistas y las tecnologías aparecen en los créditos.
+Portfolio de Antonio Garcia Romero, presentado como un sello discográfico: cada proyecto es un álbum, su caso de estudio son las pistas y las tecnologías aparecen en los créditos.
 
 ## Stack
 
