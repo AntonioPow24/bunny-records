@@ -1,6 +1,6 @@
 "use client";
 
-import { SkipBack, SkipForward } from "lucide-react";
+import { Play, SkipBack, SkipForward } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { ViewTransition } from "react";
@@ -35,7 +35,9 @@ const iconButton =
   "inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-secondary";
 
 // Bandeja tipo reproductor (BUNNY-RECORDS.md §5.3.2): solo existe en el flujo de proyectos.
-// En un álbum publicado ⏮ ⏭ cambian de pista; en un próximo lanzamiento solo muestra el título.
+// En la lista de pistas de un álbum publicado hay un solo ▶ (abre la pista 1); dentro de una pista,
+// ⏮ ⏭ cambian de pista (⏮ en la 1 vuelve a la lista; ⏭ en la última queda desactivado, como al final
+// de un disco). En un próximo lanzamiento solo muestra el título.
 export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   // Segmentos de la página de fondo (ver nav-disc.tsx): con el panel de tecnología abierto sobre un álbum,
   // la bandeja sigue ahí.
@@ -47,6 +49,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   let subtitle = album.summary;
   let prev: Control = null;
   let next: Control = null;
+  let play: Control = null;
 
   if (album.published) {
     const index = album.tracks.findIndex((t) => t.slug === trackSlug);
@@ -62,7 +65,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           ? { href: `${base}/${album.tracks[index + 1].slug}`, label: labels.nextTrack }
           : null;
     } else if (album.tracks[0]) {
-      next = { href: `${base}/${album.tracks[0].slug}`, label: labels.firstTrack };
+      play = { href: `${base}/${album.tracks[0].slug}`, label: labels.firstTrack };
     }
   }
 
@@ -88,7 +91,18 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           <p className="text-body-strong truncate">{album.title}</p>
           <p className="text-body-sm truncate text-muted-foreground">{subtitle}</p>
         </div>
-        {album.published && (
+        {play && (
+          <Link
+            href={play.href}
+            prefetch
+            aria-label={play.label}
+            title={play.label}
+            className={cn(iconButton, "bg-primary text-primary-foreground hover:bg-foreground hover:text-background")}
+          >
+            <Play className="size-4 translate-x-px fill-current" />
+          </Link>
+        )}
+        {(prev || next) && (
           <div className="flex items-center">
             {control(prev, SkipBack, labels.prevTrack)}
             {control(next, SkipForward, labels.nextTrack)}
