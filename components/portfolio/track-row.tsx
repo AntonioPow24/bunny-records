@@ -30,7 +30,7 @@ export function TrackRow({ href, number, title, subtitle, duration, active = fal
   const base = "flex min-h-14 items-center gap-4 rounded-md px-4 py-3";
 
   return (
-    <ViewTransition name={transitionName} share="morph" default="none">
+    <ViewTransition name={transitionName} share="track-morph" default="none">
       {active ? (
         <div aria-current="page" className={cn(base, "surface-lit border border-primary bg-card")}>
           {content}

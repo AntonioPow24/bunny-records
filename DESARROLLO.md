@@ -236,12 +236,19 @@ Lighthouse móvil (simulación por defecto):
 - **Bug corregido:** una pista inexistente (`/es/projects/vidrieria-antonio/nope`) daba **500**. Con Cache Components, un parámetro fuera de `generateStaticParams` se renderiza al pedirlo, y `usePathname()` fuera de `<Suspense>` hace fallar ese render. Discos, idioma, luces, bandeja y el reinicio de scroll del panel van ahora en `<Suspense>`; en las rutas reales la ruta se conoce al compilar y el HTML estático no cambia. Comprobado: 4 URLs inexistentes → 404, rutas reales → 200.
 - `global-not-found.tsx` (URLs sin idioma válido) se queda sencillo y bilingüe.
 
-## Paso 11 — Transiciones
+## Paso 11 — Transiciones ✅ (pendiente de revisión)
 
 **Objetivo:** la sensación de una sola página que se transforma.
 
-- View Transitions (verificar estado en la versión de Next instalada): portada → cabecera, conejo → bandeja, pistas, panel.
-- Duraciones de `PORTFOLIO.md` §3.7; corte limpio si el navegador no las soporta; nada con `prefers-reduced-motion`.
+- Casi todo llegó en los pasos 7–8 (`<ViewTransition>` de React 19.3, sin configuración en Next 16.4). Inventario comprobado en el build de producción, registrando qué grupos anima cada navegación:
+  - colección ↔ álbum: `cover-<slug>` (portada ↔ cabecera) y `host-bunny` (escenario ↔ bandeja), 320 ms;
+  - álbum ↔ pista (fila y flecha ←): `track-<slug>-<pista>` y el texto con fundido hacia arriba;
+  - barra ↔ Sobre mí / Contacto: `disc-<kind>` y `scene-bunny`; la barra no se mueve; el resto, fundido de 200 ms.
+- **Cambio:** las pistas pasan de 320 a **240 ms** (`share="track-morph"`), dentro del rango de §3.7 (200–250 ms): es un cambio dentro del mismo álbum. La portada se queda en 320 ms (decidido en el paso 7.5 por rendimiento).
+- **Panel de tecnología:** no usa View Transition; entra con la animación propia de Base UI (300 ms, lateral u hoja inferior).
+- **Atrás / Adelante del navegador:** Next restaura la página al instante, sin transición. Se deja así: en móvil el gesto de volver ya tiene su propia animación y se duplicaría. Los enlaces propios ("← Colección", flecha de la pista) sí animan.
+- Sin soporte, React cambia de página sin animar; con `prefers-reduced-motion`, duración 0 (regla de `globals.css`) y las transiciones CSS a 0,01 ms.
+- **Pendiente para medir tú:** los tiempos reales. El Chrome de automatización iba a 2 fps (ventana tapada), así que solo se verificó qué anima y con qué duración, no la fluidez.
 
 ## Paso 12 — SEO y compartir
 
