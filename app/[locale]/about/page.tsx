@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { AboutTracks, type AboutTrack } from "@/components/sections/about-tracks";
 import { Turntable } from "@/components/sections/turntable";
@@ -74,8 +75,13 @@ export default async function AboutPage() {
                 {gear
                   .filter((t) => t.group === group)
                   .map((t) => (
-                    <li key={t.id} className="text-body-sm rounded-full border border-border bg-secondary px-3.5 py-2">
-                      {t.name}
+                    <li key={t.id}>
+                      <Link
+                        href={`/${locale}/stack/${t.id}`}
+                        className="text-body-sm inline-flex min-h-11 items-center rounded-full border border-border bg-secondary px-3.5 transition-colors hover:bg-accent"
+                      >
+                        {t.name}
+                      </Link>
                     </li>
                   ))}
               </ul>

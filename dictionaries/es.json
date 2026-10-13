@@ -123,5 +123,19 @@
     "trackOf": "Pista {number} de {total}",
     "coverOf": "Portada de {title}",
     "backToTracks": "Volver a todas las pistas"
+  },
+  "tech": {
+    "eyebrow": "Ficha de tecnología · créditos compartidos",
+    "howIUseIt": "Cómo la uso",
+    "learned": "Qué aprendí",
+    "appearsIn": "Aparece en",
+    "appearsCount": {
+      "one": "Aparece en {count} álbum",
+      "other": "Aparece en {count} álbumes"
+    },
+    "notInAlbums": "Todavía no aparece en ningún álbum.",
+    "close": "Cerrar ficha",
+    "back": "Colección",
+    "openAlbum": "Abrir {title}"
   }
 }

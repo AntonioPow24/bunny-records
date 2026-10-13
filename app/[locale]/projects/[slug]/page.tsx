@@ -26,6 +26,7 @@ export default async function AlbumPage({ params }: PageProps<"/[locale]/project
     id: c.tech,
     name: getTechnology(c.tech)?.name ?? c.tech,
     role: c.role[locale],
+    href: `/${locale}/stack/${c.tech}`,
   }));
 
   if (!isPublished(project)) {
