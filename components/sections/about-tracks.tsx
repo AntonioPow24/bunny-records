@@ -74,7 +74,9 @@ export function AboutTracks({ tracks, label }: { tracks: AboutTrack[]; label: st
           );
         })}
       </div>
-      <ViewTransition key={current.id}>
+      {/* Solo anima el cambio de pista (la key cambia: sale una y entra otra). default="none": que otras
+          actualizaciones (abrir una ficha de tecnología encima) no lancen una transición de página. */}
+      <ViewTransition key={current.id} enter="auto" exit="auto" default="none">
         <div
           role="tabpanel"
           id={`panel-${current.id}`}
