@@ -45,6 +45,7 @@ export function CreditsList({ id, title, summary, groupLabels, items }: CreditsL
                 <Link
                   href={item.href}
                   prefetch
+                  transitionTypes={["panel"]}
                   className="group flex min-h-full w-full flex-col gap-1.5 rounded-md border border-border bg-card px-3.5 py-3 transition-colors hover:border-primary/60 hover:bg-accent"
                 >
                   {/* Nombre primero en el DOM (lo que se lee al tabular); la función se ve arriba. */}

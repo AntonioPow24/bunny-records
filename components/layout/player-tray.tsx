@@ -92,7 +92,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
   return (
     <section aria-label={labels.label} className="relative z-30 shrink-0 border-t border-border bg-card">
       <div className="mx-auto flex h-16 w-full max-w-312 items-center gap-2 px-3 md:h-18 md:gap-4 md:px-6">
-        <ViewTransition name="host-bunny" default="host-bunny">
+        <ViewTransition name="host-bunny" default={{ panel: "none", default: "host-bunny" }}>
           {/* Figma V2-D06: 60×80, las orejas sobresalen ~22 px por encima de la bandeja. */}
           <Bunny mode="lite" className="mb-3 w-12 shrink-0 self-end md:mb-3.5 md:w-15" />
         </ViewTransition>
