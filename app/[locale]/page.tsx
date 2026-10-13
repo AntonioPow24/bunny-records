@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { Collection, type CollectionItem } from "@/components/portfolio/collection";
 import { profile } from "@/content/profile";
-import { getProjects } from "@/lib/content";
+import { getAlbumMinutes, getProjects, isPublished } from "@/lib/content";
 import { JsonLd } from "@/components/seo/json-ld";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
 import { SITE_NAME, SITE_URL, absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
@@ -27,6 +27,10 @@ export default async function HomePage() {
     href: `/${locale}/projects/${p.slug}`,
     title: p.title[locale],
     tagline: p.tagline[locale],
+    // Ficha breve: "2026 · 5 pistas · 5 min" o "Próximo lanzamiento".
+    meta: isPublished(p)
+      ? `${p.year} · ${format(dict.tray.albumSummary, { tracks: String(p.tracks.length), minutes: String(getAlbumMinutes(p, locale)) })}`
+      : dict.tray.upcoming,
     status: p.status,
     statusLabel: statusLabel[p.status],
     cover: { src: p.cover.src, alt: p.cover.alt[locale] },

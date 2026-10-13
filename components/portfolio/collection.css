@@ -58,6 +58,9 @@
     pointer-events: none;
   }
 
+  .stage-info {
+    max-width: 26rem;
+  }
   .stage-bunny {
     width: calc(var(--cover) * 0.72);
   }
@@ -128,7 +131,11 @@
       position: absolute;
       z-index: 20;
       top: calc(var(--cover) * 1.06);
-      left: calc(50% - var(--cover) * 0.5);
+      /* Centrada bajo la portada (la pegatina es de texto centrado; la caja anterior se alineaba a la izquierda). */
+      left: 50%;
+      translate: -50% 0;
+      /* Algo más ancha que la portada, sin llegar al conejo de la izquierda. */
+      max-width: calc(var(--cover) * 1.15);
     }
   }
 }

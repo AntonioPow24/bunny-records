@@ -30,7 +30,7 @@
     "select": "Select {title}",
     "position": "{title}, {position} of {total}",
     "hint": "← → to browse · Enter to open",
-    "open": "Open project",
+    "open": "Play album",
     "openPlanned": "See the concept",
     "empty": "No albums with this status yet.",
     "filterPublished": "Published",

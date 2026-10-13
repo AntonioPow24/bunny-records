@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Disc3, Play } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { useEffect, useRef, ViewTransition, type KeyboardEvent, type PointerEven
 
 import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
 import type { BunnySide } from "@/components/bunny/engine";
-import { StatusPill, type ProjectStatusVariant } from "@/components/patterns/status-pill";
+import { statusGlyphs, type ProjectStatusVariant } from "@/components/patterns/status-pill";
 import { buttonVariants } from "@/components/ui/button";
 import { useSessionState } from "@/lib/session-state";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,8 @@ export type CollectionItem = {
   href: string;
   title: string;
   tagline: string;
+  /** Ya traducido: "2026 · 5 pistas · 5 min" o "Próximo lanzamiento". */
+  meta: string;
   status: ProjectStatusVariant;
   statusLabel: string;
   cover: { src: StaticImageData; alt: string };
@@ -242,17 +244,29 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
             </button>
           </div>
 
-          {/* Ficha breve de la seleccionada (Figma CoverInfo), debajo de la portada. */}
-          <div
-            aria-live="polite"
-            className="stage-info surface-lit w-full max-w-[26rem] rounded-lg border border-border bg-card p-4 md:p-5"
-          >
-            <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-h3">{current.title}</h2>
-              <StatusPill status={current.status} label={current.statusLabel} />
-            </div>
-            <p className="text-body-sm mt-1.5 line-clamp-2 text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
-            <Link href={current.href} prefetch className={cn(buttonVariants({ size: "sm" }), "mt-3")}>
+          {/* Ficha breve como pegatina (mejora 5; Figma "Mejoras · T5"): la portada ya lleva el título, así que
+              aquí no se repite (queda para lectores de pantalla). Estado y meta, la frase y ▶. */}
+          <div aria-live="polite" className="stage-info flex w-full flex-col items-center gap-3 text-center">
+            <h2 className="sr-only">{current.title}</h2>
+            {/* Texto corrido (no flex): si no cabe, se parte entre palabras y el "·" no queda al principio. */}
+            <p className="text-label text-balance text-muted-foreground">
+              <span className={current.status === "published" ? "text-primary" : undefined}>
+                <span aria-hidden="true">{statusGlyphs[current.status]} </span>
+                {current.statusLabel}
+              </span>{" "}
+              · {current.meta}
+            </p>
+            <p className="text-body-sm line-clamp-2 text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
+            <Link
+              href={current.href}
+              prefetch
+              className={buttonVariants({ size: "sm", variant: current.status === "published" ? "primary" : "secondary" })}
+            >
+              {current.status === "published" ? (
+                <Play aria-hidden="true" className="size-3.5 fill-current" />
+              ) : (
+                <Disc3 aria-hidden="true" />
+              )}
               {current.status === "published" ? labels.open : labels.openPlanned}
             </Link>
           </div>

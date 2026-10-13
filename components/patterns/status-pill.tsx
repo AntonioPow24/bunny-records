@@ -18,7 +18,8 @@ const pillVariants = cva(
   },
 );
 
-const glyphs: Record<ProjectStatusVariant, string> = {
+/** Glifo de la marca por estado (+ / −); también lo usa la ficha breve de la colección. */
+export const statusGlyphs: Record<ProjectStatusVariant, string> = {
   published: "+",
   "in-development": "+",
   planned: "−",
@@ -35,7 +36,7 @@ export function StatusPill({ status, label, className }: StatusPillProps) {
   return (
     <span className={cn(pillVariants({ status }), className)}>
       <span aria-hidden="true" className="text-mono">
-        {glyphs[status]}
+        {statusGlyphs[status]}
       </span>
       <span className="text-label">{label}</span>
     </span>
