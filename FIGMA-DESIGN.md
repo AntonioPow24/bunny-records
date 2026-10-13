@@ -253,6 +253,20 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ---
 
+### 8.2 T14 — Contacto: la contraportada del artista (2026-10-13)
+
+**Estado: concepto aprobado para diseñar; propuesta visual pendiente de aprobación e implementación por Claude.** Originales preservados: escritorio T6 `119:247`, móvil A-M11 `109:2197`. No se creó una página Lab.
+
+- [Propuesta completa T14](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=143-307): [escritorio](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=143-308) `143:308`; [móvil](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=143-432) `143:432`.
+- **Concepto:** Contacto cierra el repertorio como contraportada del artista. Composición editorial abierta sobre Midnight, sin tarjeta/ticket, All Access, contadores, perforación ni tarjetas sociales. Disco y conejo conservados; firma del artista y líneas finas conectan los créditos.
+- **Jerarquía y textos propuestos:** «Contacto · Contraportada» → «Detrás de cada álbum.» → «Interfaces cuidadas, ideas claras y código con intención.» → nombre, rol y base → «Notas del artista / Mi trayectoria, formación y herramientas.» con **Descargar CV** como acción principal → correo y perfiles → firma y créditos del sitio. Traducir los textos a ES/EN. Nombre y contactos salen de `content/profile.ts`; año de copyright dinámico desde `getBuildYear()`.
+- **Correo:** dato informativo de texto, sin botón Copiar, acción de portapapeles ni `mailto`. No impedir selección manual ni prometer que un correo visible no puede copiarse. Retirar el uso de `CopyEmail` de Contacto; revisar otros usos antes de retirar código compartido.
+- **CV:** reutilizar el botón primario del sistema, teal + ink, 48 px de alto. No hay CV en `public` al revisar: el usuario debe aportar el archivo aprobado antes de habilitar una descarga real. No inventar documento, tamaño, fecha, URL ni una descarga simulada; resolver idioma/versiones según el archivo aportado. Figma presenta el estado visual final, sin enlace funcional de descarga.
+- **Enlaces:** GitHub y LinkedIn mantienen URLs de `profile.contact`, objetivo mínimo 44 px, foco visible y aviso accesible de nueva pestaña. «Créditos del sitio» conserva `/[locale]/about#gear`. Hover/foco de los enlaces con tokens existentes. La descarga requiere nombre accesible «Descargar CV».
+- **Responsive:** escritorio 1440×900, panel derecho de 640 px, acción CV junto a su descripción; móvil 390×844, disco compacto, una columna y botón de ancho completo. Si no cabe, scroll dentro de `<main>` conforme a `Turntable`, nunca en el documento; correo con ajuste de línea. Verificar también 375×667 y 1920×911 y textos EN en navegador al implementar.
+- **Componentes afectados:** `components/sections/contact.tsx`, diccionarios ES/EN y la ubicación del CV; reutilizar `components/ui/button.tsx`, mantener `Turntable`, `Disc`, conejo, header, rutas, reduced motion y transiciones actuales. Sin ofertas de servicios, formulario ni backend.
+- **Validación del diseño:** UI en capas editables, dos instancias del botón existente, fuentes Sora/Geist/Geist Mono y colores ligados a variables. Captura conjunta revisada: sin cortes ni superposiciones en los frames diseñados. Sin cambios de código, descarga funcional ni QA de navegador durante esta fase. El usuario hace el traspaso manual a Claude tras aprobar el diseño.
+
 ## 9. Atajos (elegidos 2026-10-12)
 
 ### 9.0 Plan de Figma y costes (consultado el 2026-10-12)
