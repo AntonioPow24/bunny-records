@@ -220,6 +220,13 @@ Lighthouse móvil (simulación por defecto):
 - La URL del panel y la de la página completa es la misma; la canónica se revisa en el paso 12.
 - **Verificado en Chrome (build de producción):** abrir/cerrar/reabrir 3 veces, foco dentro y de vuelta al crédito, cierre con el logo, apertura desde Sobre mí, entrada directa y hoja inferior a 390×844 y 375×667.
 
+## Paso 9.1 — Ajustes tras revisión ✅ (pendiente de revisión)
+
+- **Colección (escritorio):** la vecina de la central quedaba casi tapada y la siguiente se veía entera, así que parecía "la siguiente". Ahora las vecinas asoman ~40 % y las de después son más pequeñas y tenues.
+- **Idioma sin efectos en el estado:** /es y /en tienen layouts raíz distintos, así que cambiar de idioma recarga el documento y la colección volvía siempre a la primera portada. `lib/session-state.ts` (`useSessionState`, sessionStorage de la pestaña) conserva filtro y portada elegida; la selección restaurada se coloca sin animar. El selector de idioma conserva también el `#hash` (pista abierta de Sobre mí).
+- **Conejo de la bandeja** como en Figma V2-D06 (60×80): las orejas sobresalen por encima de la bandeja.
+- **Verificado en Chrome (build de producción):** ES → EN → ES con otra portada; Sobre mí `#gear` EN → ES; bandeja en escritorio y 375×667; colección a 390 px.
+
 ## Paso 10 — Sobre mí, 404 y menú móvil
 
 **Objetivo:** las páginas del sello.
@@ -256,6 +263,13 @@ Lighthouse móvil (simulación por defecto):
 - Vercel Hobby (`PORTFOLIO.md` §2.1): revisar antes que ningún texto ofrezca servicios, precios ni pagos.
 - Remoto privado en GitHub, despliegue de prueba con `SITE_NOINDEX=true` y revisión.
 - Dominio en Cloudflare cuando se decida; primer despliegue de producción solo con aprobación del usuario.
+
+## Fase de mejoras (después del paso 14)
+
+Rediseños visuales anotados en la revisión del usuario; se diseñan primero en Figma.
+
+- Ficha breve de la colección (caja con nombre, estado y "Abrir proyecto"): se ve genérica.
+- Vista de Contacto: se ve genérica.
 
 ---
 
