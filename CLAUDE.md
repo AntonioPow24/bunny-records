@@ -36,7 +36,7 @@ Portfolio personal de Antonio García Romero presentado como un sello discográf
 
 ## Reglas de producto que no se rompen
 
-- **Sin scroll de página** (`BUNNY-RECORDS.md` §5.3.2): todo cabe en `100dvh`; lo largo se desplaza dentro de su panel. Comprobar 1920×911, 390×844 y 375×667 en cada pantalla nueva.
+- **Sin scroll de página** (`BUNNY-RECORDS.md` §5.3.2): todo cabe en `100dvh`; lo largo se desplaza dentro de su panel (en móvil, Sobre mí y Contacto desplazan toda la vista bajo la cabecera). Comprobar 1920×911, 390×844 y 375×667 en cada pantalla nueva.
 
 - **Hosting en Vercel Hobby:** el sitio es personal e informativo. Nunca añadir precios, pagos, anuncios ni ofertas de servicios o disponibilidad freelance (`PORTFOLIO.md` §2.1).
 - Sin métricas ni resultados inventados. Los proyectos planeados no tienen demo ni resultados.

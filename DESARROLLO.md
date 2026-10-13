@@ -326,7 +326,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 8 | Créditos como sobres por lado (A, B, C): las pistas siguen siendo las protagonistas | Concepto → Figma → código | Hecho (`mejora-8-creditos-sobres`) |
 | 9 | Mantener identidad de los sobres al cambiar de lado; corregir View Transitions | Código | Hecho; detalle en Tarea 9 |
 | 10 | Arte de las fundas con la identidad del conejo | Código | Hecho (`mejora-10-sobres-conejo`); sin actualización equivalente de Figma confirmada |
-| 11 | Equipo de estudio: instrumentos del repertorio, sin cápsulas de herramientas | Codex Figma → aprobación → Claude código | Propuesta T11 en Figma, pendiente de aprobación; detalle en `FIGMA-DESIGN.md` §8.1 |
+| 11 | Equipo de estudio: instrumentos del repertorio, sin cápsulas de herramientas | Codex Figma → aprobación → Claude código | Hecho (`mejora-11-equipo-estudio`); T11 aprobada el 2026-10-13, detalle en `FIGMA-DESIGN.md` §8.1 |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
@@ -355,6 +355,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 **Tarea 10 (2026-10-13):** las fundas de los créditos llevan arte en vez de la letra grande: A marfil con el conejo en silueta negra (como el disco de Contacto), B oscuro (#080A0D) con el logo y su oreja teal para que el conejo tenga borde, C teal como el disco de Sobre mí (y D teal oscuro por si un álbum llega a 4 lados). Colores de marca fijos, como el logo; "Lado A" pequeño arriba y área + nº de créditos abajo. El conejo sale a `BunnyMark` (`components/brand/logo.tsx`), que también usa la etiqueta de `Disc`. En móvil la funda es pequeña: el área va debajo de la funda. Sin diseño en Figma (cambio directo sobre T9). QA nivel 2 sobre el build: 1920×911, 390×844 y 375×667, reposo y abierto; sin scroll de documento ni desborde; axe sin violaciones en la sección.
 
 ---
+
+**Tarea 11 (2026-10-13):** T11 aprobada por el usuario. "Equipo de estudio" pasa de cápsulas a ficha editorial: «Instrumentos del estudio» + intro, cuatro categorías numeradas con separadores y las 15 herramientas `inGear` como enlaces a `/[locale]/stack/[tech]` (nombre + ↗, 44 px, hover teal); 3 columnas en escritorio, categoría encima y 2 columnas en móvil. Además, a petición del usuario: (1) en escritorio el bloque de Sobre mí (nombre, rol y pestañas) arranca arriba (`Turntable align="start"`) y ya no se mueve al cambiar de pista; el disco sigue centrado; (2) en móvil, Sobre mí y Contacto crecen con su contenido y se desplaza toda la vista (`<main>`) en lugar de solo el panel; el documento sigue sin scroll y la cabecera queda fija. La columna de contenido es `relative` para que los `sr-only` no agranden `<html>`. QA nivel 2 sobre el build con Chrome headless (emulación): 1920×911, 1440×900, 390×844 y 375×667 en es/en; pestañas a la misma altura en las cuatro pistas, sin scroll de documento ni desborde horizontal, enlaces ≥ 44 px, repertorio sin scroll interno en 1440×900.
 
 ## Historial
 

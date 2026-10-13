@@ -106,7 +106,8 @@
       "Studio gear"
     ],
     "principlesTitle": "Three label rules",
-    "gearIntro": "The tools I use, no skill bars.",
+    "gearTitle": "Studio instruments",
+    "gearIntro": "The tools I use to shape every project.",
     "gearGroups": {
       "frontend": "Frontend",
       "backend": "Backend and data",

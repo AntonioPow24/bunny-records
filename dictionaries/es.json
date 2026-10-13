@@ -106,7 +106,8 @@
       "Equipo de estudio"
     ],
     "principlesTitle": "Tres reglas del sello",
-    "gearIntro": "Las herramientas que uso, sin barras de nivel.",
+    "gearTitle": "Instrumentos del estudio",
+    "gearIntro": "Las herramientas con las que doy forma a cada proyecto.",
     "gearGroups": {
       "frontend": "Frontend",
       "backend": "Backend y datos",
