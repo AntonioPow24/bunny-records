@@ -5,7 +5,9 @@ import Link from "next/link";
 import {
   addTransitionType,
   startTransition,
+  useEffect,
   useLayoutEffect,
+  useRef,
   useState,
   ViewTransition,
   type KeyboardEvent,
@@ -16,7 +18,14 @@ import { cn } from "@/lib/utils";
 
 type CreditItem = { id: string; name: string; role: string; href: string };
 /** Un lado del disco = un área (Frontend, Backend y datos…), con su letra y sus créditos. */
-export type CreditSide = { letter: string; area: string; count: string; items: CreditItem[] };
+export type CreditSide = {
+  letter: string;
+  /** Ya formateado: "Lado A". */
+  name: string;
+  area: string;
+  count: string;
+  items: CreditItem[];
+};
 
 type CreditSleevesProps = {
   /** Único por página (los álbumes ocultos por <Activity> siguen en el DOM). */
@@ -25,11 +34,11 @@ type CreditSleevesProps = {
   /** Resumen ya traducido: "10 créditos · 3 lados". */
   summary: string;
   sides: CreditSide[];
-  labels: { side: string; hint: string; prev: string; next: string; all: string };
+  /** sideWord: la palabra sola ("Lado"), para la funda. */
+  labels: { sideWord: string; hint: string; prev: string; next: string; all: string };
 };
 
-const TONES = ["teal", "ivory", "deep"] as const;
-const sideName = (template: string, letter: string) => template.replace("{letter}", letter);
+const TONES = ["teal", "ivory", "deep", "muted"] as const;
 
 // Créditos como sobres (mejora 8; Figma "Mejoras · T9"). En reposo, un sobre por lado (A, B, C…) con su vinilo
 // asomando. Al elegir uno, el sobre pasa a la izquierda (los demás quedan apilados detrás) y a la derecha salen
@@ -37,17 +46,30 @@ const sideName = (template: string, letter: string) => template.replace("{letter
 // reposo. El movimiento es una View Transition con tipo "sleeve": otras navegaciones no la disparan.
 export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleevesProps) {
   const [active, setActive] = useState<number | null>(null);
+  // El botón pulsado desaparece al cambiar de estado. Tras el cambio, el foco va al sobre activo (abierto) o al
+  // sobre del lado que estaba abierto (reposo); si no, caía al <body> y el teclado dejaba de funcionar.
+  const focusNext = useRef<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Next oculta las páginas con <Activity>: al ocultarse el álbum, los créditos vuelven al reposo.
   useLayoutEffect(() => () => setActive(null), []);
 
+  useEffect(() => {
+    if (!focusNext.current) return;
+    sectionRef.current?.querySelector<HTMLElement>(focusNext.current)?.focus();
+    focusNext.current = null;
+  }, [active]);
+
   function choose(index: number | null) {
+    const next = index === null ? null : (index + sides.length) % sides.length;
+    focusNext.current = next === null ? `[data-sleeve="${active}"]` : "[data-sleeve-active]";
     startTransition(() => {
       addTransitionType("sleeve");
-      setActive(index === null ? null : (index + sides.length) % sides.length);
+      setActive(next);
     });
   }
 
+  // Solo en la pila y el selector (no en los enlaces de créditos).
   function onKeyDown(e: KeyboardEvent) {
     if (active === null) return;
     if (e.key === "Escape") choose(null);
@@ -61,9 +83,9 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
   const current = active === null ? null : sides[active];
 
   return (
-    <section aria-labelledby={id} className="flex flex-col gap-4" onKeyDown={onKeyDown}>
+    <section ref={sectionRef} aria-labelledby={id} className="flex flex-col gap-4">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h2 id={id} className="font-display text-[1.0625rem] font-semibold">
+        <h2 id={id} className="text-h3">
           {title}
         </h2>
         <p className="text-label text-muted-foreground">{summary}</p>
@@ -76,12 +98,12 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
               <li key={side.letter}>
                 <button
                   type="button"
+                  data-sleeve={index}
                   aria-expanded={false}
-                  aria-controls={panelId}
                   onClick={() => choose(index)}
                   className="group block w-full rounded-md text-left"
                 >
-                  <SleeveArt id={id} side={side} tone={TONES[index % 3]} sideLabel={labels.side} />
+                  <SleeveArt id={id} side={side} tone={TONES[index % TONES.length]} sideWord={labels.sideWord} />
                 </button>
               </li>
             ))}
@@ -90,7 +112,7 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
         </>
       ) : (
         <div className="flex flex-col gap-4 md:grid md:grid-cols-[12.5rem_minmax(0,1fr)] md:gap-7">
-          <div className="flex items-center gap-4 md:flex-col md:items-start">
+          <div className="flex items-center gap-4 md:flex-col md:items-start" onKeyDown={onKeyDown}>
             {/* Pila: el activo delante; los demás asoman detrás (se pueden pulsar para cambiar). */}
             <div className="relative w-24 shrink-0 pt-3.5 pr-4 md:w-[10.5rem]">
               {sides.map((side, index) => {
@@ -110,29 +132,30 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
                       opacity: 1 - depth * 0.3,
                     }}
                   >
-                    <SleeveArt id={id} side={side} tone={TONES[index % 3]} sideLabel={labels.side} back />
+                    <SleeveArt id={id} side={side} tone={TONES[index % TONES.length]} sideWord={labels.sideWord} back />
                   </button>
                 );
               })}
               <button
                 type="button"
+                data-sleeve-active=""
                 aria-expanded
                 aria-controls={panelId}
-                aria-label={labels.all}
+                aria-label={`${current.name} · ${labels.all}`}
                 title={labels.all}
                 onClick={() => choose(null)}
                 className="relative z-20 block w-full rounded-md text-left"
               >
-                <SleeveArt id={id} side={current} tone={TONES[active % 3]} sideLabel={labels.side} active compact />
+                <SleeveArt id={id} side={current} tone={TONES[active % TONES.length]} sideWord={labels.sideWord} active compact />
               </button>
             </div>
 
             <div className="flex min-w-0 flex-col gap-2 md:w-full md:items-center">
               <p className="text-body-strong md:hidden">
-                {sideName(labels.side, current.letter)} · {current.area}
+                {current.name} · {current.area}
               </p>
               <p className="text-label text-muted-foreground md:hidden">{current.count}</p>
-              <div className="flex items-center gap-2">
+              <div className={cn("flex items-center gap-2", sides.length < 2 && "hidden")}>
                 <button type="button" aria-label={labels.prev} title={labels.prev} onClick={() => choose(active - 1)} className={arrow}>
                   <ChevronLeft className="size-4" />
                 </button>
@@ -154,7 +177,7 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
             <div id={panelId} role="region" aria-labelledby={`${panelId}-title`} className="relative flex min-w-0 flex-col gap-3.5">
               {/* En móvil ya lo dice la fila de la pila: solo para lectores de pantalla. */}
               <h3 id={`${panelId}-title`} className="text-label text-muted-foreground max-md:sr-only">
-                {sideName(labels.side, current.letter)} · {current.area} · {current.items.length}
+                {current.name} · {current.area} · {current.items.length}
               </h3>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-3.5">
                 {current.items.map((item) => (
@@ -184,7 +207,7 @@ type SleeveArtProps = {
   id: string;
   side: CreditSide;
   tone: (typeof TONES)[number];
-  sideLabel: string;
+  sideWord: string;
   active?: boolean;
   /** En la pila: sin el pie (área y número). */
   compact?: boolean;
@@ -193,7 +216,7 @@ type SleeveArtProps = {
 };
 
 /** Funda cuadrada con el vinilo (el de Sobre mí / Contacto, sin conejo) asomando por la derecha. */
-function SleeveArt({ id, side, tone, sideLabel, active = false, compact = false, back = false }: SleeveArtProps) {
+function SleeveArt({ id, side, tone, sideWord, active = false, compact = false, back = false }: SleeveArtProps) {
   return (
     <ViewTransition
       name={`${id}-sleeve-${side.letter}`}
@@ -207,6 +230,7 @@ function SleeveArt({ id, side, tone, sideLabel, active = false, compact = false,
           <Disc
             kind="about"
             bunny={false}
+            shine={false}
             tone={tone}
             className="absolute top-[5%] left-[50%] w-[90%] transition-transform duration-300 group-hover:translate-x-[6%]"
           />
@@ -219,7 +243,7 @@ function SleeveArt({ id, side, tone, sideLabel, active = false, compact = false,
         >
           {!back && (
             <>
-              <span className="text-label text-muted-foreground max-sm:hidden">{sideLabel.replace("{letter}", "").trim()}</span>
+              <span className="text-label text-muted-foreground max-sm:hidden">{sideWord}</span>
               <span
                 className={cn(
                   "font-display leading-none font-bold",

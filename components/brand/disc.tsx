@@ -13,15 +13,17 @@ type DiscProps = {
   /** Conejo en la etiqueta (por defecto sí). Los sobres de créditos lo quitan: solo asoma el borde del disco. */
   bunny?: boolean;
   /** Color de la etiqueta, si no es el de su tipo (sobres de créditos: un tono por lado). */
-  tone?: "teal" | "ivory" | "deep";
+  tone?: "teal" | "ivory" | "deep" | "muted";
+  /** Brillo diagonal (por defecto sí). Los sobres lo quitan: no repiten el id del degradado en la página. */
+  shine?: boolean;
   className?: string;
 };
 
 // Vinilo de Sobre mí (etiqueta teal), Contacto (etiqueta marfil) y 404 (lado "C", rayado; Figma D12).
 // Figma: DiscGraphic.
 // Decorativo: el nombre accesible lo pone el enlace o la sección que lo contiene.
-export function Disc({ kind, label, spinning = false, bunny = true, tone, className }: DiscProps) {
-  const toneFill = { teal: "var(--primary)", ivory: "var(--foreground)", deep: "var(--teal-deep)" } as const;
+export function Disc({ kind, label, spinning = false, bunny = true, tone, shine = true, className }: DiscProps) {
+  const toneFill = { teal: "var(--primary)", ivory: "var(--foreground)", deep: "var(--teal-deep)", muted: "var(--muted-foreground)" } as const;
   const labelFill = tone ? toneFill[tone] : kind === "contact" ? "var(--foreground)" : "var(--primary)";
   const gradientId = `disc-shine-${kind}`;
   return (
@@ -30,18 +32,20 @@ export function Disc({ kind, label, spinning = false, bunny = true, tone, classN
       aria-hidden="true"
       className={cn("block aspect-square", spinning && "disc-spin", className)}
     >
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0.35" stopColor="#fff" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#fff" stopOpacity="0.07" />
-          <stop offset="0.65" stopColor="#fff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
+      {shine && (
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0.35" stopColor="#fff" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#fff" stopOpacity="0.07" />
+            <stop offset="0.65" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      )}
       <circle cx="210" cy="210" r="209" fill="var(--scrim)" stroke="var(--border)" strokeWidth="2" />
       {[194, 176, 158, 140, 122, 104].map((r) => (
         <circle key={r} cx="210" cy="210" r={r} fill="none" stroke="var(--border)" strokeWidth="1.5" opacity="0.8" />
       ))}
-      <circle cx="210" cy="210" r="209" fill={`url(#${gradientId})`} />
+      {shine && <circle cx="210" cy="210" r="209" fill={`url(#${gradientId})`} />}
       <circle cx="210" cy="210" r="80" fill={labelFill} />
       {kind === "side-c" ? (
         <>

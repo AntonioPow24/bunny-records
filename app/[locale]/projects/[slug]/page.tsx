@@ -6,11 +6,16 @@ import { CreditSleeves, type CreditSide } from "@/components/portfolio/credits-l
 import { JsonLd } from "@/components/seo/json-ld";
 import { TrackRow } from "@/components/portfolio/track-row";
 import { technologies } from "@/content/technologies";
+import type { Technology } from "@/types/content";
 import { getProject, getReadingMinutes, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
 import { SITE_URL, absoluteUrl, albumImage, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
-const CREDIT_GROUPS = ["frontend", "backend", "design", "workflow"] as const;
+// Orden de los lados de los créditos. Exhaustivo: si aparece un grupo nuevo en Technology, no compila.
+const CREDIT_GROUPS = ["frontend", "backend", "design", "workflow"] as const satisfies readonly Technology["group"][];
+type MissingGroup = Exclude<Technology["group"], (typeof CREDIT_GROUPS)[number]>;
+const allGroupsCovered: [MissingGroup] extends [never] ? true : never = true;
+void allGroupsCovered;
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -85,6 +90,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     .filter((items) => items.length > 0)
     .map((items, index) => ({
       letter: String.fromCharCode(65 + index),
+      name: format(dict.album.side, { letter: String.fromCharCode(65 + index) }),
       area: dict.about.gearGroups[items[0].group],
       count: plural(locale, dict.album.creditsCount, items.length),
       items,
@@ -95,7 +101,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     sides,
     summary: `${plural(locale, dict.album.creditsCount, credits.length)} · ${plural(locale, dict.album.sidesCount, sides.length)}`,
     labels: {
-      side: dict.album.side,
+      sideWord: dict.album.sideWord,
       hint: dict.album.sidesHint,
       prev: dict.album.prevSide,
       next: dict.album.nextSide,

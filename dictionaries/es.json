@@ -132,6 +132,7 @@
       "other": "{count} lados"
     },
     "side": "Lado {letter}",
+    "sideWord": "Lado",
     "sidesHint": "Elige un lado para ver sus créditos",
     "prevSide": "Lado anterior",
     "nextSide": "Lado siguiente",
