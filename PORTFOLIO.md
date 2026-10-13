@@ -159,11 +159,11 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 ### 3.7 Motion
 
 - Excepciones del personaje (respiración, parpadeo, perspectiva de portadas): ver `BUNNY-RECORDS.md` §8.
-- CSS por defecto (hover, foco, transiciones). Motion solo cuando CSS no basta (por ejemplo, para reordenar tarjetas al filtrar).
-- **Transiciones entre rutas** (portada → cabecera, conejo → bandeja, pista abierta, panel de tecnología): View Transitions (`<ViewTransition>` de React 19 + `viewTransition` de Next), no Motion. Detalle en `BUNNY-RECORDS.md` §8 **[VERIFICAR estado en Next 16.4]**.
+- CSS por defecto (hover, foco, transiciones) y CSS/JS para el personaje. Motion no está instalado; no añadirlo sin una necesidad justificada.
+- **Transiciones entre rutas:** `<ViewTransition>` de React 19.3, sin flag `viewTransition` en Next.js 16.4. Comportamientos y excepciones vigentes en `DESARROLLO.md` (pasos 11 y mejoras posteriores); no asumir que todos los paneles deben animarse.
 - Duraciones de 150 a 400 ms, sin bucles infinitos ni parallax.
 - No se anima la opacidad del elemento LCP.
-- `prefers-reduced-motion` desactiva los desplazamientos (`MotionConfig reducedMotion="user"` + media query en CSS).
+- `prefers-reduced-motion` desactiva los desplazamientos mediante CSS y el manejo del personaje en CSS/JS; no se usa `MotionConfig`.
 
 ---
 
@@ -180,7 +180,7 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 ### 4.2 Textos de interfaz
 
 - Diccionarios JSON por idioma: `dictionaries/es.json` y `dictionaries/en.json`.
-- `getDictionary(locale)` es solo de servidor (`server-only`) e importa el JSON de forma dinámica.
+- `getLocale()` lee el segmento actual mediante `next/root-params`; `getDictionary()` no recibe argumentos e importa dinámicamente el JSON de ese idioma. Ambos se usan en Server Components.
 - El tipo `Dictionary` se deriva de `es.json`; si a `en.json` le falta una clave, el typecheck falla.
 - Fechas y números con `Intl.DateTimeFormat` / `Intl.NumberFormat` según el idioma, sin librerías.
 - Los Client Components reciben ya traducidos solo los textos que necesitan, por props.
@@ -202,11 +202,11 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 
 ## 5. Arquitectura y carpetas
 
-**Renderizado:** todo SSG. Las rutas dinámicas usan `generateStaticParams` + `dynamicParams = false`. Server Components por defecto; Client Components solo para lo interactivo: conejo, carrusel de portadas, filtro, bandeja, menú móvil, selector de idioma y transiciones.
+**Renderizado:** todo SSG, con Cache Components y Partial Prefetching activos en Next.js 16.4. Las rutas parametrizadas usan `generateStaticParams`; el layout de `[locale]` declara `ensureStatic = "navigation"`. No usar `dynamicParams` con Cache Components. Server Components por defecto; Client Components solo para lo interactivo: conejo, carrusel de portadas, filtro, bandeja, menú móvil, selector de idioma y transiciones.
 
 **Patrón de navegación:** se ve como una sola página que se transforma, pero cada estado es una ruta real. Los `layout.tsx` de Next no se vuelven a montar al navegar, así que lo que vive en un layout persiste (el conejo no reinicia su animación; la portada y la demo no se recargan al cambiar de pista). Experiencia y motivos: `BUNNY-RECORDS.md` §4.4, §5.2 y §5.4.
 
-**Rutas (confirmadas 2026-10-12):**
+**Rutas (revisadas contra el código el 2026-10-13):**
 
 | Ruta | Contenido | Layout que persiste |
 |---|---|---|
@@ -215,7 +215,7 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 | `/[locale]/projects/[slug]/[track]` | Pista abierta (capítulo del caso de estudio) | Ídem |
 | `/[locale]/stack/[tech]` | Ficha de tecnología: **panel** sobre el álbum (ruta interceptada `(.)` en el slot paralelo `@panel`) o **página completa** si se entra directamente | — |
 | `/[locale]/about` | Perfil, experiencia y enfoque | `[locale]/layout` |
-| `#contact` | Sección de contacto (Inicio + footer): email y enlaces, sin formulario ni backend | — |
+| `/[locale]/contact` | Contacto como pase backstage: datos y enlaces, sin formulario ni backend | `[locale]/layout` |
 
 No hay listado `/projects`: la colección es el Inicio.
 
@@ -224,7 +224,8 @@ No hay listado `/projects`: la colección es el Inicio.
 ```
 portfolio-antonio/
 ├─ PORTFOLIO.md
-├─ CLAUDE.md                       # reglas operativas (se crea al iniciar el proyecto)
+├─ AGENTS.md                       # reparto y reglas de colaboración; instrucciones de Codex
+├─ CLAUDE.md                       # instrucciones operativas de Claude; referencia AGENTS.md
 ├─ proxy.ts                        # detección de idioma
 ├─ app/
 │  ├─ [locale]/
@@ -240,6 +241,7 @@ portfolio-antonio/
 │  │  │  ├─ default.tsx            # null
 │  │  │  └─ (.)stack/[tech]/page.tsx   # ficha como panel (navegación interna)
 │  │  ├─ about/page.tsx
+│  │  ├─ contact/page.tsx
 │  │  └─ not-found.tsx
 │  ├─ globals.css                  # tokens §3.4
 │  ├─ sitemap.ts  robots.ts  icon.svg  apple-icon.tsx  opengraph-image.tsx

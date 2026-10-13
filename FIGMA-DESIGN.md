@@ -232,9 +232,12 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ## 8. Entrega a Claude
 
-1. Comparte el enlace del archivo (o de cada frame) en la conversación.
-2. Claude lo lee con el MCP de Figma (`get_design_context`, `get_screenshot`, `get_variable_defs`), ajusta los tokens de `PORTFOLIO.md` §3 si cambiaste algo y empieza la fase 1.
-3. Si al diseñar cambias alguna decisión de navegación, anótala en `00 Notas`: así se actualiza `BUNNY-RECORDS.md` antes de programar.
+1. Codex analiza la sección actual, propone alternativas y refina el diseño en Figma Design cuando la conexión y sus capacidades estén comprobadas. El usuario aprueba la definitiva; el original se conserva.
+2. Codex prepara un resumen compacto con sección, enlaces al original y al frame aprobado, diferencias visuales y funcionales, componentes, responsive, interacciones y animaciones, criterios de aceptación y aspectos que conservar.
+3. El usuario entrega manualmente ese resumen a Claude y le indica cuándo implementar. Claude consulta los frames con las herramientas disponibles y aplica sus reglas de código y verificación; una propuesta no autoriza implementación ni cambios de tokens.
+4. Las decisiones aprobadas que cambien navegación o identidad se registran en `BUNNY-RECORDS.md`; los cambios técnicos en `PORTFOLIO.md` y el avance en `DESARROLLO.md`, sin duplicar especificaciones. Reparto y límites en `AGENTS.md`.
+
+**Espacio experimental pendiente:** `Redesign Lab` es una opción, no una página obligatoria. Evaluar primero el plan/asiento vigente, capacidades MCP, consumo de llamadas y utilidad del espacio. Preferir una copia de los frames afectados o una sección existente cuando sea suficiente y compatible con el plan. No crear un lab ni ampliar el plan por defecto.
 
 ---
 
@@ -242,9 +245,9 @@ Las duraciones respetan `PORTFOLIO.md` §3.7 (150–400 ms). Haz al menos los fl
 
 ### 9.0 Plan de Figma y costes (consultado el 2026-10-12)
 
-Tu cuenta: equipo propio en el plan **Starter (gratis)**, con asiento **Full** y acceso a la IA de Figma.
+**Registro histórico, no comprobación de cuenta en vivo:** se empezó en Starter con asiento Full y el 2026-10-12 se documentó el paso a Professional por un mes (§9.0.2). La vigencia, renovación y límites efectivos deben verificarse antes de decidir cómo trabajar. La tabla conserva los datos consultados entonces; no constituye una tarifa ni un cupo vigente confirmado.
 
-| | Starter (actual) | Professional, asiento Full |
+| | Starter (consulta histórica) | Professional, asiento Full (consulta histórica) |
 |---|---|---|
 | Precio | US$0 | US$16/mes en facturación anual; ~US$20/mes en mensual **[VERIFICAR al pagar; puede haber impuestos]** |
 | Páginas por archivo | 3 | Ilimitadas |
@@ -261,7 +264,9 @@ Tu cuenta: equipo propio en el plan **Starter (gratis)**, con asiento **Full** y
 - **Seguir a mano en Starter:** los componentes ya están hechos; las pantallas se montan con ellos siguiendo §5, y la IA de Figma (§9.B) gasta créditos de IA, no cupo de MCP.
 - **Esperar a que se renueve el cupo mensual.**
 
-### 9.0.2 Estado del archivo (2026-10-12)
+### 9.0.2 Estado documentado del archivo (revisión 2026-10-13)
+
+**Estado frente al repositorio:** `main` ya incluye mejoras posteriores a las capturas de `mejora-3`: créditos como sobres, corrección de sus transiciones y arte de las fundas (tareas 8–10 en `DESARROLLO.md`), además de las mejoras 4–7. T4–T6 se implementaron; T9 sirvió de referencia para los sobres y la tarea 10 se hizo directamente en código. Las capturas tituladas "Actual" son una base histórica, no una reproducción confirmada de `main`. Antes de rediseñar, contrastar únicamente la sección afectada y, si hace falta, actualizar su referencia con autorización; no se ha modificado ni inspeccionado el lienzo durante esta revisión documental.
 
 Archivo: https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28
 
@@ -309,11 +314,11 @@ Archivo: https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28
   - Borradas las pantallas obsoletas de `02 Pantallas` (primera versión con scroll D01–D12/M01–M13, "v2 · Sin scroll" a mano, comparativa de luz 7.9) y todo el prototipo de Smart Animate de `03 Prototipo` (su nota ahora remite al sitio). Se conservan la plantilla OG y la especificación de luz en "Referencias vigentes".
   - Secciones **"Actual · Escritorio / Móvil"**: capturas del build (rama `mejora-3`, con las mejoras 1–3) como capas editables con `generate_figma_design`: A-D01 Colección, A-D04 Álbum, A-D06 Pista, A-D07 Panel de tecnología, A-D09 Planeado, A-D10 Sobre mí, A-D11 Contacto, A-D12 404; A-M01, A-M04, A-M06, A-M10, A-M11. Método: puppeteer con `setBypassCSP`, inyectar `capture.js` y lanzar `captureForDesign` sin esperar la promesa (no se resuelve).
   - Sección **"Mejoras · propuestas"** (sobre copias de las capturas, con variables y estilos del sistema): T4 créditos como "notas del disco" (rejilla por área, función en mono teal arriba y nombre debajo, una tarjeta en hover); T5 ficha breve de la colección como "pegatina" (sin título ni caja: estado y meta en mono, frase y ▶ "Escuchar álbum"; variante planeado con "Ver concepto"); T6 Contacto como "pase backstage" (franja All Access, nombre y rol, cifras del sello, datos en 2 columnas, corte perforado, email con "Copiar", GitHub y LinkedIn).
-  - Pendiente de limpiar en `01 Sistema`: componentes de la primera versión sin uso (`Footer`, `Header` v1, `TrackNav`, `CoverInfo`, `CreditRow`…), cuando se aprueben las propuestas.
+  - Pendiente de verificar y limpiar en `01 Sistema`: componentes de la primera versión posiblemente sin uso (`Footer`, `Header` v1, `TrackNav`, `CoverInfo`, `CreditRow`…). T4–T6 ya se implementaron; comprobar instancias y dependencias antes de proponer su eliminación, con autorización del usuario.
 
 ### 9.0.1 Cómo funciona la conexión
 
-- **No hace falta abrir la app de Figma ni reiniciar Claude.** El MCP que usamos es el **remoto** de Figma (`mcp.figma.com`), que trabaja contra tu cuenta en la nube y ya está conectado y autenticado en Claude Code. El servidor local, que sí requiere la app de escritorio abierta, no es necesario.
+- **Conexión documentada de Claude:** MCP remoto de Figma (`mcp.figma.com`), sin necesidad de Figma Desktop para ese servidor. La autenticación actual de Claude y la conexión de Codex deben comprobarse por separado; tener el plugin y las skills de Figma instalados no demuestra acceso al archivo ni herramientas activas. No cambiar la configuración de Claude para conectar Codex.
 - Para ver el resultado, abre el enlace del archivo en el navegador o en la app mientras Claude trabaja; los cambios aparecen en vivo.
 - Lo que no se puede hacer bien con código (exploración visual, ilustración, texturas, ideas de composición) Claude te lo pasa como **prompts en inglés** para la IA de Figma (§9.B) o para tu propio trabajo.
 

@@ -324,6 +324,10 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 6 | Contacto: parte informativa más vistosa | Figma → código | Hecho (`mejora-6-contacto-pase`) |
 | 7 | Al abrir una ficha de tecnología, la cabecera, la portada y el conejo se veían delante del panel durante la animación | Fallo | Hecho (`mejora-7-panel-capas`) |
 | 8 | Créditos como sobres por lado (A, B, C): las pistas siguen siendo las protagonistas | Concepto → Figma → código | Hecho (`mejora-8-creditos-sobres`) |
+| 9 | Mantener identidad de los sobres al cambiar de lado; corregir View Transitions | Código | Hecho; detalle en Tarea 9 |
+| 10 | Arte de las fundas con la identidad del conejo | Código | Hecho (`mejora-10-sobres-conejo`); sin actualización equivalente de Figma confirmada |
+
+**Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
 **Tarea 1 (2026-10-12):** al entrar desde otra ruta, el `<ViewTransition name="scene-bunny">` de React no creaba capa para el conejo (entraba con la página), así que se pintaba en `root` y el disco (z-index 110) lo tapaba hasta el final. Ahora el nombre y la clase van en CSS sobre el conejo (`components/sections/turntable.tsx`) y la capa existe siempre. Verificado sobre el build con la animación a 0,1×: Inicio → Sobre mí y álbum → Contacto en escritorio, Inicio → Sobre mí en 390×844, y Sobre mí ↔ Contacto sigue con su capa compartida.
 
