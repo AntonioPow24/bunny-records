@@ -4,7 +4,7 @@ Portfolio personal de Antonio Garcia Romero presentado como un sello discográfi
 
 ## Al empezar
 
-Leer `docs/ESTADO.md` (corto). Nada más por defecto: consultar solo la sección pertinente de
+Leer `PROJECT.yaml` y `docs/ESTADO.md` (cortos). Nada más por defecto: consultar solo la sección pertinente de
 
 | Documento | Autoridad |
 |---|---|
@@ -45,7 +45,7 @@ Lecciones generales de Next 16 (Cache Components, `<Activity>`, View Transitions
 ## Git y despliegue
 
 - Una rama por tarea (`mejora-N-…`); commits en español con la identidad personal (`garciaromeroantonio24@gmail.com`), nunca la corporativa.
-- Commits cuando la tarea lo requiera. **Push, merge y deploy solo con aprobación explícita del usuario.** Un merge a `main` despliega solo en Vercel (`bunny-records.vercel.app`, con `noindex` hasta tener dominio).
+- Permisos de Git según `~/.ai/CORE.md`. Un merge a `main` despliega solo en Vercel (`bunny-records.vercel.app`, con `noindex` hasta tener dominio).
 - El hook de merge exige una revisión registrada (code-review) antes de integrar.
 - No versionar referencias, renders pesados ni notas personales (`.gitignore`).
 

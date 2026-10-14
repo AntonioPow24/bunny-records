@@ -12,6 +12,7 @@ next-env.d.ts
 
 # Herramientas locales
 .codex/
+.agents/skills/portfolio-qa/
 .vscode/
 .DS_Store
 Thumbs.db
