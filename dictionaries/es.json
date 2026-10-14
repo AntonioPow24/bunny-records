@@ -134,7 +134,9 @@
     "backToTracks": "Volver a todas las pistas",
     "demoCaption": "En acción",
     "demoPlay": "Reproducir demo",
-    "demoPause": "Pausar demo"
+    "demoPause": "Pausar demo",
+    "demoExpand": "Ampliar",
+    "demoClose": "Cerrar demo ampliada"
   },
   "tech": {
     "eyebrow": "Ficha de tecnología",

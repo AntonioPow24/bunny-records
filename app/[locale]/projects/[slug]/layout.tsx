@@ -79,7 +79,13 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
             webm={project.demo.webm}
             poster={project.demo.poster.src}
             description={project.demo.alt[locale]}
-            labels={{ caption: dict.album.demoCaption, play: dict.album.demoPlay, pause: dict.album.demoPause }}
+            labels={{
+              caption: dict.album.demoCaption,
+              play: dict.album.demoPlay,
+              pause: dict.album.demoPause,
+              expand: dict.album.demoExpand,
+              close: dict.album.demoClose,
+            }}
             className="w-full max-w-70 md:max-w-none"
           />
         )}

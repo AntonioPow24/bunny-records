@@ -134,7 +134,9 @@
     "backToTracks": "Back to all tracks",
     "demoCaption": "In action",
     "demoPlay": "Play demo",
-    "demoPause": "Pause demo"
+    "demoPause": "Pause demo",
+    "demoExpand": "Expand",
+    "demoClose": "Close expanded demo"
   },
   "tech": {
     "eyebrow": "Technology sheet",
