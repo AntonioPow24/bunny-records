@@ -334,6 +334,7 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 16 | Revisión de seguridad: escape del JSON-LD y `/lab` fuera de producción | Código | Hecho (`mejora-16-seguridad`) |
 | 17 | Primer videoclip real: Bunny Records | Contenido | Hecho (`mejora-17-demo-bunny-records`) |
 | 18 | MP4 del videoclip a 960×540 (5,5 MB → 200 KB) y receta de `ffmpeg` | Contenido | Hecho (`mejora-18-mp4-ligero`) |
+| 19 | Videoclip real de Vidriería Antonio | Contenido | Hecho (`mejora-19-demo-vidrieria`) |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
@@ -396,6 +397,8 @@ ffmpeg -i <slug>-demo-6s.mp4 -frames:v 1 -vf scale=720:-2 -q:v 4 poster.jpg
 ```
 
 `-ss`/`-t` eligen el tramo; `-an` quita el audio; el póster es el primer fotograma, para que el bucle y la pausa empiecen en la misma imagen.
+
+**Tarea 19 (2026-10-14):** clip de Vidriería Antonio aportado por el usuario ya exportado con la receta (6 s, 960×540, sin audio, `faststart`): `public/demos/vidrieria-antonio/vidrieria-antonio-demo-6s.{webm,mp4}` (325 KB / 388 KB) y `poster.jpg` (primer fotograma, 960×540, 53 KB). Recorrido: portada, catálogo de proyectos, ficha y edición en el panel. Revisado que no aparece el nombre real del negocio, teléfonos ni precios; las ubicaciones visibles (Surco, Miraflores, San Isidro) son datos de ejemplo del seed, no la ciudad del negocio. Descripción accesible en es/en. Verificado sobre el build: autoplay con WebM, pausa y reanudación al pulsar, el MP4 decodifica (960×540, 6 s); sin scroll de documento ni desbordes a 1920×911 (en), 1902×898, 390×844, 375×667 (en) y en la pista `el-problema` a 375×667 (Chrome headless con emulación por CDP, porque la ventana no baja de tamaño y el sitio bloquea iframes). Movimiento reducido no se repitió: el componente no cambia desde la Tarea 17.
 
 ## Historial
 

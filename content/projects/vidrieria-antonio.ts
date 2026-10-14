@@ -1,3 +1,4 @@
+import demoPoster from "@/public/demos/vidrieria-antonio/poster.jpg";
 import cover from "@/public/images/projects/vidrieria-antonio/cover.jpg";
 import type { PublishedProject } from "@/types/content";
 
@@ -77,5 +78,15 @@ export const vidrieriaAntonio: PublishedProject = {
       "Running QA against the production build found bugs that didn’t exist in development.",
     ],
   },
-  // Sin demo (falta la grabación) ni enlaces: el repositorio es privado y la URL de prueba no se publica.
+  // Sin enlaces: el repositorio es privado y la URL de prueba no se publica. Las ubicaciones que se ven en el clip
+  // son datos de ejemplo, no las del negocio.
+  demo: {
+    mp4: "/demos/vidrieria-antonio/vidrieria-antonio-demo-6s.mp4",
+    webm: "/demos/vidrieria-antonio/vidrieria-antonio-demo-6s.webm",
+    poster: demoPoster,
+    alt: {
+      es: "Recorrido por la web y el panel: la portada, el catálogo de proyectos con fotos, una ficha de proyecto y su edición en el panel de administración.",
+      en: "A walk through the site and the admin panel: the home page, the photo catalogue of projects, a project page and editing it in the admin panel.",
+    },
+  },
 };
