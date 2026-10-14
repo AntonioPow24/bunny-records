@@ -11,10 +11,10 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 - Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
-- Migrar a Notion los históricos (`DESARROLLO.md`, `PLAN-IMAGENES.md` y los apartados retirados de los demás; ver la copia de seguridad de la reorganización) y, una vez validado, borrarlos del repo.
 
 ## Decisiones recientes
 
+- 2026-10-14: históricos sintetizados y verificados en [Antonio Development Hub / Bunny Records](https://app.notion.com/p/3f95744bc2fe81f4be76f89a32ea5fc3); migración aprobada y referencias documentales corregidas en `reorg-contexto`. Respaldo conservado en `~/.ai-backup/2026-10-14-reorganizacion/`.
 - 2026-10-14: correo de Contacto como enlace `mailto` (sin botón Copiar).
 - 2026-10-14: "Ampliar" el videoclip abre un modal centrado (hasta 960 px).
 - 2026-10-14: documentación reorganizada con contexto progresivo (`~/.ai`, `PROJECT.yaml`, este archivo).

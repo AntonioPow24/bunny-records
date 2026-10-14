@@ -1,6 +1,6 @@
 import data from "./layers.json";
 
-// Motor del conejo por capas (portado de design/character/prototype, pasos C7–C8 de PLAN-IMAGENES.md).
+// Motor del conejo por capas, portado de design/character/prototype (BUNNY-RECORDS.md §6).
 // Manipula el DOM directamente: cambiar de fotograma cada 22 ms no debe pasar por React.
 //
 // Grafo de poses: los nodos son las poses y las aristas, secuencias de fotogramas intermedios (t25/t50/t75).

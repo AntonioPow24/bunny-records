@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { getAlbumMinutes, getProjects, getReadingMinutes, isPublished, loadTrackBody } from "@/lib/content";
 import { getLocale } from "@/lib/i18n/get-dictionary";
 
-// Banco de pruebas interno (DESARROLLO.md pasos 3 y 5): sistema de diseño y contenido tipado.
+// Banco de pruebas interno: sistema de diseño y contenido tipado (PORTFOLIO.md §3 y §6).
 // Se compara con Figma → 01 Sistema. Solo existe en desarrollo: en el build de producción es un 404.
 export const metadata: Metadata = {
   title: "Lab · sistema de diseño",

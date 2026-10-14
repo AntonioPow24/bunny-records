@@ -13,7 +13,7 @@ Leer `PROJECT.yaml` y `docs/ESTADO.md` (cortos). Nada más por defecto: consulta
 | `FIGMA-DESIGN.md` | Archivo de Figma, diseños aprobados vigentes y traspaso de diseño |
 | `.claude/skills/portfolio-qa/SKILL.md` | Controles de QA propios (los niveles están en `~/.ai/WORKFLOW.md` §2) |
 
-`DESARROLLO.md` y `PLAN-IMAGENES.md` son históricos pendientes de migrar a Notion: no leerlos salvo petición expresa. Corroborar el estado con el código y Git.
+El historial está en [Bunny Records / Portfolio — Antonio Development Hub](https://app.notion.com/p/3f95744bc2fe81f4be76f89a32ea5fc3). Consultarlo solo cuando la tarea necesite antecedentes; corroborar el estado vigente con el código y Git.
 
 ## Reglas que no se rompen
 

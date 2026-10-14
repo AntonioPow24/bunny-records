@@ -2,8 +2,8 @@ import demoPoster from "@/public/demos/bunny-records/poster.jpg";
 import cover from "@/public/images/projects/bunny-records/cover.jpg";
 import type { PublishedProject } from "@/types/content";
 
-// El propio portfolio. Fuente: DESARROLLO.md (pasos, mediciones y mejoras) y el historial de Git.
-// Solo se citan cifras medidas allí; nada de resultados de negocio.
+// El propio portfolio. Arquitectura y mediciones de referencia: PORTFOLIO.md §5 y §10.
+// Antecedentes en Antonio Development Hub / Bunny Records y el historial de Git; sin resultados de negocio inventados.
 export const bunnyRecords: PublishedProject = {
   slug: "bunny-records",
   status: "published",
