@@ -1,3 +1,5 @@
+> **HISTÓRICO — pendiente de migrar a Notion (Antonio Development Hub).** No es fuente vigente ni lectura de inicio. Lo vigente está en `docs/ESTADO.md`, `PORTFOLIO.md`, `BUNNY-RECORDS.md` y `FIGMA-DESIGN.md`. Se borrará del repo cuando la migración esté validada.
+
 # Plan de imágenes — Logo y personaje
 
 *Fase: planificación. Última revisión: 2026-10-11.*

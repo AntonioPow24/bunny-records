@@ -1,16 +1,6 @@
 # Bunny Records — Concepto, personaje y recursos visuales
 
-*Fase: planificación (sin código). Última revisión: 2026-10-12.*
-
-Este documento define **la marca, el concepto y la experiencia** del portfolio. Es el complemento creativo de `PORTFOLIO.md`, que sigue siendo la especificación técnica (stack, i18n, SEO, arquitectura). Si los dos documentos se contradicen en algo visual o de interacción, manda este; en lo técnico, manda `PORTFOLIO.md`.
-
-Plan de producción de imágenes por fases (logo y personaje): **`PLAN-IMAGENES.md`**.
-
-Fuentes: `idea/PortfolioIdea.txt`, `imagelogo/Bunnylogo.png`, `imagelogo/Palette.png` y las referencias de `idea/`.
-
-Reparto de trabajo: **las imágenes las produce el usuario**; Claude define qué hace falta, las convierte a formatos web, monta la animación y construye la web.
-
-Etiquetas: **[VERIFICAR]** = dato externo (tamaño de librería, plan de precios) que hay que confirmar antes de decidir.
+Marca, concepto, experiencia, navegación, personaje, movimiento y assets **vigentes**. Manda en lo visual y de interacción; la técnica está en `PORTFOLIO.md` y el archivo de Figma en `FIGMA-DESIGN.md`.
 
 ---
 
@@ -89,7 +79,7 @@ Lo que tomamos de cada referencia:
 - Formas simples: cabeza redondeada, orejas tipo cápsula, cuerpo pequeño, brazos cortos.
 - Ojos `+` y nariz píldora exactamente como el logo.
 - **Un solo accesorio fijo y opcional: auriculares teal**, que lo conectan con Records. Sin vestuario distinto por sección.
-- Contorno: **ninguno** (como las referencias fino 1–4). La conexión con el logo la dan la silueta, la cara y la luz teal. Detalle en `PLAN-IMAGENES.md` §4.
+- Contorno: **ninguno** (como las referencias fino 1–4). La conexión con el logo la dan la silueta, la cara y la luz teal.
 
 ### 4.2 Poses
 
@@ -175,7 +165,7 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 - **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
 - **Ampliar (2026-10-14):** a la derecha del rótulo "En acción", fuera de la caja, la palabra "Ampliar" / "Expand" con un icono pequeño abre el mismo clip centrado en un modal, hasta 960 px (su tamaño real, para no verlo borroso). Palabra y no solo icono porque se explica sola; "Ver" se descartó por ambigua (el clip ya se ve). En el modal se cierra con ✕, Esc o pulsando fuera; pulsar el vídeo pausa o reanuda igual que la caja. El clip pequeño espera en pausa y sigue desde donde iba el grande; la pausa elegida y el movimiento reducido se respetan en los dos.
-- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §8.3), aprobado e implementado el 2026-10-13 (`components/portfolio/demo-clip.tsx`). Falta solo la grabación de cada proyecto: hasta entonces ningún álbum muestra el bloque.
+- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Vidriería Antonio y Bunny Records.
 
 Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla aparece ya en su estado final, sin animación.
 
@@ -199,7 +189,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 | Página | Metáfora | Contenido |
 |---|---|---|
 | **Sobre mí** | **Ficha del artista** | Retrato opcional, nombre, rol y biografía. **Manifiesto del sello** (cómo trabajo; 3 principios con `+`/`−`). **Gira** (trayectoria: años, rol, empresa). **Equipo de estudio** (herramientas, sin barras de nivel; cada una abre su ficha). **Discografía** (todos los álbumes con su estado). Botones "Escuchar la discografía" y "Booking" |
-| **Contacto** (`#contact`, final del Inicio y footer) | **Ficha técnica** (contraportada del disco) | "Quién está detrás del sello": rol, empresa actual, base, especialidad, qué estoy explorando y qué hay en el sello; después, "Dónde encontrarme" (email con "Copiar", GitHub, LinkedIn). **Informativo: no ofrece servicios ni disponibilidad freelance** (decisión 2026-10-12, para poder usar Vercel Hobby). Conejo en *presentación* señalando la ficha |
+| **Contacto** (`/[locale]/contact`) | **Contraportada del artista** (T14 v3) | Nombre, rol y base; **Descargar CV**; correo (`mailto`), GitHub y LinkedIn; firma «Antonio G.» junto al disco y créditos del sitio. **Informativo: no ofrece servicios ni disponibilidad freelance** (decisión 2026-10-12, para poder usar Vercel Hobby) |
 | **404** | **Lado C** | "Esta pista no existe": los vinilos solo tienen lado A y B. Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
 | **Ficha de tecnología** (entrada directa) | Créditos compartidos | Igual que el panel, a página completa, con la bandeja en reposo |
 | **Footer** | Contraportada | Logo, © y [Nombre público], Sobre mí, Contacto, GitHub, LinkedIn, **Créditos del sitio** (el stack del propio portfolio) y ES/EN |
@@ -235,137 +225,30 @@ Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección e
 
 ---
 
-## 6. Cómo conseguir un protagonista "3D" sin que pese
+## 6. Personaje: cómo se produce (decidido)
 
-### 6.1 ¿Hace falta Three.js? → **No.**
-
-El aspecto 3D de las referencias 4 y 5 viene **del render** (material, luz, sombras), no de que el navegador calcule 3D en tiempo real. El conejo solo necesita inclinar la cabeza unos grados, mover orejas y brazos, respirar y bailar un poco: eso se resuelve con **imágenes renderizadas en 3D, separadas por capas y animadas en 2D**. Es la técnica de muchas webs de marca y juegos 2.5D.
-
-Comparación:
-
-| Opción | Peso aprox. en el navegador | Aspecto 3D | Riesgo "papel recortado" | Trabajo de producción | Veredicto |
-|---|---|---|---|---|---|
-| **A. Capas renderizadas (PNG→AVIF/WebP) + CSS/Motion** | ~150–300 KB de imágenes; 0 KB de librería extra (Motion ya está en el stack) | Alto (es un render real) | Bajo si las capas se preparan bien (§6.2) | Medio | ✅ **Recomendada para v1** |
-| **B. Rive** (huesos + deformación de malla + máquina de estados) | Runtime de cientos de KB **[VERIFICAR]** + archivo `.riv` | Alto si se importan las capas renderizadas como imágenes deformables | Muy bajo: las piezas se doblan, no solo giran | Alto (aprender Rive; exportar puede requerir plan de pago **[VERIFICAR]**) | 🔄 Mejora para v2 si A se queda corta |
-| **C. Three.js + modelo GLB** | Three ≈ 150–180 KB gzip **[VERIFICAR]** + modelo 0.3–2 MB + coste de GPU en móvil | Máximo (3D real, gira libremente) | Ninguno | Muy alto: modelado, UV, materiales, rig y animaciones | ❌ Desproporcionado para un portfolio |
-| D. Spline | Runtime pesado + marca de agua en el plan gratuito **[VERIFICAR]** | Alto | Ninguno | Bajo | ❌ Peso y dependencia |
-| E. Lottie | Ligero | Bajo (vectorial plano) | Bajo | Requiere After Effects | ❌ No da el look 3D |
-| F. Vídeo con transparencia | Pesado; el canal alfa da problemas entre navegadores | Alto | Ninguno | Medio | ❌ Solo para piezas puntuales, nunca para la mirada |
-
-**Recomendación:** opción **A** en la v1. Si en la prueba (§9) se nota rígido, pasar a **B** reutilizando las mismas capas. Three.js solo tendría sentido si quisiéramos girar al personaje 360° o una escena 3D navegable, y no es el caso.
-
-### 6.2 Por qué a veces parece "papel recortado" y cómo lo evitamos
-
-El efecto aparece cuando se rotan trozos planos de una ilustración que **no fueron pensados para moverse**. Reglas para las imágenes y para la animación:
-
-1. **Zonas de solape ocultas.** Cada pieza continúa por debajo de su vecina. La base de cada oreja entra varios píxeles dentro de la cabeza; el hombro del brazo, dentro del torso; el cuello, dentro de la cabeza. Al girar nunca se ve un hueco ni un borde cortado.
-2. **Nada de "huecos" en la capa de abajo.** Si el brazo tapa parte del torso, el torso tiene que estar **completo** (pintado o renderizado) debajo del brazo.
-3. **Pivotes en las articulaciones**, dentro de la zona de solape (base de oreja, hombro, cuello).
-4. **Ángulos pequeños.** Rotar una imagen renderizada también rota su luz; hasta ~6–8° no se nota. Para girar la cabeza más, **cambiamos a otra imagen renderizada en ese ángulo** (frente → 3/4) con un fundido corto oculto por el propio movimiento.
-5. **Movimiento secundario.** Las orejas llegan un poco después que la cabeza y rebotan suave (física de muelle). Esto, más que nada, es lo que hace que parezca vivo y no cartón.
-6. **Squash & stretch mínimo.** Al respirar, el cuerpo se estira/encoge un 1–2 % en vertical; la sombra de contacto crece y se reduce a la vez.
-7. **Misma luz en todas las piezas.** Idealmente todas las capas salen **del mismo render** (§6.3); así el sombreado encaja al milímetro.
-8. **Sin contorno en los bordes de corte.** Si el personaje lleva contorno, solo en el borde exterior real, nunca en la línea donde se separan dos piezas.
-9. **Rendimiento:** solo se animan `transform` y `opacity`; el seguimiento del puntero escribe directamente en las capas (sin re-renderizar React); se detiene fuera de pantalla con `IntersectionObserver`.
-
-### 6.3 Cómo producir las imágenes con aspecto 3D
-
-| Vía | Cómo | Ventajas | Riesgos |
-|---|---|---|---|
-| **1. Blender** (recomendada si puedes hacerlo o encargarlo) | Modelar el conejo con formas simples, material de vinilo, luz principal arriba-izquierda + rim light teal; renderizar **cada pieza por separado con transparencia** (capas de vista / holdout) desde la misma cámara | Luz idéntica en todas las capas; renderizar nuevos ángulos o poses es inmediato; el mismo archivo sirve si algún día se quiere 3D real | Hay que modelar (el personaje es simple: es asequible) |
-| **2. IA + retoque** | Generar la hoja de personaje y la pose base con IA; separar las piezas en Photoshop/Krita/Photopea y **pintar lo que queda oculto** debajo de cada pieza | Rápido para conseguir el look | Cada nueva generación cambia proporciones, luz y detalles. Usar la IA **solo para la imagen maestra** y derivar todo lo demás de sus capas; nunca generar cada pose por separado |
-| **3. Vector con degradados** (Figma/Illustrator) | Dibujar el conejo en SVG con sombreados por degradado | Pesa poquísimo y escala perfecto; ideal para Rive | Se ve "ilustración", no "juguete 3D" |
-
-Sea cual sea la vía: **una sola imagen maestra aprobada** y todo lo demás derivado de ella.
-
-**Recomendado (2026-10-11), pendiente de que confirmes instalar Blender: vía 1, Blender, con el conector MCP para que Claude construya y renderice el modelo.** Pasos en `PLAN-IMAGENES.md` §6.
-
-### 6.4 Presupuesto de peso
-
-| Elemento | Objetivo |
-|---|---|
-| Imagen fija del personaje (primera pintura, sin JS) | ≤ 80 KB (AVIF) |
-| Todas las capas del personaje en v1 | ≤ 300 KB, cargadas después del contenido principal |
-| Librerías nuevas por el personaje | 0 en la v1 (CSS + Motion, que ya está en `PORTFOLIO.md`) |
-| Portada en la vista de colección | ≤ 120 KB cada una a tamaño de pantalla |
-
-El conejo **no puede ser el LCP** que retrase la página: se muestra primero la imagen fija y la animación se activa después.
+- El aspecto 3D viene del **render**, no de 3D en tiempo real: capas renderizadas en Blender (WebP) animadas con CSS/JS. Sin Three.js, Rive, Spline ni Lottie (decisión C9: basta con CSS).
+- Fuente única del personaje: `design/character/bunny.blend` (no versionado). Capas para la web: `design/character/layers/` + `layers.json` → `public/bunny/`; versiones de media resolución en `public/bunny/sm/` con `node scripts/bunny-small.mjs`.
+- "left/right" = lado de la **pantalla**. Una cabeza completa por pose y estado de ojos; fotogramas intermedios t25/t50/t75 entre poses.
+- Proceso completo (modelado, poses, capas, intermedios): skill `blender-character-renders`.
+- El conejo nunca es el LCP: primero la imagen fija y luego la animación.
 
 ---
 
-## 7. Lista de imágenes que necesito
+## 7. Assets: convenciones vigentes
 
-Convenciones para todo lo que entregues:
+- Masters en sRGB y alta calidad, fuera de `public/`; las versiones web (AVIF/WebP, tamaños responsive) se generan a partir de ellos. Nombres en minúsculas con guiones.
+- **Sin texto dentro de las imágenes**: el texto va en HTML (traducible, accesible, indexable).
+- **Portadas:** una por proyecto, 2000 × 2000 px sin texto, estilo común de discografía; los planeados se marcan en CSS, no con otra imagen. Vinilos, surcos, brillos y texturas se hacen en CSS/SVG. Las actuales son provisionales (`design/covers/`).
+- **Videoclip** (§5.2.1): grabación real de 6 s, sin audio, en `public/demos/<slug>/<slug>-demo-6s.{mp4,webm}` + `poster.jpg` (primer fotograma, para que el bucle y la pausa empiecen en la misma imagen) y el campo `demo` del proyecto. Sin datos reales del cliente en Vidriería. Receta (`-ss`/`-t` eligen el tramo; `-an` quita el audio):
 
-- **Espacio de color sRGB.** Fondo **transparente** cuando la pieza no es rectangular.
-- **Masters en alta calidad** (PNG o el formato original). Yo genero las versiones AVIF/WebP y los tamaños responsive; **no las comprimas tú**.
-- Nombres en minúsculas con guiones: `bunny-ear-left.png`, `cover-office-to-pdf.png`.
-- **Sin texto dentro de las imágenes** (títulos, etiquetas): el texto va en HTML para que se traduzca (es/en), lo lean los buscadores y sea accesible.
-- Masters en `design/source/` (no se publican); yo coloco las versiones web en `public/`.
+```
+ffmpeg -i original.mp4 -ss 0 -t 6 -vf "scale=960:540:flags=lanczos,fps=30" -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 26 -preset slow -an -movflags +faststart <slug>-demo-6s.mp4
+ffmpeg -i original.mp4 -ss 0 -t 6 -vf "scale=960:540:flags=lanczos,fps=30" -c:v libvpx-vp9 -crf 36 -b:v 0 -an <slug>-demo-6s.webm
+ffmpeg -i <slug>-demo-6s.mp4 -frames:v 1 -vf scale=720:-2 -q:v 4 poster.jpg
+```
 
-### 7.1 Marca
-
-| # | Archivo | Formato | Detalle | Prioridad |
-|---|---|---|---|---|
-| M1 | Logo completo | **SVG** vectorial limpio (no un "auto-trace" con miles de nodos) | Cabeza + contorno + sombra teal. Si solo tienes el PNG, **lo puedo redibujar yo en SVG**: son formas simples | v1 |
-| M2 | Logo monocromo | SVG | Versión en marfil y versión en negro, sin sombra teal | v1 |
-| M3 | Icono simplificado | SVG | Legible a 16–32 px (favicon); orejas y ojos más gruesos | v1 |
-| M4 | Glifos `+`, `−`, orejas, `{` | SVG | Para el sistema gráfico. También los puedo extraer yo del logo | v1 |
-| M5 | Foto o avatar tuyo | PNG/JPG ≥ 1200 px | Opcional, para Sobre mí | Opcional |
-
-El favicon, `apple-icon` y las imágenes Open Graph **los genero yo** a partir de M1–M3.
-
-### 7.2 Personaje (Bunny Studio)
-
-**Lienzo común:** todas las capas en **el mismo lienzo (p. ej. 1200 × 1600 px) y en su posición exacta**, como si exportaras cada capa de un mismo archivo sin recortar. Así encajan solas en la web. El personaje mide en pantalla unos 400 px de alto en escritorio y 220 px en móvil; el lienzo a 3× da nitidez en pantallas retina.
-
-| # | Pieza | Formato | Detalle | Fase |
-|---|---|---|---|---|
-| P0 | **Hoja de personaje** (frente, 3/4, perfil, espalda) | PNG/JPG | Referencia de proporciones como las refs 4 y 5. **No se publica** | Antes de todo |
-| P1 | **Personaje completo en reposo** (una sola imagen) | PNG transparente | Imagen fija: primera pintura, sin JS y movimiento reducido | v1 |
-| P2 | Cuerpo / torso | PNG transparente, mismo lienzo | Completo por debajo de brazos y cabeza (§6.2) | v1 |
-| P3 | Cabeza de frente **sin ojos** | ídem | Los ojos van en capa aparte | v1 |
-| P4 | Ojos `+` | ídem | Abiertos | v1 |
-| P5 | Ojos `−` | ídem | Parpadeo | v1 |
-| P6 | Oreja izquierda / P7 Oreja derecha | ídem, **una por archivo** | Con la base prolongada dentro de la cabeza | v1 |
-| P8 | Brazo izquierdo en reposo / P9 Brazo derecho en reposo | ídem | Con el hombro prolongado dentro del torso | v1 |
-| P10 | Brazo derecho **señalando** | ídem | Pose Presentación | v1 |
-| P11 | Sombra de contacto | PNG transparente | Elipse suave y difusa bajo los pies (también puedo hacerla en CSS) | v1 |
-| P12 | Cabeza en **3/4 izquierda** / P13 **3/4 derecha** (sin ojos) | ídem | Para Curiosidad y para mirar más allá de unos grados | v1 si es posible; si no, v2 |
-| P14 | Ojos `+` para cada cabeza 3/4 | ídem | Desplazados según el ángulo | Junto a P12–P13 |
-| P15 | Brazo derecho **saludando** | ídem | Pose Despedida | v2 |
-| P16 | **Auriculares**: diadema (delante) y almohadillas izq./der. | ídem, piezas separadas | Para Escucha y el baile | v2 |
-| P17 | Brazos para el baile (arriba / en jarra) | ídem | Opcionales: el baile puede hacerse solo con balanceo y orejas | v2 |
-
-**Pivotes:** junto con las capas, una imagen (o el archivo de capas `.psd` / `.kra` / `.blend`) donde marques el punto de giro de cada pieza: base de cada oreja, cuello, hombros. Si entregas el archivo de capas original, mucho mejor.
-
-**Iluminación (si renderizas):** luz principal arriba-izquierda, luz de relleno suave, **rim light teal** desde atrás, sin sombra proyectada en el suelo dentro de las capas (la sombra va en P11). Fondo transparente.
-
-### 7.3 Portadas (Bunny Records)
-
-| # | Imagen | Formato | Detalle |
-|---|---|---|---|
-| C1–C5 | Una portada por proyecto (Vidriería Antonio, UI Component Library, Office → PDF, Plataforma educativa, AI Construction Estimator) | PNG/JPG **2000 × 2000 px** (1:1) | Sin título ni texto. Dejar respirar el centro: en la vista de álbum se recorta y se transforma en cabecera |
-| C6 | Variante "Planeado" | — | **No hace falta:** la edición planeada se marca con un tratamiento en CSS (etiqueta, desaturado, trama). Si quieres un boceto propio por proyecto, en el mismo formato y marcado como boceto |
-
-Que las cinco portadas compartan un estilo (misma técnica, paleta de marca) pero se distingan entre sí, como una discografía.
-
-Los **vinilos** que asoman detrás de las portadas, los surcos, los brillos de discoteca y la textura de fondo **los hago yo en CSS/SVG**: no necesitan imagen.
-
-### 7.4 Demos y capturas (por proyecto que exista de verdad)
-
-| # | Recurso | Formato | Detalle |
-|---|---|---|---|
-| D1 | Clip de demo ("videoclip", §5.2.1) | Grabación de pantalla en MP4, 1920 × 1080 o mayor; el tramo útil se recorta a 6 s | Sin audio. A partir de la grabación se generan MP4 H.264 + WebM ligeros al tamaño de la caja, en bucle limpio, y la imagen de póster |
-| D2 | Capturas de escritorio | PNG 1920 × 1200 (16:10) | 3–6 por proyecto, de pantallas reales |
-| D3 | Capturas de móvil | PNG a 3× (p. ej. 1170 × 2532) | 2–3 por proyecto |
-| D4 | Bocetos de proyectos planeados | PNG/JPG | Solo si existen, y se muestran rotulados como boceto |
-
-Ojo con Vidriería Antonio: sin datos reales del cliente en las capturas (`PORTFOLIO.md` §8).
-
-### 7.5 Lo que **no** necesitas producir
-
-Iconos de tecnologías de los créditos (React, Tauri, Rust…: uso iconos SVG de librería, revisando sus condiciones de marca), favicon e imágenes OG, fondos, texturas, vinilos, brillos y degradados de la "discoteca", y la sombra de contacto si prefieres que sea CSS.
+- Iconos de tecnologías, favicon, imágenes OG, fondos y degradados se generan en código; no se producen a mano.
 
 ---
 
@@ -379,40 +262,3 @@ Iconos de tecnologías de los créditos (React, Tauri, Rust…: uso iconos SVG d
 - **Transiciones entre rutas** (portada → cabecera, conejo → bandeja, pistas → pista abierta, apertura del panel de tecnología): **View Transitions** del navegador (`<ViewTransition>` de React / `viewTransition` de Next). Se descarta `layoutId` de Motion para esto porque sus animaciones de salida con App Router necesitan trucos frágiles. Sin soporte, la navegación funciona igual sin animación **[VERIFICAR estado en Next 16.4 al implementar]**. Duración: hacia el máximo del rango (~350–400 ms) para la portada; 200–250 ms para las pistas.
 - **Pistas:** las no elegidas se desvanecen y bajan unos píxeles; la elegida **sube al lugar de la primera** y su contenido se despliega debajo (así el texto queda a la vista sin desplazarse). Con `prefers-reduced-motion`: fundido corto o corte.
 - **Sin sonido** por defecto.
-
----
-
-## 9. Alcance de la v1 y orden de trabajo
-
-**v1:** colección, vista de álbum con pistas, créditos técnicos y ficha de tecnología, con las transiciones de §8. Personaje en **reposo, mirada (y parpadeo) y presentación**. El baile, la escucha, la despedida y las colecciones por género ("Web", "Herramientas", "Experimentos") entran cuando la navegación esté probada en móvil.
-
-Orden propuesto:
-
-1. **Hoja de personaje (P0) y pose maestra (P1).** Revisamos juntos identidad, proporción y acabado sobre fondo Midnight.
-2. **Prueba técnica de animación** (antes de producir todas las capas). Puedo montarla **ya** con el logo separado en capas SVG (cabeza, orejas, ojos `+`/`−`) para validar mirada, parpadeo, respiración y baile, medir el peso y ver cómo se siente. Cuando lleguen P2–P11, se sustituyen las piezas sin tocar la lógica.
-3. **Capas del personaje v1 (P2–P11)** y, si es posible, cabezas 3/4 (P12–P14).
-4. **Portadas (C1–C5)** y logo en SVG (M1–M4).
-5. Desarrollo según el roadmap de `PORTFOLIO.md` §10.
-
----
-
-## 10. Decisiones pendientes
-
-1. ~~Vía de producción del personaje~~ → Blender + MCP (hecho; ver `PLAN-IMAGENES.md` §6).
-2. ~~Contorno en el personaje 3D~~ → sin contorno.
-3. ~~Auriculares~~ → colgados del cuello en reposo, de gomita teal; puestos en Escucha (poses v2).
-4. ~~Prueba técnica~~ → hecha con el personaje real: `design/character/prototype/index.html`.
-5. ~~Logo en SVG~~ → redibujado (`design/logo/`); falta tu revisión de `design/logo/preview.html` (L4).
-6. ~~Rutas~~ → confirmadas (§5.4): pistas como rutas animadas, ficha de tecnología como panel con URL, conejo en escenario/bandeja (§4.4).
-7. Diseño en Figma: guía en **`FIGMA-DESIGN.md`**.
-
-> Nota (2026-10-11): la lista de capas de §7.2 queda sustituida por la real de `PLAN-IMAGENES.md` §7 (cabezas completas por pose, cuerpos por pose y fotogramas intermedios).
-
----
-
-## Historial
-
-- **2026-10-13:** clip de demo de 6 s bajo la portada del álbum: se reproduce solo, sin controles, la caja alterna pausa/reproducción y queda en pausa cuando no se ve (§5.2.1). Diseño en Figma aprobado e implementado por Claude; pendientes las grabaciones reales. Duración actualizada a 6 s por el usuario.
-- **2026-10-12:** navegación cerrada: una sola página que se transforma con URL por estado; pistas como rutas animadas; ficha de tecnología como panel con URL; conejo en el escenario (colección) y en la bandeja (resto); metáfora ampliada (detalles, duración = tiempo de lectura, notas de producción). Nuevo `FIGMA-DESIGN.md`.
-- **2026-10-11:** recomendada vía Blender + MCP; contorno: ninguno; se añaden las referencias fino 1–4.
-- **2026-10-11:** primera versión, a partir de `idea/PortfolioIdea.txt`, el logo y las referencias.

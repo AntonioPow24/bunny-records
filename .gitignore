@@ -20,7 +20,7 @@ Thumbs.db
 # Notas personales (los datos pasan a content/profile.ts)
 ME.md
 
-# Referencias y material de diseño pesado (se archivará fuera del repo; PORTFOLIO.md §11.7)
+# Referencias y material de diseño pesado (se archivará fuera del repo; ver docs/ESTADO.md)
 idea/
 imagelogo/
 design/character/*.blend

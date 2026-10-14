@@ -1,3 +1,5 @@
+> **HISTÓRICO — pendiente de migrar a Notion (Antonio Development Hub).** No es fuente vigente ni lectura de inicio. Lo vigente está en `docs/ESTADO.md`, `PORTFOLIO.md`, `BUNNY-RECORDS.md` y `FIGMA-DESIGN.md`. Se borrará del repo cuando la migración esté validada.
+
 # Bunny Records — Plan de desarrollo
 
 *Creado: 2026-10-12. Sigue `PORTFOLIO.md` (técnica), `BUNNY-RECORDS.md` (experiencia) y el diseño de Figma (`FIGMA-DESIGN.md`).*

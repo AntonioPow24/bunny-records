@@ -1,44 +1,7 @@
 @AGENTS.md
 
-# Bunny Records — reglas del proyecto
+## Solo para Claude
 
-Portfolio personal de Antonio Garcia Romero presentado como un sello discográfico. Documentos que mandan:
-
-| Documento | Para qué |
-|---|---|
-| `DESARROLLO.md` | Pasos de desarrollo y en cuál vamos. **Leerlo al empezar cada sesión** |
-| `PORTFOLIO.md` | Técnica: stack, i18n, rutas, modelo de contenido, calidad, hosting |
-| `BUNNY-RECORDS.md` | Experiencia: metáfora, navegación, conejo, movimiento. Manda en lo visual |
-| `FIGMA-DESIGN.md` | Diseño en Figma (archivo `o0r1u0aHeXmVXn2TAFME28`) y su estado |
-
-## Forma de trabajar
-
-- Un paso de `DESARROLLO.md` por rama (`paso-N-…`). Antes de tocar código, decir qué se cambia y qué archivos se tocan.
-- Al cerrar cada bloque: `npm run check` (typecheck + lint + build) en verde, commit y push. Merge a `main` cuando el paso está completo y revisado por el usuario.
-- Commits en español. `Co-Authored-By` solo cuando la IA hizo una parte sustancial del trabajo.
-- Identidad de Git: la personal (`garciaromeroantonio24@gmail.com`). Nunca la corporativa.
-- No versionar referencias, renders pesados ni notas personales (ver `.gitignore`).
-
-## Next.js 16.4 en este proyecto (leído en `node_modules/next/dist/docs/`)
-
-- **Cache Components y Partial Prefetching activos** (`next.config.ts`). Todo el sitio es estático: cuando existan las rutas con idioma, usar `ensureStatic` (guía `keeping-pages-static.md`) en el layout de `[locale]` para que un cambio no vuelva dinámica una ruta sin querer.
-- **Las páginas no se desmontan al navegar:** se ocultan con `<Activity>` (guía `preserving-ui-state.md`). El conejo, la demo y cualquier animación deben pausarse cuando su página queda oculta, y los paneles abiertos deben cerrarse al ocultarse.
-- **View Transitions sin configuración:** `<ViewTransition>` de React 19.3 (guía `view-transitions.md`). Los pares con `name` llevan `share` y `default="none"`; respetar `prefers-reduced-motion`.
-- **Tailwind v4** entra por `@tailwindcss/turbopack` (sin PostCSS).
-- **Idioma:** `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props. Todo texto de interfaz va en los dos diccionarios.
-- `LayoutProps<"/ruta">` y `PageProps<…>` son tipos globales generados por `next typegen` (incluido en `npm run typecheck`).
-
-## Rendimiento (paso 7.5)
-
-- Medir siempre sobre el build de producción, nunca con `npm run dev`.
-- El conejo no debe arrancar durante una transición; en pose fija carga solo esa pose.
-- En Lighthouse, mirar el LCP **observado** o usar `--throttling-method=devtools`: el simulado exagera el LCP de texto.
-
-## Reglas de producto que no se rompen
-
-- **Sin scroll de página** (`BUNNY-RECORDS.md` §5.3.2): todo cabe en `100dvh`; lo largo se desplaza dentro de su panel (en móvil, Sobre mí y Contacto desplazan toda la vista bajo la cabecera). Comprobar 1920×911, 390×844 y 375×667 en cada pantalla nueva.
-
-- **Hosting en Vercel Hobby:** el sitio es personal e informativo. Nunca añadir precios, pagos, anuncios ni ofertas de servicios o disponibilidad freelance (`PORTFOLIO.md` §2.1).
-- Sin métricas ni resultados inventados. Los proyectos planeados no tienen demo ni resultados.
-- El proyecto de la vidriería se llama "Vidriería Antonio" a propósito: no publicar el nombre real del cliente, su ciudad, teléfonos ni precios.
-- Contraste según `PORTFOLIO.md` §3.5 (botón primario: fondo teal, texto ink).
+- QA: skill `portfolio-qa` (proporcional al diff).
+- `Co-Authored-By` solo en commits donde la IA hizo una parte sustancial del trabajo.
+- Figma (archivo y nodos en `FIGMA-DESIGN.md`): antes de usar sus herramientas, cargar la skill de Figma correspondiente.

@@ -23,4 +23,4 @@ npm run dev
 
 ## Documentación
 
-`DESARROLLO.md` (pasos y estado), `PORTFOLIO.md` (técnica), `BUNNY-RECORDS.md` (experiencia y marca), `FIGMA-DESIGN.md` (diseño).
+Entrada para agentes y mapa de documentos: `AGENTS.md`. Estado actual: `docs/ESTADO.md`.

@@ -1,12 +1,10 @@
-# Bunny Brand — Portfolio personal · Especificación
-
-*Fase: planificación (sin código). Última revisión: 2026-10-12.*
+# Bunny Records — Portfolio personal · Especificación técnica
 
 Documento de referencia del portfolio. El **diseño visual lo entrega el usuario**; este documento define stack, arquitectura y base del sistema de diseño para implementarlo. Antes de cada fase se confirma aquí el alcance.
 
 Concepto, marca, personaje y lista de imágenes: **`BUNNY-RECORDS.md`** (manda en lo visual y de interacción).
 
-Fuentes: `~/.claude/PROJECT-PLAYBOOK.md`, `imagelogo/Palette.png` y el repositorio de **Vidriería Antonio** (`C:\APPS\vidrieria-antonio`, solo lectura), cuya arquitectura se reutiliza donde aplica.
+Fuentes: `~/.ai` (metodología y stacks comunes), `imagelogo/Palette.png` y el repositorio de **Vidriería Antonio** (`C:\APPS\vidrieria-antonio`, solo lectura), cuya arquitectura se reutiliza donde aplica.
 
 Etiquetas: **[VERIFICAR]** = dato externo (versión, precio, límite) que hay que confirmar antes de usarlo.
 
@@ -16,7 +14,7 @@ Etiquetas: **[VERIFICAR]** = dato externo (versión, precio, límite) que hay qu
 
 Portfolio de desarrollador, **bilingüe desde el inicio (es/en)** y preparado para más idiomas. Muestra perfil, tecnologías, experiencia, proyectos con su estado (completado / en desarrollo / planificado) y un medio de contacto.
 
-**Tipo de proyecto (playbook §0): A, web de contenido con SEO**, sin base de datos, autenticación ni panel admin. Se reutiliza la arquitectura de Vidriería Antonio y se quita todo lo que dependía de Supabase.
+**Tipo de proyecto: A, web de contenido con SEO** (`PROJECT.yaml`), sin base de datos, autenticación ni panel admin. Se reutiliza la arquitectura de Vidriería Antonio y se quita todo lo que dependía de Supabase.
 
 **Proyectos:**
 
@@ -48,9 +46,9 @@ No se inventan métricas, experiencia ni datos personales. Los proyectos planifi
 | i18n | **Nativo de Next.js** (segmento `[locale]` + diccionarios tipados + `proxy.ts`) | — | Sin dependencias, compatible con SSG y fácil de ampliar (§4). `next-intl` queda como alternativa si en el futuro hacen falta plurales ICU complejos o rutas traducidas |
 | Contenido | **TypeScript tipado + MDX** (`@next/mdx`) para el texto largo de los casos de estudio | 16.4.0 | Sin base de datos ni CMS (§6) |
 | Utilidades | `clsx`, `tailwind-merge`, `class-variance-authority` | — | Vienen con shadcn; `cn()` reutilizado de Vidriería |
-| Paquetes | **npm** | — | Playbook |
+| Paquetes | **npm** | — | Por defecto |
 | Hosting | **Vercel Hobby** (decisión del usuario, 2026-10-12) | — | Permitido porque el sitio es personal e **informativo**: sus condiciones (consultadas 2026-10-12) cuentan como comercial "anunciar la venta de un producto o servicio", por eso Contacto no ofrece servicios ni disponibilidad freelance. **Regla:** no añadir precios, pagos, anuncios ni ofertas de servicios; si algún día se quieren, pasar a Netlify Free o Vercel Pro (el código es el mismo) |
-| Dominio | **Cloudflare Registrar** | — | Playbook |
+| Dominio | **Cloudflare Registrar** | — | `~/.ai/stacks/hosting.md` |
 
 ### 2.2 Qué se reutiliza de Vidriería Antonio
 
@@ -68,7 +66,7 @@ No se inventan métricas, experiencia ni datos personales. Los proyectos planifi
 | Variables `NEXT_PUBLIC_SITE_URL` y `SITE_NOINDEX` | Vidriería | Ninguno |
 | Organización `components/{ui,layout,sections,motion}` | Vidriería | Se añaden `patterns/`, `brand/` y `portfolio/` para la futura librería (§7) |
 | Convenciones: kebab-case en archivos, PascalCase en componentes, sin comentarios de "qué hace", sin abstracciones "por si acaso" | `CLAUDE.md` de Vidriería | Ninguno |
-| Flujo por fases, ramas y QA | Playbook §4 | Ninguno |
+| Flujo por fases, ramas y QA | `~/.ai/WORKFLOW.md` | Ninguno |
 
 **No se reutiliza:** Supabase (cliente, migraciones, RLS, Storage, workflow keep-alive), panel admin, React Hook Form + Zod (no hay formularios), dnd-kit, compresión de imágenes en el navegador ni `revalidatePath` (no hay escrituras).
 
@@ -160,7 +158,14 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
 
 - Excepciones del personaje (respiración, parpadeo, perspectiva de portadas): ver `BUNNY-RECORDS.md` §8.
 - CSS por defecto (hover, foco, transiciones) y CSS/JS para el personaje. Motion no está instalado; no añadirlo sin una necesidad justificada.
-- **Transiciones entre rutas:** `<ViewTransition>` de React 19.3, sin flag `viewTransition` en Next.js 16.4. Comportamientos y excepciones vigentes en `DESARROLLO.md` (pasos 11 y mejoras posteriores); no asumir que todos los paneles deben animarse.
+- **Transiciones entre rutas:** `<ViewTransition>` de React 19.3, sin flag `viewTransition` en Next.js 16.4. Pares con nombre siempre con `share` y `default="none"`. Inventario vigente:
+  - colección ↔ álbum: `cover-<slug>` (portada ↔ cabecera) y `host-bunny` (escenario ↔ bandeja), 320 ms;
+  - álbum ↔ pista: `track-<slug>-<pista>` (`share="track-morph"`, 240 ms) y el texto con fundido hacia arriba;
+  - barra ↔ Sobre mí / Contacto: `disc-<kind>` y `scene-bunny` (320 ms); la barra no se mueve; el resto, fundido de 200 ms; el vinilo no gira durante la transición;
+  - créditos (sobres): solo con el tipo `sleeve` (`addTransitionType`);
+  - capas durante la transición: `scene-bunny` 120 > discos 110 > barra 100;
+  - el panel de tecnología **no** usa View Transition (animación de Base UI, 300 ms): abrir o cerrar una ficha no lanza ninguna;
+  - Atrás/Adelante del navegador: sin transición (decisión: el gesto móvil ya anima).
 - Duraciones de 150 a 400 ms, sin bucles infinitos ni parallax.
 - No se anima la opacidad del elemento LCP.
 - `prefers-reduced-motion` desactiva los desplazamientos mediante CSS y el manejo del personaje en CSS/JS; no se usa `MotionConfig`.
@@ -388,47 +393,26 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 |---|---|
 | Vercel Hobby (sitio personal e informativo; ver §2.1) | US$0 |
 | GitHub | US$0 |
-| Figma Starter (diseño; si hace falta, Professional ~US$20 un solo mes, ver `FIGMA-DESIGN.md` §9.0) | US$0 |
+| Figma (diseño; plan según necesidad, verificar antes de pagar) | US$0 |
 | Dominio `.com` en Cloudflare (opcional, recomendado) | ~US$10.5/año **[VERIFICAR]** |
 | Vercel Pro o plan de pago de Netlify (solo si se agota el plan gratuito) | ~US$19–20/mes **[VERIFICAR]** |
 
-**Obligatorio: US$0.** Los deploys de producción se hacen al hacer merge de un bloque completo a `main`. El código no usa nada propio del hosting, así que mudarse es barato (playbook §1.1). **Si el portfolio llegara a vender servicios directamente** (precios, pagos), dejaría de ser personal: entonces habría que pasar a Netlify Free o a Vercel Pro. Las previsualizaciones llevan `SITE_NOINDEX=true`.
+**Obligatorio: US$0.** Los deploys de producción se hacen al hacer merge de un bloque completo a `main`. El código no usa nada propio del hosting, así que mudarse es barato (`~/.ai/stacks/hosting.md`). **Si el portfolio llegara a vender servicios directamente** (precios, pagos), dejaría de ser personal: entonces habría que pasar a Netlify Free o a Vercel Pro. Las previsualizaciones llevan `SITE_NOINDEX=true`.
 
 ---
 
-## 10. Roadmap
+## 10. Mantenimiento y avisos aceptados
 
-Cada fase en su propia rama. Typecheck, lint y build en verde, revisión del usuario y merge a `main` (playbook §4).
-
-| Fase | Contenido | Criterio de aceptación |
-|---|---|---|
-| **0. Diseño** | El usuario diseña en Figma siguiendo `FIGMA-DESIGN.md`; se ajusta este documento | Pantallas y prototipo de transiciones aprobados; logo disponible |
-| **1. Base** | `create-next-app`, leer docs de Next en `node_modules`, configs reutilizadas de Vidriería, `CLAUDE.md`, tokens, fuentes, i18n (config, diccionarios, `proxy.ts`, selector), layout (header, nav móvil, footer), primitivos necesarios, regla ESLint de capas | `/es` y `/en` navegables; un diccionario incompleto rompe el typecheck; foco y teclado correctos |
-| **2. Contenido** | Tipos, `content/`, 5 proyectos en ambos idiomas, MDX de Vidriería | Un planificado con `results` no compila; los datos de Vidriería tienen fuente |
-| **3. Navegación Records** | Colección con filtro, álbum, pistas, créditos, panel de tecnología, bandeja, conejo en escenario/bandeja, View Transitions, OG por proyecto | Todas las combinaciones de idioma, slug y pista estáticas; Atrás deshace cada paso; entrada directa sin animación; filtros accesibles; con `prefers-reduced-motion` no hay desplazamientos |
-| **4. About y contacto** | Secciones según el diseño | Ningún texto personal sin aportar por el usuario |
-| **5. Calidad** | SEO (hreflang, sitemap, JSON-LD), axe, teclado, Lighthouse, responsive 320–1920, cabeceras | Objetivos de §8 medidos y registrados |
-| **6. Publicación** | Repo remoto y Netlify (con autorización), dominio, Search Console | Primer deploy de producción aprobado por el usuario |
-
-**Post-MVP:** página `/lab` como escaparate de componentes (semilla de la UI Library), tercer idioma, analítica sin cookies y nuevos casos de estudio.
-
----
-
-## 11. Pendiente del usuario
-
-1. ~~Logo, diseño y portadas~~ → diseño cerrado en Figma (2026-10-12); portadas IA provisionales.
-7. **Limpieza de la carpeta (anotado 2026-10-12):** `idea/`, `imagelogo/` y los archivos pesados de `design/character/` (`.blend`, `backup/`, `blockout/`, `lab/`, `sheet/`, renders PNG de `poses/` y `layers/`) se sacarán del proyecto a una carpeta de archivo fuera del repo. Mientras tanto, `.gitignore` los excluye. `ME.md` también se excluye; sus datos pasan a `content/profile.ts`.
-2. Contenido personal: nombre público, rol, ciudad, biografía (3–4 líneas), trayectoria (años, rol, empresa), email, GitHub, LinkedIn, disponibilidad, foto o retrato (opcional) y si apruebas el "Manifiesto del sello" propuesto. En ambos idiomas, o en español para traducirlo (`BUNNY-RECORDS.md` §5.3.1).
-3. ~~Repo de Vidriería~~ → **privado** (2026-10-12). Un repo público no deja que otros cambien el código (solo pueden copiarlo o proponer cambios que tú apruebas), pero expone el historial completo, la lógica y los datos de prueba del cliente. Se queda privado y el álbum no enlaza ni al repo ni a la demo temporal.
-4. ~~UI Component Library~~ → planificado.
-5. Dominio: aún sin decidir; primero `*.vercel.app` y al final Cloudflare. Visibilidad del repo del portfolio: pendiente.
-6. ~~`Co-Authored-By`~~ → solo en los commits donde la IA hizo una parte sustancial del trabajo, no en todos.
-
----
-
-## Historial
-
-- **2026-10-12:** rutas confirmadas (pista como ruta con layout persistente, ficha de tecnología como ruta interceptada); se quita el listado `/projects`; modelo de contenido con `tracks`, `credits`, `productionNotes` y `demo`; MDX por pista; transiciones con View Transitions; fase 0 apunta a `FIGMA-DESIGN.md`.
-- **2026-10-11:** primera versión.
-- **2026-10-11:** se añade `BUNNY-RECORDS.md` (concepto Bunny Studio + Bunny Records); logo definido; excepciones de movimiento para el personaje.
-- **2026-10-11:** simplificado a stack y arquitectura. Logo pendiente; tipografía y tonos decididos; bilingüe (es/en) desde el inicio y ampliable; reutilización explícita de la arquitectura de Vidriería Antonio.
+- **Añadir un videoclip:** archivos en `public/demos/<slug>/` y campo `demo` del proyecto (receta en `BUNNY-RECORDS.md` §7). **Capas pequeñas del conejo:** `node scripts/bunny-small.mjs` regenera `public/bunny/sm/`.
+- Medir con `--throttling-method=devtools` o el LCP observado (`~/.ai/stacks/nextjs.md`). Referencia medida (paso 13): Lighthouse móvil 95–97, accesibilidad y SEO 100, LCP 1,1–1,3 s, CLS ≤ 0,03.
+- **Aceptado, no reabrir sin motivo nuevo:**
+  - `image-size-responsive` en Lighthouse: falso positivo (capas del conejo de 1200 px escaladas con `transform`).
+  - JS sin usar (~29 KB) y JS antiguo (~14 KB): chunk del propio Next/React.
+  - axe: contraste de la pegatina "Planeado" en portadas laterales (opacidad decorativa; la central cumple).
+  - CSP con `'unsafe-inline'`: Next mete scripts en línea y los nonces obligarían a renderizar cada petición; no hay entrada de usuario.
+  - `npm audit`: avisos "high" en `braces` vía `eslint-config-next`, solo en desarrollo; el "arreglo" de npm rompe el proyecto.
+  - Aviso de `unrs-resolver` (script de instalación bloqueado por npm 11): ESLint funciona igual.
+  - En desarrollo, "This library called use() to suspend…" al pasar de pista a pista: fallo de Next 16.4.0 (`InnerLayoutRouter`), solo en dev. "Transition was aborted… Document hidden": ventana oculta, sin efecto.
+  - El CV público incluye teléfono y el nombre real de la vidriería: excepción aceptada por el usuario.
+  - Al salir de un álbum con Atrás con el modal "Ampliar" abierto, el cierre se aplica al volver (queda invisible y sin bloquear la página).
+- **Verificar responsive sin tocar la ventana:** el sitio envía `X-Frame-Options: DENY` (no sirve un iframe) y la ventana de Chrome no baja de tamaño; usar Chrome headless con emulación por CDP (`Emulation.setDeviceMetricsOverride`).

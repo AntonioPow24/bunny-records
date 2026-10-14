@@ -1,0 +1,5 @@
+# Lo que usa este proyecto. Los agentes leen ~/.ai/stacks/<id>.md solo de lo listado y solo si la tarea lo toca.
+name: bunny-records
+type: A            # web de contenido con SEO, estática, sin backend
+stacks: [nextjs, react-tailwind, hosting]
+tools: [figma, blender]

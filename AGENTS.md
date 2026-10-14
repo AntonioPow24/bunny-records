@@ -1,40 +1,60 @@
-# Bunny Records — colaboración Codex / Claude Code
+# Bunny Records — entrada común para agentes
 
-## Responsabilidades
+Portfolio personal de Antonio Garcia Romero presentado como un sello discográfico. Sitio estático y bilingüe (es/en), sin backend. Stack declarado en `PROJECT.yaml`: de `~/.ai/stacks/` solo aplican esos ids.
 
-- **Codex:** análisis UX/UI, exploración visual, refinamiento en Figma Design, arquitectura, planificación y revisión. Consulta código para entender viabilidad y comportamiento; no implementa cambios de producto sin autorización explícita del usuario.
-- **Claude Code:** implementación e integración de los diseños aprobados, mantenimiento del código y validación técnica, responsive y accesible. Sigue este reparto y sus instrucciones operativas en `CLAUDE.md`; no inicia una implementación por una propuesta todavía sin aprobar.
-- **Usuario:** elige y aprueba diseños e indica manualmente a Claude cuándo implementar. No iniciar tareas automáticas ni enviar instrucciones entre agentes.
-- Ambos comparten este repositorio y las fuentes canónicas. No sobrescribir trabajo pendiente ni modificar simultáneamente los mismos archivos sin coordinación del usuario.
+## Al empezar
 
-## Fuentes de verdad y lectura selectiva
-
-Leer `DESARROLLO.md` al empezar cada sesión: estado, tarea y criterios de cierre. Consultar solo las secciones pertinentes de:
+Leer `docs/ESTADO.md` (corto). Nada más por defecto: consultar solo la sección pertinente de
 
 | Documento | Autoridad |
 |---|---|
-| `PORTFOLIO.md` | Stack, arquitectura, contenido, i18n, accesibilidad, SEO y hosting |
-| `BUNNY-RECORDS.md` | Identidad, experiencia, navegación y movimiento; prevalece en asuntos visuales y de interacción |
-| `FIGMA-DESIGN.md` | Archivo, componentes, referencias, estado y traspaso de diseños |
-| `PLAN-IMAGENES.md` | Recursos, personaje aprobado, capas y exportaciones |
+| `PORTFOLIO.md` | Técnica: stack, tokens, i18n, rutas, contenido, calidad, hosting, mantenimiento |
+| `BUNNY-RECORDS.md` | Experiencia, marca, navegación, personaje, movimiento y assets; manda en lo visual |
+| `FIGMA-DESIGN.md` | Archivo de Figma, diseños aprobados vigentes y traspaso de diseño |
+| `.claude/skills/portfolio-qa/SKILL.md` | Controles de QA propios (los niveles están en `~/.ai/WORKFLOW.md` §2) |
 
-No duplicar estas especificaciones en instrucciones ni crear documentos equivalentes. Corroborar el estado con código y Git; las capturas antiguas de Figma no garantizan correspondencia con `main`. `CLAUDE.md` conserva las convenciones técnicas útiles para ambos; sus instrucciones de commit/push no constituyen autorización para ejecutarlos.
+`DESARROLLO.md` y `PLAN-IMAGENES.md` son históricos pendientes de migrar a Notion: no leerlos salvo petición expresa. Corroborar el estado con el código y Git.
 
-## Flujo de diseño y entrega
+## Reglas que no se rompen
 
-1. Inspeccionar Git, documentación y sección actual; proponer alternativas coherentes y viables.
-2. Preservar el diseño original. Elegir copias de frames, sección, página o archivo separado solo tras verificar capacidades, plan y coste de Figma. **`Redesign Lab` es una opción pendiente, no una obligación:** no crear ni contratar nada por defecto.
-3. Diseñar y revisar alternativas; el usuario aprueba la definitiva antes de integrar o implementar.
-4. Preparar un traspaso compacto: sección, enlaces al original y al aprobado, diferencias, componentes afectados, responsive, interacción/movimiento, criterios de aceptación y aspectos que conservar. El usuario lo entrega a Claude.
+- **Sin scroll de página** (`BUNNY-RECORDS.md` §5.3.2): todo cabe en `100dvh`; lo largo se desplaza en su panel (en móvil, Sobre mí y Contacto desplazan `<main>` bajo la cabecera). Comprobar 1920×911, 390×844 y 375×667 en cada pantalla nueva.
+- **Vercel Hobby:** sitio personal e informativo. Nunca precios, pagos, anuncios ni ofertas de servicios o disponibilidad freelance (`PORTFOLIO.md` §2.1).
+- Sin métricas ni resultados inventados. Los proyectos planeados no tienen demo ni resultados.
+- "Vidriería Antonio" es un nombre genérico a propósito: no publicar el nombre real del cliente, su ciudad, teléfonos ni precios (única excepción aceptada: el CV descargable).
+- Contraste según `PORTFOLIO.md` §3.5 (botón primario: fondo teal, texto ink). Todo texto de interfaz en los dos diccionarios.
 
-## Límites y verificación
+## Comandos
 
-- No modificar configuración de Claude sin autorización. No realizar commits, push, merge ni despliegues sin aprobación explícita.
-- No cambiar código de producción durante la preparación de herramientas. No instalar o actualizar software sin autorización.
-- Mantener interfaz en `100dvh` con scroll interno, ES/EN, identidad y personaje aprobados; respetar contraste y movimiento reducido según las fuentes canónicas.
-- Para cambios de código, ejecutar `npm run check` al cerrar el bloque. Para documentación exclusivamente, revisar diff, referencias y consistencia sin generar builds innecesarios.
-- QA de Codex: `.agents/skills/portfolio-qa/SKILL.md`; QA de Claude: `.claude/skills/portfolio-qa/SKILL.md`. Aplicar controles proporcionales al riesgo.
-- No afirmar que una conexión, diseño o comportamiento está verificado sin evidencia. No exponer credenciales ni incluirlas en Git.
+| Comando | Uso |
+|---|---|
+| `npm run check` | typecheck + lint + build; obligatorio al cerrar cada bloque de código |
+| `npm run build && npm run start` | Medir y verificar siempre sobre producción |
+| `npm run dev` | Desarrollo |
+
+## Next.js 16.4 en este proyecto
+
+Lecciones generales de Next 16 (Cache Components, `<Activity>`, View Transitions, servidor de desarrollo): `~/.ai/stacks/nextjs.md`. Configuración propia:
+
+- **Cache Components y Partial Prefetching activos** (`next.config.ts`); todo el sitio es estático y el layout de `[locale]` usa `ensureStatic` para que una ruta no se vuelva dinámica sin querer.
+- Las páginas visitadas se ocultan con `<Activity>`: el conejo, la demo y cualquier animación se pausan al ocultarse y los paneles se cierran.
+- Tailwind v4 entra por `@tailwindcss/turbopack` (sin PostCSS).
+- Idioma: `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props.
+- `LayoutProps<"/ruta">` y `PageProps<…>` son globales generados por `next typegen` (incluido en `npm run typecheck`).
+- El conejo no arranca durante una transición; en pose fija carga solo esa pose.
+
+## Git y despliegue
+
+- Una rama por tarea (`mejora-N-…`); commits en español con la identidad personal (`garciaromeroantonio24@gmail.com`), nunca la corporativa.
+- Commits cuando la tarea lo requiera. **Push, merge y deploy solo con aprobación explícita del usuario.** Un merge a `main` despliega solo en Vercel (`bunny-records.vercel.app`, con `noindex` hasta tener dominio).
+- El hook de merge exige una revisión registrada (code-review) antes de integrar.
+- No versionar referencias, renders pesados ni notas personales (`.gitignore`).
+
+## Colaboración
+
+- **Codex:** UX/UI, Figma, arquitectura, planificación y revisión. No implementa cambios de producto sin autorización del usuario.
+- **Claude Code:** implementa e integra los diseños aprobados, mantiene el código y lo valida.
+- **Usuario:** aprueba los diseños e indica cuándo implementar. Los agentes no se envían tareas entre sí ni modifican a la vez los mismos archivos.
+- Flujo de diseño a código: `~/.ai/WORKFLOW.md` §5; archivo y estado en `FIGMA-DESIGN.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
