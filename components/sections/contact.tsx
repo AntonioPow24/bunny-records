@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 const CV_HREF = "/cv/cv-antonio-garcia-romero-2026.pdf";
 
 // Contacto · contraportada del artista (Figma T14 v3, FIGMA-DESIGN.md §8.2). Informativo: sin ofertas de
-// servicios, precios ni disponibilidad freelance (PORTFOLIO.md §2.1). El correo es un dato de texto, sin
-// botón de copiar ni mailto. La firma va en la escena (Turntable), fuera del disco que gira.
+// servicios, precios ni disponibilidad freelance (PORTFOLIO.md §2.1). El correo es un enlace mailto (sin botón de
+// copiar). La firma va en la escena (Turntable), fuera del disco que gira.
 export async function ContactSheet() {
   const [locale, dict, year] = await Promise.all([getLocale(), getDictionary(), getBuildYear()]);
   const links = [
@@ -66,7 +66,12 @@ export async function ContactSheet() {
         </h2>
         <div className="flex flex-col gap-1">
           <p className="text-label text-muted-foreground">{dict.contact.emailLabel}</p>
-          <p className="text-body-sm [overflow-wrap:anywhere]">{profile.contact.email}</p>
+          <a
+            href={`mailto:${profile.contact.email}`}
+            className="text-body-sm flex min-h-11 items-center self-start underline decoration-border underline-offset-4 transition-colors [overflow-wrap:anywhere] hover:text-primary hover:decoration-primary md:min-h-0"
+          >
+            {profile.contact.email}
+          </a>
         </div>
         <ul className="grid grid-cols-2 gap-x-8">
           {links.map((link) => (

@@ -335,7 +335,8 @@ Rediseños visuales anotados en la revisión del usuario; se diseñan primero en
 | 17 | Primer videoclip real: Bunny Records | Contenido | Hecho (`mejora-17-demo-bunny-records`) |
 | 18 | MP4 del videoclip a 960×540 (5,5 MB → 200 KB) y receta de `ffmpeg` | Contenido | Hecho (`mejora-18-mp4-ligero`) |
 | 19 | Videoclip real de Vidriería Antonio | Contenido | Hecho (`mejora-19-demo-vidrieria`) |
-| 20 | "Ampliar" el videoclip en un modal centrado | Código | Hecho (`mejora-20-demo-ampliada`), pendiente de revisión del usuario |
+| 20 | "Ampliar" el videoclip en un modal centrado | Código | Hecho (`mejora-20-demo-ampliada`) |
+| 21 | El correo de Contacto pasa a enlace `mailto` | Código | Hecho (`mejora-21-mailto`) |
 
 **Colaboración (2026-10-13):** Codex se encarga del refinamiento UX/UI y Figma, planificación y revisión; Claude implementa lo aprobado cuando el usuario se lo indica manualmente. Reglas en `AGENTS.md`. Las capturas Figma de `mejora-3` son una referencia histórica; antes de rediseñar una sección se contrasta con `main`. El espacio experimental, incluido un posible `Redesign Lab`, sigue pendiente de evaluar según el plan y la utilidad; no requiere cambiar de plan por defecto.
 
