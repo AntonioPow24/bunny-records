@@ -51,9 +51,8 @@ Lecciones generales de Next 16 (Cache Components, `<Activity>`, View Transitions
 
 ## Colaboración
 
-- **Codex:** UX/UI, Figma, arquitectura, planificación y revisión. No implementa cambios de producto sin autorización del usuario.
-- **Claude Code:** implementa e integra los diseños aprobados, mantiene el código y lo valida.
-- **Usuario:** aprueba los diseños e indica cuándo implementar. Los agentes no se envían tareas entre sí ni modifican a la vez los mismos archivos.
+- Responsables elegidos por el usuario en `PROJECT.yaml` (`roles`); preguntar juntos los pendientes antes de iniciar esas fases. Claude y Codex pueden asumir cualquier rol, según `~/.ai/CORE.md`.
+- El usuario aprueba los diseños e indica cuándo implementar. Sin trabajo simultáneo de ambos agentes salvo petición expresa; no enviarse tareas sin autorización.
 - Flujo de diseño a código: `~/.ai/WORKFLOW.md` §5; archivo y estado en `FIGMA-DESIGN.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->

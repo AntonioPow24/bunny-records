@@ -3,3 +3,10 @@ name: bunny-records
 type: A            # web de contenido con SEO, estática, sin backend
 stacks: [nextjs, react-tailwind, hosting]
 tools: [figma, blender]
+
+# Pendientes de elección por el usuario; no heredar el reparto anterior.
+roles:
+  concepto: null
+  arquitectura: null
+  figma: null
+  implementacion: null
