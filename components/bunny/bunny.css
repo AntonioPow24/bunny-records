@@ -88,7 +88,8 @@
   animation: bunny-auto-ear 8s ease-in-out 8s infinite;
 }
 .bunny-canvas.is-dancing .bunny-dance,
-.bunny-canvas.is-presenting .bunny-dance {
+.bunny-canvas.is-presenting .bunny-dance,
+.bunny-canvas.is-presenting .bunny-ear {
   animation: none;
 }
 .bunny-ear-left {
