@@ -99,6 +99,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
       // Píxeles reales del conejo: por debajo de SMALL_MAX_PX bastan las capas a media resolución (~1/3 del peso).
       const small = root.clientWidth * window.devicePixelRatio <= SMALL_MAX_PX;
       engineRef.current = new BunnyEngine(canvas, mode, hold ?? null, only, small);
+      if (danceLabel) engineRef.current.startAutoDance(); // el del escenario baila solo: 4 s cada 8 s
       engineKeyRef.current = key;
       syncPause();
     };
@@ -141,7 +142,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
         }
       }, 0);
     };
-  }, [mode, hold]);
+  }, [mode, hold, danceLabel]);
 
   const still = (
     // eslint-disable-next-line @next/next/no-img-element -- capa posicionada sobre el lienzo de 1200×1600, no una foto
