@@ -34,6 +34,8 @@ type BunnyProps = {
   hold?: BunnyPose;
   /** Si se pasa, el conejo es un botón que baila al pulsarlo; si no, es decorativo. */
   danceLabel?: string;
+  /** Baila solo 4 s cada 8 s (el conejo de la colección). */
+  autoDance?: boolean;
   /** Carga prioritaria de la imagen fija (cuando el conejo es lo primero que se ve). */
   priority?: boolean;
   className?: string;
@@ -52,12 +54,11 @@ const pct = (value: number, total: number) => `${(value / total) * 100}%`;
  * Conejo anfitrión. Se pinta primero como imagen fija (servidor, sin JavaScript); el montaje por capas la
  * sustituye cuando el reposo está descodificado. Con prefers-reduced-motion se queda la imagen fija.
  */
-export function Bunny({ mode = "lite", hold, danceLabel, priority = false, className, ref }: BunnyProps) {
+export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, priority = false, className, ref }: BunnyProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BunnyEngine | null>(null);
   const engineKeyRef = useRef("");
-  const autoDance = Boolean(danceLabel); // el del escenario (con botón de baile) baila solo
 
   useImperativeHandle(ref, () => ({
     headPoint: () => {

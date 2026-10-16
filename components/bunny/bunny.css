@@ -77,6 +77,26 @@
 .bunny-canvas.is-popping .bunny-rig {
   animation: bunny-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+/* Baile automático (colección): 4 s de baile cada 8 s, en CSS (se pausa con .is-paused). El cuerpo
+   se balancea en su propio contenedor (.bunny-dance) y las orejas con `rotate`, así no pisa el pop ni el
+   giro hacia el puntero. Va antes del baile del clic: mientras este dura, o mientras presenta un álbum,
+   el automático se detiene y su ciclo vuelve a empezar. */
+.bunny-canvas.is-auto-dancing .bunny-dance {
+  animation: bunny-auto-sway 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing .bunny-ear {
+  animation: bunny-auto-ear 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-dancing .bunny-dance,
+.bunny-canvas.is-presenting .bunny-dance {
+  animation: none;
+}
+.bunny-ear-left {
+  --ear-sign: -1;
+}
+.bunny-ear-right {
+  --ear-sign: 1;
+}
 .bunny-canvas.is-dancing .bunny-rig {
   animation: bunny-sway 800ms ease-in-out 2;
 }
@@ -85,39 +105,6 @@
 }
 .bunny-canvas.is-dancing .bunny-ear-right {
   animation: bunny-ear-right 400ms ease-in-out 4;
-}
-
-/* Baile automático (colección): 4 s de baile cada 8 s, en CSS (se pausa con .is-paused, sin temporizadores).
-   Anima rotate/translate en vez de transform: se suma al pop, al baile del clic y al giro de las orejas
-   sin reiniciarse. */
-.bunny-canvas.is-auto-dancing .bunny-rig {
-  animation: bunny-auto-sway 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing.is-popping .bunny-rig {
-  animation:
-    bunny-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    bunny-auto-sway 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing.is-dancing .bunny-rig {
-  animation:
-    bunny-sway 800ms ease-in-out 2,
-    bunny-auto-sway 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing .bunny-ear-left {
-  animation: bunny-auto-ear-left 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing .bunny-ear-right {
-  animation: bunny-auto-ear-right 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing.is-dancing .bunny-ear-left {
-  animation:
-    bunny-ear-left 400ms ease-in-out 4,
-    bunny-auto-ear-left 8s ease-in-out 8s infinite;
-}
-.bunny-canvas.is-auto-dancing.is-dancing .bunny-ear-right {
-  animation:
-    bunny-ear-right 400ms ease-in-out 4,
-    bunny-auto-ear-right 8s ease-in-out 8s infinite;
 }
 
 /* Fuera de pantalla o con la página oculta: todo quieto. */
@@ -163,57 +150,35 @@
 }
 
 @keyframes bunny-auto-sway {
+  5%,
   10%,
+  15%,
   20%,
+  25%,
   30%,
+  35%,
   40%,
+  45%,
   50%,
   100% {
-    rotate: 0deg;
-    translate: 0 0;
+    transform: none;
   }
-  2.5% {
-    rotate: -5deg;
-    translate: 0 -10px;
-  }
-  7.5% {
-    rotate: 5deg;
-    translate: 0 -10px;
-  }
-  12.5% {
-    rotate: -5deg;
-    translate: 0 -10px;
-  }
-  17.5% {
-    rotate: 5deg;
-    translate: 0 -10px;
-  }
-  22.5% {
-    rotate: -5deg;
-    translate: 0 -10px;
-  }
-  27.5% {
-    rotate: 5deg;
-    translate: 0 -10px;
-  }
-  32.5% {
-    rotate: -5deg;
-    translate: 0 -10px;
-  }
-  37.5% {
-    rotate: 5deg;
-    translate: 0 -10px;
-  }
+  2.5%,
+  12.5%,
+  22.5%,
+  32.5%,
   42.5% {
-    rotate: -5deg;
-    translate: 0 -10px;
+    transform: rotate(-5deg) translateY(-10px);
   }
+  7.5%,
+  17.5%,
+  27.5%,
+  37.5%,
   47.5% {
-    rotate: 5deg;
-    translate: 0 -10px;
+    transform: rotate(5deg) translateY(-10px);
   }
 }
-@keyframes bunny-auto-ear-left {
+@keyframes bunny-auto-ear {
   5%,
   10%,
   15%,
@@ -237,34 +202,7 @@
   37.5%,
   42.5%,
   47.5% {
-    rotate: -14deg;
-  }
-}
-@keyframes bunny-auto-ear-right {
-  5%,
-  10%,
-  15%,
-  20%,
-  25%,
-  30%,
-  35%,
-  40%,
-  45%,
-  50%,
-  100% {
-    rotate: 0deg;
-  }
-  2.5%,
-  7.5%,
-  12.5%,
-  17.5%,
-  22.5%,
-  27.5%,
-  32.5%,
-  37.5%,
-  42.5%,
-  47.5% {
-    rotate: 14deg;
+    rotate: calc(var(--ear-sign) * 14deg);
   }
 }
 

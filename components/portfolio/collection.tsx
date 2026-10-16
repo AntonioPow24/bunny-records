@@ -163,7 +163,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
         <div className="stage -mx-4 flex flex-col items-center gap-3 overflow-x-clip px-4 md:mx-0 md:block md:px-0">
           {/* El conejo anfitrión baja del escenario a la bandeja al abrir un álbum (misma transición). */}
           <ViewTransition name="host-bunny" share="host-bunny" default="none">
-            <Bunny ref={bunny} mode="full" priority danceLabel={labels.dance} className="stage-bunny" />
+            <Bunny ref={bunny} mode="full" priority danceLabel={labels.dance} autoDance className="stage-bunny" />
           </ViewTransition>
 
           <section

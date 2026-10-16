@@ -73,6 +73,8 @@ export class BunnyEngine {
   private readonly earR: HTMLElement;
   private readonly earImgs: HTMLImageElement[];
   private readonly rig: HTMLElement;
+  private readonly danceEl: HTMLElement;
+  private readonly classTimers = new Set<number>();
 
   private cur: { u: string; v: string | null; i: number } = { u: "rest", v: null, i: 0 };
   private target = "rest";
@@ -112,7 +114,9 @@ export class BunnyEngine {
     const P = B.pivots;
     const feet = `${P.feet[0]}px ${P.feet[1]}px`;
 
-    this.rig = this.el("div", "bunny-group bunny-rig", canvas);
+    this.danceEl = this.el("div", "bunny-group bunny-dance", canvas);
+    this.danceEl.style.transformOrigin = feet;
+    this.rig = this.el("div", "bunny-group bunny-rig", this.danceEl);
     this.rig.style.transformOrigin = feet;
     this.img("bunny-shadow", this.rig).classList.add("is-on");
     this.gBody = this.el("div", "bunny-group bunny-body", this.rig);
@@ -313,12 +317,17 @@ export class BunnyEngine {
     host.classList.remove(name);
     void host.offsetWidth;
     host.classList.add(name);
-    window.setTimeout(() => host.classList.remove(name), ms);
+    const t = window.setTimeout(() => {
+      this.classTimers.delete(t);
+      host.classList.remove(name);
+    }, ms);
+    this.classTimers.add(t);
   }
 
   private setPose(pose: string) {
     if (pose === this.target || !this.nodes[pose] || (!this.allReady && pose !== "rest")) return;
     this.target = pose;
+    this.canvas.classList.toggle("is-presenting", pose.startsWith("present"));
     if (pose !== "rest") this.clearTilt();
     if (this.timer === null) this.tick();
   }
@@ -472,8 +481,9 @@ export class BunnyEngine {
       if (t !== null) window.clearTimeout(t);
     }
     for (const c of this.cleanups) c();
-    this.rig.remove();
-    this.canvas.classList.remove("is-auto-dancing");
+    for (const t of this.classTimers) window.clearTimeout(t);
+    this.danceEl.remove();
+    this.canvas.classList.remove("is-auto-dancing", "is-dancing", "is-popping", "is-presenting");
     delete this.canvas.dataset.ready;
   }
 }
