@@ -78,13 +78,46 @@
   animation: bunny-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .bunny-canvas.is-dancing .bunny-rig {
-  animation: bunny-sway 800ms ease-in-out infinite;
+  animation: bunny-sway 800ms ease-in-out 2;
 }
 .bunny-canvas.is-dancing .bunny-ear-left {
-  animation: bunny-ear-left 400ms ease-in-out infinite;
+  animation: bunny-ear-left 400ms ease-in-out 4;
 }
 .bunny-canvas.is-dancing .bunny-ear-right {
-  animation: bunny-ear-right 400ms ease-in-out infinite;
+  animation: bunny-ear-right 400ms ease-in-out 4;
+}
+
+/* Baile automático (colección): 4 s de baile cada 8 s, en CSS (se pausa con .is-paused, sin temporizadores).
+   Anima rotate/translate en vez de transform: se suma al pop, al baile del clic y al giro de las orejas
+   sin reiniciarse. */
+.bunny-canvas.is-auto-dancing .bunny-rig {
+  animation: bunny-auto-sway 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing.is-popping .bunny-rig {
+  animation:
+    bunny-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    bunny-auto-sway 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing.is-dancing .bunny-rig {
+  animation:
+    bunny-sway 800ms ease-in-out 2,
+    bunny-auto-sway 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing .bunny-ear-left {
+  animation: bunny-auto-ear-left 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing .bunny-ear-right {
+  animation: bunny-auto-ear-right 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing.is-dancing .bunny-ear-left {
+  animation:
+    bunny-ear-left 400ms ease-in-out 4,
+    bunny-auto-ear-left 8s ease-in-out 8s infinite;
+}
+.bunny-canvas.is-auto-dancing.is-dancing .bunny-ear-right {
+  animation:
+    bunny-ear-right 400ms ease-in-out 4,
+    bunny-auto-ear-right 8s ease-in-out 8s infinite;
 }
 
 /* Fuera de pantalla o con la página oculta: todo quieto. */
@@ -126,6 +159,112 @@
 @keyframes bunny-ear-right {
   50% {
     transform: rotate(14deg);
+  }
+}
+
+@keyframes bunny-auto-sway {
+  10%,
+  20%,
+  30%,
+  40%,
+  50%,
+  100% {
+    rotate: 0deg;
+    translate: 0 0;
+  }
+  2.5% {
+    rotate: -5deg;
+    translate: 0 -10px;
+  }
+  7.5% {
+    rotate: 5deg;
+    translate: 0 -10px;
+  }
+  12.5% {
+    rotate: -5deg;
+    translate: 0 -10px;
+  }
+  17.5% {
+    rotate: 5deg;
+    translate: 0 -10px;
+  }
+  22.5% {
+    rotate: -5deg;
+    translate: 0 -10px;
+  }
+  27.5% {
+    rotate: 5deg;
+    translate: 0 -10px;
+  }
+  32.5% {
+    rotate: -5deg;
+    translate: 0 -10px;
+  }
+  37.5% {
+    rotate: 5deg;
+    translate: 0 -10px;
+  }
+  42.5% {
+    rotate: -5deg;
+    translate: 0 -10px;
+  }
+  47.5% {
+    rotate: 5deg;
+    translate: 0 -10px;
+  }
+}
+@keyframes bunny-auto-ear-left {
+  5%,
+  10%,
+  15%,
+  20%,
+  25%,
+  30%,
+  35%,
+  40%,
+  45%,
+  50%,
+  100% {
+    rotate: 0deg;
+  }
+  2.5%,
+  7.5%,
+  12.5%,
+  17.5%,
+  22.5%,
+  27.5%,
+  32.5%,
+  37.5%,
+  42.5%,
+  47.5% {
+    rotate: -14deg;
+  }
+}
+@keyframes bunny-auto-ear-right {
+  5%,
+  10%,
+  15%,
+  20%,
+  25%,
+  30%,
+  35%,
+  40%,
+  45%,
+  50%,
+  100% {
+    rotate: 0deg;
+  }
+  2.5%,
+  7.5%,
+  12.5%,
+  17.5%,
+  22.5%,
+  27.5%,
+  32.5%,
+  37.5%,
+  42.5%,
+  47.5% {
+    rotate: 14deg;
   }
 }
 

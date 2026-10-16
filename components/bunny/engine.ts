@@ -82,7 +82,6 @@ export class BunnyEngine {
   private blinkTimer: number | null = null;
   private gestureTimer: number | null = null;
   private pendTimer: number | null = null;
-  private danceTimer: number | null = null;
   private pending: string | null = null;
   private busyUntil = 0;
   private hoverSide: BunnySide | null = null;
@@ -450,16 +449,13 @@ export class BunnyEngine {
   }
 
   dance() {
-    this.gesture("rest", 1600);
-    this.restartClass("is-dancing", 1600);
+    this.gesture("rest", 1700);
+    this.restartClass("is-dancing", 1700);
   }
 
-  /** Baile automático: empieza cada `every` ms y dura `ms` (múltiplo de 800 ms: acaba en un balanceo completo). */
-  startAutoDance(every = 8000, ms = 4000) {
-    this.danceTimer = window.setTimeout(() => {
-      if (!this.paused) this.restartClass("is-dancing", ms);
-      this.startAutoDance(every, ms);
-    }, every);
+  /** Baile automático: 4 s cada 8 s, todo en CSS (`.is-auto-dancing`). */
+  startAutoDance() {
+    this.canvas.classList.add("is-auto-dancing");
   }
 
   /** Pausa fuera de pantalla, en pestañas ocultas o cuando Activity oculta la página. */
@@ -472,11 +468,12 @@ export class BunnyEngine {
 
   destroy() {
     this.destroyed = true;
-    for (const t of [this.timer, this.blinkTimer, this.gestureTimer, this.pendTimer, this.danceTimer]) {
+    for (const t of [this.timer, this.blinkTimer, this.gestureTimer, this.pendTimer]) {
       if (t !== null) window.clearTimeout(t);
     }
     for (const c of this.cleanups) c();
     this.rig.remove();
+    this.canvas.classList.remove("is-auto-dancing");
     delete this.canvas.dataset.ready;
   }
 }
