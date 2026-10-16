@@ -34,6 +34,8 @@ type BunnyProps = {
   hold?: BunnyPose;
   /** Si se pasa, el conejo es un botón que baila al pulsarlo; si no, es decorativo. */
   danceLabel?: string;
+  /** Baila solo 4 s cada 8 s (el conejo de la colección). */
+  autoDance?: boolean;
   /** Carga prioritaria de la imagen fija (cuando el conejo es lo primero que se ve). */
   priority?: boolean;
   className?: string;
@@ -52,7 +54,7 @@ const pct = (value: number, total: number) => `${(value / total) * 100}%`;
  * Conejo anfitrión. Se pinta primero como imagen fija (servidor, sin JavaScript); el montaje por capas la
  * sustituye cuando el reposo está descodificado. Con prefers-reduced-motion se queda la imagen fija.
  */
-export function Bunny({ mode = "lite", hold, danceLabel, priority = false, className, ref }: BunnyProps) {
+export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, priority = false, className, ref }: BunnyProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BunnyEngine | null>(null);
@@ -81,7 +83,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
     fit();
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const key = `${mode}|${hold ?? ""}`;
+    const key = `${mode}|${hold ?? ""}|${autoDance}`;
     let onScreen = true;
     let delay: number | null = null;
     let idle: number | null = null;
@@ -99,6 +101,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
       // Píxeles reales del conejo: por debajo de SMALL_MAX_PX bastan las capas a media resolución (~1/3 del peso).
       const small = root.clientWidth * window.devicePixelRatio <= SMALL_MAX_PX;
       engineRef.current = new BunnyEngine(canvas, mode, hold ?? null, only, small);
+      if (autoDance) engineRef.current.startAutoDance();
       engineKeyRef.current = key;
       syncPause();
     };
@@ -141,7 +144,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, priority = false, class
         }
       }, 0);
     };
-  }, [mode, hold]);
+  }, [mode, hold, autoDance]);
 
   const still = (
     // eslint-disable-next-line @next/next/no-img-element -- capa posicionada sobre el lienzo de 1200×1600, no una foto

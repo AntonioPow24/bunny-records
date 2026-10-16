@@ -102,7 +102,7 @@ Todas salen de **la misma base por capas**: solo cambian cabeza, brazos y acceso
 | Parpadear | Ojos `+` → `−` durante ~120 ms | Cada 4–7 s, al azar |
 | Reaccionar a una portada | Gesto breve de curiosidad | Una vez por selección |
 | Presentar un proyecto | Señala al abrir el álbum | Termina en pose estable |
-| Bailar | Dos balanceos y movimiento de orejas | Al pulsar el conejo; dura unos segundos |
+| Bailar | Balanceo y movimiento de orejas | En la colección baila solo 4 s cada 8 s (CSS; sigue mirando al puntero y se pausa con el conejo). Al pulsarlo, dos balanceos más |
 | Despedirse | Saludo corto | Una vez al entrar en contacto |
 
 Reglas: el conejo **no persigue al cursor** por la pantalla; tiene un sitio fijo por pantalla (§4.4). En móvil reacciona al toque.
