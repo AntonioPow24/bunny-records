@@ -2,17 +2,19 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 23 hecha; la 24 (SEO) en rama `mejora-24-seo`.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 24 (SEO) hecha. Sin bloque en curso.
 
 ## Pendiente
 
-- Validar tarjetas en Facebook/LinkedIn y el Rich Results Test; en Search Console, pedir indexación de `/es` tras desplegar la mejora 24 (el favicon en resultados de Google tarda semanas).
+- Validar tarjetas en Facebook/LinkedIn. Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
 - Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
 
 ## Decisiones recientes
+
+- 2026-10-22: mejora 24 (SEO) desplegada: manifiesto e iconos grandes, Organization con logo y ProfilePage, descripciones completas, sitemap con portadas. Indexación de `/es` pedida y sitemap reenviado; Rich Results Test válido (ProfilePage, Breadcrumbs).
 
 - 2026-10-22: UI Component pasa de planeado a publicado (caso de estudio en 5 pistas a partir de los docs de `ui-component`); portada aún provisional y sin videoclip.
 - 2026-10-16: el conejo de la colección baila solo 4 s cada 8 s (animación CSS); el clic mantiene su baile corto.
