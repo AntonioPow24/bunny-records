@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const LOGO = join(HERE, '..');
-const CHAR = join(HERE, '..', '..', 'character');
+const CHAR = 'C:/APPS/_archivo/bunny-records/design/character'; // capas PNG archivadas fuera del repo
 const TMP = join(HERE, '_tmp');
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const MIDNIGHT = '#0C111C', TEAL = '#329DA8', IVORY = '#F4F4F2';

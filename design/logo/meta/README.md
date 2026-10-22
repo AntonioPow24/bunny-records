@@ -1,6 +1,6 @@
 # Iconos y metadatos
 
-Generados con `node design/logo/meta/build.mjs` (usa el Chrome instalado en modo sin ventana; no instala nada). Fuente: `design/logo/bunny-icon.svg`, `bunny-logo.svg` y `design/character/layers/bunny-full-rest.png`. Revisión visual: `preview.html`.
+Generados con `node design/logo/meta/build.mjs` (usa el Chrome instalado en modo sin ventana; no instala nada). Fuente: `design/logo/bunny-icon.svg`, `bunny-logo.svg` y `bunny-full-rest.png` de las capas archivadas (`C:\APPS\_archivo\bunny-records\design\character\layers\`). Revisión visual: `preview.html`.
 
 | Archivo | Para qué | Dónde va en Next.js (App Router) |
 |---|---|---|

@@ -4,7 +4,7 @@ Documento de referencia del portfolio. El **diseño visual lo entrega el usuario
 
 Concepto, marca, personaje y lista de imágenes: **`BUNNY-RECORDS.md`** (manda en lo visual y de interacción).
 
-Fuentes: `~/.ai` (metodología y stacks comunes), `imagelogo/Palette.png` y el repositorio de **Vidriería Antonio** (`C:\APPS\vidrieria-antonio`, solo lectura), cuya arquitectura se reutiliza donde aplica.
+Fuentes: `~/.ai` (metodología y stacks comunes), `imagelogo/Palette.png` (archivado en `C:\APPS\_archivo\bunny-records\`) y el repositorio de **Vidriería Antonio** (`C:\APPS\vidrieria-antonio`, solo lectura), cuya arquitectura se reutiliza donde aplica.
 
 Etiquetas: **[VERIFICAR]** = dato externo (versión, precio, límite) que hay que confirmar antes de usarlo.
 

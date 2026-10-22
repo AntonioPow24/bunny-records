@@ -21,7 +21,7 @@ Thumbs.db
 # Notas personales (los datos pasan a content/profile.ts)
 ME.md
 
-# Referencias y material de diseño pesado (se archivará fuera del repo; ver docs/ESTADO.md)
+# Referencias y material de diseño pesado (archivados en C:\APPS\_archivo\bunny-records\; se ignoran por si vuelven)
 idea/
 imagelogo/
 design/character/*.blend

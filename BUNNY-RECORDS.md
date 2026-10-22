@@ -21,7 +21,7 @@ Dos sistemas que trabajan juntos:
 
 ### 2.1 Logo (definido)
 
-`imagelogo/Bunnylogo.png`: cabeza de conejo **marfil** con **contorno negro grueso** y una **sombra desplazada teal** hacia abajo-izquierda que le da relieve. Rasgos de identidad que **no se cambian**:
+`imagelogo/Bunnylogo.png` (archivado fuera del repo en `C:\APPS\_archivo\bunny-records\`): cabeza de conejo **marfil** con **contorno negro grueso** y una **sombra desplazada teal** hacia abajo-izquierda que le da relieve. Rasgos de identidad que **no se cambian**:
 
 - **Ojos en forma de cruz (`+`)**. Nunca pupilas.
 - **Nariz en forma de píldora** negra.
@@ -173,7 +173,7 @@ Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla 
 
 "Edición" distinta del álbum: etiqueta visible **Planeado** o **En desarrollo**, concepto y problema, stack propuesto, boceto o prototipo marcado como tal y próxima validación. **Sin resultados ni demos inventadas.** (Coincide con la unión discriminada de `PORTFOLIO.md` §6.)
 
-**Conceptos** (fuente: `idea/reporte-proyectos-bunny.html`, plan de producto del 2026-10-11; escalas editoriales, no métricas):
+**Conceptos** (fuente: `idea/reporte-proyectos-bunny.html` en el archivo, plan de producto del 2026-10-11; escalas editoriales, no métricas):
 
 | Álbum | Concepto (una línea) | Tipo y stack propuesto | Próxima validación |
 |---|---|---|---|
@@ -228,7 +228,7 @@ Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección e
 ## 6. Personaje: cómo se produce (decidido)
 
 - El aspecto 3D viene del **render**, no de 3D en tiempo real: capas renderizadas en Blender (WebP) animadas con CSS/JS. Sin Three.js, Rive, Spline ni Lottie (decisión C9: basta con CSS).
-- Fuente única del personaje: `design/character/bunny.blend` (no versionado). Capas para la web: `design/character/layers/` + `layers.json` → `public/bunny/`; versiones de media resolución en `public/bunny/sm/` con `node scripts/bunny-small.mjs`.
+- Fuente única del personaje: `bunny.blend`, archivado fuera del repo junto con los PNG de capas y poses y el material de trabajo (`C:\APPS\_archivo\bunny-records\design\character\`). En el repo quedan `brief.md`, `poses/poses.json`, `layers/layers.json`, `prototype/` y `scripts/`. Capas para la web: PNG del archivo + `layers.json` → `public/bunny/`; versiones de media resolución en `public/bunny/sm/` con `node scripts/bunny-small.mjs`.
 - "left/right" = lado de la **pantalla**. Una cabeza completa por pose y estado de ojos; fotogramas intermedios t25/t50/t75 entre poses.
 - Proceso completo (modelado, poses, capas, intermedios): skill `blender-character-renders`.
 - El conejo nunca es el LCP: primero la imagen fija y luego la animación.

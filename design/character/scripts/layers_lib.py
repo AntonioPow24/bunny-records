@@ -7,7 +7,7 @@ D = math.radians
 sc = bpy.context.scene
 O = bpy.data.objects
 CHAR = r"C:\APPS\portfolio-antonio\design\character"
-OUT = os.path.join(CHAR, "layers")
+OUT = r"C:\APPS\_archivo\bunny-records\design\character\layers"  # PNG archivados fuera del repo
 POSES = json.load(open(os.path.join(CHAR, "poses", "poses.json"), encoding="utf-8"))["poses"]
 
 NAMES = ["Bunny_Head", "Bunny_Ear_L", "Bunny_Ear_R", "Bunny_Arm_L", "Bunny_Arm_R"]
