@@ -2,19 +2,19 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 29 (créditos sin herramientas de IA) hecha. Sin bloque en curso.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 31 (material pesado archivado fuera del repo) hecha. Sin bloque en curso.
 
 ## Pendiente
 
 - Validar tarjetas en Facebook/LinkedIn. Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
-- Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
 - Al actualizar dependencias, revisar el aviso de `npm audit` por `braces` (aceptado en `PORTFOLIO.md` §10).
 
 ## Decisiones recientes
 
+- 2026-10-22: mejora 31: `idea/`, `imagelogo/`, `bunny.blend` y los PNG y material de trabajo del personaje (~88 MB) archivados en `C:\APPS\_archivo\bunny-records\`, con la misma estructura; scripts y documentos apuntan allí.
 - 2026-10-22: mejora 29: Claude Code y Codex fuera de los créditos de los proyectos; ya no se exige code-review antes del merge (hook retirado en Claude y Codex).
 - 2026-10-22: mejora 27: Next.js 16.4.2 (corrige RCE en Image Optimization y DoS en Server Actions).
 - 2026-10-22: mejora 26: textos de los tres casos de estudio más cercanos y menos técnicos (los detalles de implementación quedan en cada repo).

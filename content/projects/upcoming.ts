@@ -3,7 +3,7 @@ import educationalCover from "@/public/images/projects/educational-platform/cove
 import officeCover from "@/public/images/projects/office-to-pdf-converter/cover.jpg";
 import type { UpcomingProject } from "@/types/content";
 
-// Próximos lanzamientos. Concepto, stack y validación salen de idea/reporte-proyectos-bunny.html (2026-10-11)
+// Próximos lanzamientos. Concepto, stack y validación salen de idea/reporte-proyectos-bunny.html (2026-10-11, archivado fuera del repo)
 // y de BUNNY-RECORDS.md §5.3. Sin demos ni resultados: aún no están construidos.
 
 const placeholderAlt = (es: string, en: string) => ({

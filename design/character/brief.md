@@ -2,7 +2,7 @@
 
 > **Estado:** v1 aprobada (2026-10-11). Decisiones de §7 cerradas; las medidas se pueden ajustar en el blockout (C2).
 > Lo marcado con **❓** es una decisión tuya; el resto es mi propuesta y puedes corregirla.
-> Fuentes vigentes: `BUNNY-RECORDS.md` §2 y §4, `design/logo/bunny-logo.svg`, `idea/fino1–4`. Antecedentes de aprobación: [Identidad Bunny Records y logo aprobado](https://app.notion.com/p/3f95744bc2fe8143b7a2eeb56be1af91).
+> Fuentes vigentes: `BUNNY-RECORDS.md` §2 y §4, `design/logo/bunny-logo.svg`, `idea/fino1–4` (archivado en `C:\APPS\_archivo\bunny-records\`). Antecedentes de aprobación: [Identidad Bunny Records y logo aprobado](https://app.notion.com/p/3f95744bc2fe8143b7a2eeb56be1af91).
 
 ---
 
