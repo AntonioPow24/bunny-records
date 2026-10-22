@@ -1,5 +1,4 @@
-- **Use it the way a colleague would.** I set up a lab project that installs it from outside, following the guide to the letter. It found twelve issues the stories didn’t catch: copied code didn’t pass Next.js lint, the install guide was missing steps and some component combinations broke. They were fixed in the system, never patched in the lab.
-- **Screenshots depend on the system.** Fonts rasterise differently on each operating system, so visual regression is only reliable inside the same Docker image CI uses.
-- **Measure before recommending.** A large table without virtualisation costs about 1 ms per row; that’s why the docs recommend virtualising or paginating beyond roughly 100 rows.
-- **Document for people and for agents.** Short documents, with one source for each decision, work just as well for a colleague as for a coding assistant.
-- **Two assistants, separate roles.** Claude Code implements each batch and Codex reviews it afterwards, never at the same time. I decide the scope and approve each version before it’s published.
+- **Use it the way someone else would.** I set up a test project that installed it from scratch following my own instructions. A dozen problems turned up that I couldn’t see from the inside, from missing steps in the guide to pieces that didn’t fit well together. I fixed them in the system, not with patches.
+- **Measure before advising.** Before recommending how to use large tables, I checked at what size they start to slow down.
+- **Write so others understand.** Short, well-organised documentation helps a colleague just as much as an AI tool.
+- **AI as help, the decisions as mine.** I relied on AI assistants to build and review each stage, but I decided the scope and approved every published version myself.

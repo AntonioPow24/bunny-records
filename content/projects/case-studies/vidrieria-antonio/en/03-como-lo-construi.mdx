@@ -1,6 +1,6 @@
-- **Next.js (App Router) + TypeScript.** Public pages are Server Components that read straight from the database. There is no intermediate API to maintain.
-- **Supabase** for the database, authentication and photo storage. Real security lives in the database: read-only RLS policies for the public and write access only for admins. The privileged key never reaches the browser.
-- **Server Actions** for everything that changes data from the panel, with **Zod + React Hook Form** sharing the same schema on client and server.
-- **Photos compressed in the browser** before upload (a 4 MB PNG becomes a 1600 px JPG) and storage buckets limited to JPG, PNG and WEBP up to 8 MB.
-- **Tailwind CSS + shadcn/ui** on design tokens, with AA contrast calculated for every color pairing.
-- **A daily GitHub Actions job** that keeps the free-plan database awake, since it pauses after a week without activity.
+- **A site that’s fast and easy to maintain.** Pages show what’s stored directly, with no extra pieces in between that could break.
+- **Security where it really matters.** Anyone can view the site, but only the business can change it, and that rule lives in the database itself, not just on screen.
+- **A panel that helps avoid mistakes.** Forms point out straight away if something is missing or invalid, before anything is saved.
+- **Photos that prepare themselves.** They’re shrunk on the phone or computer before uploading, so they load quickly and nobody needs to know about formats.
+- **Colours chosen to read well**, checking that every pairing has enough contrast.
+- **A small automatic daily task** that keeps the free service holding the data from going to sleep through lack of use.
