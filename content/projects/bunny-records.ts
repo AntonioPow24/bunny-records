@@ -64,8 +64,6 @@ export const bunnyRecords: PublishedProject = {
     { tech: "figma", role: { es: "diseño de todas las pantallas", en: "design of every screen" } },
     { tech: "blender", role: { es: "el conejo en 3D", en: "the 3D bunny" } },
     { tech: "git", role: { es: "avance paso a paso", en: "step-by-step progress" } },
-    { tech: "claude-code", role: { es: "ayuda para construir y revisar", en: "help building and reviewing" } },
-    { tech: "codex", role: { es: "ideas y revisión del diseño", en: "design ideas and review" } },
     { tech: "vercel", role: { es: "publicación", en: "hosting" } },
   ],
   productionNotes: {
