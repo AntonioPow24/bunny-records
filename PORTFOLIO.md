@@ -423,7 +423,7 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
   - JS sin usar (~29 KB) y JS antiguo (~14 KB): chunk del propio Next/React.
   - axe: contraste de la pegatina "Planeado" en portadas laterales (opacidad decorativa; la central cumple).
   - CSP con `'unsafe-inline'`: Next mete scripts en línea y los nonces obligarían a renderizar cada petición; no hay entrada de usuario.
-  - `npm audit`: avisos "high" en `braces` vía `eslint-config-next`, solo en desarrollo; el "arreglo" de npm rompe el proyecto.
+  - `npm audit`: un aviso "high" de `braces` (GHSA-vfj7-8cjw-p6xm), que npm cuenta 5 veces por la cadena `eslint-config-next` → `@next/eslint-plugin-next` → `fast-glob@3.3.1` → `micromatch` → `braces@3.0.3`; solo en desarrollo. `braces` no tiene versión posterior a 3.0.3: lo que hay que vigilar es que una versión nueva de `@next/eslint-plugin-next` deje de usar `fast-glob@3.3.1`. No usar `npm audit fix --force` (baja `eslint-config-next` a 14.2.35 y rompe el proyecto).
   - Aviso de `unrs-resolver` (script de instalación bloqueado por npm 11): ESLint funciona igual.
   - En desarrollo, "This library called use() to suspend…" al pasar de pista a pista: fallo de Next 16.4.0 (`InnerLayoutRouter`), solo en dev. "Transition was aborted… Document hidden": ventana oculta, sin efecto.
   - El CV público incluye teléfono y el nombre real de la vidriería: excepción aceptada por el usuario.

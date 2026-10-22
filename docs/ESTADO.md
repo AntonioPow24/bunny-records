@@ -2,7 +2,7 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 24 (SEO) hecha. Sin bloque en curso.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 27 (seguridad de Next) hecha. Sin bloque en curso.
 
 ## Pendiente
 
@@ -11,10 +11,11 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 - Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
-- `npm audit`: 5 avisos "high" por `braces` (GHSA-vfj7-8cjw-p6xm) vía `eslint-config-next` → `fast-glob` → `micromatch`; solo desarrollo y aceptado (`PORTFOLIO.md` §mantenimiento). Al actualizar dependencias, comprobar si ya hay versión parcheada sin bajar `eslint-config-next` (no usar `npm audit fix --force`).
+- Al actualizar dependencias, revisar el aviso de `npm audit` por `braces` (aceptado en `PORTFOLIO.md` §10).
 
 ## Decisiones recientes
 
+- 2026-10-22: mejora 27: Next.js 16.4.2 (corrige RCE en Image Optimization y DoS en Server Actions).
 - 2026-10-22: mejora 26: textos de los tres casos de estudio más cercanos y menos técnicos (los detalles de implementación quedan en cada repo).
 - 2026-10-22: mejora 24 (SEO) desplegada: manifiesto e iconos grandes, Organization con logo y ProfilePage, descripciones completas, sitemap con portadas. Indexación de `/es` pedida y sitemap reenviado; Rich Results Test válido (ProfilePage, Breadcrumbs).
 - 2026-10-22: UI Component pasa de planeado a publicado (caso de estudio en 5 pistas a partir de los docs de `ui-component`); portada aún provisional y sin videoclip.
