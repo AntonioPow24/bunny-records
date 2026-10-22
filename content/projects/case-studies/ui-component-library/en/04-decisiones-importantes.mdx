@@ -1,6 +1,5 @@
-- **Defaults, never imperatives.** Every behaviour is a default the project can replace: messages, language, limits, motion and styles. The precedence is always the same: the component, then the global configuration and, last, the prop on each use.
-- **Copy the components instead of installing them.** A project ends up needing to change something; with the code in house it can do so without forking the system. Logic that must not diverge does go in packages.
-- **React Aria instead of the usual primitives.** The contract asks for IME, languages, touch and a first-class combobox, and that’s where it’s most complete.
-- **Charts in hand-built SVG, no library.** Every chart comes with a data table for screen readers, arrow-key navigation and a data palette validated for colour blindness.
-- **Guards, not cases.** For extreme inputs, one general guard in a single place (a scale never returns a non-finite coordinate; a status cell always has a name) instead of code chasing every variant.
-- **Freeze the API before 1.0.** Before promising stability I reviewed names and shared props, and wrote down what counts as a breaking change and how something is retired.
+- **Suggest, don’t impose.** Everything the system does is a starting point: text, language, limits or animations can be changed in each project without fighting it.
+- **Hand over the code instead of hiding it.** Sooner or later a project needs something different. If the component lives inside the project, it can be adapted in no time.
+- **Accessible from the start.** I chose a foundation built for keyboards, screen readers, different languages and touch screens, because adding that at the end always turns out worse.
+- **Charts everyone can read.** Every chart also comes as a table, with colours that can be told apart even with colour blindness.
+- **Get ready before promising stability.** Before calling the system stable, I reviewed names and options and wrote down how future changes will be made, so nobody gets caught by surprise.

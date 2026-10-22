@@ -1,6 +1,5 @@
-- **Defaults, nunca imperativos.** Todo comportamiento es un valor por defecto que el proyecto puede sustituir: mensajes, idioma, límites, movimiento y estilos. La precedencia es siempre la misma: componente, después configuración global y, al final, la prop de cada uso.
-- **Copiar en vez de instalar los componentes.** Un proyecto acaba necesitando cambiar algo; con el código en casa lo cambia sin bifurcar el sistema. La lógica que no debe divergir sí va en paquetes.
-- **React Aria en vez de las primitivas habituales.** El contrato pide IME, idiomas, táctil y un combobox de primer nivel, y ahí es donde más completo es.
-- **Gráficas en SVG propio, sin biblioteca.** Cada gráfica lleva su tabla de datos para lectores de pantalla, recorrido con flechas y una paleta de datos validada para daltonismo.
-- **Candados, no casos.** Ante entradas extremas, una guarda general en un solo punto (una escala nunca devuelve una coordenada no finita; una celda de estado siempre tiene nombre) en vez de código que persiga cada variante.
-- **Congelar la API antes de la 1.0.** Antes de prometer estabilidad revisé nombres y props comunes, y escribí qué cuenta como cambio incompatible y cómo se retira algo.
+- **Proponer, no imponer.** Todo lo que hace el sistema es un punto de partida: textos, idioma, límites o animaciones se pueden cambiar en cada proyecto sin pelearse con él.
+- **Dar el código en lugar de esconderlo.** Tarde o temprano un proyecto necesita algo distinto. Si el componente vive dentro del proyecto, se adapta en un momento.
+- **Accesible desde el principio.** Elegí una base pensada para teclado, lectores de pantalla, distintos idiomas y pantallas táctiles, porque añadirlo al final siempre sale peor.
+- **Gráficas que todo el mundo pueda leer.** Cada gráfica tiene también su versión en tabla y unos colores que se distinguen aunque se tenga daltonismo.
+- **Prepararse antes de prometer estabilidad.** Antes de dar el sistema por estable, repasé nombres y opciones y dejé escrito cómo se harán los cambios futuros, para que nadie se lleve sorpresas.

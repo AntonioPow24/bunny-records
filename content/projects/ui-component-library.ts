@@ -3,13 +3,14 @@ import type { PublishedProject } from "@/types/content";
 
 // Sistema de diseño de la casa (repo privado ui-component). Fuentes: sus docs/CONCEPTO.md, ARQUITECTURA.md y ESTADO.md
 // y su historial de Git (v0.1.0–v0.3.0, octubre de 2026). Sin demo grabada ni resultados de negocio.
+// Tono del caso de estudio: cercano y poco técnico; los detalles de implementación se quedan en el repo.
 export const uiComponentLibrary: PublishedProject = {
   slug: "ui-component-library",
   status: "published",
   title: { es: "UI Component", en: "UI Component" },
   tagline: {
-    es: "El sistema de diseño de la casa: tokens, lógica y componentes accesibles que cada proyecto adapta sin bifurcarlo.",
-    en: "My in-house design system: tokens, logic and accessible components that each project adapts without forking it.",
+    es: "Mi sistema de diseño: las piezas de interfaz que ya funcionaron, listas para que cada proyecto las haga suyas.",
+    en: "My design system: the interface pieces that already worked, ready for each project to make its own.",
   },
   categories: ["library"],
   year: 2026,
@@ -24,58 +25,58 @@ export const uiComponentLibrary: PublishedProject = {
   },
   role: { es: "Concepto, diseño y desarrollo", en: "Concept, design and development" },
   summary: {
-    es: "Un sistema de diseño para no rehacer en cada proyecto los mismos botones, formularios y tablas: tokens tematizables, lógica sin DOM y más de 40 componentes React accesibles, con Bunny Records como tema por defecto y un catálogo público. Para mis proyectos y los de colegas. Mi participación: concepto, diseño en Figma y desarrollo.",
-    en: "A design system so I don’t rebuild the same buttons, forms and tables in every project: themeable tokens, DOM-free logic and over 40 accessible React components, with Bunny Records as the default theme and a public catalogue. For my projects and colleagues’. My part: concept, Figma design and development.",
+    es: "Un sistema de diseño para no rehacer en cada proyecto los mismos botones, formularios y tablas: un estilo común, más de 40 componentes accesibles y un catálogo público, con Bunny Records como identidad de partida. Para mis proyectos y los de colegas. Mi participación: concepto, diseño en Figma y desarrollo.",
+    en: "A design system so I don’t rebuild the same buttons, forms and tables in every project: a shared style, over 40 accessible components and a public catalogue, with Bunny Records as the starting identity. For my projects and colleagues’. My part: concept, Figma design and development.",
   },
   tracks: [
     {
       slug: "la-idea",
       title: { es: "La idea", en: "The idea" },
-      subtitle: { es: "Extraer lo probado, no inventar un framework", en: "Extract what works, don’t invent a framework" },
+      subtitle: { es: "Reunir lo que ya funcionaba", en: "Gathering what already worked" },
     },
     {
       slug: "el-diseno",
       title: { es: "El diseño", en: "The design" },
-      subtitle: { es: "Tokens primero, tres temas y Figma al día", en: "Tokens first, three themes and Figma in sync" },
+      subtitle: { es: "Una base común y tres aspectos", en: "One shared base and three looks" },
     },
     {
       slug: "como-lo-construi",
       title: { es: "Cómo lo construí", en: "How I built it" },
-      subtitle: { es: "Dos paquetes, un registro y cada historia como test", en: "Two packages, a registry and every story as a test" },
+      subtitle: { es: "Piezas que cada proyecto puede hacer suyas", en: "Pieces each project can make its own" },
     },
     {
       slug: "decisiones-importantes",
       title: { es: "Decisiones importantes", en: "Key decisions" },
-      subtitle: { es: "Defaults, nunca imperativos", en: "Defaults, never imperatives" },
+      subtitle: { es: "Proponer, no imponer", en: "Suggest, don’t impose" },
     },
     {
       slug: "lo-que-aprendi",
       title: { es: "Lo que aprendí", en: "What I learned" },
-      subtitle: { es: "Usarlo como un colega", en: "Using it like a colleague" },
+      subtitle: { es: "Usarlo como lo usaría otra persona", en: "Using it the way someone else would" },
     },
   ],
   credits: [
-    { tech: "react", role: { es: "componentes y UIProvider", en: "components and UIProvider" } },
-    { tech: "react-aria", role: { es: "primitivas accesibles por debajo", en: "accessible primitives underneath" } },
-    { tech: "typescript", role: { es: "lógica sin DOM y API tipada", en: "DOM-free logic and typed API" } },
-    { tech: "tailwindcss", role: { es: "tokens como variables CSS", en: "tokens as CSS variables" } },
-    { tech: "shadcn-ui", role: { es: "registro: el código se copia al proyecto", en: "registry: code is copied into the project" } },
-    { tech: "storybook", role: { es: "catálogo público y tests", en: "public catalogue and tests" } },
-    { tech: "figma", role: { es: "variables y componentes sincronizados", en: "synced variables and components" } },
-    { tech: "github-actions", role: { es: "CI en tres navegadores y regresión visual", en: "CI on three browsers and visual regression" } },
-    { tech: "git", role: { es: "un lote, una rama y un PR", en: "one batch, one branch, one PR" } },
-    { tech: "claude-code", role: { es: "implementación asistida por lotes", en: "assisted implementation in batches" } },
-    { tech: "codex", role: { es: "revisión adversarial de cada lote", en: "adversarial review of each batch" } },
-    { tech: "vercel", role: { es: "catálogo y registro", en: "catalogue and registry" } },
+    { tech: "react", role: { es: "los componentes", en: "the components" } },
+    { tech: "react-aria", role: { es: "base accesible", en: "accessible foundation" } },
+    { tech: "typescript", role: { es: "comportamientos compartidos", en: "shared behaviours" } },
+    { tech: "tailwindcss", role: { es: "el estilo común", en: "the shared style" } },
+    { tech: "shadcn-ui", role: { es: "componentes que se copian al proyecto", en: "components copied into the project" } },
+    { tech: "storybook", role: { es: "catálogo público", en: "public catalogue" } },
+    { tech: "figma", role: { es: "diseño en sintonía con el código", en: "design in step with the code" } },
+    { tech: "github-actions", role: { es: "comprobaciones en cada cambio", en: "checks on every change" } },
+    { tech: "git", role: { es: "avance por etapas", en: "progress in stages" } },
+    { tech: "claude-code", role: { es: "ayuda para construir", en: "help building it" } },
+    { tech: "codex", role: { es: "ayuda para revisar", en: "help reviewing it" } },
+    { tech: "vercel", role: { es: "publicación del catálogo", en: "hosting the catalogue" } },
   ],
   productionNotes: {
     es: [
-      "Las historias y los tests no encontraron lo que encontró un proyecto que lo instaló como lo haría un colega: doce problemas, desde el lint de Next.js hasta pasos que faltaban en la guía.",
-      "Ante entradas extremas, una guarda general en un solo punto vale más que un caso por cada variante.",
+      "Probarlo como lo haría otra persona destapó una docena de problemas que desde dentro no se veían.",
+      "Una solución sencilla y general suele valer más que un arreglo para cada caso.",
     ],
     en: [
-      "Stories and tests missed what a project installing it the way a colleague would turned up: twelve issues, from Next.js lint to missing steps in the guide.",
-      "For extreme inputs, one general guard in a single place beats a special case for every variant.",
+      "Trying it the way someone else would uncovered a dozen problems that couldn’t be seen from the inside.",
+      "One simple, general solution is usually worth more than a fix for every case.",
     ],
   },
 };
