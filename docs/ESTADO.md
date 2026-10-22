@@ -8,12 +8,12 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 
 - Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
-- Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
 - Al actualizar dependencias, revisar el aviso de `npm audit` por `braces` (aceptado en `PORTFOLIO.md` §10).
 
 ## Decisiones recientes
 
+- 2026-10-22: Figma `01 Sistema`: borrados 10 componentes de la primera versión sin instancias (Tab, TrackRow, CreditRow, Header, CoverInfo, DemoPlayer, PlayerTray, TrackNav, TechPanel, Footer). Quedan Bunny, Button, StatusPill, Cover, DiscGraphic, NavDisc y Header v2.
 - 2026-10-22: tarjetas validadas en Facebook (Sharing Debugger) y LinkedIn (Post Inspector) para `/es` y `/en`: 200, canónica correcta, imagen OG, título y descripción en su idioma. Solo avisa de `fb:app_id` (opcional; no se añade).
 - 2026-10-22: mejora 31: `idea/`, `imagelogo/`, `bunny.blend` y los PNG y material de trabajo del personaje (~88 MB) archivados en `C:\APPS\_archivo\bunny-records\`, con la misma estructura; scripts y documentos apuntan allí.
 - 2026-10-22: mejora 29: Claude Code y Codex fuera de los créditos de los proyectos; ya no se exige code-review antes del merge (hook retirado en Claude y Codex).
