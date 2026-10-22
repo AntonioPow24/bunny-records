@@ -66,7 +66,6 @@ export const vidrieriaAntonio: PublishedProject = {
     { tech: "framer-motion", role: { es: "pequeñas animaciones", en: "small animations" } },
     { tech: "github-actions", role: { es: "tarea automática diaria", en: "daily automatic task" } },
     { tech: "netlify", role: { es: "publicación de la prueba", en: "hosting the trial" } },
-    { tech: "claude-code", role: { es: "ayuda para construir", en: "help building it" } },
   ],
   productionNotes: {
     es: [

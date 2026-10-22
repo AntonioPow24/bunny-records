@@ -65,8 +65,6 @@ export const uiComponentLibrary: PublishedProject = {
     { tech: "figma", role: { es: "diseño en sintonía con el código", en: "design in step with the code" } },
     { tech: "github-actions", role: { es: "comprobaciones en cada cambio", en: "checks on every change" } },
     { tech: "git", role: { es: "avance por etapas", en: "progress in stages" } },
-    { tech: "claude-code", role: { es: "ayuda para construir", en: "help building it" } },
-    { tech: "codex", role: { es: "ayuda para revisar", en: "help reviewing it" } },
     { tech: "vercel", role: { es: "publicación del catálogo", en: "hosting the catalogue" } },
   ],
   productionNotes: {
