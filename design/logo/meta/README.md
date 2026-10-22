@@ -7,7 +7,7 @@ Generados con `node design/logo/meta/build.mjs` (usa el Chrome instalado en modo
 | `favicon.ico` (16/32/48) | Pestañas, marcadores, navegadores antiguos | `app/favicon.ico` |
 | `icon.svg` | Favicon nítido en navegadores modernos | `app/icon.svg` |
 | `apple-touch-icon.png` (180) | Pantalla de inicio de iPhone/iPad (fondo opaco) | `app/apple-icon.png` |
-| `icon-192.png`, `icon-512.png` | App instalada (PWA), Android | `public/` + manifiesto |
+| `icon-192.png`, `icon-512.png` | App instalada (PWA), Android, favicon grande para buscadores | `public/` + manifiesto; el de 192 también como `app/icon1.png` |
 | `icon-maskable-512.png` | Android recorta en círculo/squircle: contenido dentro del 80 % central | `public/` + manifiesto (`purpose: maskable`) |
 | `site.webmanifest` | Nombre, colores e iconos de la app | `app/manifest.ts` (mismos datos) |
 | `og-default.png` (1200 × 630) | Vista previa al compartir: WhatsApp, Discord, X, LinkedIn, Facebook, Telegram, Slack | `app/opengraph-image.png` y `app/twitter-image.png` como respaldo; cada página genera la suya por idioma (fase O) |

@@ -106,6 +106,8 @@
   },
   "album": {
     "back": "Colección",
+    "metaDescription": "{tagline} Caso de estudio de Antonio Garcia Romero en {tracks}.",
+    "trackMetaDescription": "{subtitle}. Pista {number} de {album}, caso de estudio de Antonio Garcia Romero.",
     "label": "Álbum · {year}",
     "upcomingLabel": "Próximo lanzamiento",
     "tracks": "Pistas",

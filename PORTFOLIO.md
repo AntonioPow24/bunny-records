@@ -371,8 +371,10 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 **SEO**
 - `buildMetadata()` (heredado de Vidriería) en todas las páginas, con imagen OG explícita, canónica y hreflang.
 - OG generada por proyecto e idioma y Twitter `summary_large_image`.
-- Sitemap y robots según `SITE_NOINDEX`.
-- JSON-LD: `Person` + `WebSite` en Inicio; `CreativeWork` + `BreadcrumbList` en álbumes y pistas.
+- Sitemap (con las portadas como sitemap de imágenes) y robots según `SITE_NOINDEX`.
+- JSON-LD: `WebSite` + `Organization` (el sello, con logo de 512 px) + `Person` en Inicio; `ProfilePage` en Sobre mí; `CreativeWork` + `BreadcrumbList` en álbumes y pistas.
+- Títulos sin repetir el sufijo del sello; descripciones de álbum y pista completadas desde el diccionario (`album.metaDescription`, `album.trackMetaDescription`).
+- Iconos: favicon 48 px, SVG, PNG 192 px (`app/icon1.png`) y manifiesto (`app/manifest.ts`) con 192/512/maskable.
 - La ficha de tecnología tiene canónica a su página completa aunque se abra como panel.
 
 **Accesibilidad (WCAG 2.2 AA)**

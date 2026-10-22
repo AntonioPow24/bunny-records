@@ -106,6 +106,8 @@
   },
   "album": {
     "back": "Collection",
+    "metaDescription": "{tagline} A case study by Antonio Garcia Romero in {tracks}.",
+    "trackMetaDescription": "{subtitle}. Track {number} of {album}, a case study by Antonio Garcia Romero.",
     "label": "Album · {year}",
     "upcomingLabel": "Coming soon",
     "tracks": "Tracks",

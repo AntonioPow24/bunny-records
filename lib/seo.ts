@@ -64,10 +64,12 @@ export function buildMetadata({
   image = DEFAULT_IMAGE,
 }: BuildMetadataInput): Metadata {
   const images = [{ ...image, width: 1200, height: 630 }];
-  // El template del layout añade el sufijo al <title>; Open Graph y Twitter no pasan por él.
-  const fullTitle = absoluteTitle ? title : `${title} · ${SITE_NAME}`;
+  // El template del layout añade el sufijo al <title>; Open Graph y Twitter no pasan por él. Si el título ya
+  // termina en el nombre del sello (el álbum Bunny Records y sus pistas), no se repite.
+  const complete = absoluteTitle || title === SITE_NAME || title.endsWith(` · ${SITE_NAME}`);
+  const fullTitle = complete ? title : `${title} · ${SITE_NAME}`;
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: complete ? { absolute: title } : title,
     description,
     alternates: { canonical: localizedPath(locale, path), languages: languageAlternates(path) },
     openGraph: {
@@ -86,6 +88,18 @@ export function buildMetadata({
 
 // ---------- JSON-LD (schema.org) ----------
 
+/** El sello, con su logo (icono de 512 px): Google lo usa como logotipo del sitio. */
+export function labelJsonLd(locale: Locale) {
+  return {
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#label`,
+    name: SITE_NAME,
+    url: absoluteUrl(locale, ""),
+    logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 },
+    founder: { "@id": `${SITE_URL}/#person` },
+  };
+}
+
 /** El autor, referenciado por @id desde el sitio y desde cada álbum. */
 export function personJsonLd(locale: Locale) {
   return {
@@ -93,6 +107,7 @@ export function personJsonLd(locale: Locale) {
     "@id": `${SITE_URL}/#person`,
     name: profile.name,
     jobTitle: profile.role[locale],
+    description: profile.bio[locale],
     homeLocation: { "@type": "Place", name: profile.location[locale] },
     url: absoluteUrl(locale, "/about"),
     sameAs: [profile.contact.github.url, profile.contact.linkedin.url],

@@ -20,13 +20,19 @@ void allGroupsCovered;
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  const locale = await getLocale();
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   if (!project) return {};
   return buildMetadata({
     locale,
     path: `/projects/${project.slug}`,
     title: project.title[locale],
-    description: project.tagline[locale],
+    // Publicado: el lema más lo que contiene. Planeado: el lema basta (sin pistas ni resultados).
+    description: isPublished(project)
+      ? format(dict.album.metaDescription, {
+          tagline: project.tagline[locale],
+          tracks: plural(locale, dict.tray.tracks, project.tracks.length),
+        })
+      : project.tagline[locale],
     image: albumImage(locale, project.slug, project.title[locale]),
   });
 }
