@@ -15,7 +15,6 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 ## Decisiones recientes
 
 - 2026-10-22: mejora 24 (SEO) desplegada: manifiesto e iconos grandes, Organization con logo y ProfilePage, descripciones completas, sitemap con portadas. Indexación de `/es` pedida y sitemap reenviado; Rich Results Test válido (ProfilePage, Breadcrumbs).
-
 - 2026-10-22: UI Component pasa de planeado a publicado (caso de estudio en 5 pistas a partir de los docs de `ui-component`); portada aún provisional y sin videoclip.
 - 2026-10-16: el conejo de la colección baila solo 4 s cada 8 s (animación CSS); el clic mantiene su baile corto.
 - 2026-10-14: históricos sintetizados y verificados en [Antonio Development Hub / Bunny Records](https://app.notion.com/p/3f95744bc2fe81f4be76f89a32ea5fc3); migración aprobada y referencias documentales corregidas en `reorg-contexto`. Respaldo conservado en `~/.ai-backup/2026-10-14-reorganizacion/`.
