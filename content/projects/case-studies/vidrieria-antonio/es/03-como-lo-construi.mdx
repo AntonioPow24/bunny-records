@@ -1,6 +1,6 @@
-- **Next.js (App Router) + TypeScript.** Las páginas públicas son Server Components que leen directamente de la base. No hay una API intermedia que mantener.
-- **Supabase** para base de datos, autenticación y almacenamiento de fotos. La seguridad real está en la base: políticas RLS de solo lectura para el público y de escritura solo para administradores. La clave privilegiada nunca llega al navegador.
-- **Server Actions** para todo lo que modifica datos desde el panel, con **Zod + React Hook Form** compartiendo el mismo esquema en cliente y servidor.
-- **Fotos comprimidas en el navegador** antes de subirlas (un PNG de 4 MB pasa a un JPG de 1600 px) y buckets limitados a JPG, PNG y WEBP de hasta 8 MB.
-- **Tailwind CSS + shadcn/ui** sobre tokens de diseño, con contraste AA calculado para cada combinación de color.
-- **Una tarea diaria en GitHub Actions** que mantiene activa la base del plan gratuito, que se pausa tras una semana sin actividad.
+- **Una web rápida y sencilla de mantener.** Las páginas muestran directamente lo que hay guardado, sin piezas intermedias que puedan fallar.
+- **Seguridad donde de verdad importa.** Cualquiera puede ver la web, pero solo el negocio puede cambiarla, y esa regla está en la propia base de datos, no solo en la pantalla.
+- **Un panel que no deja equivocarse.** Los formularios avisan al momento si falta algo o un dato no es válido, antes de guardar nada.
+- **Fotos que se preparan solas.** Se reducen en el propio móvil u ordenador antes de subirlas, así cargan rápido y no hace falta saber nada de formatos.
+- **Colores pensados para leerse bien**, comprobando que cada combinación tenga contraste suficiente.
+- **Una pequeña tarea automática diaria** que evita que el servicio gratuito donde viven los datos se duerma por falta de uso.

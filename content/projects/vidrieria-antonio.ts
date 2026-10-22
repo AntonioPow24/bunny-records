@@ -42,7 +42,7 @@ export const vidrieriaAntonio: PublishedProject = {
     {
       slug: "como-lo-construi",
       title: { es: "Cómo lo construí", en: "How I built it" },
-      subtitle: { es: "Next.js, Supabase y seguridad en la base", en: "Next.js, Supabase and security in the database" },
+      subtitle: { es: "Sencilla de mantener y segura", en: "Easy to maintain and secure" },
     },
     {
       slug: "decisiones-importantes",
@@ -52,30 +52,30 @@ export const vidrieriaAntonio: PublishedProject = {
     {
       slug: "lo-que-aprendi",
       title: { es: "Lo que aprendí", en: "What I learned" },
-      subtitle: { es: "Probar en producción y escuchar al cliente", en: "Test in production and listen to the client" },
+      subtitle: { es: "Probar la versión real y escuchar al cliente", en: "Test the real version and listen to the client" },
     },
   ],
   credits: [
-    { tech: "nextjs", role: { es: "Server Components y Server Actions", en: "Server Components and Server Actions" } },
-    { tech: "typescript", role: { es: "tipos de punta a punta", en: "end-to-end types" } },
-    { tech: "tailwindcss", role: { es: "sistema de diseño", en: "design system" } },
-    { tech: "shadcn-ui", role: { es: "componentes base", en: "base components" } },
-    { tech: "supabase", role: { es: "datos, login y fotos con RLS", en: "data, login and photos with RLS" } },
+    { tech: "nextjs", role: { es: "la web y el panel", en: "the site and the panel" } },
+    { tech: "typescript", role: { es: "código más fiable", en: "more reliable code" } },
+    { tech: "tailwindcss", role: { es: "el estilo visual", en: "the visual style" } },
+    { tech: "shadcn-ui", role: { es: "piezas de interfaz", en: "interface pieces" } },
+    { tech: "supabase", role: { es: "datos, acceso y fotos", en: "data, login and photos" } },
     { tech: "react-hook-form", role: { es: "formularios del panel", en: "admin forms" } },
-    { tech: "zod", role: { es: "validación compartida", en: "shared validation" } },
-    { tech: "framer-motion", role: { es: "micro-interacciones", en: "micro-interactions" } },
-    { tech: "github-actions", role: { es: "tarea diaria anti-pausa", en: "daily keep-alive job" } },
-    { tech: "netlify", role: { es: "hosting de la prueba", en: "trial hosting" } },
-    { tech: "claude-code", role: { es: "implementación asistida", en: "assisted implementation" } },
+    { tech: "zod", role: { es: "comprobar los datos", en: "checking the data" } },
+    { tech: "framer-motion", role: { es: "pequeñas animaciones", en: "small animations" } },
+    { tech: "github-actions", role: { es: "tarea automática diaria", en: "daily automatic task" } },
+    { tech: "netlify", role: { es: "publicación de la prueba", en: "hosting the trial" } },
+    { tech: "claude-code", role: { es: "ayuda para construir", en: "help building it" } },
   ],
   productionNotes: {
     es: [
       "El mayor riesgo no fue técnico: sin fotos reales, el diseño no se valida.",
-      "Hacer QA sobre el build de producción encontró errores que en desarrollo no existían.",
+      "Revisar la versión publicada, y no solo la de trabajo, destapó fallos que antes no se veían.",
     ],
     en: [
       "The biggest risk wasn’t technical: without real photos, the design can’t be validated.",
-      "Running QA against the production build found bugs that didn’t exist in development.",
+      "Checking the published version, not just the working one, uncovered bugs that weren’t visible before.",
     ],
   },
   // Sin enlaces: el repositorio es privado y la URL de prueba no se publica. Las ubicaciones que se ven en el clip

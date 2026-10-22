@@ -42,7 +42,7 @@ export const bunnyRecords: PublishedProject = {
     {
       slug: "como-lo-construi",
       title: { es: "Cómo lo construí", en: "How I built it" },
-      subtitle: { es: "Next.js 16, todo estático y transiciones nativas", en: "Next.js 16, fully static and native transitions" },
+      subtitle: { es: "Rápido, en dos idiomas y sin saltos", en: "Fast, in two languages and seamless" },
     },
     {
       slug: "decisiones-importantes",
@@ -56,26 +56,26 @@ export const bunnyRecords: PublishedProject = {
     },
   ],
   credits: [
-    { tech: "nextjs", role: { es: "Cache Components y rutas estáticas", en: "Cache Components and static routes" } },
-    { tech: "react", role: { es: "View Transitions y Activity", en: "View Transitions and Activity" } },
-    { tech: "typescript", role: { es: "contenido y diccionarios tipados", en: "typed content and dictionaries" } },
-    { tech: "tailwindcss", role: { es: "tokens de Figma en CSS", en: "Figma tokens in CSS" } },
-    { tech: "shadcn-ui", role: { es: "componentes base", en: "base components" } },
-    { tech: "figma", role: { es: "sistema de diseño y pantallas", en: "design system and screens" } },
-    { tech: "blender", role: { es: "el conejo, renderizado por capas", en: "the bunny, rendered in layers" } },
-    { tech: "git", role: { es: "una rama por paso", en: "one branch per step" } },
-    { tech: "claude-code", role: { es: "implementación asistida y QA", en: "assisted implementation and QA" } },
-    { tech: "codex", role: { es: "revisión UX y propuestas en Figma", en: "UX review and Figma proposals" } },
-    { tech: "vercel", role: { es: "hosting", en: "hosting" } },
+    { tech: "nextjs", role: { es: "el sitio, rápido y estático", en: "the site, fast and static" } },
+    { tech: "react", role: { es: "las transiciones entre pantallas", en: "the transitions between screens" } },
+    { tech: "typescript", role: { es: "contenido sin errores", en: "error-free content" } },
+    { tech: "tailwindcss", role: { es: "el estilo visual", en: "the visual style" } },
+    { tech: "shadcn-ui", role: { es: "piezas de interfaz", en: "interface pieces" } },
+    { tech: "figma", role: { es: "diseño de todas las pantallas", en: "design of every screen" } },
+    { tech: "blender", role: { es: "el conejo en 3D", en: "the 3D bunny" } },
+    { tech: "git", role: { es: "avance paso a paso", en: "step-by-step progress" } },
+    { tech: "claude-code", role: { es: "ayuda para construir y revisar", en: "help building and reviewing" } },
+    { tech: "codex", role: { es: "ideas y revisión del diseño", en: "design ideas and review" } },
+    { tech: "vercel", role: { es: "publicación", en: "hosting" } },
   ],
   productionNotes: {
     es: [
       "La regla de no hacer scroll obligó a decidir qué cabe en cada pantalla, y eso mejoró el contenido.",
-      "Medir sobre el build de producción cambió el diagnóstico: el problema de las transiciones no era la red, sino el conejo montándose a mitad de animación.",
+      "Medir antes de tocar nada cambió el diagnóstico: el paso entre discos no iba lento por la conexión, sino porque el conejo se preparaba a mitad de la animación.",
     ],
     en: [
       "The no-scroll rule forced me to decide what fits on each screen, and that improved the content.",
-      "Measuring the production build changed the diagnosis: the transitions weren’t slow because of the network, but because the bunny was mounting mid-animation.",
+      "Measuring before changing anything shifted the diagnosis: the disc transition wasn’t slow because of the connection, but because the bunny was getting ready mid-animation.",
     ],
   },
   demo: {
