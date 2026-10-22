@@ -11,6 +11,7 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 - Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).
 - No hecho aún: prueba con lector de pantalla real (NVDA).
+- `npm audit`: 5 avisos "high" por `braces` (GHSA-vfj7-8cjw-p6xm) vía `eslint-config-next` → `fast-glob` → `micromatch`; solo desarrollo y aceptado (`PORTFOLIO.md` §mantenimiento). Al actualizar dependencias, comprobar si ya hay versión parcheada sin bajar `eslint-config-next` (no usar `npm audit fix --force`).
 
 ## Decisiones recientes
 
