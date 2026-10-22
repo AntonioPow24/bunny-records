@@ -1,0 +1,8 @@
+The starting point was the Bunny Records brand: Midnight, Teal, Ivory and Ink, with Sora for headings and Geist for text. On top of it I set the system’s first rule: **no component has a hard-coded colour, spacing or duration**; everything comes from the tokens.
+
+- **Three themes:** Bunny dark (the default), Bunny light and high contrast, with AA contrast checked in all of them.
+- **Tokens in a single format** (DTCG JSON) that produces the CSS variables, the Tailwind theme and the TypeScript types.
+- **Figma synced from the code:** the tokens create and update the Figma variables, and every Figma component uses only those variables. Each batch adds its components and a review frame with all three themes.
+- **A robustness contract** every component meets: complete states (loading, empty, error, disabled…), keyboard, 44 px touch targets, reduced motion and long text or text with accents and emoji.
+
+The catalogue has its own logo, a modular bunny made of three interface pieces: two ears and a base. It’s the visual link to the label.

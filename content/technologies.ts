@@ -110,6 +110,7 @@ export const technologies = {
   },
   vite: { name: "Vite", group: "frontend", inGear: false },
   storybook: { name: "Storybook", group: "frontend", inGear: false },
+  "react-aria": { name: "React Aria", group: "frontend", inGear: false },
   tauri: { name: "Tauri", group: "backend", inGear: false },
   rust: { name: "Rust", group: "backend", inGear: false },
   libreoffice: { name: "LibreOffice", group: "backend", inGear: false },

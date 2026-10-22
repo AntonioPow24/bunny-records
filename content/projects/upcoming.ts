@@ -1,7 +1,6 @@
 import aiEstimatorCover from "@/public/images/projects/ai-construction-estimator/cover.jpg";
 import educationalCover from "@/public/images/projects/educational-platform/cover.jpg";
 import officeCover from "@/public/images/projects/office-to-pdf-converter/cover.jpg";
-import uiLibraryCover from "@/public/images/projects/ui-component-library/cover.jpg";
 import type { UpcomingProject } from "@/types/content";
 
 // Próximos lanzamientos. Concepto, stack y validación salen de idea/reporte-proyectos-bunny.html (2026-10-11)
@@ -11,40 +10,6 @@ const placeholderAlt = (es: string, en: string) => ({
   es: `Portada provisional: ${es}`,
   en: `Placeholder cover: ${en}`,
 });
-
-export const uiComponentLibrary: UpcomingProject = {
-  slug: "ui-component-library",
-  status: "planned",
-  title: { es: "UI Component Library", en: "UI Component Library" },
-  tagline: {
-    es: "Los patrones probados en el portfolio, extraídos para acelerar los siguientes productos.",
-    en: "Patterns proven in the portfolio, extracted to speed up the next products.",
-  },
-  categories: ["library"],
-  year: 2026,
-  featured: false,
-  order: 3,
-  cover: {
-    src: uiLibraryCover,
-    alt: placeholderAlt("dibujo técnico de piezas de interfaz sobre una cuadrícula.", "technical drawing of interface pieces on a grid."),
-  },
-  concept: {
-    es: "Extraer los patrones ya probados en el portfolio para acelerar los siguientes productos, sin crear un framework propio: tokens, 8–12 componentes accesibles, documentación y un paquete privado instalable.",
-    en: "Extract the patterns already proven in the portfolio to speed up the next products, without building my own framework: tokens, 8–12 accessible components, documentation and an installable private package.",
-  },
-  format: { es: "Paquete de componentes React", en: "React component package" },
-  credits: [
-    { tech: "react", role: { es: "componentes", en: "components" } },
-    { tech: "typescript", role: { es: "API tipada", en: "typed API" } },
-    { tech: "vite", role: { es: "empaquetado en modo biblioteca", en: "library-mode bundling" } },
-    { tech: "storybook", role: { es: "documentación interactiva", en: "interactive documentation" } },
-    { tech: "tailwindcss", role: { es: "tokens y estilos", en: "tokens and styles" } },
-  ],
-  nextValidation: {
-    es: "Que dos proyectos la consuman sin adaptaciones frágiles.",
-    en: "Two projects consuming it without fragile workarounds.",
-  },
-};
 
 export const officeToPdfConverter: UpcomingProject = {
   slug: "office-to-pdf-converter",

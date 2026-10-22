@@ -1,0 +1,11 @@
+Every new project started the same way: building buttons, fields, dialogs and tables again, and solving the hard parts of each one again (focus, keyboard, errors, loading states). What worked well in one project stayed in that project.
+
+UI Component is the answer: my in-house design system. It isn’t a framework of my own, but what has already been proven, extracted and documented to be reused:
+
+- **Tokens** for colour, spacing, typography and motion, with Bunny Records as the default theme.
+- **DOM-free logic** (search, validation, pagination, uploads, languages) that gets fixed once for everyone.
+- **Accessible React components** that each project copies and can edit.
+
+The rule for growing is extraction: a pattern gets in when a real project needs it. That’s how, for example, the file drop zone arrived (meant for the document converter), as did the charts and the advanced table (for the educational platform).
+
+It’s for my projects and for colleagues who want to use it. The catalogue is public at [ui.bunnyrecords.dev](https://ui.bunnyrecords.dev); the repository is private for now.
