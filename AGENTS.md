@@ -31,16 +31,10 @@ El historial está en [Bunny Records / Portfolio — Antonio Development Hub](ht
 | `npm run build && npm run start` | Medir y verificar siempre sobre producción |
 | `npm run dev` | Desarrollo |
 
-## Next.js 16.4 en este proyecto
+## Advertencias técnicas
 
-Lecciones generales de Next 16 (Cache Components, `<Activity>`, View Transitions, servidor de desarrollo): `~/.ai/stacks/nextjs.md`. Configuración propia:
-
-- **Cache Components y Partial Prefetching activos** (`next.config.ts`); todo el sitio es estático y el layout de `[locale]` usa `ensureStatic` para que una ruta no se vuelva dinámica sin querer.
-- Las páginas visitadas se ocultan con `<Activity>`: el conejo, la demo y cualquier animación se pausan al ocultarse y los paneles se cierran.
-- Tailwind v4 entra por `@tailwindcss/turbopack` (sin PostCSS).
-- Idioma: `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props.
-- `LayoutProps<"/ruta">` y `PageProps<…>` son globales generados por `next typegen` (incluido en `npm run typecheck`).
-- El conejo no arranca durante una transición; en pose fija carga solo esa pose.
+- Mantener el sitio estático y pausar animaciones al ocultarse las páginas con `<Activity>`.
+- Configuración y recetas de Next.js, i18n, Tailwind y personaje: `PORTFOLIO.md` §5.1, solo si la tarea las toca. Reglas generales: stack `nextjs` declarado.
 
 ## Git y despliegue
 
@@ -51,7 +45,7 @@ Lecciones generales de Next 16 (Cache Components, `<Activity>`, View Transitions
 
 ## Colaboración
 
-- Responsables elegidos por el usuario en `PROJECT.yaml` (`roles`); preguntar juntos los pendientes antes de iniciar esas fases. Claude y Codex pueden asumir cualquier rol, según `~/.ai/CORE.md`.
+- Responsables por alcance en `PROJECT.yaml` (`roles`), según `~/.ai/CORE.md`; el usuario puede reasignarlos. Roles vacíos no son pendientes obligatorios ni requieren completar fases ajenas al trabajo solicitado.
 - El usuario aprueba los diseños e indica cuándo implementar. Sin trabajo simultáneo de ambos agentes salvo petición expresa; no enviarse tareas sin autorización.
 - Flujo de diseño a código: `~/.ai/WORKFLOW.md` §5; archivo y estado en `FIGMA-DESIGN.md`.
 

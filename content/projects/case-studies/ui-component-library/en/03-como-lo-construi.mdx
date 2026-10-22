@@ -1,0 +1,10 @@
+A pnpm monorepo with a mixed distribution, designed so each piece ships in the way that suits it best:
+
+- **`tokens` and `core` are versioned packages**, published privately on GitHub Packages. They must be identical across every project.
+- **The visual components install from a registry** in the style of shadcn/ui: the code is copied into the project, which can edit it without fighting a closed library.
+- **React Aria Components underneath** for keyboard, focus, languages and touch; the public API is mine.
+- **Tailwind CSS v4** on top of the token variables, with variants built with CVA.
+- **Storybook as catalogue and test bench:** every story is a test that renders the component, runs its interaction and passes axe. In CI they run in Chromium, Firefox and WebKit, plus visual regression with Playwright.
+- **Versions with Changesets:** v0.1, v0.2 and v0.3 in October 2026, with over 40 components, from a button to filterable tables and charts in hand-built SVG.
+
+The work went in batches: each on its own branch and PR, with an adversarial review by Codex before merging.

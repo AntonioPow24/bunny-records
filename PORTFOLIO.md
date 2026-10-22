@@ -277,6 +277,17 @@ portfolio-antonio/
 
 ---
 
+### 5.1 Configuración y recetas de implementación
+
+Consultar solo al tocar Next.js, estilos, i18n o el personaje. Reglas generales de Next 16 en `~/.ai/stacks/nextjs.md`.
+
+- **Cache Components y Partial Prefetching activos** (`next.config.ts`); todo el sitio es estático y el layout de `[locale]` usa `ensureStatic` para que una ruta no se vuelva dinámica sin querer.
+- Las páginas visitadas se ocultan con `<Activity>`: el conejo, la demo y cualquier animación se pausan al ocultarse y los paneles se cierran.
+- Tailwind v4 entra por `@tailwindcss/turbopack` (sin PostCSS).
+- Idioma: `getLocale()` / `getDictionary()` (`lib/i18n/get-dictionary.ts`) en Server Components; los Client Components reciben los textos traducidos por props.
+- `LayoutProps<"/ruta">` y `PageProps<…>` son globales generados por `next typegen` (incluido en `npm run typecheck`).
+- El conejo no arranca durante una transición; en pose fija carga solo esa pose.
+
 ## 6. Modelo de contenido
 
 **Implementado en el paso 5** (`types/content.ts`; estados `published` · `in-development` · `planned`; los próximos lanzamientos llevan `concept`, `format` y `nextValidation`). Lo de abajo es la forma original.

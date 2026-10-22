@@ -4,7 +4,7 @@ type: A            # web de contenido con SEO, estática, sin backend
 stacks: [nextjs, react-tailwind, hosting]
 tools: [figma, blender]
 
-# Pendientes de elección por el usuario; no heredar el reparto anterior.
+# Sin asignar; consultar solo los roles necesarios para el alcance. Reasignables.
 roles:
   concepto: null
   arquitectura: null

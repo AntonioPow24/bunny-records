@@ -1,0 +1,10 @@
+Un monorepo con pnpm y una distribución mixta, pensada para que cada pieza se entregue de la forma que más le conviene:
+
+- **`tokens` y `core` son paquetes versionados**, publicados en privado en GitHub Packages. Deben ser idénticos en todos los proyectos.
+- **Los componentes visuales se instalan desde un registro** al estilo de shadcn/ui: el código se copia al proyecto, que puede editarlo sin pelearse con una librería cerrada.
+- **React Aria Components por debajo** para teclado, foco, idiomas y táctil; la API pública es la mía.
+- **Tailwind CSS v4** sobre las variables de los tokens y variantes con CVA.
+- **Storybook como catálogo y como banco de pruebas:** cada historia es un test que renderiza el componente, ejecuta su interacción y pasa axe. En la CI se ejecutan en Chromium, Firefox y WebKit, además de la regresión visual con Playwright.
+- **Versiones con Changesets:** v0.1, v0.2 y v0.3 en octubre de 2026, con más de 40 componentes, desde un botón hasta tablas con filtros y gráficas en SVG propio.
+
+El trabajo fue por lotes: cada uno en su rama y su PR, con una revisión adversarial de Codex antes de integrarlo.
