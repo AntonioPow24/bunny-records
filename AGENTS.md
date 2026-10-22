@@ -39,7 +39,7 @@ El historial está en [Bunny Records / Portfolio — Antonio Development Hub](ht
 ## Git y despliegue
 
 - Una rama por tarea (`mejora-N-…`); commits en español con la identidad personal (`garciaromeroantonio24@gmail.com`), nunca la corporativa.
-- Permisos de Git según `~/.ai/CORE.md`. Un merge a `main` despliega solo en Vercel (`bunny-records.vercel.app`, con `noindex` hasta tener dominio).
+- Permisos de Git según `~/.ai/CORE.md`. Un merge a `main` despliega solo en Vercel (`bunnyrecords.dev`, indexable; `bunny-records.vercel.app` redirige con 308).
 - El hook de merge exige una revisión registrada (code-review) antes de integrar.
 - No versionar referencias, renders pesados ni notas personales (`.gitignore`).
 
