@@ -4,10 +4,11 @@ import Link from "next/link";
 
 import { AboutTracks, type AboutTrack } from "@/components/sections/about-tracks";
 import { Turntable } from "@/components/sections/turntable";
+import { JsonLd } from "@/components/seo/json-ld";
 import { profile } from "@/content/profile";
 import { getTechnologies } from "@/lib/content";
 import { getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
-import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
@@ -111,6 +112,16 @@ export default async function AboutPage() {
   return (
     <Turntable kind="about" discLabel={dict.about.discLabel} pose="curious-right" align="start">
       <div className="flex flex-col gap-5 md:min-h-0 md:flex-1">
+        {/* Página de perfil del autor (rich result ProfilePage). */}
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            url: absoluteUrl(locale, "/about"),
+            inLanguage: locale,
+            mainEntity: personJsonLd(locale),
+          }}
+        />
         <div className="flex flex-col gap-2">
           <p className="text-label text-primary">{dict.about.eyebrow}</p>
           <h1 className="text-display">{profile.name}</h1>

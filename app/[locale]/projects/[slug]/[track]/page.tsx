@@ -27,14 +27,19 @@ async function resolve(params: PageProps<"/[locale]/projects/[slug]/[track]">["p
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/projects/[slug]/[track]">): Promise<Metadata> {
   const found = await resolve(params);
-  const locale = await getLocale();
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   if (!found) return {};
-  const { project, track } = found;
+  const { project, track, index } = found;
   return buildMetadata({
     locale,
     path: `/projects/${project.slug}/${track.slug}`,
     title: `${track.title[locale]} · ${project.title[locale]}`,
-    description: track.subtitle?.[locale] ?? project.tagline[locale],
+    // El subtítulo solo (20-50 caracteres) se quedaba corto como descripción.
+    description: format(dict.album.trackMetaDescription, {
+      subtitle: track.subtitle?.[locale] ?? track.title[locale],
+      number: String(index + 1),
+      album: project.title[locale],
+    }),
     image: albumImage(locale, project.slug, project.title[locale]),
   });
 }

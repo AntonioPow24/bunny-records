@@ -2,11 +2,11 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en prueba (`bunny-records.vercel.app`, `noindex`). Fase de mejoras: hasta la 22 hecha. Sin bloque en curso.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 23 hecha; la 24 (SEO) en rama `mejora-24-seo`.
 
 ## Pendiente
 
-- Dominio en Cloudflare → `NEXT_PUBLIC_SITE_URL`; quitar `SITE_NOINDEX` y redesplegar (requiere aprobación: es la publicación real). Después, validar tarjetas en Facebook/LinkedIn y el Rich Results Test.
+- Validar tarjetas en Facebook/LinkedIn y el Rich Results Test; en Search Console, pedir indexación de `/es` tras desplegar la mejora 24 (el favicon en resultados de Google tarda semanas).
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
 - Sacar `idea/`, `imagelogo/` y lo pesado de `design/character/` a un archivo fuera del proyecto (ya ignorados en Git).
 - Figma: limpiar en `01 Sistema` los componentes de la primera versión que ya no se usen (comprobar instancias antes; con autorización).

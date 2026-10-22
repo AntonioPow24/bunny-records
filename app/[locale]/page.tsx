@@ -6,7 +6,7 @@ import { profile } from "@/content/profile";
 import { getAlbumMinutes, getProjects, isPublished } from "@/lib/content";
 import { JsonLd } from "@/components/seo/json-ld";
 import { format, getDictionary, getLocale, plural } from "@/lib/i18n/get-dictionary";
-import { SITE_NAME, SITE_URL, absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, absoluteUrl, buildMetadata, labelJsonLd, personJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
@@ -50,7 +50,9 @@ export default async function HomePage() {
                 inLanguage: locale,
                 description: dict.meta.description,
                 author: { "@id": `${SITE_URL}/#person` },
+                publisher: { "@id": `${SITE_URL}/#label` },
               },
+              labelJsonLd(locale),
               personJsonLd(locale),
             ],
           }}
