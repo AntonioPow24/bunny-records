@@ -2,7 +2,7 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 35 (pantalla sin señal en UI Component) hecha. Sin bloque en curso.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Fase de mejoras: hasta la 36 (posición del scroll al navegar entre pistas) hecha. Sin bloque en curso.
 
 ## Pendiente
 

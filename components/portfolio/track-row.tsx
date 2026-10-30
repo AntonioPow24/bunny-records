@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 
 type TrackRowProps = {
   href: string;
+  /** Marca la fila para que ScrollPanel la coloque al cambiar de pista. */
+  slug: string;
   number: string;
   title: string;
   subtitle?: string;
@@ -16,7 +18,7 @@ type TrackRowProps = {
 };
 
 // Fila de pista (Figma: TrackRow). La duración es el tiempo de lectura real del capítulo.
-export function TrackRow({ href, number, title, subtitle, duration, active = false, transitionName }: TrackRowProps) {
+export function TrackRow({ href, slug, number, title, subtitle, duration, active = false, transitionName }: TrackRowProps) {
   const content = (
     <>
       <span className={cn("text-mono w-8 shrink-0", active ? "text-primary" : "text-muted-foreground")}>{number}</span>
@@ -27,16 +29,17 @@ export function TrackRow({ href, number, title, subtitle, duration, active = fal
       <span className="text-mono shrink-0 text-muted-foreground">{duration}</span>
     </>
   );
-  const base = "flex min-h-14 items-center gap-4 rounded-md px-4 py-3";
+  // scroll-mt: margen bajo el borde de la zona con scroll cuando la fila queda arriba.
+  const base = "flex min-h-14 scroll-mt-3 items-center gap-4 rounded-md px-4 py-3";
 
   return (
     <ViewTransition name={transitionName} share="track-morph" default="none">
       {active ? (
-        <div aria-current="page" className={cn(base, "surface-lit border border-primary bg-card")}>
+        <div data-track-row={slug} aria-current="page" className={cn(base, "surface-lit border border-primary bg-card")}>
           {content}
         </div>
       ) : (
-        <Link href={href} prefetch className={cn(base, "transition-colors hover:bg-accent")}>
+        <Link data-track-row={slug} href={href} prefetch className={cn(base, "transition-colors hover:bg-accent")}>
           {content}
         </Link>
       )}

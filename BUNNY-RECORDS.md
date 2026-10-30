@@ -213,6 +213,7 @@ Petición del usuario: el sitio es una sola pantalla fija; cambiar de sección e
 
 - **El documento nunca hace scroll.** Lo largo (pistas, créditos y notas de un álbum; el texto de una pista) se desplaza **dentro de su panel**, como en Spotify de escritorio.
 - **Excepción móvil (2026-10-13, petición del usuario):** en Sobre mí y Contacto, si el contenido no cabe, se desplaza toda la vista bajo la cabecera fija (no solo el panel de la pista). En escritorio, el bloque de Sobre mí arranca arriba para que las pestañas no cambien de sitio entre pistas.
+- **Posición al navegar en un álbum (2026-10-30):** al cambiar de pista, su fila queda arriba de la zona con scroll y el texto debajo (en móvil, sin portada ni resumen de por medio). Al volver a la lista, queda a la vista la pista de la que se viene. Al entrar al álbum o a una pista por enlace directo, se empieza por el inicio.
 - **Barra:** logo (= volver a la colección), dos **discos** (Sobre mí, etiqueta teal; Contacto, etiqueta marfil) y ES / EN. Al elegir un disco, **baja de la barra a la escena** (transición compartida) y el contenido anterior se desvanece; en la barra queda su **hueco** (aro discontinuo). En móvil, los discos sin texto sustituyen al menú ☰.
 - **Escena de Sobre mí y Contacto = tocadiscos:** disco grande a la izquierda y el conejo de DJ a su lado (mira o señala el contenido).
 - **Sobre mí se divide en "pistas"** (01 Quién soy · 02 Cómo trabajo · 03 Gira · 04 Equipo de estudio) para caber sin scroll. "Discografía" desaparece: la colección ya lo es.
