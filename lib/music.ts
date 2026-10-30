@@ -1,7 +1,7 @@
 // Reproductor de la música de los álbumes (BUNNY-RECORDS.md §5.2.2): un solo <audio> fuera de React, para que
 // siga sonando al navegar y para poder arrancarlo dentro del propio clic (los navegadores exigen ese gesto).
 
-export const MUSIC_DEFAULT_VOLUME = 0.35;
+export const MUSIC_DEFAULT_VOLUME = 0.5;
 export const LEVELS_FPS = 15;
 export const LEVELS_BANDS = 32;
 

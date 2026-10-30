@@ -171,11 +171,11 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 
 Petición del usuario. Una canción por álbum publicado (Figma T33; `lib/music.ts`, `components/layout/album-music.tsx`).
 
-- **Arranque:** al abrir un álbum desde la colección, dentro de ese clic, con subida de 1 s al 35 % y el botón en pausa. Entrada directa por URL: no suena y el botón muestra ▶ (los navegadores lo bloquearían; WCAG 1.4.2 prefiere que lo inicie el visitante).
+- **Arranque:** al abrir un álbum desde la colección, dentro de ese clic, con subida de 1 s al 50 % y el botón en pausa. Entrada directa por URL: no suena y el botón muestra ▶ (los navegadores lo bloquearían; WCAG 1.4.2 prefiere que lo inicie el visitante).
 - **Durante el álbum:** sigue al cambiar de pista, en bucle. Al salir del flujo de proyectos se apaga en 1 s, porque allí no hay bandeja con controles. La pausa manual se respeta en los demás álbumes durante la visita; volumen y silencio se recuerdan entre visitas.
 - **Bandeja:** tiempo desplazable en el centro con "Título · Artista" debajo; a la derecha ⏮ ⏸ ⏭, silencio y barra de volumen. Por debajo de 1024 px: tiempo en el borde superior (área táctil de 24 px), nombre como subtítulo (dentro de una pista manda la pista) y solo silencio (iOS reserva el volumen a los botones físicos).
 - **Visualizador:** barras decorativas al 20 %, detrás del contenido y sobre la bandeja, con niveles calculados de antemano (`scripts/audio-levels.mjs`): no usan Web Audio, poco fiable con `<audio>` en iOS. En pausa se quedan quietas; con `prefers-reduced-motion` no se animan.
-- **Audio:** recortes en `public/audio/<slug>.mp3` (128 kbps) y `<slug>.levels`; los originales quedan fuera de Git. Tras cambiar un `.mp3`, regenerar los niveles.
+- **Audio:** recortes en `public/audio/<slug>.mp3` (128 kbps) y `<slug>.levels`; los originales quedan fuera de Git. Afinados de 440 a 432 Hz cambiando la velocidad (`asetrate`, sin estirar el tiempo: suenan un 1,8 % más lentos) e igualados a −20 LUFS para que el 50 % no resulte fuerte. Tras cambiar un `.mp3`, regenerar los niveles.
 
 Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla aparece ya en su estado final, sin animación.
 
