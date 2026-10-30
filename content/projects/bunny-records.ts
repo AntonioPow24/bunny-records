@@ -7,6 +7,7 @@ import type { PublishedProject } from "@/types/content";
 export const bunnyRecords: PublishedProject = {
   slug: "bunny-records",
   status: "published",
+  music: { title: "Addicted To You", artist: "Avicii" },
   title: { es: "Bunny Records", en: "Bunny Records" },
   tagline: {
     es: "Este portfolio: un sello discográfico donde cada proyecto es un álbum.",

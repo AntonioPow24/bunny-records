@@ -7,6 +7,7 @@ import type { PublishedProject } from "@/types/content";
 export const vidrieriaAntonio: PublishedProject = {
   slug: "vidrieria-antonio",
   status: "published",
+  music: { title: "light", artist: "2hollis" },
   title: { es: "Vidriería Antonio", en: "Vidriería Antonio" },
   tagline: {
     es: "Web corporativa con panel de administración para una vidriería local.",

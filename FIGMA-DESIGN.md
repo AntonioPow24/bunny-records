@@ -17,7 +17,7 @@ Antes de rediseñar una sección, contrastarla con `main`; las capturas "Actual"
 - Solo variables `semantic`, nunca HEX sueltos. El modo marfil (`.surface-ivory`) existe solo en código.
 - Contraste (`PORTFOLIO.md` §3.5): botón primario teal + ink; Deep Teal no se usa para texto normal; sobre marfil, enlaces en `teal-ink`.
 - Objetivos táctiles ≥ 44 px en móvil; foco visible en todo componente interactivo; estados que se entienden sin color.
-- Sin datos inventados (métricas, clientes, demos, fechas) y sin controles de reproducción sobre algo que no sea vídeo real.
+- Sin datos inventados (métricas, clientes, demos, fechas) y sin controles de reproducción sobre algo que no sea vídeo o audio real.
 - El conejo no se redibuja en Figma: se coloca y escala; en código se monta por capas.
 - Capas con nombre y componentes usados como instancias. Probar al menos una pantalla con textos en inglés.
 - Preservar los originales: proponer sobre copias o secciones nuevas. Un `Redesign Lab` solo si el plan y la utilidad lo justifican (no crearlo por defecto).
@@ -29,6 +29,7 @@ Antes de rediseñar una sección, contrastarla con `main`; las capturas "Actual"
 | T11 · Equipo de estudio | Ficha editorial de instrumentos: 4 categorías numeradas con separadores y las herramientas `inGear` como enlaces | [propuesta](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=137-247): escritorio `137:248`, móvil `137:446`, componente `137:362` |
 | T14 v3 · Contacto | Contraportada del artista: disco, giro y conejo originales; firma «Antonio G.» fuera del disco; CV como acción principal; correo y perfiles | [propuesta](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=152-309): escritorio `152:310`, móvil `152:430` (v1 y v2 descartadas). Desviaciones aprobadas: firma más arriba en escritorio; correo como enlace `mailto` (2026-10-14) |
 | T15 · Videoclip | Ventana de película bajo la portada: marco mate, perforaciones, etiqueta «En acción», sin controles | [propuesta](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=162-309): escritorio `162:652`, móvil `162:1081`, componente `DemoClip / T15` `162:651`. Añadido sin Figma: "Ampliar" en modal (2026-10-14) |
+| T33 · Música | Bandeja con pausa, tiempo central con el nombre debajo y volumen; visualizador de barras sobre la bandeja | [propuesta](https://www.figma.com/design/o0r1u0aHeXmVXn2TAFME28/Bunny-Records?node-id=194-812): escritorio `194:958`, móvil `194:1304`, componentes `TrayAudio / T33` `194:957` y `TimeBar / T33` `195:846` |
 
 Los créditos como sobres (mejoras 8–10) partieron de T9 en "Mejoras · propuestas" y se terminaron en código; Figma no refleja el arte final de las fundas.
 

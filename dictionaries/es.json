@@ -54,7 +54,15 @@
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",
     "nextTrack": "Pista siguiente",
-    "firstTrack": "Escuchar la primera pista",
+    "firstTrack": "Ir a la primera pista",
+    "pause": "Pausar música",
+    "play": "Reproducir música",
+    "mute": "Silenciar",
+    "unmute": "Activar sonido",
+    "volume": "Volumen",
+    "volumeValue": "{value} %",
+    "position": "Posición de {song}",
+    "positionValue": "{time} de {total}",
     "backToAlbum": "Volver al álbum"
   },
   "bunny": {

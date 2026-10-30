@@ -71,6 +71,8 @@ export type PublishedProject = ProjectBase & {
    * real; sin él no se pinta el bloque. Archivos en public/demos/<slug>/ (MP4 H.264 obligatorio, WebM opcional).
    */
   demo?: { mp4: string; webm?: string; poster: StaticImageData; alt: Localized<string> };
+  /** Canción del álbum: el audio está en public/audio/<slug>.mp3 y sus niveles en <slug>.levels. */
+  music: { title: string; artist: string };
   results?: VerifiableResult[];
   links?: ProjectLink[];
 };
@@ -86,6 +88,7 @@ export type UpcomingProject = ProjectBase & {
   credits: Credit[];
   nextValidation: Localized<string>;
   demo?: never;
+  music?: never;
   results?: never;
   tracks?: never;
 };

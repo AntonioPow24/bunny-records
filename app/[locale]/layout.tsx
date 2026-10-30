@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 
+import { AudioBars } from "@/components/layout/album-music";
 import { Header } from "@/components/layout/header";
 import { PlayerTray, type TrayAlbum } from "@/components/layout/player-tray";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -51,6 +52,7 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
           minutes: String(getAlbumMinutes(project, locale)),
         })
       : dict.tray.upcoming,
+    song: isPublished(project) ? `${project.music.title} · ${project.music.artist}` : undefined,
     tracks: isPublished(project) ? project.tracks.map((t) => ({ slug: t.slug, title: t.title[locale] })) : [],
   }));
 
@@ -63,6 +65,7 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
         <Suspense>
           <StageLights />
         </Suspense>
+        <AudioBars />
         <SkipLink label={dict.nav.skipToContent} />
         <Header />
         <main id="contenido" tabIndex={-1} className="flex min-h-0 flex-1 flex-col overflow-y-auto outline-none">

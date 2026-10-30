@@ -54,7 +54,15 @@
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",
     "nextTrack": "Next track",
-    "firstTrack": "Play the first track",
+    "firstTrack": "Go to the first track",
+    "pause": "Pause music",
+    "play": "Play music",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "volume": "Volume",
+    "volumeValue": "{value}%",
+    "position": "Position in {song}",
+    "positionValue": "{time} of {total}",
     "backToAlbum": "Back to the album"
   },
   "bunny": {

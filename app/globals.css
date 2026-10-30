@@ -277,6 +277,66 @@
   }
 }
 
+/* ---------- Música de los álbumes: barras de tiempo y volumen (Figma T33) ---------- */
+
+@layer components {
+  .audio-range {
+    appearance: none;
+    height: 1.5rem;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 9999px;
+  }
+  .audio-range:disabled {
+    cursor: default;
+  }
+  .audio-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--primary) var(--value, 0%), var(--border) var(--value, 0%));
+  }
+  .audio-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--foreground);
+  }
+  .audio-range::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+  .audio-range::-moz-range-progress {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--primary);
+  }
+  .audio-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--foreground);
+  }
+  /* Móvil: pegada al borde superior de la bandeja, con un área táctil de 24 px. */
+  .audio-range-edge::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 0;
+  }
+  .audio-range-edge::-webkit-slider-thumb {
+    margin-top: -4.5px;
+  }
+  .audio-range-edge::-moz-range-track,
+  .audio-range-edge::-moz-range-progress {
+    height: 3px;
+    border-radius: 0;
+  }
+}
+
 /* ---------- 7.9 · Iluminación de escenario (Figma "7.9 · Iluminación") ---------- */
 
 @layer components {
