@@ -13,6 +13,7 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 
 ## Decisiones recientes
 
+- 2026-10-30: mejora 33: música por álbum al abrirlo, con pausa, tiempo, volumen y visualizador (`BUNNY-RECORDS.md` §5.2.2). Las canciones no tienen licencia: publicarlas es decisión expresa del usuario, que asume el riesgo.
 - 2026-10-22: Figma `01 Sistema`: borrados 10 componentes de la primera versión sin instancias (Tab, TrackRow, CreditRow, Header, CoverInfo, DemoPlayer, PlayerTray, TrackNav, TechPanel, Footer). Quedan Bunny, Button, StatusPill, Cover, DiscGraphic, NavDisc y Header v2.
 - 2026-10-22: tarjetas validadas en Facebook (Sharing Debugger) y LinkedIn (Post Inspector) para `/es` y `/en`: 200, canónica correcta, imagen OG, título y descripción en su idioma. Solo avisa de `fb:app_id` (opcional; no se añade).
 - 2026-10-22: mejora 31: `idea/`, `imagelogo/`, `bunny.blend` y los PNG y material de trabajo del personaje (~88 MB) archivados en `C:\APPS\_archivo\bunny-records\`, con la misma estructura; scripts y documentos apuntan allí.

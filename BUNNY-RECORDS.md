@@ -118,7 +118,7 @@ Reglas: el conejo **no persigue al cursor** por la pantalla; tiene un sitio fijo
 
 Por qué: dentro del álbum el contenido es lo importante y un personaje animado roba la atención (el movimiento se percibe incluso en la periferia). La bandeja está en todas las pantallas, así que el conejo no desaparece y el visitante siempre sabe dónde está (memoria espacial). Al abrir un álbum, el conejo **se encoge y se desliza a la bandeja** a la vez que la portada viaja a la cabecera: son dos elementos compartidos que cuentan lo mismo, "entramos".
 
-Poses en la bandeja: *escucha* mientras se lee una pista, *baile* mientras suena la demo, *saludo* al entrar en un álbum (las tres son poses v2; hasta tenerlas, *reposo* y *curiosidad*). Sonido apagado salvo que el visitante lo active. Con `prefers-reduced-motion`, poses estáticas.
+Poses en la bandeja: *escucha* mientras se lee una pista, *baile* mientras suena la demo, *saludo* al entrar en un álbum (las tres son poses v2; hasta tenerlas, *reposo* y *curiosidad*). La música de los álbumes sigue §5.2.2. Con `prefers-reduced-motion`, poses estáticas.
 
 ---
 
@@ -152,7 +152,7 @@ Todo el recorrido **se siente como una sola página que se transforma** (estilo 
 5. **Abrir una pista:** las demás pistas se desvanecen y la elegida se expande **dentro de la misma sección** para mostrar su texto. Portada, demo, conejo y bandeja no se mueven. Al pie: el botón **"Mostrar todas"**, que hace la animación inversa (igual que el botón Atrás).
 6. **Créditos técnicos** (bajo las pistas): tecnología → función en este proyecto. Pulsar una tecnología abre su **ficha compartida como panel lateral** (hoja inferior en móvil) encima del álbum atenuado: cómo la uso, en qué álbumes aparece y qué aprendí. Al cerrarla, el álbum sigue como estaba.
 7. **Notas de producción:** aprendizajes y decisiones, al final del álbum.
-8. **Demostrar y volver:** el clip de demo se comporta como indica §5.2.1. **Nunca se simulan controles de reproducción sobre texto.** La bandeja inferior funciona como un reproductor: **⏮ ⏭ = pista anterior / siguiente** del álbum (en el álbum, ⏭ abre la 01) y "Colección" vuelve al arco. El cambio de álbum se hace desde la colección. No hay bandeja en la colección; al volver, la portada regresa a su sitio en el arco y el conejo al escenario.
+8. **Demostrar y volver:** el clip de demo se comporta como indica §5.2.1. **Nunca se simulan controles de reproducción sobre texto:** los de la bandeja controlan la música real (§5.2.2). **⏮ ⏭ = pista anterior / siguiente** del álbum (en el álbum, ⏭ abre la 01) y "Colección" vuelve al arco. El cambio de álbum se hace desde la colección. No hay bandeja en la colección; al volver, la portada regresa a su sitio en el arco y el conejo al escenario.
 
 #### 5.2.1 Clip de demo bajo la portada (decidido el 2026-10-13)
 
@@ -166,6 +166,16 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
 - **Ampliar (2026-10-14):** a la derecha del rótulo "En acción", fuera de la caja, la palabra "Ampliar" / "Expand" con un icono pequeño abre el mismo clip centrado en un modal, hasta 960 px (su tamaño real, para no verlo borroso). Palabra y no solo icono porque se explica sola; "Ver" se descartó por ambigua (el clip ya se ve). En el modal se cierra con ✕, Esc o pulsando fuera; pulsar el vídeo pausa o reanuda igual que la caja. El clip pequeño espera en pausa y sigue desde donde iba el grande; la pausa elegida y el movimiento reducido se respetan en los dos.
 - **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Vidriería Antonio y Bunny Records.
+
+#### 5.2.2 Música del álbum (decidido el 2026-10-30)
+
+Petición del usuario. Una canción por álbum publicado (Figma T33; `lib/music.ts`, `components/layout/album-music.tsx`).
+
+- **Arranque:** al abrir un álbum desde la colección, dentro de ese clic, con subida de 1 s al 35 % y el botón en pausa. Entrada directa por URL: no suena y el botón muestra ▶ (los navegadores lo bloquearían; WCAG 1.4.2 prefiere que lo inicie el visitante).
+- **Durante el álbum:** sigue al cambiar de pista, en bucle. Al salir del flujo de proyectos se apaga en 1 s, porque allí no hay bandeja con controles. La pausa manual se respeta en los demás álbumes durante la visita; volumen y silencio se recuerdan entre visitas.
+- **Bandeja:** tiempo desplazable en el centro con "Título · Artista" debajo; a la derecha ⏮ ⏸ ⏭, silencio y barra de volumen. Por debajo de 1024 px: tiempo en el borde superior (área táctil de 24 px), nombre como subtítulo (dentro de una pista manda la pista) y solo silencio (iOS reserva el volumen a los botones físicos).
+- **Visualizador:** barras decorativas al 20 %, detrás del contenido y sobre la bandeja, con niveles calculados de antemano (`scripts/audio-levels.mjs`): no usan Web Audio, poco fiable con `<audio>` en iOS. En pausa se quedan quietas; con `prefers-reduced-motion` no se animan.
+- **Audio:** recortes en `public/audio/<slug>.mp3` (128 kbps) y `<slug>.levels`; los originales quedan fuera de Git. Tras cambiar un `.mp3`, regenerar los niveles.
 
 Entrada directa por un enlace (a un álbum, una pista o una ficha): la pantalla aparece ya en su estado final, sin animación.
 
@@ -261,4 +271,4 @@ ffmpeg -i <slug>-demo-6s.mp4 -frames:v 1 -vf scale=720:-2 -q:v 4 poster.jpg
 - **Interfaz:** sigue igual (150–400 ms, CSS por defecto, Motion cuando CSS no basta).
 - **Transiciones entre rutas** (portada → cabecera, conejo → bandeja, pistas → pista abierta, apertura del panel de tecnología): **View Transitions** del navegador (`<ViewTransition>` de React / `viewTransition` de Next). Se descarta `layoutId` de Motion para esto porque sus animaciones de salida con App Router necesitan trucos frágiles. Sin soporte, la navegación funciona igual sin animación **[VERIFICAR estado en Next 16.4 al implementar]**. Duración: hacia el máximo del rango (~350–400 ms) para la portada; 200–250 ms para las pistas.
 - **Pistas:** las no elegidas se desvanecen y bajan unos píxeles; la elegida **sube al lugar de la primera** y su contenido se despliega debajo (así el texto queda a la vista sin desplazarse). Con `prefers-reduced-motion`: fundido corto o corte.
-- **Sin sonido** por defecto.
+- **Sonido:** solo la música del álbum (§5.2.2).

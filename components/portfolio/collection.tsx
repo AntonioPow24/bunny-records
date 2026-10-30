@@ -10,6 +10,7 @@ import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
 import type { BunnySide } from "@/components/bunny/engine";
 import { statusGlyphs, type ProjectStatusVariant } from "@/components/patterns/status-pill";
 import { buttonVariants } from "@/components/ui/button";
+import { startAlbum } from "@/lib/music";
 import { useSessionState } from "@/lib/session-state";
 import { cn } from "@/lib/utils";
 
@@ -110,6 +111,11 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
     return dx < 0 ? "left" : "right";
   }
 
+  // Abrir un álbum publicado arranca su canción: tiene que ser dentro del clic (lib/music.ts).
+  function listen(item: CollectionItem) {
+    if (item.status === "published") startAlbum(item.slug);
+  }
+
   function onKeyDown(e: KeyboardEvent) {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
@@ -118,6 +124,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
       e.preventDefault();
       select(selected + 1);
     } else if (e.key === "Enter" && e.target === e.currentTarget && current) {
+      listen(current);
       router.push(current.href);
     }
   }
@@ -202,7 +209,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                   onPointerLeave={() => bunny.current?.setHover(null)}
                 >
                   {isCurrent ? (
-                    <Link href={item.href} prefetch className="block rounded-lg">
+                    <Link href={item.href} prefetch onClick={() => listen(item)} className="block rounded-lg">
                       {art}
                       <span className="sr-only">
                         {fill(labels.position, { title: "", position: index + 1, total: visible.length }).replace(/^,\s*/, ", ")}
@@ -260,6 +267,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
             <Link
               href={current.href}
               prefetch
+              onClick={() => listen(current)}
               className={buttonVariants({ size: "sm", variant: current.status === "published" ? "primary" : "secondary" })}
             >
               {current.status === "published" ? (
