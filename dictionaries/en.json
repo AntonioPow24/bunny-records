@@ -146,7 +146,9 @@
     "demoPlay": "Play demo",
     "demoPause": "Pause demo",
     "demoExpand": "Expand",
-    "demoClose": "Close expanded demo"
+    "demoClose": "Close expanded demo",
+    "noSignalCaption": "Coming soon",
+    "noSignalDescription": "Video clip not available yet"
   },
   "tech": {
     "eyebrow": "Technology sheet",

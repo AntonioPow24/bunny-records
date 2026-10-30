@@ -187,7 +187,7 @@ export function DemoClip({ mp4, webm, poster, description, labels, className }: 
   );
 }
 
-function Perforations() {
+export function Perforations() {
   return (
     <span aria-hidden="true" className="flex w-1 shrink-0 flex-col justify-evenly self-stretch py-1">
       {Array.from({ length: PERFORATIONS }, (_, i) => (

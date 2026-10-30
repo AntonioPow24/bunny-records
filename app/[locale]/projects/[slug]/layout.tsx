@@ -7,6 +7,7 @@ import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/patterns/status-pill";
 import { CoverArt } from "@/components/portfolio/cover-art";
 import { DemoClip } from "@/components/portfolio/demo-clip";
+import { NoSignal } from "@/components/portfolio/no-signal";
 import { ScrollPanel } from "@/components/portfolio/scroll-panel";
 import { getAlbumMinutes, getProject, getProjects, isPublished } from "@/lib/content";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
@@ -86,6 +87,13 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
               expand: dict.album.demoExpand,
               close: dict.album.demoClose,
             }}
+            className="w-full max-w-70 md:max-w-none"
+          />
+        )}
+        {published && !project.demo && (
+          <NoSignal
+            channel={String(project.order).padStart(2, "0")}
+            labels={{ caption: dict.album.noSignalCaption, description: dict.album.noSignalDescription }}
             className="w-full max-w-70 md:max-w-none"
           />
         )}
