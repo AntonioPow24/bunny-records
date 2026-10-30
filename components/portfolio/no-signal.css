@@ -1,0 +1,68 @@
+/* Pantalla sin señal (Figma T34). Solo CSS: una textura de ruido que se desplaza a saltos, sin imágenes ni vídeo. */
+
+.no-signal-static,
+.no-signal-lines,
+.no-signal-band,
+.no-signal-vignette {
+  position: absolute;
+  pointer-events: none;
+}
+
+.no-signal-static {
+  inset: -60px;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .96 0 0 0 0 .96 0 0 0 0 .95 0 0 0 1.6 -.75'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: no-signal-static 1.4s steps(1) infinite;
+}
+
+.no-signal-lines {
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--foreground) 6%, transparent) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* La banda baja despacio y solo es visible una parte del recorrido. */
+.no-signal-band {
+  inset-inline: 0;
+  top: 0;
+  height: 16%;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--primary) 14%, transparent), transparent);
+  animation: no-signal-band 9s linear infinite;
+}
+
+.no-signal-vignette {
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--scrim) 60%, transparent));
+}
+
+.no-signal[data-paused="true"] .no-signal-static,
+.no-signal[data-paused="true"] .no-signal-band {
+  animation-play-state: paused;
+}
+
+@keyframes no-signal-static {
+  0% { transform: translate(0, 0); }
+  17% { transform: translate(-37px, 22px); }
+  33% { transform: translate(18px, -41px); }
+  50% { transform: translate(-52px, -13px); }
+  67% { transform: translate(29px, 34px); }
+  83% { transform: translate(-11px, -28px); }
+}
+
+@keyframes no-signal-band {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(625%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .no-signal-static,
+  .no-signal-band {
+    animation: none;
+  }
+  .no-signal-band {
+    transform: translateY(420%);
+  }
+}

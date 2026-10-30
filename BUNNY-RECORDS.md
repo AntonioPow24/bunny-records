@@ -159,13 +159,14 @@ Todo el recorrido **se siente como una sola página que se transforma** (estilo 
 Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la versión anterior.
 
 - **Dónde:** solo en la vista del álbum (`/[locale]/projects/[slug]` y sus pistas), debajo de la portada, en la columna que persiste al cambiar de pista. **No va en el Inicio** (la colección de portadas en arco).
-- **Qué:** un clip de **6 s, sin audio y en bucle**, grabado del producto real. Solo en álbumes publicados con grabación propia; los planeados y los que no tienen grabación no muestran nada (ni hueco ni marcador).
+- **Qué:** un clip de **6 s, sin audio y en bucle**, grabado del producto real. Solo en álbumes publicados con grabación propia. Un publicado sin grabación muestra la pantalla "sin señal" (abajo); los planeados no muestran nada (ni hueco ni marcador).
 - **Reproducción:** empieza **solo al entrar en el álbum**. **Sin controles visibles** (ni barra, ni tiempo, ni botón de pausa dibujado).
 - **Interacción:** la caja del vídeo es el control: pulsarla (clic, toque o Enter/Espacio con el foco) **alterna pausa y reproducción**. Necesita nombre accesible que cambie con el estado ("Pausar demo" / "Reproducir demo") y foco visible: es lo que cumple WCAG 2.2.2 (pausar contenido en movimiento) sin controles a la vista.
 - **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
 - **Ampliar (2026-10-14):** a la derecha del rótulo "En acción", fuera de la caja, la palabra "Ampliar" / "Expand" con un icono pequeño abre el mismo clip centrado en un modal, hasta 960 px (su tamaño real, para no verlo borroso). Palabra y no solo icono porque se explica sola; "Ver" se descartó por ambigua (el clip ya se ve). En el modal se cierra con ✕, Esc o pulsando fuera; pulsar el vídeo pausa o reanuda igual que la caja. El clip pequeño espera en pausa y sigue desde donde iba el grande; la pausa elegida y el movimiento reducido se respetan en los dos.
 - **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Vidriería Antonio y Bunny Records.
+- **Sin señal (2026-10-30; Figma T34):** en un álbum publicado sin clip, la misma ventana muestra `NO SIGNAL` con el logo del conejo sobre estática oscura, el rótulo "Próximamente" y un `CH nn` decorativo (`components/portfolio/no-signal.tsx`). No es un control: sin pausa ni "Ampliar". Se detiene fuera de pantalla; con movimiento reducido, imagen fija. Al añadir el campo `demo`, desaparece solo. Hoy: UI Component.
 
 #### 5.2.2 Música del álbum (decidido el 2026-10-30)
 

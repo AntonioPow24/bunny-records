@@ -146,7 +146,9 @@
     "demoPlay": "Reproducir demo",
     "demoPause": "Pausar demo",
     "demoExpand": "Ampliar",
-    "demoClose": "Cerrar demo ampliada"
+    "demoClose": "Cerrar demo ampliada",
+    "noSignalCaption": "Próximamente",
+    "noSignalDescription": "Videoclip aún no disponible"
   },
   "tech": {
     "eyebrow": "Ficha de tecnología",
