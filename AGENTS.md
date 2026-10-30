@@ -39,7 +39,7 @@ El historial está en [Bunny Records / Portfolio — Antonio Development Hub](ht
 ## Git y despliegue
 
 - Una rama por tarea (`mejora-N-…`); commits en español con la identidad personal (`garciaromeroantonio24@gmail.com`), nunca la corporativa.
-- Permisos de Git según `~/.ai/CORE.md`. Un merge a `main` despliega solo en Vercel (`bunnyrecords.dev`, indexable; `bunny-records.vercel.app` redirige con 308).
+- Flujo y permisos según `~/.ai/CORE.md` y `WORKFLOW.md` §1 y §3: explicar el bloque, esperar el ok, implementarlo/verificarlo y presentar el resultado. La aprobación final autoriza al agente a integrar y comprobar el despliegue explicado, sin permisos adicionales por comando. Un merge a `main` despliega solo en Vercel (`bunnyrecords.dev`, indexable; `bunny-records.vercel.app` redirige con 308); indicarlo antes de pedir aprobación.
 - No versionar referencias, renders pesados ni notas personales (`.gitignore`).
 
 ## Colaboración

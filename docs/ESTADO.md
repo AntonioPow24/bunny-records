@@ -8,7 +8,7 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 
 - Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
-- No hecho aún: prueba con lector de pantalla real (NVDA).
+- No hecho aún: prueba con lector de pantalla real (NVDA) y de la música en un iPhone real (abrir un álbum desde la colección).
 - Al actualizar dependencias, revisar el aviso de `npm audit` por `braces` (aceptado en `PORTFOLIO.md` §10).
 
 ## Decisiones recientes
