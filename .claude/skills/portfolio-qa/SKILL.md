@@ -32,6 +32,7 @@ Texto común para cualquier agente (Claude Code y Codex). Los **niveles Q1–Q4,
 - Personaje aprobado; no volver a Blender para arreglos de CSS. Una cabeza y un cuerpo visibles por instante; sin parpadeos ni saltos a reposo.
 - Pausa con la página oculta, fuera de pantalla o pestaña oculta; pose fija con `prefers-reduced-motion`; nada pesado durante una transición.
 - Peso real de los assets si cambian; renders y `.blend` fuera de Git.
+- Música (`BUNNY-RECORDS.md` §5.2.2), si se toca: arranca con el clic en la colección; sigue entre pistas; se apaga al salir; entrada directa en ▶; pausa, silencio, tiempo y volumen con teclado. iPhone real si cambia el arranque: Chromium y WebKit de escritorio no lo sustituyen.
 
 **D. Contenido, i18n y seguridad**
 - Textos en los dos diccionarios; rutas, `lang` y metadatos por idioma.
@@ -40,7 +41,7 @@ Texto común para cualquier agente (Claude Code y Codex). Los **niveles Q1–Q4,
 
 **E. Rendimiento, SEO y publicación** (si aplica)
 - Solo sobre el build de producción; LCP observado (`PORTFOLIO.md` §10 tiene la referencia medida y los avisos aceptados: no reportarlos como fallos nuevos).
-- Sitemap, hreflang, robots/`noindex`, OG y favicon en los dos idiomas. Nada de ventas, precios ni disponibilidad. Sin despliegue sin aprobación.
+- Sitemap, hreflang, robots/`noindex`, OG y favicon en los dos idiomas. Nada de ventas, precios ni disponibilidad. La aprobación del resultado cubre el despliegue previamente explicado (`~/.ai/CORE.md`); el QA por sí solo no autoriza publicar ni exige otra aprobación para un despliegue ya autorizado.
 
 ## 3. Herramientas
 

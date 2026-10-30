@@ -166,7 +166,7 @@ Escala base de 16 px; `line-height` 1.6 en el cuerpo y 1.1 en títulos con `text
   - capas durante la transición: `scene-bunny` 120 > discos 110 > barra 100;
   - el panel de tecnología **no** usa View Transition (animación de Base UI, 300 ms): abrir o cerrar una ficha no lanza ninguna;
   - Atrás/Adelante del navegador: sin transición (decisión: el gesto móvil ya anima).
-- Duraciones de 150 a 400 ms, sin bucles infinitos ni parallax.
+- Duraciones de 150 a 400 ms, sin bucles infinitos ni parallax. Excepción: el visualizador de audio se mueve mientras suena la música (`BUNNY-RECORDS.md` §5.2.2).
 - No se anima la opacidad del elemento LCP.
 - `prefers-reduced-motion` desactiva los desplazamientos mediante CSS y el manejo del personaje en CSS/JS; no se usa `MotionConfig`.
 
@@ -258,7 +258,7 @@ portfolio-antonio/
 │  ├─ portfolio/                   # dependen del modelo de contenido (CoverArc, AlbumHeader, Tracklist, Credits, TechPanel…)
 │  ├─ sections/                    # secciones de página (Collection, Contact…)
 │  ├─ bunny/                       # personaje: capas, grafo de poses, colocación escenario/bandeja
-│  └─ layout/                      # Header, PlayerTray, MobileNav, LocaleSwitcher, Footer, Container, SkipLink
+│  └─ layout/                      # Header, PlayerTray, album-music (controles y visualizador), MobileNav, LocaleSwitcher, Footer, Container, SkipLink
 ├─ content/
 │  ├─ site.ts  profile.ts  experience.ts  technologies.ts
 │  └─ projects/{index.ts, <slug>.ts, case-studies/<slug>/<locale>/<nn>-<track>.mdx}
@@ -267,10 +267,11 @@ portfolio-antonio/
 │  ├─ i18n/{config.ts, get-dictionary.ts, localized.ts}
 │  ├─ content/                     # getProjects(locale), getProjectBySlug()…
 │  ├─ seo.ts                       # buildMetadata() (de Vidriería + hreflang)
+│  ├─ music.ts                     # reproductor único de los álbumes, fuera de React
 │  └─ utils.ts                     # cn()
 ├─ types/content.ts
 ├─ mdx-components.tsx
-└─ public/brand/  public/images/projects/<slug>/
+└─ public/brand/  public/images/projects/<slug>/  public/audio/<slug>.{mp3,levels}
 ```
 
 **Variables de entorno** (ninguna es secreta): `NEXT_PUBLIC_SITE_URL` (sitemap, canónicas, OG) y `SITE_NOINDEX` (`true` en previsualizaciones). Las `NEXT_PUBLIC_*` se fijan en el build: si cambian, hay que volver a desplegar.
@@ -315,6 +316,7 @@ interface ProjectBase {
   order: number;
   cover?: { src: StaticImageData; alt: Localized<string> };
   demo?: { mp4: string; webm?: string; poster: StaticImageData; alt: Localized<string> };  // clip de 6 s en bucle (BUNNY-RECORDS.md §5.2.1); solo si existe de verdad
+  music: { title: string; artist: string };  // solo publicados; audio en public/audio/<slug>.mp3 (BUNNY-RECORDS.md §5.2.2)
 }
 
 interface Credit { tech: TechnologyId; role: Localized<string> }   // TechnologyId = clave de content/technologies.ts
@@ -417,6 +419,12 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 ## 10. Mantenimiento y avisos aceptados
 
 - **Añadir un videoclip:** archivos en `public/demos/<slug>/` y campo `demo` del proyecto (receta en `BUNNY-RECORDS.md` §7). **Capas pequeñas del conejo:** `node scripts/bunny-small.mjs` regenera `public/bunny/sm/`.
+- **Cambiar o añadir una canción:** partir del original (fuera de Git, en `MP3/`), con `INICIO` en segundos y `GANANCIA` = −20 menos los LUFS medidos con el filtro `ebur128` tras afinar. Después, `node scripts/audio-levels.mjs` y el campo `music` del proyecto:
+  ```bash
+  ffmpeg -ss INICIO -i original.mp3 -map_metadata -1 -vn -ac 2 -b:a 128k \
+    -af "asetrate=44100*432/440,aresample=44100,volume=GANANCIAdB,afade=t=in:d=0.3,areverse,afade=t=in:d=1.5,areverse" \
+    public/audio/<slug>.mp3
+  ```
 - Medir con `--throttling-method=devtools` o el LCP observado (`~/.ai/stacks/nextjs.md`). Referencia medida (paso 13): Lighthouse móvil 95–97, accesibilidad y SEO 100, LCP 1,1–1,3 s, CLS ≤ 0,03.
 - **Aceptado, no reabrir sin motivo nuevo:**
   - `image-size-responsive` en Lighthouse: falso positivo (capas del conejo de 1200 px escaladas con `transform`).
@@ -427,5 +435,7 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
   - Aviso de `unrs-resolver` (script de instalación bloqueado por npm 11): ESLint funciona igual.
   - En desarrollo, "This library called use() to suspend…" al pasar de pista a pista: fallo de Next 16.4.0 (`InnerLayoutRouter`), solo en dev. "Transition was aborted… Document hidden": ventana oculta, sin efecto.
   - El CV público incluye teléfono y el nombre real de la vidriería: excepción aceptada por el usuario.
+  - Las canciones de los álbumes no tienen licencia: decisión expresa del usuario, que asume el riesgo; si llega un reclamo, se retiran.
+  - Barra de tiempo en móvil con área táctil de 24 px (cumple WCAG 2.5.8; más alta taparía controles o contenido).
   - Al salir de un álbum con Atrás con el modal "Ampliar" abierto, el cierre se aplica al volver (queda invisible y sin bloquear la página).
 - **Verificar responsive sin tocar la ventana:** el sitio envía `X-Frame-Options: DENY` (no sirve un iframe) y la ventana de Chrome no baja de tamaño; usar Chrome headless con emulación por CDP (`Emulation.setDeviceMetricsOverride`).
