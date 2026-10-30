@@ -138,6 +138,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
             <li key={track.slug}>
               <TrackRow
                 href={`${base}/${track.slug}`}
+                slug={track.slug}
                 number={String(index + 1).padStart(2, "0")}
                 title={track.title[locale]}
                 subtitle={track.subtitle?.[locale]}

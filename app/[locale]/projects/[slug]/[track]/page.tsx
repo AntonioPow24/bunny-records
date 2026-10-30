@@ -102,6 +102,7 @@ async function TrackContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
         <div className="min-w-0 flex-1">
           <TrackRow
             href={`${base}/${track.slug}`}
+            slug={track.slug}
             number={String(index + 1).padStart(2, "0")}
             title={track.title[locale]}
             subtitle={track.subtitle?.[locale]}
