@@ -435,7 +435,7 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
   - Aviso de `unrs-resolver` (script de instalación bloqueado por npm 11): ESLint funciona igual.
   - En desarrollo, "This library called use() to suspend…" al pasar de pista a pista: fallo de Next 16.4.0 (`InnerLayoutRouter`), solo en dev. "Transition was aborted… Document hidden": ventana oculta, sin efecto.
   - El CV público incluye teléfono y el nombre real de la vidriería: excepción aceptada por el usuario.
-  - Las canciones de los álbumes no tienen licencia: decisión expresa del usuario, que asume el riesgo; si llega un reclamo, se retiran.
+  - Música de los álbumes: criterio y antecedentes en [Notion](https://app.notion.com/p/40c5744bc2fe810d87e0f41be3adc51b); consultarlo antes de añadir o cambiar canciones.
   - Barra de tiempo en móvil con área táctil de 24 px (cumple WCAG 2.5.8; más alta taparía controles o contenido).
   - Al salir de un álbum con Atrás con el modal "Ampliar" abierto, el cierre se aplica al volver (queda invisible y sin bloquear la página).
 - **Verificar responsive sin tocar la ventana:** el sitio envía `X-Frame-Options: DENY` (no sirve un iframe) y la ventana de Chrome no baja de tamaño; usar Chrome headless con emulación por CDP (`Emulation.setDeviceMetricsOverride`).
