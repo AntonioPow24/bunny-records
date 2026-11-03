@@ -45,7 +45,6 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Material de diseño y prototipos (no forman parte de la app)
     "design/**",
-    "content-drafts/**",
   ]),
 ]);
 
