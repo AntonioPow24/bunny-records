@@ -165,7 +165,7 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 - **Cuando no se ve, está en pausa:** si el álbum queda oculto (Activity al navegar a otra sección), si sale de la pantalla o si la pestaña está oculta. Al volver a verse, sigue si no lo había pausado el visitante.
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
 - **Ampliar (2026-10-14):** a la derecha del rótulo "En acción", fuera de la caja, la palabra "Ampliar" / "Expand" con un icono pequeño abre el mismo clip centrado en un modal, hasta 960 px (su tamaño real, para no verlo borroso). Palabra y no solo icono porque se explica sola; "Ver" se descartó por ambigua (el clip ya se ve). En el modal se cierra con ✕, Esc o pulsando fuera; pulsar el vídeo pausa o reanuda igual que la caja. El clip pequeño espera en pausa y sigue desde donde iba el grande; la pausa elegida y el movimiento reducido se respetan en los dos.
-- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Vidriería Antonio y Bunny Records.
+- **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Diván, Vidriería Antonio y Bunny Records.
 - **Sin señal (2026-10-30; Figma T34):** en un álbum publicado sin clip, la misma ventana muestra `NO SIGNAL` con el logo del conejo sobre estática oscura, el rótulo "Próximamente" y un `CH nn` decorativo (`components/portfolio/no-signal.tsx`). No es un control: sin pausa ni "Ampliar". Se detiene fuera de pantalla; con movimiento reducido, imagen fija. Al añadir el campo `demo`, desaparece solo. Hoy: UI Component.
 
 #### 5.2.2 Música del álbum (decidido el 2026-10-30)

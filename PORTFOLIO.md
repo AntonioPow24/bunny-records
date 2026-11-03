@@ -419,10 +419,10 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 ## 10. Mantenimiento y avisos aceptados
 
 - **Añadir un videoclip:** archivos en `public/demos/<slug>/` y campo `demo` del proyecto (receta en `BUNNY-RECORDS.md` §7). **Capas pequeñas del conejo:** `node scripts/bunny-small.mjs` regenera `public/bunny/sm/`.
-- **Cambiar o añadir una canción:** partir del original (fuera de Git, en `MP3/`), con `INICIO` en segundos y `GANANCIA` = −20 menos los LUFS medidos con el filtro `ebur128` tras afinar. Después, `node scripts/audio-levels.mjs` y el campo `music` del proyecto:
+- **Cambiar o añadir una canción:** partir del original (fuera de Git, en `MP3/`), con `INICIO` en segundos, `HZ` la frecuencia de muestreo del original (`ffprobe`; 44100 o 48000) y `GANANCIA` = −20 menos los LUFS medidos con el filtro `ebur128` tras afinar. Después, `node scripts/audio-levels.mjs` y el campo `music` del proyecto:
   ```bash
   ffmpeg -ss INICIO -i original.mp3 -map_metadata -1 -vn -ac 2 -b:a 128k \
-    -af "asetrate=44100*432/440,aresample=44100,volume=GANANCIAdB,afade=t=in:d=0.3,areverse,afade=t=in:d=1.5,areverse" \
+    -af "asetrate=HZ*432/440,aresample=44100,volume=GANANCIAdB,afade=t=in:d=0.3,areverse,afade=t=in:d=1.5,areverse" \
     public/audio/<slug>.mp3
   ```
 - Medir con `--throttling-method=devtools` o el LCP observado (`~/.ai/stacks/nextjs.md`). Referencia medida (paso 13): Lighthouse móvil 95–97, accesibilidad y SEO 100, LCP 1,1–1,3 s, CLS ≤ 0,03.
