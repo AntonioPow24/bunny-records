@@ -16,7 +16,7 @@ export const uiComponentLibrary: PublishedProject = {
   categories: ["library"],
   year: 2026,
   featured: false,
-  order: 3,
+  order: 4,
   cover: {
     src: cover,
     alt: {

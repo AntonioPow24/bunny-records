@@ -2,7 +2,7 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Repositorio privado: se hará público tras integrar el próximo proyecto. Fase de mejoras: hasta la 37 (preparación del repo para hacerlo público) hecha. Sin bloque en curso.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Repositorio privado: se hará público tras integrar el próximo proyecto. Fase de mejoras: hasta la 39 (álbum de Diván, destacado y primero en la colección) hecha. Sin bloque en curso.
 
 ## Pendiente
 
@@ -14,6 +14,7 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 
 ## Decisiones recientes
 
+- 2026-11-03: mejora 39: Diván (psy-web) entra como álbum publicado y destacado, primero de la colección (los demás bajan un puesto). Clip grabado en local con pacientes ficticios; sin enlace (piloto por invitación) y sin detalles de seguridad. Música: Martin Garrix. Excepción a la mejora 29, pedida por el usuario: Claude Code va en los créditos como asistente, y Figma con el flujo de IA.
 - 2026-11-02: mejora 37: preparación para hacer público el repo: README para visitantes y la nota de la música de los álbumes pasa a Notion. El nombre real del cliente en commits antiguos se deja a propósito (decisión del usuario).
 - 2026-10-30: mejora 33: música por álbum al abrirlo, con pausa, tiempo, volumen y visualizador (`BUNNY-RECORDS.md` §5.2.2).
 - 2026-10-22: Figma `01 Sistema`: borrados 10 componentes de la primera versión sin instancias (Tab, TrackRow, CreditRow, Header, CoverInfo, DemoPlayer, PlayerTray, TrackNav, TechPanel, Footer). Quedan Bunny, Button, StatusPill, Cover, DiscGraphic, NavDisc y Header v2.
