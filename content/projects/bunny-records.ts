@@ -16,7 +16,7 @@ export const bunnyRecords: PublishedProject = {
   categories: ["web"],
   year: 2026,
   featured: true,
-  order: 2,
+  order: 3,
   cover: {
     src: cover,
     alt: {

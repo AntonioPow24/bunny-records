@@ -16,7 +16,7 @@ export const vidrieriaAntonio: PublishedProject = {
   categories: ["web"],
   year: 2026,
   featured: true,
-  order: 1,
+  order: 2,
   cover: {
     src: cover,
     alt: {

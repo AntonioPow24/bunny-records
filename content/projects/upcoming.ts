@@ -22,7 +22,7 @@ export const officeToPdfConverter: UpcomingProject = {
   categories: ["desktop"],
   year: 2026,
   featured: false,
-  order: 4,
+  order: 5,
   cover: {
     src: officeCover,
     alt: placeholderAlt("documentos apilados que se convierten en una hoja limpia.", "stacked documents turning into a single clean sheet."),
@@ -55,7 +55,7 @@ export const educationalPlatform: UpcomingProject = {
   categories: ["saas"],
   year: 2026,
   featured: false,
-  order: 5,
+  order: 6,
   cover: {
     src: educationalCover,
     alt: placeholderAlt("un libro abierto del que sale una escalera.", "an open book with a staircase rising from it."),
@@ -88,7 +88,7 @@ export const aiConstructionEstimator: UpcomingProject = {
   categories: ["ai"],
   year: 2026,
   featured: false,
-  order: 6,
+  order: 7,
   cover: {
     src: aiEstimatorCover,
     alt: placeholderAlt("estructura de un edificio en construcción bajo una red de nodos.", "a building frame under construction beneath a network of nodes."),
