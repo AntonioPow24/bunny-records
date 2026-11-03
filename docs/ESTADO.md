@@ -7,13 +7,15 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 ## Pendiente
 
 - Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
+- Opcional (bloque aparte): enlace "Ver repo" en los álbumes cuyo repositorio sea público, con un campo `repo` opcional en el proyecto; los privados no lo muestran.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
 - No hecho aún: prueba con lector de pantalla real (NVDA) y de la música en un iPhone real (abrir un álbum desde la colección).
 - Al actualizar dependencias, revisar el aviso de `npm audit` por `braces` (aceptado en `PORTFOLIO.md` §10).
 
 ## Decisiones recientes
 
-- 2026-10-30: mejora 33: música por álbum al abrirlo, con pausa, tiempo, volumen y visualizador (`BUNNY-RECORDS.md` §5.2.2). Las canciones no tienen licencia: publicarlas es decisión expresa del usuario, que asume el riesgo.
+- 2026-11-02: mejora 37: preparación para hacer público el repo: README para visitantes y la nota de la música de los álbumes pasa a Notion. El nombre real del cliente en commits antiguos se deja a propósito (decisión del usuario).
+- 2026-10-30: mejora 33: música por álbum al abrirlo, con pausa, tiempo, volumen y visualizador (`BUNNY-RECORDS.md` §5.2.2).
 - 2026-10-22: Figma `01 Sistema`: borrados 10 componentes de la primera versión sin instancias (Tab, TrackRow, CreditRow, Header, CoverInfo, DemoPlayer, PlayerTray, TrackNav, TechPanel, Footer). Quedan Bunny, Button, StatusPill, Cover, DiscGraphic, NavDisc y Header v2.
 - 2026-10-22: tarjetas validadas en Facebook (Sharing Debugger) y LinkedIn (Post Inspector) para `/es` y `/en`: 200, canónica correcta, imagen OG, título y descripción en su idioma. Solo avisa de `fb:app_id` (opcional; no se añade).
 - 2026-10-22: mejora 31: `idea/`, `imagelogo/`, `bunny.blend` y los PNG y material de trabajo del personaje (~88 MB) archivados en `C:\APPS\_archivo\bunny-records\`, con la misma estructura; scripts y documentos apuntan allí.
