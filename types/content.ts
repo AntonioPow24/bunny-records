@@ -19,6 +19,8 @@ export type Image = {
 export type Credit = {
   tech: TechnologyId;
   role: Localized<string>;
+  /** Lado del disco en este álbum, si no es el de la tecnología (p. ej. Figma dentro del flujo de IA). */
+  group?: Technology["group"];
 };
 
 /** Pista = capítulo del caso de estudio. El cuerpo vive en case-studies/<proyecto>/<idioma>/<nn>-<slug>.mdx */

@@ -88,7 +88,7 @@ async function AlbumContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
     id: c.tech,
     name: technologies[c.tech].name,
     role: c.role[locale],
-    group: technologies[c.tech].group,
+    group: c.group ?? technologies[c.tech].group,
   }));
   // Un lado del disco por área con créditos, en orden fijo y con letra A, B, C…
   const sides: CreditSide[] = CREDIT_GROUPS.map((group) => credits.filter((c) => c.group === group))
