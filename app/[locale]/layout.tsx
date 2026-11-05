@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 
@@ -76,6 +77,11 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
         </Suspense>
         {/* Ficha de tecnología como panel (ruta interceptada @panel/(.)stack/[tech]). */}
         {panel}
+        {/* Vercel Web Analytics: sin cookies, script y envío desde el propio dominio (cabe en la CSP). Lee la ruta,
+            de ahí el <Suspense>. PORTFOLIO.md §2.3. */}
+        <Suspense>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );

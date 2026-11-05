@@ -3,11 +3,13 @@ import type { NextConfig } from "next";
 
 // CSP básica compatible con páginas estáticas (guía content-security-policy.md, "Without Nonces"): los
 // nonces obligarían a renderizar cada petición. Next mete scripts y estilos en línea, de ahí 'unsafe-inline'.
-// Todo se sirve desde el propio dominio: no hay scripts, fuentes ni imágenes de terceros. Paso 13.
+// Todo se sirve desde el propio dominio: no hay scripts, fuentes ni imágenes de terceros (la analítica de Vercel
+// también va por /_vercel/insights). Paso 13; analítica, mejora 40.
 const isDev = process.env.NODE_ENV === "development";
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  // En desarrollo, @vercel/analytics carga su script de depuración (solo registra en consola, no envía datos).
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",
