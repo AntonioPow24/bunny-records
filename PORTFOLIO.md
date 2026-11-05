@@ -72,7 +72,7 @@ No se inventan métricas, experiencia ni datos personales. Los proyectos planifi
 
 ### 2.3 Descartado
 
-Supabase, base de datos, autenticación, backend propio, Zustand, TanStack Query/SWR, `next-themes` (un solo tema oscuro), CMS externo, monorepo, paquete npm de componentes y analítica en el MVP.
+Supabase, base de datos, autenticación, backend propio, Zustand, TanStack Query/SWR, `next-themes` (un solo tema oscuro), CMS externo, monorepo, paquete npm de componentes y analítica en el MVP. Tras el MVP se añadió Vercel Web Analytics (mejora 40, §8).
 
 ---
 
@@ -391,8 +391,14 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 - 100 % SSG y JavaScript mínimo, limitado a las islas cliente.
 - `next/image` con import estático y `sizes` correcto. `priority` está deprecado en Next 16: usar `preload` / `fetchPriority` **[VERIFICAR en `node_modules/next/dist/docs/`]**.
 - Fuentes variables con `next/font`.
-- Sin scripts de terceros.
+- Sin scripts de terceros. La única excepción es Vercel Web Analytics, que se sirve desde el propio dominio.
 - Objetivo, medido con Lighthouse en móvil: LCP < 2.5 s, CLS < 0.1, INP < 200 ms.
+
+**Analítica (mejora 40)**
+- Vercel Web Analytics (`@vercel/analytics/next`, `<Analytics />` en `app/[locale]/layout.tsx`): visitas, páginas, país, dispositivo y procedencia (referrer). Sirve para medir qué redes traen visitas.
+- Sin cookies ni datos personales, así que no hay banner. El script (`/_vercel/insights/script.js`) y el envío van al propio dominio y caben en la CSP sin cambios.
+- Plan Hobby: 50 000 eventos al mes y 30 días de historial. **Sin eventos personalizados**: las descargas del CV y los clics en el correo no se miden; las visitas a Contacto sirven de señal aproximada.
+- Se activa en el panel de Vercel (proyecto `bunny-records` → Analytics; activado el 2026-11-05). Solo cuenta en los despliegues de Vercel.
 
 **Seguridad**
 - Sin secretos; `.env*` en `.gitignore`.
@@ -412,7 +418,7 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
 | Dominio `.com` en Cloudflare (opcional, recomendado) | ~US$10.5/año **[VERIFICAR]** |
 | Vercel Pro o plan de pago de Netlify (solo si se agota el plan gratuito) | ~US$19–20/mes **[VERIFICAR]** |
 
-**Obligatorio: US$0.** Los deploys de producción se hacen al hacer merge de un bloque completo a `main`. El código no usa nada propio del hosting, así que mudarse es barato (`~/.ai/stacks/hosting.md`). **Si el portfolio llegara a vender servicios directamente** (precios, pagos), dejaría de ser personal: entonces habría que pasar a Netlify Free o a Vercel Pro. Las previsualizaciones llevan `SITE_NOINDEX=true`.
+**Obligatorio: US$0.** Los deploys de producción se hacen al hacer merge de un bloque completo a `main`. El código no usa nada propio del hosting, salvo la analítica (§8): fuera de Vercel su script daría 404 sin romper nada y habría que sustituirla. Mudarse sigue siendo barato (`~/.ai/stacks/hosting.md`). **Si el portfolio llegara a vender servicios directamente** (precios, pagos), dejaría de ser personal: entonces habría que pasar a Netlify Free o a Vercel Pro. Las previsualizaciones llevan `SITE_NOINDEX=true`.
 
 ---
 
