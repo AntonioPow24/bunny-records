@@ -201,7 +201,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 |---|---|---|
 | **Sobre mí** | **Ficha del artista** | Retrato opcional, nombre, rol y biografía. **Manifiesto del sello** (cómo trabajo; 3 principios con `+`/`−`). **Gira** (trayectoria: años, rol, empresa). **Equipo de estudio** (herramientas, sin barras de nivel; cada una abre su ficha). **Discografía** (todos los álbumes con su estado). Botones "Escuchar la discografía" y "Booking" |
 | **Contacto** (`/[locale]/contact`) | **Contraportada del artista** (T14 v3) | Nombre, rol y base; **Descargar CV**; correo (`mailto`), GitHub y LinkedIn; firma «Antonio G.» junto al disco y créditos del sitio. **Informativo: no ofrece servicios ni disponibilidad freelance** (decisión 2026-10-12, para poder usar Vercel Hobby) |
-| **404** | **Lado C** | "Esta pista no existe": los vinilos solo tienen lado A y B. Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
+| **404** | **Lado C** | "Esta pista no existe": no está en ningún lado del disco (los álbumes ya usan lado C en los créditos; mejora 46). Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
 | **Ficha de tecnología** (entrada directa) | Créditos compartidos | Igual que el panel, a página completa, con la bandeja en reposo |
 | **Footer** | Contraportada | Logo, © y [Nombre público], Sobre mí, Contacto, GitHub, LinkedIn, **Créditos del sitio** (el stack del propio portfolio) y ES/EN |
 

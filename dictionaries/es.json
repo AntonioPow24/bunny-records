@@ -40,7 +40,8 @@
   "notFound": {
     "eyebrow": "Error 404 · Lado C",
     "title": "Esta pista no existe.",
-    "body": "El enlace está rayado o el disco cambió de estante. Los vinilos solo tienen lado A y lado B.",
+    "body": "El enlace está rayado o el disco cambió de estante: esta pista no está en ningún lado del disco.",
+    "metaTitle": "Pista no encontrada",
     "backHome": "Volver a la colección"
   },
   "tray": {
