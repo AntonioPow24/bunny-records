@@ -104,7 +104,10 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
           <p className="text-label hidden text-primary md:block">
             {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}
           </p>
-          <h1 className="text-display sr-only md:not-sr-only">{title}</h1>
+          {/* tabIndex -1: recibe el foco al entrar desde la colección (lib/arrival-focus.ts); no es un control. */}
+          <h1 data-album-title tabIndex={-1} className="text-display sr-only outline-none md:not-sr-only">
+            {title}
+          </h1>
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-body-sm text-muted-foreground">
               {published

@@ -113,7 +113,8 @@ async function TrackContent({ params }: Pick<PageProps<"/[locale]/projects/[slug
         </div>
       </div>
       <h2 className="sr-only">
-        {format(dict.album.trackOf, { number: String(index + 1), total: String(project.tracks.length) })}
+        {format(dict.album.trackOf, { number: String(index + 1), total: String(project.tracks.length) })}:{" "}
+        {track.title[locale]}
       </h2>
       <ViewTransition enter="track-body" default="none">
         <div className="max-w-prose px-1">
