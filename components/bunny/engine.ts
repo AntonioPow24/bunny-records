@@ -92,8 +92,13 @@ export class BunnyEngine {
   private paused = false;
   private destroyed = false;
   private readonly cleanups: (() => void)[] = [];
-  /** Capas que no son del reposo: se crean en tandas cuando el navegador está libre (paso 7.5). */
+  /** Capas de las poses (no del reposo): se crean en tandas cuando el navegador está libre (paso 7.5). */
   private readonly queue: [string, HTMLElement][] = [];
+  /** Fotogramas intermedios (t25/t50/t75): ~3/4 del peso del conejo. Se piden en la primera interacción; hasta
+   *  que están listos, el conejo salta directamente a la pose (mejora 51). */
+  private readonly midQueue: [string, HTMLElement][] = [];
+  private midsRequested = false;
+  private midsReady = false;
   /** Poses permitidas (además del reposo). null = todas. */
   private readonly only: Set<string> | null;
   /** Usa las capas de public/bunny/sm/. */
@@ -141,7 +146,7 @@ export class BunnyEngine {
       .then(() => {
         if (this.destroyed) return;
         this.canvas.dataset.ready = "true";
-        return this.createPending();
+        return this.createPending(this.queue);
       })
       .then(() => {
         if (this.destroyed) return;
@@ -150,6 +155,7 @@ export class BunnyEngine {
       .then(() => {
         if (this.destroyed) return;
         this.allReady = true;
+        if (this.midQueue.length === 0) this.midsReady = true;
         if (this.hold) this.setPose(this.hold);
         else this.evaluate();
       });
@@ -207,29 +213,48 @@ export class BunnyEngine {
     this.img(rest.body, this.gBody);
     this.img(rest.head, this.gHead);
     if (rest.blink) this.img(rest.blink, this.gHead);
+    // Con pose fija, los intermedios se cargan ya: el gesto de presentar es lo que se ve al llegar (pocas capas).
     const queued = new Set<string>();
-    for (const f of [...Object.values(this.nodes), ...Object.values(this.edges).flat()]) {
-      for (const [key, parent] of [[f.body, this.gBody], [f.head, this.gHead], [f.blink, this.gHead]] as const) {
-        if (!key || !has(key) || this.imgs[key] || queued.has(key)) continue;
-        queued.add(key);
-        this.queue.push([key, parent]);
+    const enqueue = (frames: Frame[], queue: [string, HTMLElement][]) => {
+      for (const f of frames) {
+        for (const [key, parent] of [[f.body, this.gBody], [f.head, this.gHead], [f.blink, this.gHead]] as const) {
+          if (!key || !has(key) || this.imgs[key] || queued.has(key)) continue;
+          queued.add(key);
+          queue.push([key, parent]);
+        }
       }
-    }
+    };
+    enqueue(Object.values(this.nodes), this.queue);
+    enqueue(Object.values(this.edges).flat(), this.hold ? this.queue : this.midQueue);
     for (const n of Object.keys(this.nodes)) this.dist[n] = this.distFrom(n);
   }
 
   /** Crea las capas en cola de 8 en 8, en momentos libres del navegador, para no bloquear la interacción. */
-  private createPending(): Promise<void> {
+  private createPending(queue: [string, HTMLElement][]): Promise<void> {
     return new Promise((resolve) => {
       const step = () => {
         if (this.destroyed) return resolve();
-        for (const [key, parent] of this.queue.splice(0, 8)) this.img(key, parent);
-        if (this.queue.length === 0) return resolve();
+        for (const [key, parent] of queue.splice(0, 8)) this.img(key, parent);
+        if (queue.length === 0) return resolve();
         if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(step, { timeout: 300 });
         else window.setTimeout(step, 16);
       };
       step();
     });
+  }
+
+  /** Primera interacción: pide los intermedios. Con ahorro de datos no se piden y el conejo salta entre poses. */
+  private loadMids() {
+    if (this.midsRequested || this.destroyed || this.midQueue.length === 0) return;
+    this.midsRequested = true;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (connection?.saveData) return;
+    const keys = this.midQueue.map(([key]) => key);
+    void this.createPending(this.midQueue)
+      .then(() => Promise.all(keys.map((k) => this.imgs[k]?.decode().catch(() => undefined))))
+      .then(() => {
+        if (!this.destroyed) this.midsReady = true;
+      });
   }
 
   private neighbours(n: string) {
@@ -295,7 +320,8 @@ export class BunnyEngine {
         this.timer = null;
         return;
       }
-      this.cur = { u: this.cur.u, v, i: 1 };
+      // Sin intermedios todavía: salta a la pose siguiente en un solo fotograma.
+      this.cur = this.midsReady ? { u: this.cur.u, v, i: 1 } : { u: v, v: null, i: 0 };
     } else {
       const n = this.edges[`${this.cur.u}|${this.cur.v}`].length;
       const fwd = n + 1 - this.cur.i + this.far(this.cur.v!, this.target);
@@ -398,6 +424,7 @@ export class BunnyEngine {
   private listenToPointer() {
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      this.loadMids();
       this.pointer = [e.clientX, e.clientY];
       if (this.paused) return;
       this.evaluate();
@@ -437,12 +464,14 @@ export class BunnyEngine {
   // ---------- API pública ----------
   /** Portada bajo el puntero (curiosidad hacia ese lado) o null. */
   setHover(side: BunnySide | null) {
+    this.loadMids();
     this.hoverSide = side;
     this.evaluate();
   }
 
   /** Gesto que dura un rato; al acabar vuelve a lo que diga el puntero. */
   gesture(pose: BunnyPose, ms = 2200) {
+    this.loadMids();
     this.clearPending();
     this.setPose(pose);
     this.busyUntil = performance.now() + ms;
