@@ -243,7 +243,8 @@ portfolio-antonio/
 │  │  │  └─ opengraph-image.tsx
 │  │  ├─ stack/[tech]/page.tsx     # ficha como página completa
 │  │  ├─ @panel/
-│  │  │  ├─ default.tsx            # null
+│  │  │  ├─ default.tsx  page.tsx  [...catchAll]/page.tsx   # null: el panel se cierra al navegar
+│  │  │  ├─ projects/[slug]/page.tsx  projects/[slug]/[track]/page.tsx   # null; propias para que <Link prefetch> no entre en bucle (mejora 43)
 │  │  │  └─ (.)stack/[tech]/page.tsx   # ficha como panel (navegación interna)
 │  │  ├─ about/page.tsx
 │  │  ├─ contact/page.tsx
