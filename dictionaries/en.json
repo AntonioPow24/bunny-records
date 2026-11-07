@@ -40,7 +40,8 @@
   "notFound": {
     "eyebrow": "Error 404 · Side C",
     "title": "This track doesn’t exist.",
-    "body": "The link is scratched or the record moved shelves. Vinyl only has a side A and a side B.",
+    "body": "The link is scratched or the record moved shelves: this track isn’t on any side of the record.",
+    "metaTitle": "Track not found",
     "backHome": "Back to the collection"
   },
   "tray": {
