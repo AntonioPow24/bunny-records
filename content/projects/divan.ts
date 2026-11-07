@@ -8,7 +8,7 @@ import type { PublishedProject } from "@/types/content";
 export const divan: PublishedProject = {
   slug: "divan",
   status: "published",
-  music: { title: "Now That I've Clarity", artist: "Martin Garrix" },
+  music: { title: "Now That I've Clarity", artist: "Martin Garrix", seconds: 127 },
   title: { es: "Diván", en: "Diván" },
   tagline: {
     es: "La consulta de un psicólogo independiente, en orden: agenda, pacientes y pagos en un solo lugar.",

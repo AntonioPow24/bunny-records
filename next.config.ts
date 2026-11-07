@@ -32,7 +32,16 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      // Capas del conejo, videoclips y música: sin hash en el nombre, así que un día de caché (y una semana sirviendo
+      // la copia guardada mientras se revalida) en lugar de revalidar cada archivo en cada visita. Un cambio tarda
+      // como mucho un día en llegar a quien ya los tenía. Mejora 52.
+      {
+        source: "/:dir(bunny|demos|audio)/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
+    ];
   },
   partialPrefetching: true,
   // Los capítulos de los casos de estudio son MDX que se importan desde content/ (no son páginas).

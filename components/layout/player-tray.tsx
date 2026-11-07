@@ -19,6 +19,8 @@ export type TrayAlbum = {
   summary: string;
   /** Canción del álbum: "Título · Artista" (solo publicados). */
   song?: string;
+  /** Duración de la canción, para mostrarla antes de que se cargue. */
+  songSeconds?: number;
   tracks: { slug: string; title: string }[];
 };
 
@@ -89,7 +91,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
 
   return (
     <section aria-label={labels.label} className="relative z-30 shrink-0 border-t border-border bg-card">
-      {album.song && <TimeBar edge song={album.song} labels={labels} />}
+      {album.song && <TimeBar edge song={album.song} seconds={album.songSeconds} labels={labels} />}
       <div className="relative mx-auto flex h-16 w-full max-w-312 items-center gap-2 px-3 md:h-18 md:gap-4 md:px-6">
         <ViewTransition name="host-bunny" share="host-bunny" default="none">
           {/* Figma V2-D06: 60×80, las orejas sobresalen ~22 px por encima de la bandeja. */}
@@ -100,7 +102,7 @@ export function PlayerTray({ locale, albums, labels }: PlayerTrayProps) {
           <p className={cn("text-body-sm truncate text-muted-foreground", album.song && index < 0 && "hidden lg:block")}>{subtitle}</p>
           {album.song && index < 0 && <p className="text-body-sm truncate text-muted-foreground lg:hidden">{album.song}</p>}
         </div>
-        {album.song && <TimeBar song={album.song} labels={labels} />}
+        {album.song && <TimeBar song={album.song} seconds={album.songSeconds} labels={labels} />}
         {album.published && (
           <div className="ml-auto flex shrink-0 items-center lg:gap-1">
             {/* En el álbum no hay pista anterior: desactivado en escritorio, oculto en móvil para ganar espacio. */}

@@ -54,6 +54,7 @@ export default async function LocaleLayout({ children, panel }: LayoutProps<"/[l
         })
       : dict.tray.upcoming,
     song: isPublished(project) ? `${project.music.title} · ${project.music.artist}` : undefined,
+    songSeconds: isPublished(project) ? project.music.seconds : undefined,
     tracks: isPublished(project) ? project.tracks.map((t) => ({ slug: t.slug, title: t.title[locale] })) : [],
   }));
 

@@ -54,7 +54,9 @@ function element() {
   loadPrefs();
   audio = new Audio();
   audio.loop = true;
-  audio.preload = "metadata";
+  // Sin descarga hasta pulsar reproducir (entrar a un álbum por enlace directo no gasta datos en la canción); la
+  // duración que muestra la bandeja sale del contenido (music.seconds). Mejora 52.
+  audio.preload = "none";
   audio.muted = state.muted;
   audio.volume = state.volume;
   audio.addEventListener("play", () => update({ playing: true }));

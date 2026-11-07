@@ -85,9 +85,20 @@ export function VolumeControl({ labels }: { labels: MusicLabels }) {
 }
 
 // Tiempo de la canción: en el centro de la bandeja con el nombre debajo (escritorio) o en su borde superior (móvil).
-export function TimeBar({ song, labels, edge = false }: { song: string; labels: MusicLabels; edge?: boolean }) {
+export function TimeBar({
+  song,
+  seconds = 0,
+  labels,
+  edge = false,
+}: {
+  song: string;
+  /** Duración conocida de antemano: la canción no se carga hasta reproducirla (lib/music.ts). */
+  seconds?: number;
+  labels: MusicLabels;
+  edge?: boolean;
+}) {
   const { time, duration } = useMusic();
-  const max = duration || 0;
+  const max = duration || seconds;
   const percent = max ? Math.min(100, (time / max) * 100) : 0;
   const range = (
     <input
@@ -96,7 +107,7 @@ export function TimeBar({ song, labels, edge = false }: { song: string; labels: 
       max={Math.floor(max)}
       step={1}
       value={Math.floor(time)}
-      disabled={!max}
+      disabled={!duration}
       onChange={(e) => seek(Number(e.target.value))}
       aria-label={labels.position.replace("{song}", song)}
       aria-valuetext={labels.positionValue.replace("{time}", clock(time)).replace("{total}", clock(max))}
@@ -122,6 +133,7 @@ export function TimeBar({ song, labels, edge = false }: { song: string; labels: 
 export function AudioBars() {
   const { slug, playing } = useMusic();
   const canvas = useRef<HTMLCanvasElement>(null);
+  const played = useRef(new Set<string>());
   const heights = useRef<number[]>([]);
 
   useEffect(() => {
@@ -131,6 +143,9 @@ export function AudioBars() {
     let cancelled = false;
     let frame = 0;
     const still = !playing || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Antes de la primera reproducción no hay nada que pintar: no se piden los niveles (mejora 52).
+    if (playing) played.current.add(slug);
+    if (!played.current.has(slug)) return;
 
     void loadLevels(slug).then((levels) => {
       if (cancelled || !levels) return;
