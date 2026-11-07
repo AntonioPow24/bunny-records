@@ -16,6 +16,7 @@ import {
   toggleMuted,
   togglePlay,
 } from "@/lib/music";
+import { useMotionPaused } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type MusicLabels = {
@@ -121,6 +122,7 @@ export function TimeBar({ song, labels, edge = false }: { song: string; labels: 
 // de antemano (scripts/audio-levels.mjs). En pausa se queda quieto; con movimiento reducido no se anima.
 export function AudioBars() {
   const { slug, playing } = useMusic();
+  const motionPaused = useMotionPaused();
   const canvas = useRef<HTMLCanvasElement>(null);
   const heights = useRef<number[]>([]);
 
@@ -130,7 +132,7 @@ export function AudioBars() {
     if (!el || !ctx || !slug) return;
     let cancelled = false;
     let frame = 0;
-    const still = !playing || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const still = !playing || motionPaused || matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     void loadLevels(slug).then((levels) => {
       if (cancelled || !levels) return;
@@ -171,7 +173,7 @@ export function AudioBars() {
       cancelled = true;
       cancelAnimationFrame(frame);
     };
-  }, [slug, playing]);
+  }, [slug, playing, motionPaused]);
 
   return (
     <canvas

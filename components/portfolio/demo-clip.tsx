@@ -4,6 +4,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import { Maximize2, X } from "lucide-react";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
+import { isMotionPaused } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type DemoClipProps = {
@@ -49,7 +50,7 @@ export function DemoClip({ mp4, webm, poster, description, labels, className }: 
     const video = videoRef.current;
     const box = boxRef.current;
     if (!video || !box) return;
-    userPaused.current ||= window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    userPaused.current ||= window.matchMedia("(prefers-reduced-motion: reduce)").matches || isMotionPaused();
     let inView = false;
 
     const sync = () => {

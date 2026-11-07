@@ -2,6 +2,7 @@
 
 import { useEffect, useImperativeHandle, useRef, useSyncExternalStore, type Ref } from "react";
 
+import { isMotionPaused, MOTION_EVENT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 import "./bunny.css";
@@ -100,7 +101,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     let onScreen = true;
     let delay: number | null = null;
     let idle: number | null = null;
-    const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden);
+    const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden || isMotionPaused());
     const stop = () => {
       engineRef.current?.destroy();
       engineRef.current = null;
@@ -136,6 +137,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     });
     visibility.observe(root);
     document.addEventListener("visibilitychange", syncPause);
+    window.addEventListener(MOTION_EVENT, syncPause);
     reduced.addEventListener("change", onMotionChange);
     scheduleStart();
 
@@ -143,6 +145,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
       resize.disconnect();
       visibility.disconnect();
       document.removeEventListener("visibilitychange", syncPause);
+      window.removeEventListener(MOTION_EVENT, syncPause);
       reduced.removeEventListener("change", onMotionChange);
       if (delay !== null) window.clearTimeout(delay);
       if (idle !== null && "cancelIdleCallback" in window) window.cancelIdleCallback(idle);

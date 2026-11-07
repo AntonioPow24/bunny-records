@@ -37,6 +37,10 @@
     "filterInDevelopment": "En desarrollo",
     "filterPlanned": "Planeados"
   },
+  "motion": {
+    "pause": "Pausar animaciones",
+    "resume": "Reanudar animaciones"
+  },
   "notFound": {
     "eyebrow": "Error 404 · Lado C",
     "title": "Esta pista no existe.",
