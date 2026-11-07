@@ -2,10 +2,13 @@
 
 Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el historial va a Notion).
 
-**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Repositorio privado: se hará público tras integrar el próximo proyecto. Fase de mejoras: hasta la 39 hecha; en curso la 40 (Vercel Web Analytics). Después, la 41: perfiles de Behance/Dribbble en Contacto y `sameAs`.
+**Ahora:** sitio completo en `main` y publicado en `bunnyrecords.dev` (indexable; `bunny-records.vercel.app` redirige con 308). Repositorio privado: se hará público tras integrar el próximo proyecto. Fase de mejoras: hasta la 52 hecha (42–52: bloques de la auditoría del 2026-11-07). Siguiente: la 54, limpieza de código de la auditoría (bloque B12); la 41 (perfiles de Behance/Dribbble en Contacto y `sameAs`) sigue pendiente.
 
 ## Pendiente
 
+- Auditoría del 2026-11-07 (informe: https://claude.ai/artifact/3Zp78wrN5QtFHjjtNnuqqK): queda la limpieza de código (B12: botón de icono ×7, logo SVG ×3, `format` ×3, código muerto, HEX → tokens). Descartados por ahora: conejo `xs` en la bandeja, zoom al 400 %, `lastmod`, rutas con mayúsculas, pantalla completa en "Ampliar".
+- Fuera del repo (usuario): Website = https://bunnyrecords.dev en el perfil de GitHub y título del Storybook en `ui-component`.
+- Opcional: servir el CV en inglés en `/en` (hay PDF en la carpeta de noviembre).
 - Hacia el 2026-11-05, comprobar si Google ya muestra el favicon; si no, volver a inspeccionar `/es` en Search Console.
 - Opcional (bloque aparte): enlace "Ver repo" en los álbumes cuyo repositorio sea público, con un campo `repo` opcional en el proyecto; los privados no lo muestran.
 - Portadas definitivas (las actuales son provisionales) y concepto de los proyectos planeados.
@@ -14,6 +17,7 @@ Actualizar en una línea al cerrar algo relevante; nunca como bitácora (el hist
 
 ## Decisiones recientes
 
+- 2026-11-07: mejoras 42–52 (auditoría): Next 16.4.5 y cabeceras; bucle de precarga cortado con páginas nulas propias en `@panel` (`projects/[slug]` y `[track]`); enlazado interno para buscadores (82/106 URLs); foco al abrir álbum o pista; 404 única por idioma (`[locale]/[...catchAll]`); nombre y rol en la portada móvil y "Ver catálogo" en UI Component; CV de noviembre y Gira/ubicación (Lima) según el CV; botón "Pausar animaciones"; tablet 768–1000 px; intermedios del conejo bajo demanda; caché de un día en `/bunny`, `/demos` y `/audio` y música sin descarga hasta reproducirla.
 - 2026-11-05: mejora 40: Vercel Web Analytics (sin cookies, plan Hobby, sin eventos personalizados) para medir las visitas que traen las redes. Las publicaciones en Behance, Pinterest y Dribbble se llevan fuera del repo (skill de usuario `redes-proyectos`, registro en `C:\APPS\_redes\`).
 - 2026-11-03: mejora 39: Diván (psy-web) entra como álbum publicado y destacado, primero de la colección (los demás bajan un puesto). Clip grabado en local con pacientes ficticios; sin enlace (piloto por invitación) y sin detalles de seguridad. Música: Martin Garrix. Excepción a la mejora 29, pedida por el usuario: Claude Code va en los créditos como asistente, y Figma con el flujo de IA.
 - 2026-11-02: mejora 37: preparación para hacer público el repo: README para visitantes y la nota de la música de los álbumes pasa a Notion. El nombre real del cliente en commits antiguos se deja a propósito (decisión del usuario).
