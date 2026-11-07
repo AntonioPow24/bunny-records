@@ -37,6 +37,10 @@
     "filterInDevelopment": "In development",
     "filterPlanned": "Planned"
   },
+  "motion": {
+    "pause": "Pause animations",
+    "resume": "Resume animations"
+  },
   "notFound": {
     "eyebrow": "Error 404 · Side C",
     "title": "This track doesn’t exist.",
