@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
+import { useEffect, useImperativeHandle, useRef, useSyncExternalStore, type Ref } from "react";
 
+import { isMotionPaused, MOTION_EVENT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 import "./bunny.css";
@@ -54,8 +55,21 @@ const pct = (value: number, total: number) => `${(value / total) * 100}%`;
  * Conejo anfitrión. Se pinta primero como imagen fija (servidor, sin JavaScript); el montaje por capas la
  * sustituye cuando el reposo está descodificado. Con prefers-reduced-motion se queda la imagen fija.
  */
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+function subscribeReducedMotion(onChange: () => void) {
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
 export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, priority = false, className, ref }: BunnyProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  // Con movimiento reducido el motor no arranca y "Haz bailar al conejo" no haría nada: sin botón (mejora 45).
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION).matches,
+    () => false,
+  );
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BunnyEngine | null>(null);
   const engineKeyRef = useRef("");
@@ -87,7 +101,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     let onScreen = true;
     let delay: number | null = null;
     let idle: number | null = null;
-    const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden);
+    const syncPause = () => engineRef.current?.setPaused(!onScreen || document.hidden || isMotionPaused());
     const stop = () => {
       engineRef.current?.destroy();
       engineRef.current = null;
@@ -123,6 +137,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     });
     visibility.observe(root);
     document.addEventListener("visibilitychange", syncPause);
+    window.addEventListener(MOTION_EVENT, syncPause);
     reduced.addEventListener("change", onMotionChange);
     scheduleStart();
 
@@ -130,6 +145,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
       resize.disconnect();
       visibility.disconnect();
       document.removeEventListener("visibilitychange", syncPause);
+      window.removeEventListener(MOTION_EVENT, syncPause);
       reduced.removeEventListener("change", onMotionChange);
       if (delay !== null) window.clearTimeout(delay);
       if (idle !== null && "cancelIdleCallback" in window) window.cancelIdleCallback(idle);
@@ -185,7 +201,7 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     </>
   );
 
-  if (danceLabel) {
+  if (danceLabel && !reducedMotion) {
     // La caja del lienzo (3:4) es mucho más ancha que la figura y tapaba las portadas vecinas: el
     // contenedor deja pasar los clics y solo la silueta (cabeza + cuerpo) es pulsable.
     return (

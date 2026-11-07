@@ -243,7 +243,8 @@ portfolio-antonio/
 │  │  │  └─ opengraph-image.tsx
 │  │  ├─ stack/[tech]/page.tsx     # ficha como página completa
 │  │  ├─ @panel/
-│  │  │  ├─ default.tsx            # null
+│  │  │  ├─ default.tsx  page.tsx  [...catchAll]/page.tsx   # null: el panel se cierra al navegar
+│  │  │  ├─ projects/[slug]/page.tsx  projects/[slug]/[track]/page.tsx   # null; propias para que <Link prefetch> no entre en bucle (mejora 43)
 │  │  │  └─ (.)stack/[tech]/page.tsx   # ficha como panel (navegación interna)
 │  │  ├─ about/page.tsx
 │  │  ├─ contact/page.tsx
@@ -437,10 +438,10 @@ interface Technology { name: string; group: "frontend" | "backend" | "design" | 
   - JS sin usar (~29 KB) y JS antiguo (~14 KB): chunk del propio Next/React.
   - axe: contraste de la pegatina "Planeado" en portadas laterales (opacidad decorativa; la central cumple).
   - CSP con `'unsafe-inline'`: Next mete scripts en línea y los nonces obligarían a renderizar cada petición; no hay entrada de usuario.
-  - `npm audit`: un aviso "high" de `braces` (GHSA-vfj7-8cjw-p6xm), que npm cuenta 5 veces por la cadena `eslint-config-next` → `@next/eslint-plugin-next` → `fast-glob@3.3.1` → `micromatch` → `braces@3.0.3`; solo en desarrollo. `braces` no tiene versión posterior a 3.0.3: lo que hay que vigilar es que una versión nueva de `@next/eslint-plugin-next` deje de usar `fast-glob@3.3.1`. No usar `npm audit fix --force` (baja `eslint-config-next` a 14.2.35 y rompe el proyecto).
+  - `npm audit`: 8 avisos "moderate" de `minimatch` (GHSA-g3hv-75wg-m249), que npm cuenta por la cadena `eslint-config-next` → `typescript-eslint` → `@typescript-eslint/typescript-estree` → `minimatch`; solo en desarrollo (`npm audit --omit=dev` da 0). Hay que vigilar que una versión nueva de `typescript-eslint` actualice `minimatch`. No usar `npm audit fix --force` (baja `eslint-config-next` a 15.5 y rompe el proyecto). `npm audit` no avisa de los parches de seguridad de `next` si la versión fijada no está en su base de datos: al actualizar, revisar también las notas de las releases de Next.
   - Aviso de `unrs-resolver` (script de instalación bloqueado por npm 11): ESLint funciona igual.
   - En desarrollo, "This library called use() to suspend…" al pasar de pista a pista: fallo de Next 16.4.0 (`InnerLayoutRouter`), solo en dev. "Transition was aborted… Document hidden": ventana oculta, sin efecto.
-  - El CV público incluye teléfono y el nombre real de la vidriería: excepción aceptada por el usuario.
+  - El CV público incluye teléfono, el nombre real de la vidriería y el enlace a Diván (que el sitio no enlaza): excepción aceptada por el usuario. Se sustituye por el PDF en español más reciente (fuente: `E:\DOCUMENTOS ANTONIO\LABORAL\CURRICULUM TOTAL\<año>\<mes>`), con el mismo nombre de archivo.
   - Música de los álbumes: criterio y antecedentes en [Notion](https://app.notion.com/p/40c5744bc2fe810d87e0f41be3adc51b); consultarlo antes de añadir o cambiar canciones.
   - Barra de tiempo en móvil con área táctil de 24 px (cumple WCAG 2.5.8; más alta taparía controles o contenido).
   - Al salir de un álbum con Atrás con el modal "Ampliar" abierto, el cierre se aplica al volver (queda invisible y sin bloquear la página).

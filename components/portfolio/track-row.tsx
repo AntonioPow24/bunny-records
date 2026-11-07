@@ -35,7 +35,13 @@ export function TrackRow({ href, slug, number, title, subtitle, duration, active
   return (
     <ViewTransition name={transitionName} share="track-morph" default="none">
       {active ? (
-        <div data-track-row={slug} aria-current="page" className={cn(base, "surface-lit border border-primary bg-card")}>
+        // tabIndex -1: recibe el foco al abrir la pista (scroll-panel.tsx); no es un control, sin anillo.
+        <div
+          data-track-row={slug}
+          aria-current="page"
+          tabIndex={-1}
+          className={cn(base, "surface-lit border border-primary bg-card outline-none")}
+        >
           {content}
         </div>
       ) : (

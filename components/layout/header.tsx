@@ -7,6 +7,7 @@ import { switchLabels } from "@/lib/i18n/labels";
 
 import { Container } from "./container";
 import { LocaleSwitcher } from "./locale-switcher";
+import { MotionToggle } from "./motion-toggle";
 import { NavDisc } from "./nav-disc";
 
 // Barra v2 (Figma: Header v2; BUNNY-RECORDS.md §5.3.2): logo = volver a la colección, discos
@@ -23,13 +24,17 @@ export async function Header() {
         <Link href={`/${locale}`} aria-label={dict.nav.homeLabel} className="rounded-sm">
           <Logo className="h-9" />
         </Link>
-        <nav aria-label={dict.nav.mainLabel} className="flex items-center gap-0.5 md:gap-2">
-          <Suspense>
-            <NavDisc kind="about" href={`/${locale}/about`} label={dict.nav.about} />
-            <NavDisc kind="contact" href={`/${locale}/contact`} label={dict.nav.contact} />
-            <LocaleSwitcher current={locale} label={dict.locale.label} switchLabels={switchLabels(dict)} />
-          </Suspense>
-        </nav>
+        <div className="flex items-center gap-0.5 md:gap-2">
+          <nav aria-label={dict.nav.mainLabel} className="flex items-center gap-0.5 md:gap-2">
+            <Suspense>
+              <NavDisc kind="about" href={`/${locale}/about`} label={dict.nav.about} />
+              <NavDisc kind="contact" href={`/${locale}/contact`} label={dict.nav.contact} />
+              <LocaleSwitcher current={locale} label={dict.locale.label} switchLabels={switchLabels(dict)} />
+            </Suspense>
+          </nav>
+          {/* Pausar animaciones (mejora 49): fuera de <nav>, no es navegación. */}
+          <MotionToggle labels={dict.motion} />
+        </div>
       </Container>
     </header>
   );

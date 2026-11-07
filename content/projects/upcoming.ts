@@ -62,7 +62,7 @@ export const educationalPlatform: UpcomingProject = {
   },
   concept: {
     es: "Organizar varias aulas por docente y reducir el trabajo repetitivo de asistencia y evaluación, con datos aislados entre docentes y copias de seguridad probadas.",
-    en: "Organize several classrooms per teacher and cut the repetitive work of attendance and grading, with data isolated between teachers and tested backups.",
+    en: "Organise several classrooms per teacher and cut the repetitive work of attendance and grading, with data isolated between teachers and tested backups.",
   },
   format: { es: "App web con login", en: "Web app with login" },
   credits: [

@@ -29,7 +29,7 @@
     "next": "Next album",
     "select": "Select {title}",
     "position": "{title}, {position} of {total}",
-    "hint": "← → to browse · press the collection",
+    "hint": "← → to browse · Enter to open",
     "open": "Play album",
     "openPlanned": "See the concept",
     "empty": "No albums with this status yet.",
@@ -37,10 +37,15 @@
     "filterInDevelopment": "In development",
     "filterPlanned": "Planned"
   },
+  "motion": {
+    "pause": "Pause animations",
+    "resume": "Resume animations"
+  },
   "notFound": {
     "eyebrow": "Error 404 · Side C",
     "title": "This track doesn’t exist.",
-    "body": "The link is scratched or the record moved shelves. Vinyl only has a side A and a side B.",
+    "body": "The link is scratched or the record moved shelves: this track isn’t on any side of the record.",
+    "metaTitle": "Track not found",
     "backHome": "Back to the collection"
   },
   "tray": {
@@ -81,6 +86,7 @@
     "cvLabel": "Artist notes",
     "cvBody": "My background, education and tools (PDF in Spanish).",
     "cvDownload": "Download CV",
+    "cvLanguageNote": "The CV is in Spanish (PDF).",
     "emailLabel": "Email",
     "linksTitle": "Where to find me",
     "opensNewTab": "(opens in a new tab)",
@@ -93,6 +99,7 @@
   },
   "about": {
     "metaTitle": "About",
+    "metaDescription": "Antonio Garcia Romero, Frontend Developer at NTT DATA: interfaces with React, TypeScript and Next.js. Background, way of working and tools.",
     "eyebrow": "About the artist · Side A",
     "tracksLabel": "About tracks",
     "tracks": [
