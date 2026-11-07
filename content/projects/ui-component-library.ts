@@ -25,6 +25,8 @@ export const uiComponentLibrary: PublishedProject = {
     },
   },
   role: { es: "Concepto, diseño y desarrollo", en: "Concept, design and development" },
+  // El catálogo público es la única obra navegable en vivo del sitio: se enlaza desde la cabecera del álbum.
+  links: [{ label: { es: "Ver catálogo", en: "View catalogue" }, href: "https://ui.bunnyrecords.dev" }],
   summary: {
     es: "Un sistema de diseño para no rehacer en cada proyecto los mismos botones, formularios y tablas: un estilo común, más de 40 componentes accesibles y un catálogo público, con Bunny Records como identidad de partida. Para mis proyectos y los de colegas. Mi participación: concepto, diseño en Figma y desarrollo.",
     en: "A design system so I don’t rebuild the same buttons, forms and tables in every project: a shared style, over 40 accessible components and a public catalogue, with Bunny Records as the starting identity. For my projects and colleagues’. My part: concept, Figma design and development.",

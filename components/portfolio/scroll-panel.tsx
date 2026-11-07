@@ -3,6 +3,8 @@
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Suspense, useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
 
+import { focusIfLost, takeArrivalFocus } from "@/lib/arrival-focus";
+
 // Panel con scroll del álbum. Vive en el layout (persiste entre pistas), así que conservaba la posición:
 // al pasar de pista o volver a la lista se veía la mitad del contenido. Por eso coloca el scroll en cada
 // cambio de ruta (él y <main>, que es quien hace scroll en móvil). useLayoutEffect: ocurre antes de que la
@@ -43,6 +45,15 @@ function ScrollPosition({ panel }: { panel: RefObject<HTMLDivElement | null> }) 
   useLayoutEffect(() => {
     const from = previous.current;
     previous.current = track;
+
+    // Llegada desde la colección: el foco va al título del álbum (mejora 45). Antes de mirar el panel, porque en el
+    // primer montaje su ref aún no está asignada (React la asigna después de los efectos de los hijos).
+    if (from === null && takeArrivalFocus()) {
+      focusIfLost(() =>
+        Array.from(document.querySelectorAll<HTMLElement>("[data-album-title]")).find((h) => h.getClientRects().length > 0),
+      );
+    }
+
     const element = panel.current;
     if (!element) return;
 
@@ -55,8 +66,12 @@ function ScrollPosition({ panel }: { panel: RefObject<HTMLDivElement | null> }) 
 
     // Pista abierta: su fila arriba y el texto debajo. De vuelta a la lista: a la vista la pista de la que se viene.
     const slug = track || from;
-    const place = (row: HTMLElement) =>
+    // Al abrir una pista, el enlace pulsado se convierte en la fila activa y el foco caía en <body>: pasa a la fila
+    // (mejora 45, WCAG 2.4.3). Al volver a la lista, el foco ya queda en su sitio.
+    const place = (row: HTMLElement) => {
       row.scrollIntoView({ behavior: "instant", block: track ? "start" : "center" });
+      if (track) focusIfLost(() => row);
+    };
 
     const row = findRow(element, slug);
     if (row) {

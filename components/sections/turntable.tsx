@@ -24,9 +24,11 @@ type TurntableProps = {
 // el disco que bajó de la barra gira a la izquierda y el conejo hace de DJ a su lado.
 // En escritorio todo cabe en la pantalla (lo largo se desplaza en su panel); en móvil la escena crece
 // con el contenido y se desplaza toda la vista (<main>), sin que el documento haga scroll.
+// Entre md y lg (tablet) el texto ocupa como mucho el 58 %: con 40rem fijos el disco quedaba en un punto y el
+// conejo tapaba el texto (mejora 50).
 export function Turntable({ kind, discLabel, pose, children, compact = false, align = "center", signature }: TurntableProps) {
   return (
-    <Container className="grid flex-1 grid-cols-[minmax(0,1fr)] content-start gap-4 py-4 md:min-h-0 md:grid-cols-[minmax(0,1fr)_minmax(0,40rem)] md:grid-rows-1 md:content-stretch md:items-center md:gap-12 md:py-8">
+    <Container className="grid flex-1 grid-cols-[minmax(0,1fr)] content-start gap-4 py-4 md:min-h-0 md:grid-cols-[minmax(0,1fr)_minmax(0,min(40rem,58%))] md:grid-rows-1 md:content-stretch md:items-center md:gap-6 md:py-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,40rem)] lg:gap-12">
       <div className={cn("relative mx-auto flex w-full max-w-104 items-end gap-2 md:max-w-none md:justify-start", compact ? "justify-start" : "justify-center")}>
         <ViewTransition name={`disc-${kind}`} share="morph" default="none">
           <Disc

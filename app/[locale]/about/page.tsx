@@ -12,7 +12,7 @@ import { absoluteUrl, buildMetadata, personJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
-  return buildMetadata({ locale, path: "/about", title: dict.about.metaTitle, description: profile.bio[locale] });
+  return buildMetadata({ locale, path: "/about", title: dict.about.metaTitle, description: dict.about.metaDescription });
 }
 
 const GEAR_GROUPS = ["frontend", "backend", "design", "workflow"] as const;

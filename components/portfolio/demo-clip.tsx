@@ -4,6 +4,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import { Maximize2, X } from "lucide-react";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
+import { isMotionPaused } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type DemoClipProps = {
@@ -49,7 +50,7 @@ export function DemoClip({ mp4, webm, poster, description, labels, className }: 
     const video = videoRef.current;
     const box = boxRef.current;
     if (!video || !box) return;
-    userPaused.current ||= window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    userPaused.current ||= window.matchMedia("(prefers-reduced-motion: reduce)").matches || isMotionPaused();
     let inView = false;
 
     const sync = () => {
@@ -111,7 +112,7 @@ export function DemoClip({ mp4, webm, poster, description, labels, className }: 
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-50 bg-scrim/70 transition-opacity duration-200 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
-          <Dialog.Popup className="surface-lit fixed top-1/2 left-1/2 z-50 flex w-[min(92vw,60rem,calc((100dvh-8rem)*16/9))] -translate-x-1/2 -translate-y-1/2 flex-col gap-2 rounded-lg border border-border bg-card p-3 transition-[opacity,scale] duration-200 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
+          <Dialog.Popup className="surface-lit fixed top-1/2 left-1/2 z-50 flex w-[min(92vw,60rem,calc((100dvh-8rem)*16/9))] -translate-x-1/2 -translate-y-1/2 flex-col gap-2 rounded-lg border border-border bg-card p-3 max-sm:w-screen max-sm:rounded-none max-sm:border-x-0 max-sm:px-0 transition-[opacity,scale] duration-200 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
             <div className="flex items-center justify-between gap-2 pl-1">
               <Dialog.Title className="text-label flex items-center gap-2 text-primary">
                 <span aria-hidden="true" className="h-3 w-1 rounded-full bg-primary" />

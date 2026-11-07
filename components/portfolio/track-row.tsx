@@ -24,7 +24,7 @@ export function TrackRow({ href, slug, number, title, subtitle, duration, active
       <span className={cn("text-mono w-8 shrink-0", active ? "text-primary" : "text-muted-foreground")}>{number}</span>
       <span className="min-w-0 flex-1">
         <span className="text-body-strong block">{title}</span>
-        {subtitle && <span className="text-body-sm block truncate text-muted-foreground">{subtitle}</span>}
+        {subtitle && <span className="text-body-sm line-clamp-2 block text-muted-foreground">{subtitle}</span>}
       </span>
       <span className="text-mono shrink-0 text-muted-foreground">{duration}</span>
     </>
@@ -35,7 +35,13 @@ export function TrackRow({ href, slug, number, title, subtitle, duration, active
   return (
     <ViewTransition name={transitionName} share="track-morph" default="none">
       {active ? (
-        <div data-track-row={slug} aria-current="page" className={cn(base, "surface-lit border border-primary bg-card")}>
+        // tabIndex -1: recibe el foco al abrir la pista (scroll-panel.tsx); no es un control, sin anillo.
+        <div
+          data-track-row={slug}
+          aria-current="page"
+          tabIndex={-1}
+          className={cn(base, "surface-lit border border-primary bg-card outline-none")}
+        >
           {content}
         </div>
       ) : (

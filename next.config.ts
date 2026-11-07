@@ -16,7 +16,8 @@ const csp = [
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  // Sin formularios en el sitio (el contacto es un mailto): ningún envío permitido. Auditoría, mejora 42.
+  "form-action 'none'",
   "frame-ancestors 'none'",
 ].join("; ");
 
@@ -26,6 +27,8 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+  // Aísla la ventana de las que abra o la abran (enlaces externos, pestañas nuevas). Mejora 42.
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
 ];
 
 const nextConfig: NextConfig = {

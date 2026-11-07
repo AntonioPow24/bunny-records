@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getImageProps } from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +6,7 @@ import { Suspense, ViewTransition } from "react";
 
 import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/patterns/status-pill";
+import { buttonVariants } from "@/components/ui/button";
 import { CoverArt } from "@/components/portfolio/cover-art";
 import { DemoClip } from "@/components/portfolio/demo-clip";
 import { NoSignal } from "@/components/portfolio/no-signal";
@@ -107,7 +108,11 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
           <p className="text-label hidden text-primary md:block">
             {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}
           </p>
-          <h1 className="text-display sr-only md:not-sr-only">{title}</h1>
+          {/* tabIndex -1: recibe el foco al entrar desde la colección (lib/arrival-focus.ts); no es un control.
+              Entre md y lg, el tamaño móvil de text-display: a 56 px "Construction" no cabía (mejora 50). */}
+          <h1 data-album-title tabIndex={-1} className="text-display sr-only outline-none md:not-sr-only md:max-lg:text-[2.25rem]">
+            {title}
+          </h1>
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-body-sm text-muted-foreground">
               {published
@@ -115,6 +120,21 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
                 : project.format[locale]}
             </p>
             <StatusPill status={project.status} label={statusLabel} />
+            {/* Obra navegable en vivo (p. ej. el catálogo de UI Component). Mejora 47. */}
+            {published &&
+              project.links?.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ size: "sm", variant: "secondary" })}
+                >
+                  {link.label[locale]}
+                  <ArrowUpRight aria-hidden="true" />
+                  <span className="sr-only">{dict.contact.opensNewTab}</span>
+                </a>
+              ))}
           </div>
           <p className="text-body max-w-prose text-foreground/90">
             {published ? project.summary[locale] : project.concept[locale]}

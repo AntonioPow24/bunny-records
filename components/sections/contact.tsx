@@ -57,6 +57,10 @@ export async function ContactSheet() {
             {dict.contact.cvDownload}
             <Download aria-hidden="true" className="size-5" />
           </a>
+          {/* En móvil no se ve la nota de la izquierda: el aviso de idioma (solo en inglés) va bajo el botón. Mejora 47. */}
+          {dict.contact.cvLanguageNote && (
+            <p className="text-body-sm text-muted-foreground md:hidden">{dict.contact.cvLanguageNote}</p>
+          )}
         </div>
       </section>
 

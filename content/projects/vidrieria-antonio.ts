@@ -58,6 +58,7 @@ export const vidrieriaAntonio: PublishedProject = {
   ],
   credits: [
     { tech: "nextjs", role: { es: "la web y el panel", en: "the site and the panel" } },
+    { tech: "react", role: { es: "las pantallas", en: "the screens" } },
     { tech: "typescript", role: { es: "código más fiable", en: "more reliable code" } },
     { tech: "tailwindcss", role: { es: "el estilo visual", en: "the visual style" } },
     { tech: "shadcn-ui", role: { es: "piezas de interfaz", en: "interface pieces" } },

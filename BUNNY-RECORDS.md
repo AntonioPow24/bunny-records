@@ -166,7 +166,7 @@ Petición del usuario. Sustituye al "minivídeo que se reproduce a mano" de la v
 - **Movimiento reducido:** con `prefers-reduced-motion` no arranca solo; se ve el póster y pulsar la caja lo reproduce.
 - **Ampliar (2026-10-14):** a la derecha del rótulo "En acción", fuera de la caja, la palabra "Ampliar" / "Expand" con un icono pequeño abre el mismo clip centrado en un modal, hasta 960 px (su tamaño real, para no verlo borroso). Palabra y no solo icono porque se explica sola; "Ver" se descartó por ambigua (el clip ya se ve). En el modal se cierra con ✕, Esc o pulsando fuera; pulsar el vídeo pausa o reanuda igual que la caja. El clip pequeño espera en pausa y sigue desde donde iba el grande; la pausa elegida y el movimiento reducido se respetan en los dos.
 - **Diseño:** Figma T15 (`FIGMA-DESIGN.md` §3), implementado en `components/portfolio/demo-clip.tsx`. Con clip: Diván, Vidriería Antonio y Bunny Records.
-- **Sin señal (2026-10-30; Figma T34):** en un álbum publicado sin clip, la misma ventana muestra `NO SIGNAL` con el logo del conejo sobre estática oscura, el rótulo "Próximamente" y un `CH nn` decorativo (`components/portfolio/no-signal.tsx`). No es un control: sin pausa ni "Ampliar". Se detiene fuera de pantalla; con movimiento reducido, imagen fija. Al añadir el campo `demo`, desaparece solo. Hoy: UI Component.
+- **Sin señal (2026-10-30; Figma T34):** en un álbum publicado sin clip, la misma ventana muestra `NO SIGNAL` con el logo del conejo sobre estática oscura, el rótulo "Próximamente" y un `CH nn` decorativo (`components/portfolio/no-signal.tsx`). No es un control: sin pausa propia ni "Ampliar"; la estática se detiene con "Pausar animaciones" de la cabecera (mejora 49). Se detiene fuera de pantalla; con movimiento reducido, imagen fija. Al añadir el campo `demo`, desaparece solo. Hoy: UI Component.
 
 #### 5.2.2 Música del álbum (decidido el 2026-10-30)
 
@@ -202,7 +202,7 @@ Orden recomendado por el reporte: portfolio primero, la UI Library como extracci
 |---|---|---|
 | **Sobre mí** | **Ficha del artista** | Retrato opcional, nombre, rol y biografía. **Manifiesto del sello** (cómo trabajo; 3 principios con `+`/`−`). **Gira** (trayectoria: años, rol, empresa). **Equipo de estudio** (herramientas, sin barras de nivel; cada una abre su ficha). **Discografía** (todos los álbumes con su estado). Botones "Escuchar la discografía" y "Booking" |
 | **Contacto** (`/[locale]/contact`) | **Contraportada del artista** (T14 v3) | Nombre, rol y base; **Descargar CV**; correo (`mailto`), GitHub y LinkedIn; firma «Antonio G.» junto al disco y créditos del sitio. **Informativo: no ofrece servicios ni disponibilidad freelance** (decisión 2026-10-12, para poder usar Vercel Hobby) |
-| **404** | **Lado C** | "Esta pista no existe": los vinilos solo tienen lado A y B. Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
+| **404** | **Lado C** | "Esta pista no existe": no está en ningún lado del disco (los álbumes ya usan lado C en los créditos; mejora 46). Vinilo rayado con etiqueta "C", conejo curioso mirándolo y botón "Volver a la colección" |
 | **Ficha de tecnología** (entrada directa) | Créditos compartidos | Igual que el panel, a página completa, con la bandeja en reposo |
 | **Footer** | Contraportada | Logo, © y [Nombre público], Sobre mí, Contacto, GitHub, LinkedIn, **Créditos del sitio** (el stack del propio portfolio) y ES/EN |
 
@@ -271,6 +271,7 @@ ffmpeg -i <slug>-demo-6s.mp4 -frames:v 1 -vf scale=720:-2 -q:v 4 poster.jpg
 
 - **Permitido:** la respiración y el parpadeo del conejo (bucle muy sutil) y una perspectiva moderada en la colección de portadas.
 - **Condiciones:** se pausan fuera de pantalla y en pestañas ocultas; desaparecen con `prefers-reduced-motion` (se muestra la pose fija).
+- **Pausar animaciones (mejora 49, WCAG 2.2.2):** botón en la cabecera, junto a ES / EN, que congela todo lo que se mueve solo (disco, baile y respiración del conejo, estática de NO SIGNAL, visualizador) y evita que el videoclip arranque solo. Se recuerda en el navegador (`lib/motion.ts`). Las transiciones entre rutas siguen funcionando.
 - **Interfaz:** sigue igual (150–400 ms, CSS por defecto, Motion cuando CSS no basta).
 - **Transiciones entre rutas** (portada → cabecera, conejo → bandeja, pistas → pista abierta, apertura del panel de tecnología): **View Transitions** del navegador (`<ViewTransition>` de React / `viewTransition` de Next). Se descarta `layoutId` de Motion para esto porque sus animaciones de salida con App Router necesitan trucos frágiles. Sin soporte, la navegación funciona igual sin animación **[VERIFICAR estado en Next 16.4 al implementar]**. Duración: hacia el máximo del rango (~350–400 ms) para la portada; 200–250 ms para las pistas.
 - **Pistas:** las no elegidas se desvanecen y bajan unos píxeles; la elegida **sube al lugar de la primera** y su contenido se despliega debajo (así el texto queda a la vista sin desplazarse). Con `prefers-reduced-motion`: fundido corto o corte.

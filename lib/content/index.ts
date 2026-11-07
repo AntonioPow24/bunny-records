@@ -62,10 +62,15 @@ export async function loadTrackBody(
   return mod.default as ComponentType;
 }
 
+/** Solo claves propias: `in` aceptaba propiedades del prototipo (/stack/constructor daba 200 y /stack/__proto__,
+ *  500). Mejora 46. */
+export function isTechnologyId(id: string): id is TechnologyId {
+  return Object.hasOwn(technologies, id);
+}
+
 export function getTechnology(id: string): TechnologyEntry | undefined {
-  if (!(id in technologies)) return undefined;
-  const techId = id as TechnologyId;
-  return { id: techId, ...technologies[techId] };
+  if (!isTechnologyId(id)) return undefined;
+  return { id, ...technologies[id] };
 }
 
 export function getTechnologies(): TechnologyEntry[] {

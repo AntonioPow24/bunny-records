@@ -10,6 +10,7 @@ import { Bunny, type BunnyHandle } from "@/components/bunny/bunny";
 import type { BunnySide } from "@/components/bunny/engine";
 import { statusGlyphs, type ProjectStatusVariant } from "@/components/patterns/status-pill";
 import { buttonVariants } from "@/components/ui/button";
+import { requestArrivalFocus } from "@/lib/arrival-focus";
 import { startAlbum } from "@/lib/music";
 import { useSessionState } from "@/lib/session-state";
 import { cn } from "@/lib/utils";
@@ -112,7 +113,9 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
   }
 
   // Abrir un álbum publicado arranca su canción: tiene que ser dentro del clic (lib/music.ts).
+  // También pide que el álbum reciba el foco al llegar (lib/arrival-focus.ts).
   function listen(item: CollectionItem) {
+    requestArrivalFocus();
     if (item.status === "published") startAlbum(item.slug);
   }
 
@@ -144,7 +147,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 md:gap-6">
       {filters.length > 2 && (
-        <div role="group" aria-label={labels.filterLabel} className="flex shrink-0 gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
+        <div role="group" aria-label={labels.filterLabel} className="-mx-1 -mt-1 flex shrink-0 gap-2 overflow-x-auto px-1 pt-1 pb-1 [scrollbar-width:none]">
           {filters.map((f) => (
             <button
               key={f}
@@ -186,6 +189,9 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
             {visible.map((item, index) => {
               const offset = offsetOf(index, selected, visible.length);
               const isCurrent = offset === "0";
+              // Las portadas ±2 (escritorio, opacidad 0,3) se ven sin título ni pegatina: atenuados no llegaban a
+              // 4.5:1 (WCAG 1.4.3). El título pasa al nombre accesible del enlace. Mejora 45.
+              const faint = offset === "-2" || offset === "2";
               // Misma transición que la portada del álbum: al abrirlo, la portada viaja a la cabecera.
               const art = (
                 <ViewTransition name={`cover-${item.slug}`} share="morph" default="none">
@@ -193,10 +199,10 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                   src={item.cover.src}
                   alt=""
                   title={item.title}
-                  sticker={item.status === "published" ? undefined : item.statusLabel}
+                  sticker={item.status === "published" || faint ? undefined : item.statusLabel}
                   sizes="(min-width: 48rem) 320px, 200px"
                   eager={index === 0}
-                  titleSize={isCurrent ? "lg" : "sm"}
+                  titleSize={isCurrent ? "lg" : faint ? "none" : "sm"}
                 />
                 </ViewTransition>
               );
@@ -216,18 +222,24 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                       </span>
                     </Link>
                   ) : (
-                    <button
-                      type="button"
+                    // Pulsar una portada lateral la selecciona (no abre el álbum), pero es un enlace real con href
+                    // para que los buscadores lleguen a todos los álbumes desde Inicio; para la tecnología de apoyo
+                    // sigue siendo un botón. Sin precarga: al pasar al centro, su enlace ya la hace. Mejora 44.
+                    <Link
+                      href={item.href}
+                      prefetch={false}
+                      role="button"
                       tabIndex={-1}
                       onClick={(e) => {
+                        e.preventDefault();
                         bunny.current?.present(sideOf(e.currentTarget), 1600);
                         select(index);
                       }}
                       className="block w-full cursor-pointer rounded-lg"
                     >
-                      <span className="sr-only">{fill(labels.select, { title: "" }).trim()} </span>
+                      <span className="sr-only">{fill(labels.select, { title: faint ? item.title : "" }).trim()} </span>
                       {art}
-                    </button>
+                    </Link>
                   )}
                 </div>
               );
@@ -263,7 +275,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
               </span>{" "}
               · {current.meta}
             </p>
-            <p className="text-body-sm line-clamp-2 text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
+            <p className="text-body-sm text-muted-foreground [@media(max-height:44rem)]:hidden">{current.tagline}</p>
             <Link
               href={current.href}
               prefetch

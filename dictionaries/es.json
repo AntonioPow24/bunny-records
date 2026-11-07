@@ -29,7 +29,7 @@
     "next": "Álbum siguiente",
     "select": "Seleccionar {title}",
     "position": "{title}, {position} de {total}",
-    "hint": "← → para explorar · presiona la colleción",
+    "hint": "← → para explorar · Intro para abrir",
     "open": "Escuchar álbum",
     "openPlanned": "Ver concepto",
     "empty": "No hay álbumes con este estado todavía.",
@@ -37,10 +37,15 @@
     "filterInDevelopment": "En desarrollo",
     "filterPlanned": "Planeados"
   },
+  "motion": {
+    "pause": "Pausar animaciones",
+    "resume": "Reanudar animaciones"
+  },
   "notFound": {
     "eyebrow": "Error 404 · Lado C",
     "title": "Esta pista no existe.",
-    "body": "El enlace está rayado o el disco cambió de estante. Los vinilos solo tienen lado A y lado B.",
+    "body": "El enlace está rayado o el disco cambió de estante: esta pista no está en ningún lado del disco.",
+    "metaTitle": "Pista no encontrada",
     "backHome": "Volver a la colección"
   },
   "tray": {
@@ -50,7 +55,7 @@
       "one": "{count} pista",
       "other": "{count} pistas"
     },
-    "trackNow": "Pista {number} · {title}",
+    "trackNow": "{title} · Pista {number}",
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",
     "nextTrack": "Pista siguiente",
@@ -81,6 +86,7 @@
     "cvLabel": "Notas del artista",
     "cvBody": "Mi trayectoria, formación y herramientas.",
     "cvDownload": "Descargar CV",
+    "cvLanguageNote": "",
     "emailLabel": "Correo",
     "linksTitle": "Dónde encontrarme",
     "opensNewTab": "(se abre en una pestaña nueva)",
@@ -93,6 +99,7 @@
   },
   "about": {
     "metaTitle": "Sobre mí",
+    "metaDescription": "Antonio Garcia Romero, Frontend Developer en NTT DATA: interfaces con React, TypeScript y Next.js. Trayectoria, forma de trabajar y herramientas.",
     "eyebrow": "Sobre el artista · Lado A",
     "tracksLabel": "Pistas de Sobre mí",
     "tracks": [

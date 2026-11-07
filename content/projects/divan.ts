@@ -28,7 +28,7 @@ export const divan: PublishedProject = {
   role: { es: "Concepto, diseño y desarrollo", en: "Concept, design and development" },
   summary: {
     es: "Una app instalable para que psicólogos que atienden por su cuenta dejen la libreta, el Excel y los recordatorios sueltos: agenda, pacientes, observaciones y pagos, en el móvil y en el ordenador. Ordena lo que el psicólogo escribe y nunca saca conclusiones. En piloto con una psicóloga de Chimbote. Mi participación: concepto, diseño en Figma y desarrollo.",
-    en: "An installable app so psychologists in private practice can leave behind the notebook, the spreadsheet and scattered reminders: schedule, patients, notes and payments, on phone and computer. It organizes what the psychologist writes and never draws conclusions. Piloting with a psychologist in Chimbote, Peru. My part: concept, Figma design and development.",
+    en: "An installable app so psychologists in private practice can leave behind the notebook, the spreadsheet and scattered reminders: schedule, patients, notes and payments, on phone and computer. It organises what the psychologist writes and never draws conclusions. Piloting with a psychologist in Chimbote, Peru. My part: concept, Figma design and development.",
   },
   tracks: [
     {
@@ -49,7 +49,7 @@ export const divan: PublishedProject = {
     {
       slug: "decisiones-importantes",
       title: { es: "Decisiones importantes", en: "Key decisions" },
-      subtitle: { es: "Ordenar, no interpretar", en: "Organize, don’t interpret" },
+      subtitle: { es: "Ordenar, no interpretar", en: "Organise, don’t interpret" },
     },
     {
       slug: "lo-que-aprendi",

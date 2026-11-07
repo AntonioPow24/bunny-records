@@ -1,6 +1,6 @@
 import type { Localized } from "@/lib/i18n/localized";
 
-// Datos personales (fuente: ME.md del 2026-10-12 y el diseño aprobado de Sobre mí y Contacto).
+// Datos personales (fuente: el CV de noviembre de 2026, public/cv/, y el diseño aprobado de Sobre mí y Contacto).
 // Regla de hosting (PORTFOLIO.md §2.1): informativo; sin ofertas de servicios, precios ni disponibilidad freelance.
 
 export type TourStop = {
@@ -9,19 +9,14 @@ export type TourStop = {
   place: Localized<string>;
 };
 
-export type SpecRow = {
-  label: Localized<string>;
-  value: Localized<string>;
-};
-
 export const profile = {
   name: "Antonio Garcia Romero",
   role: { es: "Frontend Developer", en: "Frontend Developer" },
   degree: { es: "Ingeniero de Sistemas e Informática", en: "Systems and Computer Engineer" },
-  location: { es: "Chimbote, Perú", en: "Chimbote, Peru" },
+  location: { es: "Lima, Perú", en: "Lima, Peru" },
   bio: {
-    es: "Soy Ingeniero de Sistemas e Informática y me dedico al desarrollo frontend: interfaces modernas, intuitivas y funcionales. Cuido por igual el diseño visual y la arquitectura del código, y sigo explorando el backend para construir soluciones completas.",
-    en: "I’m a Systems and Computer Engineer focused on frontend development: modern, intuitive and functional interfaces. I care as much about visual design as about code architecture, and I keep exploring the backend to build complete solutions.",
+    es: "Soy Ingeniero de Sistemas e Informática y me dedico al desarrollo frontend: interfaces modernas, intuitivas y funcionales. Hoy trabajo en NTT DATA, en el frontend del portal de siniestros de Pacífico Seguros con React y TypeScript. Cuido por igual el diseño visual y la arquitectura del código, y sigo explorando el backend para construir soluciones completas.",
+    en: "I’m a Systems and Computer Engineer focused on frontend development: modern, intuitive and functional interfaces. I currently work at NTT DATA, on the frontend of Pacífico Seguros’ claims portal with React and TypeScript. I care as much about visual design as about code architecture, and I keep exploring the backend to build complete solutions.",
   },
   /** "Cómo trabajo · Tres reglas del sello". */
   principles: [
@@ -38,7 +33,7 @@ export const profile = {
       title: { es: "Componentes que se reutilizan", en: "Components that get reused" },
       body: {
         es: "Planifico antes de escribir: piezas pequeñas, ordenadas y fáciles de mantener.",
-        en: "I plan before writing: small, organized pieces that are easy to maintain.",
+        en: "I plan before writing: small, organised pieces that are easy to maintain.",
       },
     },
     {
@@ -53,7 +48,7 @@ export const profile = {
   /** Trayectoria ("Gira"). */
   tour: [
     {
-      years: { es: "2024 – hoy", en: "2024 – now" },
+      years: { es: "2025 – hoy", en: "2025 – now" },
       role: { es: "Frontend Developer", en: "Frontend Developer" },
       place: {
         es: "NTT DATA · interfaces y flujos multicanal para Pacífico Seguros con React y TypeScript",
@@ -61,7 +56,7 @@ export const profile = {
       },
     },
     {
-      years: { es: "1 año", en: "1 year" },
+      years: { es: "2024 – 2025", en: "2024 – 2025" },
       role: { es: "Frontend / Fullstack Developer", en: "Frontend / Fullstack Developer" },
       place: {
         es: "Vidriería local · e-commerce y plataforma de tareas y cotizaciones",
@@ -69,27 +64,14 @@ export const profile = {
       },
     },
     {
-      years: { es: "2022 – 2024", en: "2022 – 2024" },
-      role: { es: "Desarrollo backend", en: "Backend development" },
-      place: { es: "Java, MySQL, C# y Firebase", en: "Java, MySQL, C# and Firebase" },
+      years: { es: "2022 – 2023", en: "2022 – 2023" },
+      role: { es: "Backend Developer (Java) · prácticas", en: "Backend Developer (Java) · internship" },
+      place: {
+        es: "Institución educativa pública · sistema de inventario con Java, Swing y MySQL",
+        en: "Public education institution · inventory system with Java, Swing and MySQL",
+      },
     },
   ] satisfies TourStop[],
-  /** Datos del pase de Contacto (el rol sale de role + degree; las cifras del sello, de los proyectos). */
-  spec: [
-    {
-      label: { es: "Ahora", en: "Now" },
-      value: { es: "Frontend en NTT DATA, con React y TypeScript", en: "Frontend at NTT DATA, with React and TypeScript" },
-    },
-    { label: { es: "Base", en: "Based in" }, value: { es: "Chimbote, Perú", en: "Chimbote, Peru" } },
-    {
-      label: { es: "Especialidad", en: "Focus" },
-      value: { es: "Interfaces con React, TypeScript y Next.js", en: "Interfaces with React, TypeScript and Next.js" },
-    },
-    {
-      label: { es: "Explorando", en: "Exploring" },
-      value: { es: "Backend, APIs e IA aplicada al desarrollo", en: "Backend, APIs and AI applied to development" },
-    },
-  ] satisfies SpecRow[],
   contact: {
     email: "garciaromeroantonio24@gmail.com",
     github: { handle: "AntonioPow24", url: "https://github.com/AntonioPow24" },

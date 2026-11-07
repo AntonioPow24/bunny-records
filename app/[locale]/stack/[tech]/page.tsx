@@ -6,9 +6,9 @@ import { Suspense } from "react";
 
 import { Container } from "@/components/layout/container";
 import { TechSheet } from "@/components/portfolio/tech-sheet";
-import { technologies, type TechnologyId } from "@/content/technologies";
+import { technologies } from "@/content/technologies";
 import { format, getDictionary, getLocale } from "@/lib/i18n/get-dictionary";
-import { getProjectsUsing } from "@/lib/content";
+import { getProjectsUsing, isTechnologyId } from "@/lib/content";
 import { NOINDEX, buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -17,11 +17,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/stack/[tech]">): Promise<Metadata> {
   const { tech } = await params;
-  if (!(tech in technologies)) return {};
-  const t = technologies[tech as TechnologyId];
+  if (!isTechnologyId(tech)) return {};
+  const t = technologies[tech];
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   // Sin álbumes, la ficha solo tiene el nombre: descripción honesta y fuera del índice (y del sitemap).
-  const inAlbums = getProjectsUsing(tech as TechnologyId).length > 0;
+  const inAlbums = getProjectsUsing(tech).length > 0;
   const description = format(inAlbums ? dict.tech.metaDescription : dict.tech.metaDescriptionNoAlbums, { name: t.name });
   const metadata = buildMetadata({ locale, path: `/stack/${tech}`, title: t.name, description });
   return inAlbums || NOINDEX ? metadata : { ...metadata, robots: { index: false, follow: true } };
@@ -39,7 +39,7 @@ export default function TechPage({ params }: PageProps<"/[locale]/stack/[tech]">
 
 async function TechPageContent({ params }: Pick<PageProps<"/[locale]/stack/[tech]">, "params">) {
   const { tech } = await params;
-  if (!(tech in technologies)) notFound();
+  if (!isTechnologyId(tech)) notFound();
   const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
   return (
     <Container className="flex flex-col gap-4 py-4 md:py-6">
@@ -51,7 +51,7 @@ async function TechPageContent({ params }: Pick<PageProps<"/[locale]/stack/[tech
         {dict.tech.back}
       </Link>
       <div className="max-w-2xl">
-        <TechSheet id={tech as TechnologyId} titleId="tech-page-title" />
+        <TechSheet id={tech} titleId="tech-page-title" />
       </div>
     </Container>
   );
