@@ -93,6 +93,7 @@
   },
   "about": {
     "metaTitle": "About",
+    "metaDescription": "Antonio Garcia Romero, Frontend Developer at NTT DATA: interfaces with React, TypeScript and Next.js. Background, way of working and tools.",
     "eyebrow": "About the artist · Side A",
     "tracksLabel": "About tracks",
     "tracks": [
