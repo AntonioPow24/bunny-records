@@ -216,10 +216,16 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                       </span>
                     </Link>
                   ) : (
-                    <button
-                      type="button"
+                    // Pulsar una portada lateral la selecciona (no abre el álbum), pero es un enlace real con href
+                    // para que los buscadores lleguen a todos los álbumes desde Inicio; para la tecnología de apoyo
+                    // sigue siendo un botón. Sin precarga: al pasar al centro, su enlace ya la hace. Mejora 44.
+                    <Link
+                      href={item.href}
+                      prefetch={false}
+                      role="button"
                       tabIndex={-1}
                       onClick={(e) => {
+                        e.preventDefault();
                         bunny.current?.present(sideOf(e.currentTarget), 1600);
                         select(index);
                       }}
@@ -227,7 +233,7 @@ export function Collection({ items, labels }: { items: CollectionItem[]; labels:
                     >
                       <span className="sr-only">{fill(labels.select, { title: "" }).trim()} </span>
                       {art}
-                    </button>
+                    </Link>
                   )}
                 </div>
               );
