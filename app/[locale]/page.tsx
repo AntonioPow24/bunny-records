@@ -58,7 +58,14 @@ export default async function HomePage() {
           }}
         />
         <div className="flex max-w-xl shrink-0 flex-col gap-1.5 md:gap-3">
-          <p className="text-label text-primary">{dict.home.eyebrow}</p>
+          {/* En móvil la presentación (nombre y rol) no cabe: la línea superior dice quién es, en lugar del sello.
+              Mejora 47. */}
+          <p className="text-label text-primary">
+            <span className="md:hidden">
+              {profile.name} · {profile.role[locale]}
+            </span>
+            <span className="hidden md:inline">{dict.home.eyebrow}</span>
+          </p>
           <h1 className="text-h2">{dict.home.title}</h1>
           <p className="text-body hidden text-muted-foreground md:block">
             {format(dict.home.intro, { name: profile.name, role: profile.role[locale] })}

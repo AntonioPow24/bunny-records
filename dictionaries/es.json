@@ -81,6 +81,7 @@
     "cvLabel": "Notas del artista",
     "cvBody": "Mi trayectoria, formación y herramientas.",
     "cvDownload": "Descargar CV",
+    "cvLanguageNote": "",
     "emailLabel": "Correo",
     "linksTitle": "Dónde encontrarme",
     "opensNewTab": "(se abre en una pestaña nueva)",
