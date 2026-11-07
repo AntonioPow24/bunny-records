@@ -14,9 +14,11 @@ type LocaleSwitcherProps = {
   className?: string;
 };
 
-/** Guarda el idioma elegido un año; proxy.ts lo usa al entrar por una ruta sin idioma. */
+/** Guarda el idioma elegido un año; proxy.ts lo usa al entrar por una ruta sin idioma. Secure solo en https
+ *  (en local con next start es http). */
 function rememberLocale(locale: Locale) {
-  document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=31536000; samesite=lax`;
+  const secure = location.protocol === "https:" ? "; secure" : "";
+  document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=31536000; samesite=lax${secure}`;
 }
 
 // ES / EN del header (Figma: Header → locale). Conserva la ruta y el #hash (pista abierta de Sobre mí) y
