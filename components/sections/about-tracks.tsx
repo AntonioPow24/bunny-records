@@ -44,7 +44,7 @@ export function AboutTracks({ tracks, label }: { tracks: AboutTrack[]; label: st
 
   return (
     <div className="flex flex-col gap-5 md:min-h-0 md:flex-1">
-      <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className="-mx-1 flex shrink-0 gap-1 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+      <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className="-mx-1 -mt-1 flex shrink-0 gap-1 overflow-x-auto px-1 pt-1 pb-1 [scrollbar-width:none]">
         {tracks.map((track, index) => {
           const selected = index === active;
           return (
