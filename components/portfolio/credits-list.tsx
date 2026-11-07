@@ -110,11 +110,12 @@ export function CreditSleeves({ id, title, summary, sides, labels }: CreditSleev
                   data-sleeve={index}
                   aria-expanded={false}
                   onClick={() => choose(index)}
-                  className="group block w-full rounded-md text-left"
+                  className="group @container/sleeve-button block w-full rounded-md text-left"
                 >
                   <SleeveArt id={id} side={side} look={LOOKS[index % LOOKS.length]} sideWord={labels.sideWord} />
-                  {/* En móvil la funda es pequeña: el área va debajo para no pisar al conejo. */}
-                  <span className="text-label mt-1.5 line-clamp-2 block w-[69%] text-[0.625rem] sm:hidden">{side.area}</span>
+                  {/* Funda pequeña (móvil y tablet): el área va debajo para no pisar al conejo. Se decide por el ancho
+                      real de la funda, no de la pantalla: en tablet la columna es estrecha (mejora 50). */}
+                  <span className="text-label mt-1.5 line-clamp-2 block w-[69%] @min-[11.5rem]/sleeve-button:hidden">{side.area}</span>
                 </button>
               </li>
             ))}
@@ -254,7 +255,7 @@ function SleeveArt({ id, side, look, sideWord, active = false, compact = false, 
         )}
         <span
           className={cn(
-            "relative flex aspect-square flex-col justify-between overflow-hidden rounded-md border p-2.5 shadow-[6px_8px_18px_rgb(0_0_0/0.35)] md:p-3.5",
+            "@container/sleeve relative flex aspect-square flex-col justify-between overflow-hidden rounded-md border p-2.5 shadow-[6px_8px_18px_rgb(0_0_0/0.35)] md:p-3.5",
             look.face,
             active ? "border-primary/80" : "border-border",
           )}
@@ -262,18 +263,18 @@ function SleeveArt({ id, side, look, sideWord, active = false, compact = false, 
           {!back && (
             <>
               <span className="text-label relative">
-                <span className="max-sm:hidden">{sideWord} </span>
+                <span className="hidden @min-[8rem]/sleeve:inline">{sideWord} </span>
                 {side.letter}
               </span>
               <BunnyMark
                 shadow={look.shadow}
                 className={cn(
                   "absolute top-1/2 left-1/2 h-auto -translate-x-1/2 -translate-y-1/2",
-                  compact ? "w-[44%]" : "w-[42%] sm:w-[32%]",
+                  compact ? "w-[44%]" : "w-[42%] @min-[8rem]/sleeve:w-[32%]",
                 )}
               />
               {!compact && (
-                <span className="relative flex min-w-0 flex-col max-sm:hidden">
+                <span className="relative hidden min-w-0 flex-col @min-[8rem]/sleeve:flex">
                   <span className="text-label line-clamp-2">{side.area}</span>
                   <span className="text-label opacity-80">{side.count}</span>
                 </span>

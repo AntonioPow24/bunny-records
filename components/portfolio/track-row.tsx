@@ -24,7 +24,7 @@ export function TrackRow({ href, slug, number, title, subtitle, duration, active
       <span className={cn("text-mono w-8 shrink-0", active ? "text-primary" : "text-muted-foreground")}>{number}</span>
       <span className="min-w-0 flex-1">
         <span className="text-body-strong block">{title}</span>
-        {subtitle && <span className="text-body-sm block truncate text-muted-foreground">{subtitle}</span>}
+        {subtitle && <span className="text-body-sm line-clamp-2 block text-muted-foreground">{subtitle}</span>}
       </span>
       <span className="text-mono shrink-0 text-muted-foreground">{duration}</span>
     </>

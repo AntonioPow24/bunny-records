@@ -55,7 +55,7 @@
       "one": "{count} track",
       "other": "{count} tracks"
     },
-    "trackNow": "Track {number} · {title}",
+    "trackNow": "{title} · Track {number}",
     "upcoming": "Coming soon",
     "prevTrack": "Previous track",
     "nextTrack": "Next track",
