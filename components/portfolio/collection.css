@@ -123,9 +123,15 @@
     }
     .stage-arrows {
       position: absolute;
+      /* Por encima del conejo (z-index 10): a 768 px tapaba la flecha "Álbum anterior". Mejora 50. */
+      z-index: 11;
+      pointer-events: none;
       top: calc(var(--cover) * 0.5 - 1.5rem);
       left: 0;
       right: 0;
+    }
+    .stage-arrows button {
+      pointer-events: auto;
     }
     .stage-info {
       position: absolute;

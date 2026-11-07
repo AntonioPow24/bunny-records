@@ -50,7 +50,7 @@
       "one": "{count} pista",
       "other": "{count} pistas"
     },
-    "trackNow": "Pista {number} · {title}",
+    "trackNow": "{title} · Pista {number}",
     "upcoming": "Próximo lanzamiento",
     "prevTrack": "Pista anterior",
     "nextTrack": "Pista siguiente",

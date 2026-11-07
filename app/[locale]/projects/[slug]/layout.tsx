@@ -104,7 +104,8 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
           <p className="text-label hidden text-primary md:block">
             {published ? format(dict.album.label, { year: String(project.year) }) : dict.album.upcomingLabel}
           </p>
-          <h1 className="text-display sr-only md:not-sr-only">{title}</h1>
+          {/* Entre md y lg, el tamaño móvil de text-display: a 56 px "Construction" no cabía en la columna. Mejora 50. */}
+          <h1 className="text-display sr-only md:not-sr-only md:max-lg:text-[2.25rem]">{title}</h1>
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-body-sm text-muted-foreground">
               {published
