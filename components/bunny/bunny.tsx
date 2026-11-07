@@ -117,14 +117,18 @@ export function Bunny({ mode = "lite", hold, danceLabel, autoDance = false, prio
     };
     const onMotionChange = () => (reduced.matches ? stop() : scheduleStart());
 
+    // Arranca la primera vez que se ve: un conejo oculto (Contacto en móvil, display: none) no descarga sus capas.
+    // Mejora 51.
     const visibility = new IntersectionObserver(([entry]) => {
       onScreen = entry.isIntersecting;
+      if (onScreen && !engineRef.current && delay === null) scheduleStart();
       syncPause();
     });
     visibility.observe(root);
     document.addEventListener("visibilitychange", syncPause);
     reduced.addEventListener("change", onMotionChange);
-    scheduleStart();
+    // Con otras props (p. ej. otra pose fija), el motor anterior no sirve: el observador arranca uno nuevo.
+    if (engineRef.current && engineKeyRef.current !== key) stop();
 
     return () => {
       resize.disconnect();
