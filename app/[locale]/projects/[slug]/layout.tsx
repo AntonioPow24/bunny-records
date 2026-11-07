@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, ViewTransition } from "react";
@@ -79,7 +80,9 @@ async function Album({ children, params }: Pick<LayoutProps<"/[locale]/projects/
           <DemoClip
             mp4={project.demo.mp4}
             webm={project.demo.webm}
-            poster={project.demo.poster.src}
+            // Póster optimizado (AVIF/WebP): se ve a ~300 px y el JPEG original pesaba hasta 54 KB. Con width 320, el
+            // src es la versión 2x (640 px). Mejora 52.
+            poster={getImageProps({ src: project.demo.poster, alt: "", width: 320 }).props.src}
             description={project.demo.alt[locale]}
             labels={{
               caption: dict.album.demoCaption,

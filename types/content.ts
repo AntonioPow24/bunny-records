@@ -74,7 +74,8 @@ export type PublishedProject = ProjectBase & {
    */
   demo?: { mp4: string; webm?: string; poster: StaticImageData; alt: Localized<string> };
   /** Canción del álbum: el audio está en public/audio/<slug>.mp3 y sus niveles en <slug>.levels. */
-  music: { title: string; artist: string };
+  /** seconds: duración de public/audio/<slug>.mp3 (ffprobe), para mostrarla antes de cargar la canción. */
+  music: { title: string; artist: string; seconds: number };
   results?: VerifiableResult[];
   links?: ProjectLink[];
 };

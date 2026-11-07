@@ -7,7 +7,7 @@ import type { PublishedProject } from "@/types/content";
 export const uiComponentLibrary: PublishedProject = {
   slug: "ui-component-library",
   status: "published",
-  music: { title: "left to right", artist: "2hollis" },
+  music: { title: "left to right", artist: "2hollis", seconds: 106 },
   title: { es: "UI Component", en: "UI Component" },
   tagline: {
     es: "Mi sistema de diseño: las piezas de interfaz que ya funcionaron, listas para que cada proyecto las haga suyas.",
